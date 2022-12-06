@@ -1,5 +1,10 @@
-﻿using System.Text;
+﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Text.Json;
+using Xunit;
+using Moq;
 
 namespace ChatGPT
 {
@@ -43,8 +48,11 @@ namespace ChatGPT
             // Serialize the request body to JSON
             var requestBodyJson = JsonSerializer.Serialize(requestBody);
 
+            // Create a new HttpClient for making the API request
+            using HttpClient client = new HttpClient();
+
             // Send the API request and get the response
-            var response = await SendApiRequest(apiUrl, apiKey, requestBodyJson);
+            HttpResponseMessage response = await SendApiRequest(apiUrl, apiKey, requestBodyJson, client);
 
             // Deserialize the response
             var responseBody = await response.Content.ReadAsStringAsync();
@@ -59,19 +67,15 @@ namespace ChatGPT
             }
         }
 
-        private static async Task<HttpResponseMessage> SendApiRequest(string apiUrl, string apiKey, string requestBody)
+        private static async Task<HttpResponseMessage> SendApiRequest(string apiUrl, string apiKey, string requestBody, HttpClient httpClient)
         {
-            // Create a new HttpClient for making the API request
-            using HttpClient client = new HttpClient();
-
             // Set the API key in the request headers
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + apiKey);
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + apiKey);
 
             // Create a new StringContent object with the JSON payload and the correct content type
             StringContent content = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             // Send the API request and return the response
-            return await client.PostAsync(apiUrl, content);
+            return await httpClient.PostAsync(apiUrl, content);
         }
     }
-}
