@@ -11,16 +11,9 @@ namespace ChatGPT
     {
         static async Task Main(string[] args)
         {
-            // Set up the API URL and API key
-            string apiUrl = "https://api.openai.com/v1/completions";
-            string? apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+            // Get the response data for the prompt
+            var responseData = await GetResponseDataAsync("Generate mockup for login page using xaml");
 
-            // Get the request body JSON
-            string requestBodyJson = GetRequestBodyJson("Generate mockup for login page using xaml");
-
-            // Send the API request and get the response data
-            var responseData = await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
-            
             // Print the response
             foreach (var choice in responseData.GetProperty("choices").EnumerateArray())
             {
@@ -28,6 +21,19 @@ namespace ChatGPT
             }
         }
 
+        private static async Task<JsonElement> GetResponseDataAsync(string prompt)
+        {
+            // Set up the API URL and API key
+            string apiUrl = "https://api.openai.com/v1/completions";
+            string? apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+
+            // Get the request body JSON
+            string requestBodyJson = GetRequestBodyJson(prompt);
+
+            // Send the API request and get the response data
+            return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
+        }
+        
         private static string GetRequestBodyJson(string prompt)
         {
             // Set up the request body
