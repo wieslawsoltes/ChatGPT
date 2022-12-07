@@ -15,13 +15,15 @@ namespace ChatGPT
             var responseData = await GetResponseDataAsync("Generate mockup for login page using xaml");
 
             // Print the response
-            foreach (var choice in responseData.GetProperty("choices").EnumerateArray())
+            Choice[] choices = responseData.choices;
+
+            foreach (Choice choice in choices)
             {
-                Console.WriteLine(choice.GetProperty("text").GetString());
+                Console.WriteLine(choice.text);
             }
         }
 
-        private static async Task<JsonElement> GetResponseDataAsync(string prompt)
+        private static async Task<ApiResponse> GetResponseDataAsync(string prompt)
         {
             // Set up the API URL and API key
             string apiUrl = "https://api.openai.com/v1/completions";
@@ -61,7 +63,7 @@ namespace ChatGPT
             return JsonSerializer.Serialize(requestBody, serializerOptions);
         }
 
-        private static async Task<JsonElement> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+        private static async Task<ApiResponse> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
         {
             // Create a new HttpClient for making the API request
             using HttpClient client = new HttpClient();
@@ -79,7 +81,7 @@ namespace ChatGPT
             var responseBody = await response.Content.ReadAsStringAsync();
 
             // Return the response data
-            return JsonDocument.Parse(responseBody).RootElement;
+            return JsonSerializer.Deserialize<ApiResponse>(responseBody);
         }
     }
 }
