@@ -6,7 +6,10 @@ class Program
     static async Task Main(string[] args)
     {
         // Get the response data for the prompt
-        var responseData = await ChatService.GetResponseDataAsync("Generate mockup for login page using xaml");
+        string prompt = "Generate mockup for login page using xaml";
+        decimal temperature = 0.6m;
+        int maxTokens = 10;
+        var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
 
         // Print the response
         var choices = responseData.Choices;
