@@ -37,7 +37,7 @@ public partial class MainWindow : Window
         // Print the response
         var choices = responseData.Choices;
 
-        Choice.Text = choices?.FirstOrDefault()?.Text;
+        Choice.Text = choices?.FirstOrDefault()?.Text.Trim();
 
         IsEnabled = true;
     }
