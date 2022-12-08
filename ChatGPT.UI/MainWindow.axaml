@@ -4,20 +4,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ChatGPT.UI.MainWindow"
-        Title="ChatGPT">
-  <Grid>
+        Title="ChatGPT"
+        Background="#f8f8f8">
+  <Grid Margin="16">
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBox Grid.Row="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" />
-    <Grid Grid.Row="1">
+    <TextBox Grid.Row="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" 
+             Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+    <Grid Grid.Row="1" Margin="8">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
-      <TextBox Grid.Column="0" Name="Prompt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" />
-      <Button Grid.Column="1" Name="Submit" Width="100" Content="Submit" Margin="8" />
+      <TextBox Grid.Column="0" Name="Prompt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" 
+               Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+      <Button Grid.Column="1" Name="Submit" Width="100" Content="Submit" Margin="8" 
+              Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
     </Grid>
   </Grid>
 </Window>
