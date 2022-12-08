@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,7 +11,11 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        
+
+        Temperature.Text = "0.6";
+
+        MaxTokens.Text = "10";
+
         Submit.Click += SubmitOnClick;
     }
 
@@ -21,12 +26,19 @@ public partial class MainWindow : Window
             return;
         }
 
+        IsEnabled = false;
+
         // Get the response data for the prompt
-        var responseData = await ChatService.GetResponseDataAsync(Prompt.Text);
+        string prompt = Prompt.Text;
+        decimal temperature = decimal.Parse(Temperature.Text, CultureInfo.InvariantCulture);
+        int maxTokens  = int.Parse(MaxTokens.Text, CultureInfo.InvariantCulture);
+        var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
 
         // Print the response
         var choices = responseData.Choices;
 
         Choice.Text = choices?.FirstOrDefault()?.Text;
+
+        IsEnabled = true;
     }
 }
