@@ -5,28 +5,28 @@ namespace ChatGPT;
 
 public class ChatService
 {
-    public static async Task<CompletionsResponse> GetResponseDataAsync(string prompt)
+    public static async Task<CompletionsResponse> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
     {
         // Set up the API URL and API key
         string apiUrl = "https://api.openai.com/v1/completions";
         string? apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
         // Get the request body JSON
-        string requestBodyJson = GetRequestBodyJson(prompt);
+        string requestBodyJson = GetRequestBodyJson(prompt, temperature, maxTokens);
 
         // Send the API request and get the response data
         return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
     }
 
-    private static string GetRequestBodyJson(string prompt)
+    private static string GetRequestBodyJson(string prompt, decimal temperature, int maxTokens)
     {
         // Set up the request body
         var requestBody = new CompletionsRequestBody
         {
             Model = "text-davinci-003",
             Prompt = prompt,
-            Temperature = 0.6m,
-            MaxTokens = 10,
+            Temperature = temperature,
+            MaxTokens = maxTokens,
             TopP = 1.0m,
             FrequencyPenalty = 0.0m,
             PresencePenalty = 0.0m,
