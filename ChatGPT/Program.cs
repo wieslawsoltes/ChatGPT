@@ -15,11 +15,11 @@ namespace ChatGPT
             var responseData = await GetResponseDataAsync("Generate mockup for login page using xaml");
 
             // Print the response
-            Choice[] choices = responseData.choices;
+            Choice[] choices = responseData.Choices;
 
             foreach (Choice choice in choices)
             {
-                Console.WriteLine(choice.text);
+                Console.WriteLine(choice.Text);
             }
         }
 
@@ -41,15 +41,15 @@ namespace ChatGPT
             // Set up the request body
             var requestBody = new RequestBody
             {
-                model = "text-davinci-003",
-                prompt = prompt,
-                temperature = 0.6m,
-                max_tokens = 10,
-                top_p = 1.0m,
-                frequency_penalty = 0.0m,
-                presence_penalty = 0.0m,
-                n = 1,
-                stop = "[END]",
+                Model = "text-davinci-003",
+                Prompt = prompt,
+                Temperature = 0.6m,
+                MaxTokens = 10,
+                TopP = 1.0m,
+                FrequencyPenalty = 0.0m,
+                PresencePenalty = 0.0m,
+                N = 1,
+                Stop = "[END]",
             };
 
             // Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true
