@@ -1,6 +1,6 @@
 # ChatGPT
 
-ChatGPT C# client for console and grahical user interface.
+A ChatGPT C# client for console and graphical user interface.
 
 To make the app work, you need to set the [OpenAI API key](https://beta.openai.com/account/api-keys) as the `OPENAI_API_KEY` environment variable.
 
