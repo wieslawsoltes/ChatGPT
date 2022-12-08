@@ -16,7 +16,8 @@
       <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
     <TextBox Grid.Row="0" Grid.Column="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" 
-             Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+             Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8"
+             TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"/>
     <StackPanel Grid.Row="0" Grid.Column="1" Margin="8" Orientation="Vertical" Width="150">
       <TextBlock Margin="8" Text="Settings" FontSize="20" Foreground="#333" />
       <StackPanel Orientation="Vertical">
