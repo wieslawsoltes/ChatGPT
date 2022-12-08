@@ -11,8 +11,27 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBox Grid.Row="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" 
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
+    <TextBox Grid.Row="0" Grid.Column="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" 
              Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+    <StackPanel Grid.Row="0" Grid.Column="1" Margin="8" Orientation="Vertical" Width="150">
+      <TextBlock Margin="8" Text="Settings" FontSize="20" Foreground="#333" />
+      <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Temperature:" Margin="8" FontSize="20" Foreground="#333" />
+          <TextBox Name="Temperature" Width="100" Margin="8" 
+                   Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="MaxTokens:" Margin="8" FontSize="20" Foreground="#333" />
+          <TextBox Name="MaxTokens" Width="100" Margin="8" 
+                   Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
     <Grid Grid.Row="1" Margin="8">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
