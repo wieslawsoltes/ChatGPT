@@ -3,7 +3,8 @@ using System.Text.Json.Serialization;
 namespace ChatGPT;
 
 // https://beta.openai.com/docs/api-reference/completions/create
-public class RequestBody
+
+public class CompletionsRequestBody
 {
     [JsonPropertyName("model")]
     public string Model { get; set; }
@@ -53,7 +54,8 @@ public class RequestBody
     [JsonPropertyName("user")]
     public string User { get; set; }
 }
-public class ApiResponse
+
+public class CompletionsResponse
 {
     [JsonPropertyName("id")]
     public string Id { get; set; }
@@ -68,13 +70,13 @@ public class ApiResponse
     public string Model { get; set; }
 
     [JsonPropertyName("choices")]
-    public Choice[] Choices { get; set; }
+    public CompletionsChoice[] Choices { get; set; }
 
     [JsonPropertyName("usage")]
-    public Usage Usage { get; set; }
+    public CompletionsUsage Usage { get; set; }
 }
 
-public class Choice
+public class CompletionsChoice
 {
     [JsonPropertyName("text")]
     public string Text { get; set; }
@@ -89,7 +91,7 @@ public class Choice
     public string FinishReason { get; set; }
 }
 
-public class Usage
+public class CompletionsUsage
 {
     [JsonPropertyName("prompt_tokens")]
     public int PromptTokens { get; set; }

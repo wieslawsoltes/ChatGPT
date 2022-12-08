@@ -15,15 +15,15 @@ namespace ChatGPT
             var responseData = await GetResponseDataAsync("Generate mockup for login page using xaml");
 
             // Print the response
-            Choice[] choices = responseData.Choices;
+            CompletionsChoice[] choices = responseData.Choices;
 
-            foreach (Choice choice in choices)
+            foreach (CompletionsChoice choice in choices)
             {
                 Console.WriteLine(choice.Text);
             }
         }
 
-        private static async Task<ApiResponse> GetResponseDataAsync(string prompt)
+        private static async Task<CompletionsResponse> GetResponseDataAsync(string prompt)
         {
             // Set up the API URL and API key
             string apiUrl = "https://api.openai.com/v1/completions";
@@ -39,7 +39,7 @@ namespace ChatGPT
         private static string GetRequestBodyJson(string prompt)
         {
             // Set up the request body
-            var requestBody = new RequestBody
+            var requestBody = new CompletionsRequestBody
             {
                 Model = "text-davinci-003",
                 Prompt = prompt,
@@ -63,7 +63,7 @@ namespace ChatGPT
             return JsonSerializer.Serialize(requestBody, serializerOptions);
         }
 
-        private static async Task<ApiResponse> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+        private static async Task<CompletionsResponse> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
         {
             // Create a new HttpClient for making the API request
             using HttpClient client = new HttpClient();
@@ -81,7 +81,7 @@ namespace ChatGPT
             var responseBody = await response.Content.ReadAsStringAsync();
 
             // Return the response data
-            return JsonSerializer.Deserialize<ApiResponse>(responseBody);
+            return JsonSerializer.Deserialize<CompletionsResponse>(responseBody);
         }
     }
 }
