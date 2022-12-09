@@ -35,5 +35,4 @@
               Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
     </Grid>
   </Grid>
-
 </Window>
