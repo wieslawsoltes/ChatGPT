@@ -3,5 +3,26 @@
              x:Class="ChatGPT.UI.App">
   <Application.Styles>
     <FluentTheme Mode="Light" />
+    
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#fff" />
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Foreground" Value="#333" />
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="Margin" Value="8" />
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Foreground" Value="#333" />
+    </Style>
+    <Style Selector="Button">
+      <Setter Property="Background" Value="#fff" />
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Foreground" Value="#333" />
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+
   </Application.Styles>
 </Application>
