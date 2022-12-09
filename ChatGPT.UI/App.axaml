@@ -4,19 +4,45 @@
   <Application.Styles>
     <FluentTheme Mode="Light" />
     
-    <Style Selector="TextBox">
+    <Style Selector="TextBox[Name=Choice]">
       <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />
       <Setter Property="Foreground" Value="#333" />
       <Setter Property="Opacity" Value="0.8" />
     </Style>
-    <Style Selector="TextBlock">
+
+    <Style Selector="TextBlock[Text=Settings]">
       <Setter Property="Margin" Value="8" />
       <Setter Property="FontSize" Value="20" />
       <Setter Property="Foreground" Value="#333" />
     </Style>
-    <Style Selector="Button">
+
+    <Style Selector="TextBox[Name=Temperature]">
+      <Setter Property="Background" Value="#fff" />
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Foreground" Value="#333" />
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+
+    <Style Selector="TextBox[Name=MaxTokens]">
+      <Setter Property="Background" Value="#fff" />
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Foreground" Value="#333" />
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+
+    <Style Selector="TextBox[Name=Prompt]">
+      <Setter Property="Background" Value="#fff" />
+      <Setter Property="Padding" Value="16" />
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Foreground" Value="#333" />
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+
+    <Style Selector="Button[Name=Submit]">
       <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />

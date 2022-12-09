@@ -10,24 +10,30 @@
         RowDefinitions="*, Auto"
         ColumnDefinitions="*, Auto">
     <TextBox Grid.Row="0" Grid.Column="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8"
+             Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8"
              TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"/>
     <StackPanel Grid.Row="0" Grid.Column="1" Margin="8" Orientation="Vertical" Width="150">
-      <TextBlock Text="Settings" />
+      <TextBlock Margin="8" Text="Settings" FontSize="20" Foreground="#333" />
       <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Vertical">
-          <TextBlock Text="Temperature:" />
-          <TextBox Name="Temperature" Width="100" Margin="8" />
+          <TextBlock Text="Temperature:" Margin="8" FontSize="20" Foreground="#333" />
+          <TextBox Name="Temperature" Width="100" Margin="8"
+                   Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
         </StackPanel>
         <StackPanel Orientation="Vertical">
-          <TextBlock Text="MaxTokens:" />
-          <TextBox Name="MaxTokens" Width="100" Margin="8" />
+          <TextBlock Text="MaxTokens:" Margin="8" FontSize="20" Foreground="#333" />
+          <TextBox Name="MaxTokens" Width="100" Margin="8"
+                   Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
         </StackPanel>
       </StackPanel>
     </StackPanel>
     <Grid Grid.Row="1" Margin="8"
           ColumnDefinitions="*, Auto">
-      <TextBox Grid.Column="0" Name="Prompt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8" />
-      <Button Grid.Column="1" Name="Submit" Width="100" Content="Submit" Margin="8" />
+      <TextBox Grid.Column="0" Name="Prompt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8"
+               Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
+      <Button Grid.Column="1" Name="Submit" Width="100" Content="Submit" Margin="8"
+              Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
     </Grid>
   </Grid>
+
 </Window>
