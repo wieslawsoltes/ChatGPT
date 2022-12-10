@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using ChatGPT.UI.ViewModels;
 
 namespace ChatGPT.UI;
 
@@ -11,6 +12,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        DataContext = new MainViewModel();
 
         Temperature.Text = "0.6";
 
