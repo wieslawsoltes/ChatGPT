@@ -1,53 +1,42 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="ChatGPT.UI.App">
+             x:Class="ChatGPT.UI.App"
+             Name="ChatGPT"
+             RequestedThemeVariant="Light">
+  <Application.Resources>
+    <StreamGeometry x:Key="SendIcon">M5.694 12 2.299 3.272c-.236-.607.356-1.188.942-.982l.093.04 18 9a.75.75 0 0 1 .097 1.283l-.097.058-18 9c-.583.291-1.217-.244-1.065-.847l.03-.096L5.694 12 2.299 3.272 5.694 12ZM4.402 4.54l2.61 6.71h6.627a.75.75 0 0 1 .743.648l.007.102a.75.75 0 0 1-.649.743l-.101.007H7.01l-2.609 6.71L19.322 12 4.401 4.54Z</StreamGeometry>
+  </Application.Resources>
   <Application.Styles>
-    <FluentTheme Mode="Light" />
+    <FluentTheme />
     
     <Style Selector="TextBox[Name=Choice]">
-      <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />
-      <Setter Property="Foreground" Value="#333" />
-      <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style Selector="TextBlock[Text=Settings]">
       <Setter Property="Margin" Value="8" />
       <Setter Property="FontSize" Value="20" />
-      <Setter Property="Foreground" Value="#333" />
     </Style>
 
     <Style Selector="TextBox[Name=Temperature]">
-      <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />
-      <Setter Property="Foreground" Value="#333" />
-      <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style Selector="TextBox[Name=MaxTokens]">
-      <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />
-      <Setter Property="Foreground" Value="#333" />
-      <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style Selector="TextBox[Name=Prompt]">
-      <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />
-      <Setter Property="Foreground" Value="#333" />
-      <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style Selector="Button[Name=Submit]">
-      <Setter Property="Background" Value="#fff" />
       <Setter Property="Padding" Value="16" />
       <Setter Property="FontSize" Value="20" />
-      <Setter Property="Foreground" Value="#333" />
-      <Setter Property="Opacity" Value="0.8" />
     </Style>
 
   </Application.Styles>

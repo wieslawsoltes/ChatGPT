@@ -5,34 +5,61 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ChatGPT.UI.MainWindow"
         Title="ChatGPT"
-        Background="#f8f8f8">
-  <Grid Margin="16"
-        RowDefinitions="*, Auto"
-        ColumnDefinitions="*, Auto">
-    <TextBox Grid.Row="0" Grid.Column="0" Name="Choice" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8"
-             Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8"
-             TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"/>
-    <StackPanel Grid.Row="0" Grid.Column="1" Margin="8" Orientation="Vertical" Width="150">
-      <TextBlock Margin="8" Text="Settings" FontSize="20" Foreground="#333" />
-      <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Vertical">
-          <TextBlock Text="Temperature:" Margin="8" FontSize="20" Foreground="#333" />
-          <TextBox Name="Temperature" Width="100" Margin="8"
-                   Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical">
-          <TextBlock Text="MaxTokens:" Margin="8" FontSize="20" Foreground="#333" />
-          <TextBox Name="MaxTokens" Width="100" Margin="8"
-                   Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
-        </StackPanel>
-      </StackPanel>
-    </StackPanel>
-    <Grid Grid.Row="1" Margin="8"
-          ColumnDefinitions="*, Auto">
-      <TextBox Grid.Column="0" Name="Prompt" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="8"
-               Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
-      <Button Grid.Column="1" Name="Submit" Width="100" Content="Submit" Margin="8"
-              Background="#fff" Padding="16" FontSize="20" Foreground="#333" Opacity="0.8" />
-    </Grid>
-  </Grid>
+        Background="#00FFFFFF"
+        TransparencyLevelHint="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        x:Name="Main">
+  <Panel>
+    <!--<ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                                     TintColor="Transparent"
+                                     TintOpacity="0"
+                                     FallbackColor="Transparent"
+                                     MaterialOpacity="0" />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>-->
+    <Panel Margin="{Binding #Main.OffScreenMargin}">
+      <Panel Margin="{Binding #Main.WindowDecorationMargin}">
+        <Grid Margin="16" RowDefinitions="*, Auto" ColumnDefinitions="*, Auto">
+          <TextBox Grid.Row="0" Grid.Column="0" 
+                   Name="Choice" 
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                   Margin="8"
+                   Padding="16" FontSize="20"
+                   TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"
+                   Background="Transparent"/>
+          <StackPanel Grid.Row="0" Grid.Column="1" Margin="8" Orientation="Vertical" Width="150">
+            <TextBlock Margin="8" Text="Settings" FontSize="20" />
+            <StackPanel Orientation="Vertical">
+              <StackPanel Orientation="Vertical">
+                <TextBlock Text="Temperature:" Margin="8" FontSize="20" />
+                <TextBox Name="Temperature" Width="100" Margin="8" Padding="16" FontSize="20"/>
+              </StackPanel>
+              <StackPanel Orientation="Vertical">
+                <TextBlock Text="MaxTokens:" Margin="8" FontSize="20" />
+                <TextBox Name="MaxTokens" Width="100" Margin="8" Padding="16" FontSize="20"/>
+              </StackPanel>
+            </StackPanel>
+          </StackPanel>
+          <Grid Grid.Column="0" Grid.Row="1" 
+                Margin="8" 
+                ColumnDefinitions="*, Auto">
+            <TextBox Grid.Column="0" 
+                     Name="Prompt" 
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                     Margin="8"
+                     Padding="16" FontSize="20" />
+            <Button Grid.Column="1" 
+                    Name="Submit" 
+                    Width="100" Content="Submit" Margin="8" Padding="16" FontSize="20"/>
+          </Grid>
+        </Grid>
+      </Panel>
+    </Panel>
+  </Panel>
+
+
 </Window>
