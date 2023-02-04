@@ -5,12 +5,16 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ChatGPT.UI.MainWindow"
         Title="ChatGPT"
-        Background="{x:Null}"
+        Background="Transparent"
         TransparencyLevelHint="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
+        SystemDecorations="None"
         x:Name="Main">
+
+
+
   <Panel>
     <!--<ExperimentalAcrylicBorder IsHitTestVisible="False">
       <ExperimentalAcrylicBorder.Material>
