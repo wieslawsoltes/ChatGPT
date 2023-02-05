@@ -43,7 +43,8 @@
                                  Text="{Binding Message}" 
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                  Margin="8"
-                                 Padding="16" FontSize="16"
+                                 Padding="16" 
+                                 FontSize="16"
                                  TextWrapping="Wrap"
                                  Background="Transparent"/>
                       <Grid Grid.Row="1" 
@@ -104,8 +105,8 @@
                                    FontSize="16" />
                         <TextBox Text="{Binding Temperature}" 
                                  Margin="8" 
-                                 Padding="16" 
-                                 FontSize="20"/>
+                                 Padding="8" 
+                                 FontSize="16"/>
                       </StackPanel>
                       <StackPanel Orientation="Vertical">
                         <TextBlock Text="MaxTokens:" 
@@ -114,8 +115,8 @@
                                    FontSize="16" />
                         <TextBox Text="{Binding MaxTokens}" 
                                  Margin="8" 
-                                 Padding="16" 
-                                 FontSize="20"/>
+                                 Padding="8" 
+                                 FontSize="16"/>
                       </StackPanel>
                     </StackPanel>
                     <Button Click="Exit_OnClick"
@@ -128,7 +129,7 @@
                             Content="Exit"
                             Margin="8,24,8,16" 
                             Padding="16" 
-                            FontSize="20"/>
+                            FontSize="16"/>
                   </StackPanel>
                 </Flyout>
               </Button.Flyout>
