@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ui="clr-namespace:ChatGPT.UI"
+        xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
         mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="850"
         x:Class="ChatGPT.UI.MainWindow"
         Title="ChatGPT"
@@ -16,7 +16,7 @@
         Topmost="True"
         Width="650" Height="850"
         x:Name="Main"
-        x:CompileBindings="True" x:DataType="ui:MainViewModel">
+        x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Panel>
     <Panel Margin="{Binding #Main.OffScreenMargin}">
       <Panel Margin="{Binding #Main.WindowDecorationMargin}">
@@ -25,14 +25,14 @@
               ColumnDefinitions="*,Auto"
               VerticalAlignment="Bottom">
           <ScrollViewer Grid.Row="0" Grid.Column="0" >
-            <ItemsControl Items="{Binding Items}">
+            <ItemsControl Items="{Binding Messages}">
               <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                   <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
               </ItemsControl.ItemsPanel>
               <ItemsControl.DataTemplates>
-                <DataTemplate DataType="ui:WelcomeItemViewModel">
+                <DataTemplate DataType="vm:MessageViewModel">
                   <Border BorderThickness="1"
                           BorderBrush="#80000000"
                           Background="#F5FFFFFF" 
@@ -74,9 +74,6 @@
                       </Grid>
                     </Grid>
                   </Border>
-                </DataTemplate>
-                <DataTemplate DataType="ui:ChoiceItemViewModel">
-                  
                 </DataTemplate>
               </ItemsControl.DataTemplates>
             </ItemsControl>

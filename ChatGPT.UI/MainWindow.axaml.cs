@@ -1,46 +1,13 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using ChatGPT.UI.ViewModels;
 
 namespace ChatGPT.UI;
-
-public partial class ItemViewModel : ObservableObject
-{
-    [ObservableProperty] private string? _prompt;
-}
-
-public partial class WelcomeItemViewModel : ItemViewModel
-{
-    [ObservableProperty] private string? _message;
-    [ObservableProperty] private bool _isSent;
-
-    public WelcomeItemViewModel(Func<WelcomeItemViewModel, Task> send)
-    {
-        SendCommand = new AsyncRelayCommand(async _ => await send(this));
-    }
-
-    public IAsyncRelayCommand SendCommand { get; }
-}
-
-public partial class ChoiceItemViewModel : ItemViewModel
-{
-    [ObservableProperty] private string? _message;
-}
-
-public partial class MainViewModel : ObservableObject
-{
-    [ObservableProperty] private ObservableCollection<ItemViewModel>? _items;
-    [ObservableProperty] private decimal _temperature;
-    [ObservableProperty] private int _maxTokens;
-}
 
 public partial class MainWindow : Window
 {
@@ -54,56 +21,56 @@ public partial class MainWindow : Window
         {
             Temperature = 0.6m,
             MaxTokens = 100,
-            Items = new ObservableCollection<ItemViewModel>()
+            Messages = new ObservableCollection<MessageViewModel>()
         };
 
-        var welcomeItem = new WelcomeItemViewModel(SubmitOnClick)
+        var welcomeItem = new MessageViewModel(SubmitOnClick)
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
             IsSent = false
         };
-        _mainViewModel.Items.Add(welcomeItem);
+        _mainViewModel.Messages.Add(welcomeItem);
 
         DataContext = _mainViewModel;
     }
 
-    private async Task SubmitOnClick(WelcomeItemViewModel welcomeItem)
+    private async Task SubmitOnClick(MessageViewModel message)
     {
-        if (_mainViewModel.Items is null)
+        if (_mainViewModel.Messages is null)
         {
             return;
         }
 
-        if (string.IsNullOrEmpty(welcomeItem.Prompt))
+        if (string.IsNullOrEmpty(message.Prompt))
         {
             return;
         }
 
         IsEnabled = false;
 
-        welcomeItem.IsSent = true;
+        message.IsSent = true;
 
-        var promptItem = new WelcomeItemViewModel(SubmitOnClick)
+        var promptItem = new MessageViewModel(SubmitOnClick)
         {
             Prompt = "",
-            Message = welcomeItem.Prompt,
+            Message = message.Prompt,
             IsSent = true
         };
-        _mainViewModel.Items.Add(promptItem);
+        _mainViewModel.Messages.Add(promptItem);
 
-        var prompt = welcomeItem.Prompt;
+        var prompt = message.Prompt;
         var temperature = _mainViewModel.Temperature;
         var maxTokens  = _mainViewModel.MaxTokens;
         var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
 
-        var responseItem = new WelcomeItemViewModel(SubmitOnClick)
+        var responseItem = new MessageViewModel(SubmitOnClick)
         {
             Prompt = "",
             Message = responseData.Choices?.FirstOrDefault()?.Text.Trim(),
             IsSent = false
         };
-        _mainViewModel.Items.Add(responseItem);
+        _mainViewModel.Messages.Add(responseItem);
 
         IsEnabled = true;
     }
