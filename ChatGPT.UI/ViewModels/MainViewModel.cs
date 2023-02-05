@@ -75,6 +75,15 @@ public partial class MainViewModel : ObservableObject
 
         var temperature = Settings?.Temperature ?? 0.6m;
         var maxTokens = Settings?.MaxTokens ?? 100;
+        var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        var restoreApiKey = false;
+
+        if (!string.IsNullOrWhiteSpace(Settings?.ApiKey))
+        {
+            Environment.SetEnvironmentVariable("OPENAI_API_KEY", Settings.ApiKey);
+            restoreApiKey = true;
+        }
+
         var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
 
         if (resultMessage is null)
@@ -90,7 +99,9 @@ public partial class MainViewModel : ObservableObject
             resultMessage.IsSent = true;
         }
 
-        resultMessage.Message = responseData.Choices?.FirstOrDefault()?.Text.Trim();
+        var choice = responseData.Choices?.FirstOrDefault()?.Text.Trim();
+
+        resultMessage.Message = choice;
         resultMessage.Prompt = "";
 
         CurrentMessage = resultMessage;
@@ -98,6 +109,11 @@ public partial class MainViewModel : ObservableObject
         promptMessage.IsAwaiting = false;
         promptMessage.Result = resultMessage;
 
+        if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
+        {
+            Environment.SetEnvironmentVariable("OPENAI_API_KEY", apiKey);
+        }
+        
         IsEnabled = true;
     }
 }

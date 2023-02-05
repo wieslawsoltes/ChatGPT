@@ -8,7 +8,8 @@ public partial class SettingsViewModel : ObservableObject
 {
     [ObservableProperty] private decimal _temperature;
     [ObservableProperty] private int _maxTokens;
-    
+    [ObservableProperty] private string? _apiKey;
+
     public SettingsViewModel(Action exit)
     {
         ExitCommand = new RelayCommand(exit);

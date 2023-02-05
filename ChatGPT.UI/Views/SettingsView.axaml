@@ -30,6 +30,18 @@
                  Padding="8" 
                  FontSize="16"/>
       </StackPanel>
+      <StackPanel Orientation="Vertical">
+        <TextBlock Text="ApiKey:" 
+                   Margin="8" 
+                   Padding="0,8,0,8" 
+                   FontSize="16" />
+        <TextBox Text="{Binding ApiKey}" 
+                 Watermark="Override OpenAI api key"
+                 PasswordChar="*"
+                 Margin="8" 
+                 Padding="8" 
+                 FontSize="16"/>
+      </StackPanel>
     </StackPanel>
     <Button Command="{Binding ExitCommand}"
             Background="{DynamicResource ExitBackgroundBrush}" 
