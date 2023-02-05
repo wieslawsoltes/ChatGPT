@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:ui="clr-namespace:ChatGPT.UI"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="550"
         x:Class="ChatGPT.UI.MainWindow"
         Title="ChatGPT"
         Background="Transparent"
@@ -11,60 +12,135 @@
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
         SystemDecorations="None"
-        x:Name="Main">
-
-
-
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        Width="450" Height="550"
+        x:Name="Main"
+        x:CompileBindings="True" x:DataType="ui:MainViewModel">
   <Panel>
-    <!--<ExperimentalAcrylicBorder IsHitTestVisible="False">
-      <ExperimentalAcrylicBorder.Material>
-        <ExperimentalAcrylicMaterial BackgroundSource="Digger"
-                                     TintColor="Transparent"
-                                     TintOpacity="0"
-                                     FallbackColor="Transparent"
-                                     MaterialOpacity="0" />
-      </ExperimentalAcrylicBorder.Material>
-    </ExperimentalAcrylicBorder>-->
-    
     <Panel Margin="{Binding #Main.OffScreenMargin}">
       <Panel Margin="{Binding #Main.WindowDecorationMargin}">
-        <Grid Margin="16" RowDefinitions="*, Auto" ColumnDefinitions="*, Auto">
-          <TextBox Grid.Row="0" Grid.Column="0" 
-                   Name="Choice" 
-                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                   Margin="8"
-                   Padding="16" FontSize="20"
-                   TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"
-                   Background="Transparent"/>
-          <StackPanel Grid.Row="0" Grid.Column="1" Margin="8" Orientation="Vertical" Width="150">
-            <TextBlock Margin="8" Text="Settings" FontSize="20" />
-            <StackPanel Orientation="Vertical">
-              <StackPanel Orientation="Vertical">
-                <TextBlock Text="Temperature:" Margin="8" FontSize="20" />
-                <TextBox Name="Temperature" Width="100" Margin="8" Padding="16" FontSize="20"/>
-              </StackPanel>
-              <StackPanel Orientation="Vertical">
-                <TextBlock Text="MaxTokens:" Margin="8" FontSize="20" />
-                <TextBox Name="MaxTokens" Width="100" Margin="8" Padding="16" FontSize="20"/>
-              </StackPanel>
-            </StackPanel>
-          </StackPanel>
-          <Grid Grid.Column="0" Grid.Row="1" 
-                Margin="8" 
-                ColumnDefinitions="*, Auto">
-            <TextBox Grid.Column="0" 
-                     Name="Prompt" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                     Margin="8"
-                     Padding="16" FontSize="20" />
-            <Button Grid.Column="1" 
-                    Name="Submit" 
-                    Width="100" Content="Submit" Margin="8" Padding="16" FontSize="20"/>
+        <Grid Margin="16" 
+              RowDefinitions="*, Auto" 
+              ColumnDefinitions="*, Auto"
+              VerticalAlignment="Bottom">
+          <ScrollViewer Grid.Row="0" Grid.Column="0" >
+            <ItemsControl Items="{Binding Items}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.DataTemplates>
+                <DataTemplate DataType="ui:WelcomeItemViewModel">
+                  <Border BorderThickness="1"
+                          BorderBrush="#80000000"
+                          Background="#F5FFFFFF" 
+                          CornerRadius="8"
+                          Margin="0,8,0,8">
+                    <Grid RowDefinitions="*,Auto">
+                      <TextBlock Grid.Row="0" Grid.Column="0" 
+                                 Text="{Binding Message}" 
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 Margin="8"
+                                 Padding="16" FontSize="16"
+                                 TextWrapping="Wrap"
+                                 Background="Transparent"/>
+                      <Grid Grid.Row="1" 
+                            ColumnDefinitions="*, Auto"
+                            Margin="16,0,16,24"
+                            IsVisible="{Binding !IsSent}">
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding Prompt}" 
+                                 Watermark="Ask me anything"
+                                 Background="Transparent"
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Stretch" 
+                                 Margin="0,0,8,0"
+                                 Padding="12" 
+                                 FontSize="16" />
+                        <Button Grid.Column="1"
+                                Command="{Binding SendCommand}"
+                                BorderBrush="#80000000"
+                                BorderThickness="2"
+                                Background="#80FFFFFF" 
+                                CornerRadius="8"
+                                Margin="8,0,0,0" 
+                                Padding="12">
+                          <PathIcon Data="{DynamicResource SendIcon}"
+                                    Width="24" 
+                                    Height="24"/>
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Border>
+                </DataTemplate>
+                <DataTemplate DataType="ui:ChoiceItemViewModel">
+                  
+                </DataTemplate>
+              </ItemsControl.DataTemplates>
+            </ItemsControl>
+          </ScrollViewer>
+          <Grid Grid.Column="0" 
+                Grid.Row="1" 
+                Margin="0,16,0,8" 
+                ColumnDefinitions="Auto,*, Auto">
+            <Button Grid.Column="0" 
+                    Name="Settings" 
+                    BorderBrush="#00000000"
+                    BorderThickness="2"
+                    Background="#00FFFFFF" 
+                    CornerRadius="8"
+                    Margin="0" 
+                    Padding="12">
+              <Button.Flyout>
+                <Flyout>
+                  <StackPanel Margin="8" 
+                              Orientation="Vertical" 
+                              Width="250">
+                    <StackPanel Orientation="Vertical">
+                      <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Temperature:" 
+                                   Margin="8" 
+                                   Padding="0,8,0,8" 
+                                   FontSize="16" />
+                        <TextBox Text="{Binding Temperature}" 
+                                 Margin="8" 
+                                 Padding="16" 
+                                 FontSize="20"/>
+                      </StackPanel>
+                      <StackPanel Orientation="Vertical">
+                        <TextBlock Text="MaxTokens:" 
+                                   Margin="8" 
+                                   Padding="0,8,0,8" 
+                                   FontSize="16" />
+                        <TextBox Text="{Binding MaxTokens}" 
+                                 Margin="8" 
+                                 Padding="16" 
+                                 FontSize="20"/>
+                      </StackPanel>
+                    </StackPanel>
+                    <Button Click="Exit_OnClick"
+                            BorderBrush="#80000000"
+                            BorderThickness="2"
+                            Background="#80FFFFFF" 
+                            CornerRadius="8"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Content="Exit"
+                            Margin="8,24,8,16" 
+                            Padding="16" 
+                            FontSize="20"/>
+                  </StackPanel>
+                </Flyout>
+              </Button.Flyout>
+              <PathIcon Data="{DynamicResource SettingsIcon}"
+                        Width="24" 
+                        Height="24"/>
+            </Button>
           </Grid>
         </Grid>
       </Panel>
     </Panel>
   </Panel>
-
-
 </Window>
