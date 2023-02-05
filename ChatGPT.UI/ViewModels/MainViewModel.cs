@@ -104,6 +104,11 @@ public partial class MainViewModel : ObservableObject
         resultMessage.Message = choice;
         resultMessage.Prompt = "";
 
+        if (Messages.LastOrDefault() == resultMessage)
+        {
+            resultMessage.IsSent = false;
+        }
+        
         CurrentMessage = resultMessage;
 
         promptMessage.IsAwaiting = false;
