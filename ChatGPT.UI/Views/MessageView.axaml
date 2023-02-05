@@ -12,14 +12,14 @@
           CornerRadius="8"
           Margin="0,8,0,8">
     <Grid RowDefinitions="*,Auto">
-      <TextBlock Grid.Row="0" Grid.Column="0" 
-                 Text="{Binding Message}" 
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                 Margin="8"
-                 Padding="16" 
-                 FontSize="16"
-                 TextWrapping="Wrap"
-                 Background="Transparent"/>
+      <SelectableTextBlock Grid.Row="0" Grid.Column="0" 
+                           Text="{Binding Message}" 
+                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                           Margin="8"
+                           Padding="16" 
+                           FontSize="16"
+                           TextWrapping="Wrap"
+                           Background="Transparent"/>
       <Grid Grid.Row="1" 
             Name="Grid"
             ColumnDefinitions="*, Auto"

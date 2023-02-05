@@ -9,6 +9,7 @@ namespace ChatGPT.UI.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<MessageViewModel>? _messages;
+    [ObservableProperty] private MessageViewModel? _currentMessage;
     [ObservableProperty] private SettingsViewModel? _settings;
     [ObservableProperty] private bool _isEnabled;
 
@@ -30,6 +31,7 @@ public partial class MainViewModel : ObservableObject
             IsSent = false
         };
         _messages.Add(welcomeItem);
+        _currentMessage = welcomeItem;
     }
     
     private async Task Send(MessageViewModel message)
@@ -47,7 +49,6 @@ public partial class MainViewModel : ObservableObject
         IsEnabled = false;
 
         message.IsSent = true;
-        message.IsAwaiting = true;
 
         var promptItem = new MessageViewModel(Send)
         {
@@ -56,6 +57,9 @@ public partial class MainViewModel : ObservableObject
             IsSent = true
         };
         Messages.Add(promptItem);
+        CurrentMessage = promptItem;
+
+        promptItem.IsAwaiting = true;
 
         var prompt = message.Prompt;
         var temperature = Settings?.Temperature ?? 0.6m;
@@ -68,8 +72,11 @@ public partial class MainViewModel : ObservableObject
             IsSent = false
         };
         Messages.Add(responseItem);
+        CurrentMessage = responseItem;
 
-        message.IsAwaiting = false;
+        promptItem.IsAwaiting = false;
+        promptItem.Result = responseItem;
+
         IsEnabled = true;
     }
 }

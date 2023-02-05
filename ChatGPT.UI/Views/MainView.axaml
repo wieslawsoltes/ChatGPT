@@ -7,35 +7,36 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ChatGPT.UI.Views.MainView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
- <Grid Margin="0" 
-        RowDefinitions="*,Auto" 
+  <Grid Margin="0"
+        RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
         VerticalAlignment="Bottom">
-
-   <ScrollViewer Grid.Row="0" Grid.Column="0" >
-      <ItemsControl Items="{Binding Messages}">
-        <ItemsControl.ItemsPanel>
+    <ScrollViewer Grid.Row="0"
+                  Grid.Column="0">
+      <SelectingItemsControl Items="{Binding Messages}"
+                             SelectedItem="{Binding CurrentMessage}"
+                             AutoScrollToSelectedItem="False">
+        <SelectingItemsControl.ItemsPanel>
           <ItemsPanelTemplate>
             <VirtualizingStackPanel />
           </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.DataTemplates>
+        </SelectingItemsControl.ItemsPanel>
+        <SelectingItemsControl.DataTemplates>
           <DataTemplate DataType="vm:MessageViewModel">
             <views:MessageView />
           </DataTemplate>
-        </ItemsControl.DataTemplates>
-      </ItemsControl>
+        </SelectingItemsControl.DataTemplates>
+      </SelectingItemsControl>
     </ScrollViewer>
-
-    <Button Name="Settings" 
+    <Button Name="Settings"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
             BorderThickness="2"
-            Background="#00FFFFFF" 
+            Background="#00FFFFFF"
             CornerRadius="8"
             Padding="12"
             Margin="0,16,0,0"
-            Grid.Column="0" 
+            Grid.Column="0"
             Grid.Row="1">
       <Button.Flyout>
         <Flyout>
@@ -43,17 +44,14 @@
         </Flyout>
       </Button.Flyout>
       <PathIcon Data="{DynamicResource SettingsIcon}"
-                Width="24" 
+                Width="24"
                 Height="24"
-                Foreground="White"/>
+                Foreground="White" />
     </Button>
-
-    <Image Grid.Column="1" 
+    <Image Grid.Column="1"
            Grid.Row="1"
            Name="Clippy"
            Height="150"
-           Source="/Assets/clipart855284.png"/>
-
+           Source="/Assets/clipart855284.png" />
   </Grid>
 </UserControl>
-
