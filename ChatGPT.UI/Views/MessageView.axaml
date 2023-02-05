@@ -51,6 +51,10 @@
                     Height="24"/>
         </Button>
       </Grid>
+      <ProgressBar Grid.Row="1" 
+                   Margin="24,0,24,24"
+                   IsIndeterminate="True"
+                   IsVisible="{Binding IsAwaiting}"/>
     </Grid>
   </Border>
 </UserControl>

@@ -47,6 +47,7 @@ public partial class MainViewModel : ObservableObject
         IsEnabled = false;
 
         message.IsSent = true;
+        message.IsAwaiting = true;
 
         var promptItem = new MessageViewModel(Send)
         {
@@ -68,6 +69,7 @@ public partial class MainViewModel : ObservableObject
         };
         Messages.Add(responseItem);
 
+        message.IsAwaiting = false;
         IsEnabled = true;
     }
 }

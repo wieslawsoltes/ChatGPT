@@ -10,6 +10,7 @@ public partial class MessageViewModel : ObservableObject
     [ObservableProperty] private string? _prompt;
     [ObservableProperty] private string? _message;
     [ObservableProperty] private bool _isSent;
+    [ObservableProperty] private bool _isAwaiting;
 
     public MessageViewModel(Func<MessageViewModel, Task> send)
     {
