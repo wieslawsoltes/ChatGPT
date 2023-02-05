@@ -79,13 +79,19 @@ public partial class MainViewModel : ObservableObject
 
         if (resultMessage is null)
         {
-            resultMessage = new MessageViewModel(Send);
+            resultMessage = new MessageViewModel(Send)
+            {
+                IsSent = false
+            };
             Messages.Add(resultMessage);
+        }
+        else
+        {
+            resultMessage.IsSent = true;
         }
 
         resultMessage.Message = responseData.Choices?.FirstOrDefault()?.Text.Trim();
         resultMessage.Prompt = "";
-        resultMessage.IsSent = false;
 
         CurrentMessage = resultMessage;
 
