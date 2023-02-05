@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ChatGPT.UI.Views.MessageView"
+             x:CompileBindings="True" x:DataType="vm:MessageViewModel">
+  <Border BorderThickness="1"
+          BorderBrush="#80000000"
+          Background="#F5FFFFFF" 
+          CornerRadius="8"
+          Margin="0,8,0,8">
+    <Grid RowDefinitions="*,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" 
+                 Text="{Binding Message}" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 Margin="8"
+                 Padding="16" 
+                 FontSize="16"
+                 TextWrapping="Wrap"
+                 Background="Transparent"/>
+      <Grid Grid.Row="1" 
+            Name="Grid"
+            ColumnDefinitions="*, Auto"
+            Margin="16,0,16,24"
+            IsVisible="{Binding !IsSent}">
+        <TextBox Grid.Column="0"
+                 Name="Prompt"
+                 Text="{Binding Prompt}" 
+                 Watermark="Ask me anything"
+                 Background="Transparent"
+                 HorizontalAlignment="Stretch" 
+                 HorizontalContentAlignment="Left"
+                 VerticalAlignment="Stretch" 
+                 VerticalContentAlignment="Center"
+                 Margin="0,0,8,0"
+                 Padding="12" 
+                 FontSize="16" />
+        <Button Grid.Column="1"
+                Name="Send"
+                Command="{Binding SendCommand}"
+                BorderBrush="#80000000"
+                BorderThickness="2"
+                Background="#80FFFFFF" 
+                CornerRadius="8"
+                Margin="8,0,0,0" 
+                Padding="12">
+          <PathIcon Data="{DynamicResource SendIcon}"
+                    Width="24" 
+                    Height="24"/>
+        </Button>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>
+

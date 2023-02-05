@@ -70,7 +70,7 @@ public class CompletionsResponse
     public string Model { get; set; }
 
     [JsonPropertyName("choices")]
-    public CompletionsChoice[] Choices { get; set; }
+    public CompletionsChoice[]? Choices { get; set; }
 
     [JsonPropertyName("usage")]
     public CompletionsUsage Usage { get; set; }

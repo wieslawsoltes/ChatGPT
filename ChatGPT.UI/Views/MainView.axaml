@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
+             xmlns:views="clr-namespace:ChatGPT.UI.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ChatGPT.UI.Views.MainView"
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+ <Grid Margin="0" 
+        RowDefinitions="*,Auto" 
+        ColumnDefinitions="*,Auto"
+        VerticalAlignment="Bottom">
+
+   <ScrollViewer Grid.Row="0" Grid.Column="0" >
+      <ItemsControl Items="{Binding Messages}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <VirtualizingStackPanel />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.DataTemplates>
+          <DataTemplate DataType="vm:MessageViewModel">
+            <views:MessageView />
+          </DataTemplate>
+        </ItemsControl.DataTemplates>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <Button Name="Settings" 
+            VerticalAlignment="Bottom"
+            BorderBrush="#00000000"
+            BorderThickness="2"
+            Background="#00FFFFFF" 
+            CornerRadius="8"
+            Padding="12"
+            Margin="0,16,0,0"
+            Grid.Column="0" 
+            Grid.Row="1">
+      <Button.Flyout>
+        <Flyout>
+          <views:SettingsView DataContext="{Binding Settings}" />
+        </Flyout>
+      </Button.Flyout>
+      <PathIcon Data="{DynamicResource SettingsIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="White"/>
+    </Button>
+
+    <Image Grid.Column="1" 
+           Grid.Row="1"
+           Name="Clippy"
+           Height="150"
+           Source="/Assets/clipart855284.png"/>
+
+  </Grid>
+</UserControl>
+

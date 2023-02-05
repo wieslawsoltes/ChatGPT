@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ChatGPT.UI.Views.SettingsView"
+             x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+  <StackPanel Margin="8" 
+              Orientation="Vertical" 
+              Width="250">
+    <StackPanel Orientation="Vertical">
+      <StackPanel Orientation="Vertical">
+        <TextBlock Text="Temperature:" 
+                   Margin="8" 
+                   Padding="0,8,0,8" 
+                   FontSize="16" />
+        <TextBox Text="{Binding Temperature}" 
+                 Margin="8" 
+                 Padding="8" 
+                 FontSize="16"/>
+      </StackPanel>
+      <StackPanel Orientation="Vertical">
+        <TextBlock Text="MaxTokens:" 
+                   Margin="8" 
+                   Padding="0,8,0,8" 
+                   FontSize="16" />
+        <TextBox Text="{Binding MaxTokens}" 
+                 Margin="8" 
+                 Padding="8" 
+                 FontSize="16"/>
+      </StackPanel>
+    </StackPanel>
+    <Button Command="{Binding ExitCommand}"
+            BorderBrush="#80000000"
+            BorderThickness="2"
+            Background="#80FFFFFF" 
+            CornerRadius="8"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Content="Exit"
+            Margin="8,24,8,16" 
+            Padding="16" 
+            FontSize="16"/>
+  </StackPanel>
+</UserControl>
