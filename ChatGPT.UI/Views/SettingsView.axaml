@@ -32,9 +32,9 @@
       </StackPanel>
     </StackPanel>
     <Button Command="{Binding ExitCommand}"
-            BorderBrush="#80000000"
+            Background="{DynamicResource ExitBackgroundBrush}" 
+            BorderBrush="{DynamicResource ExitBorderBrush}"
             BorderThickness="2"
-            Background="#80FFFFFF" 
             CornerRadius="8"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Center"

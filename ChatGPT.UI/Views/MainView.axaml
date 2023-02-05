@@ -28,26 +28,44 @@
         </SelectingItemsControl.DataTemplates>
       </SelectingItemsControl>
     </ScrollViewer>
-    <Button Name="Settings"
-            VerticalAlignment="Bottom"
-            BorderBrush="#00000000"
-            BorderThickness="2"
-            Background="#00FFFFFF"
-            CornerRadius="8"
-            Padding="12"
-            Margin="0,16,0,0"
-            Grid.Column="0"
-            Grid.Row="1">
-      <Button.Flyout>
-        <Flyout>
-          <views:SettingsView DataContext="{Binding Settings}" />
-        </Flyout>
-      </Button.Flyout>
-      <PathIcon Data="{DynamicResource SettingsIcon}"
-                Width="24"
-                Height="24"
-                Foreground="White" />
-    </Button>
+    <StackPanel Grid.Column="0"
+                Grid.Row="1"
+                Orientation="Horizontal">
+      <Button Name="Settings"
+              VerticalAlignment="Bottom"
+              BorderBrush="#00000000"
+              BorderThickness="2"
+              Background="#00FFFFFF"
+              CornerRadius="8"
+              Padding="12"
+              Margin="0,16,0,0">
+        <Button.Flyout>
+          <Flyout>
+            <views:SettingsView DataContext="{Binding Settings}" />
+          </Flyout>
+        </Button.Flyout>
+        <PathIcon Data="{DynamicResource SettingsIcon}"
+                  Width="24"
+                  Height="24"
+                  Opacity="0.5"
+                  Foreground="{DynamicResource SettingsIconBrush}" />
+      </Button>
+      <Button Name="Theme"
+              Click="Theme_OnClick"
+              VerticalAlignment="Bottom"
+              BorderBrush="#00000000"
+              BorderThickness="2"
+              Background="#00FFFFFF"
+              CornerRadius="8"
+              Padding="12"
+              Margin="0,16,0,0">
+        <PathIcon Data="{DynamicResource DarkThemeIcon}"
+                  Width="24"
+                  Height="24"
+                  Opacity="0.5"
+                  Foreground="{DynamicResource ThemeIconBrush}" />
+      </Button>
+    </StackPanel>
     <Image Grid.Column="1"
            Grid.Row="1"
            Name="Clippy"

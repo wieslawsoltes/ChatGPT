@@ -4,6 +4,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Styling;
 using Avalonia.VisualTree;
 using ChatGPT.UI.ViewModels;
 
@@ -67,6 +69,17 @@ public partial class MainView : UserControl
         if (_draggingWindow)
         {
             EndDrag(e);
+        }
+    }
+
+    private void Theme_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (Application.Current is { })
+        {
+            Application.Current.RequestedThemeVariant = 
+                Application.Current.RequestedThemeVariant == ThemeVariant.Light 
+                    ? ThemeVariant.Dark 
+                    : ThemeVariant.Light;
         }
     }
 }
