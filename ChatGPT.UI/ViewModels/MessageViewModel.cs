@@ -16,7 +16,15 @@ public partial class MessageViewModel : ObservableObject
     public MessageViewModel(Func<MessageViewModel, Task> send)
     {
         SendCommand = new AsyncRelayCommand(async _ => await send(this));
+        EditCommand = new RelayCommand(() =>
+        {
+            Prompt = Message;
+            Message = null;
+            IsSent = false;
+        });
     }
 
     public IAsyncRelayCommand SendCommand { get; }
+
+    public IRelayCommand EditCommand { get; }
 }

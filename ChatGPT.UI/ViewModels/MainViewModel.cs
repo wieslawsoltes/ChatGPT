@@ -34,48 +34,63 @@ public partial class MainViewModel : ObservableObject
         _currentMessage = welcomeItem;
     }
     
-    private async Task Send(MessageViewModel message)
+    private async Task Send(MessageViewModel sendMessage)
     {
         if (Messages is null)
         {
             return;
         }
 
-        if (string.IsNullOrEmpty(message.Prompt))
+        if (string.IsNullOrEmpty(sendMessage.Prompt))
         {
             return;
         }
 
         IsEnabled = false;
 
-        message.IsSent = true;
+        sendMessage.IsSent = true;
 
-        var promptItem = new MessageViewModel(Send)
+        MessageViewModel? promptMessage;
+        MessageViewModel? resultMessage = null;
+        
+        if (sendMessage.Result is { })
         {
-            Prompt = "",
-            Message = message.Prompt,
-            IsSent = true
-        };
-        Messages.Add(promptItem);
-        CurrentMessage = promptItem;
+            promptMessage = sendMessage;
+            resultMessage = sendMessage.Result;
+        }
+        else
+        {
+            promptMessage = new MessageViewModel(Send);
+            Messages.Add(promptMessage);
+        }
 
-        promptItem.IsAwaiting = true;
+        var prompt = sendMessage.Prompt;
 
-        var prompt = message.Prompt;
+        promptMessage.Message = sendMessage.Prompt;
+        promptMessage.Prompt = "";
+        promptMessage.IsSent = true;
+
+        CurrentMessage = promptMessage;
+        promptMessage.IsAwaiting = true;
+
         var temperature = Settings?.Temperature ?? 0.6m;
         var maxTokens = Settings?.MaxTokens ?? 100;
         var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
-        var responseItem = new MessageViewModel(Send)
-        {
-            Prompt = "",
-            Message = responseData.Choices?.FirstOrDefault()?.Text.Trim(),
-            IsSent = false
-        };
-        Messages.Add(responseItem);
-        CurrentMessage = responseItem;
 
-        promptItem.IsAwaiting = false;
-        promptItem.Result = responseItem;
+        if (resultMessage is null)
+        {
+            resultMessage = new MessageViewModel(Send);
+            Messages.Add(resultMessage);
+        }
+
+        resultMessage.Message = responseData.Choices?.FirstOrDefault()?.Text.Trim();
+        resultMessage.Prompt = "";
+        resultMessage.IsSent = false;
+
+        CurrentMessage = resultMessage;
+
+        promptMessage.IsAwaiting = false;
+        promptMessage.Result = resultMessage;
 
         IsEnabled = true;
     }
