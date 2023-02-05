@@ -10,9 +10,16 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private int _maxTokens;
     [ObservableProperty] private string? _apiKey;
 
-    public SettingsViewModel(Action exit)
+    public SettingsViewModel() : this(null)
     {
-        ExitCommand = new RelayCommand(exit);
+    }
+    
+    public SettingsViewModel(Action? exit = null)
+    {
+        ExitCommand = new RelayCommand(() =>
+        {
+            exit?.Invoke();
+        });
     }
 
     public IRelayCommand ExitCommand { get; }

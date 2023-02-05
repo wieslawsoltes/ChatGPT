@@ -13,9 +13,20 @@ public partial class MessageViewModel : ObservableObject
     [ObservableProperty] private bool _isAwaiting;
     [ObservableProperty] private MessageViewModel? _result;
 
-    public MessageViewModel(Func<MessageViewModel, Task> send)
+    public MessageViewModel() : this(null)
     {
-        SendCommand = new AsyncRelayCommand(async _ => await send(this));
+    }
+
+    public MessageViewModel(Func<MessageViewModel, Task>? send = null)
+    {
+        SendCommand = new AsyncRelayCommand(async _ =>
+        {
+            if (send is { })
+            {
+                await send(this);
+            }
+        });
+
         EditCommand = new RelayCommand(() =>
         {
             Prompt = Message;

@@ -13,7 +13,11 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private SettingsViewModel? _settings;
     [ObservableProperty] private bool _isEnabled;
 
-    public MainViewModel(Action exit)
+    public MainViewModel() : this(null)
+    {
+    }
+
+    public MainViewModel(Action? exit = null)
     {
         _settings = new SettingsViewModel(exit)
         {

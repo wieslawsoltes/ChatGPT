@@ -3,13 +3,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="200"
              x:Class="ChatGPT.UI.Views.MessageView"
              x:CompileBindings="True" x:DataType="vm:MessageViewModel">
+  <Design.DataContext>
+    <vm:MessageViewModel>
+      <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+      <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+      <vm:MessageViewModel.IsSent>False</vm:MessageViewModel.IsSent>
+      <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
+      <vm:MessageViewModel.Result>
+        <vm:MessageViewModel />
+      </vm:MessageViewModel.Result>
+    </vm:MessageViewModel>
+  </Design.DataContext>
   <Border Background="{DynamicResource MessageBackgroundBrush}" 
           BorderThickness="1"
           BorderBrush="{DynamicResource MessageBorderBrush}"
           CornerRadius="8"
+          VerticalAlignment="Top"
           Margin="0,8,0,8">
     <Grid RowDefinitions="*,Auto">
       <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,Auto">

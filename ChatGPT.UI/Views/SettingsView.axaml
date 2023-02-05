@@ -3,9 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
              x:Class="ChatGPT.UI.Views.SettingsView"
              x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+  <Design.DataContext>
+    <vm:SettingsViewModel>
+      <vm:SettingsViewModel.Temperature>0.6</vm:SettingsViewModel.Temperature>
+      <vm:SettingsViewModel.MaxTokens>100</vm:SettingsViewModel.MaxTokens>
+    </vm:SettingsViewModel>
+  </Design.DataContext>
   <StackPanel Margin="8" 
               Orientation="Vertical" 
               Width="250">

@@ -5,29 +5,8 @@
              RequestedThemeVariant="Light">
   <Application.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key='Default'>
-          <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5FFFFFF</SolidColorBrush>
-          <SolidColorBrush x:Key='MessageBorderBrush'>#80000000</SolidColorBrush>
-          <SolidColorBrush x:Key='SendBackgroundBrush'>#80FFFFFF</SolidColorBrush>
-          <SolidColorBrush x:Key='SendBorderBrush'>#80000000</SolidColorBrush>
-          <SolidColorBrush x:Key='ExitBackgroundBrush'>#80FFFFFF</SolidColorBrush>
-          <SolidColorBrush x:Key='ExitBorderBrush'>#80000000</SolidColorBrush>
-          <SolidColorBrush x:Key='SettingsIconBrush'>DarkBlue</SolidColorBrush>
-          <SolidColorBrush x:Key='ThemeIconBrush'>DarkBlue</SolidColorBrush>
-        </ResourceDictionary>
-        <ResourceDictionary x:Key='Dark'>
-          <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5303030</SolidColorBrush>
-          <SolidColorBrush x:Key='MessageBorderBrush'>#80FFFFFF</SolidColorBrush>
-          <SolidColorBrush x:Key='SendBackgroundBrush'>#80303030</SolidColorBrush>
-          <SolidColorBrush x:Key='SendBorderBrush'>#80FFFFFF</SolidColorBrush>
-          <SolidColorBrush x:Key='ExitBackgroundBrush'>#80303030</SolidColorBrush>
-          <SolidColorBrush x:Key='ExitBorderBrush'>#80FFFFFF</SolidColorBrush>
-          <SolidColorBrush x:Key='SettingsIconBrush' >DarkBlue</SolidColorBrush>
-          <SolidColorBrush x:Key='ThemeIconBrush' >DarkBlue</SolidColorBrush>
-        </ResourceDictionary>
-      </ResourceDictionary.ThemeDictionaries>
       <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="/Themes/Brushes.axaml" />
         <MergeResourceInclude Source="/Themes/Icons.axaml" />
         <MergeResourceInclude Source="/Themes/Controls.axaml" />
       </ResourceDictionary.MergedDictionaries>
