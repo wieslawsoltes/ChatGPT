@@ -6,7 +6,7 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <MergeResourceInclude Source="/Themes/Brushes.axaml" />
+        <MergeResourceInclude Source="/Themes/Themes.axaml" />
         <MergeResourceInclude Source="/Themes/Icons.axaml" />
         <MergeResourceInclude Source="/Themes/Controls.axaml" />
       </ResourceDictionary.MergedDictionaries>

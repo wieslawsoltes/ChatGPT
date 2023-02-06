@@ -20,33 +20,33 @@
         <TextBlock Text="Temperature:" 
                    Margin="8" 
                    Padding="0,8,0,8" 
-                   FontSize="16" />
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
         <TextBox Text="{Binding Temperature}" 
                  Margin="8" 
                  Padding="8" 
-                 FontSize="16"/>
+                 FontSize="{DynamicResource SettingContentFontSize}"/>
       </StackPanel>
       <StackPanel Orientation="Vertical">
         <TextBlock Text="MaxTokens:" 
                    Margin="8" 
                    Padding="0,8,0,8" 
-                   FontSize="16" />
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
         <TextBox Text="{Binding MaxTokens}" 
                  Margin="8" 
                  Padding="8" 
-                 FontSize="16"/>
+                 FontSize="{DynamicResource SettingContentFontSize}"/>
       </StackPanel>
       <StackPanel Orientation="Vertical">
         <TextBlock Text="ApiKey:" 
                    Margin="8" 
                    Padding="0,8,0,8" 
-                   FontSize="16" />
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
         <TextBox Text="{Binding ApiKey}" 
                  Watermark="Override OpenAI api key"
                  PasswordChar="*"
                  Margin="8" 
                  Padding="8" 
-                 FontSize="16"/>
+                 FontSize="{DynamicResource SettingContentFontSize}" />
       </StackPanel>
     </StackPanel>
     <Button Command="{Binding ExitCommand}"
@@ -59,6 +59,6 @@
             Content="Exit"
             Margin="8,24,8,16" 
             Padding="16" 
-            FontSize="16"/>
+            FontSize="{DynamicResource SettingContentFontSize}"/>
   </StackPanel>
 </UserControl>

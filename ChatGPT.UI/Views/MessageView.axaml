@@ -25,11 +25,12 @@
           Margin="0,8,0,8">
     <Grid RowDefinitions="*,Auto">
       <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,Auto">
-        <SelectableTextBlock Grid.Column="0" Text="{Binding Message}" 
+        <SelectableTextBlock Grid.Column="0" 
+                             Text="{Binding Message}" 
                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                              Margin="8,8,8,0"
                              Padding="16,16,16,16" 
-                             FontSize="16"
+                             FontSize="{DynamicResource MessageFontSize}"
                              TextWrapping="Wrap"
                              Background="Transparent"
                              IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"/>
@@ -69,7 +70,7 @@
                  VerticalContentAlignment="Center"
                  Margin="0,0,8,0"
                  Padding="12" 
-                 FontSize="16" />
+                 FontSize="{DynamicResource PromptFontSize}" />
         <Button Grid.Column="1"
                 Name="Send"
                 Command="{Binding SendCommand}"

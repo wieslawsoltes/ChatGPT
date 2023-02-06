@@ -20,7 +20,7 @@ public partial class MainView : UserControl
 
         DataContext = new MainViewModel(Exit);
         
-        Clippy.PointerPressed += (_, e) =>
+        ClippyImage.PointerPressed += (_, e) =>
         {
             if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
@@ -28,7 +28,7 @@ public partial class MainView : UserControl
             }
         };
         
-        Clippy.PointerReleased += (_, e) =>
+        ClippyImage.PointerReleased += (_, e) =>
         {
             if (_draggingWindow)
             {
@@ -45,7 +45,7 @@ public partial class MainView : UserControl
         }
     }
 
-    private void Theme_OnClick(object? sender, RoutedEventArgs e)
+    private void ThemeButton_OnClick(object? sender, RoutedEventArgs e)
     {
         if (Application.Current is { })
         {
@@ -71,27 +71,5 @@ public partial class MainView : UserControl
     private void EndDrag(PointerEventArgs e)
     {
         _draggingWindow = false;
-    }
-
-    protected override void OnPointerPressed(PointerPressedEventArgs e)
-    {
-        base.OnPointerPressed(e);
-        /*
-        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
-        {
-            MoveDrag(e);
-        }
-        */
-    }
-
-    protected override void OnPointerReleased(PointerReleasedEventArgs e)
-    {
-        base.OnPointerReleased(e);
-        /*
-        if (_draggingWindow)
-        {
-            EndDrag(e);
-        }
-        */
     }
 }

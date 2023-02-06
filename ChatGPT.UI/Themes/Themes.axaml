@@ -10,6 +10,10 @@
       <SolidColorBrush x:Key='ExitBorderBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='SettingsIconBrush'>DarkBlue</SolidColorBrush>
       <SolidColorBrush x:Key='ThemeIconBrush'>DarkBlue</SolidColorBrush>
+      <x:Double x:Key='MessageFontSize'>14</x:Double>
+      <x:Double x:Key='PromptFontSize'>14</x:Double>
+      <x:Double x:Key='SettingHeaderFontSize'>14</x:Double>
+      <x:Double x:Key='SettingContentFontSize'>14</x:Double>
     </ResourceDictionary>
     <ResourceDictionary x:Key='Dark'>
       <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5303030</SolidColorBrush>

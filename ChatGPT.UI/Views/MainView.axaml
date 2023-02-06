@@ -35,7 +35,7 @@
     <StackPanel Grid.Column="0"
                 Grid.Row="1"
                 Orientation="Horizontal">
-      <Button Name="Settings"
+      <Button Name="SettingsButton"
               VerticalAlignment="Bottom"
               BorderBrush="#00000000"
               BorderThickness="2"
@@ -54,8 +54,8 @@
                   Opacity="0.5"
                   Foreground="{DynamicResource SettingsIconBrush}" />
       </Button>
-      <Button Name="Theme"
-              Click="Theme_OnClick"
+      <Button Name="ThemeButton"
+              Click="ThemeButton_OnClick"
               VerticalAlignment="Bottom"
               BorderBrush="#00000000"
               BorderThickness="2"
@@ -72,7 +72,7 @@
     </StackPanel>
     <Image Grid.Column="1"
            Grid.Row="1"
-           Name="Clippy"
+           Name="ClippyImage"
            Height="150"
            Margin="-30,-15,0,0"
            Source="/Assets/clipart855284.png" />
