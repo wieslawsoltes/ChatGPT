@@ -20,9 +20,20 @@ public partial class MainView : UserControl
 
         DataContext = new MainViewModel(Exit);
         
-        Clippy.PointerPressed += (_, args) =>
+        Clippy.PointerPressed += (_, e) =>
         {
-            MoveDrag(args);
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            {
+                MoveDrag(e);
+            }
+        };
+        
+        Clippy.PointerReleased += (_, e) =>
+        {
+            if (_draggingWindow)
+            {
+                EndDrag(e);
+            }
         };
     }
 
@@ -31,6 +42,17 @@ public partial class MainView : UserControl
         if (Application.Current?.ApplicationLifetime is IControlledApplicationLifetime lifetime)
         {
             lifetime.Shutdown();
+        }
+    }
+
+    private void Theme_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (Application.Current is { })
+        {
+            Application.Current.RequestedThemeVariant = 
+                Application.Current.RequestedThemeVariant == ThemeVariant.Light 
+                    ? ThemeVariant.Dark 
+                    : ThemeVariant.Light;
         }
     }
 
@@ -54,31 +76,22 @@ public partial class MainView : UserControl
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
-
+        /*
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
             MoveDrag(e);
         }
+        */
     }
 
     protected override void OnPointerReleased(PointerReleasedEventArgs e)
     {
         base.OnPointerReleased(e);
-
+        /*
         if (_draggingWindow)
         {
             EndDrag(e);
         }
-    }
-
-    private void Theme_OnClick(object? sender, RoutedEventArgs e)
-    {
-        if (Application.Current is { })
-        {
-            Application.Current.RequestedThemeVariant = 
-                Application.Current.RequestedThemeVariant == ThemeVariant.Light 
-                    ? ThemeVariant.Dark 
-                    : ThemeVariant.Light;
-        }
+        */
     }
 }
