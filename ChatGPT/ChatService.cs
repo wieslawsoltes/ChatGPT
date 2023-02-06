@@ -32,7 +32,8 @@ public class ChatService
             FrequencyPenalty = 0.0m,
             PresencePenalty = 0.0m,
             N = 1,
-            Stop = "[END]",
+            Stop = "[\n\n\n]"
+            //Stop = "[END]",
         };
 
         // Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true
