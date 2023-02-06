@@ -23,8 +23,8 @@ public partial class MainViewModel : ObservableObject
     {
         _settings = new SettingsViewModel(exit)
         {
-            Temperature = 0.6m,
-            MaxTokens = 100
+            Temperature = 0.7m,
+            MaxTokens = 256
         };
 
         _messages = new ObservableCollection<MessageViewModel>();
