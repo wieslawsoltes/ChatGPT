@@ -28,8 +28,8 @@
         <SelectableTextBlock Grid.Column="0" 
                              Text="{Binding Message}" 
                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                             Margin="8,8,8,0"
-                             Padding="16,16,16,16" 
+                             Margin="8,8,8,8"
+                             Padding="8,8,8,8" 
                              FontSize="{DynamicResource MessageFontSize}"
                              TextWrapping="Wrap"
                              Background="Transparent"
@@ -40,10 +40,10 @@
                 CommandParameter="Edit"
                 Background="#00FFFFFF" 
                 BorderBrush="#00000000"
-                BorderThickness="2"
+                BorderThickness="1"
                 CornerRadius="8"
-                Margin="8,0,16,0" 
-                Padding="12,12,12,12">
+                Margin="8,4,8,4" 
+                Padding="8,8,8,8">
           <Button.IsVisible>
             <MultiBinding Converter="{x:Static BoolConverters.And}">
               <Binding Path="IsSent" />
@@ -59,7 +59,7 @@
       <Grid Grid.Row="1" 
             Name="SendGrid"
             ColumnDefinitions="*, Auto"
-            Margin="16,16,16,24"
+            Margin="8,0,8,16"
             IsVisible="{Binding !IsSent}">
         <TextBox Grid.Column="0"
                  Name="Prompt"
@@ -70,25 +70,25 @@
                  HorizontalContentAlignment="Left"
                  VerticalAlignment="Stretch" 
                  VerticalContentAlignment="Center"
-                 Margin="0,0,8,0"
-                 Padding="12" 
+                 Margin="0,0,4,0"
+                 Padding="8" 
                  FontSize="{DynamicResource PromptFontSize}" />
         <Button Grid.Column="1"
                 Name="Send"
                 Command="{Binding SendCommand}"
                 Background="{DynamicResource SendBackgroundBrush}" 
                 BorderBrush="{DynamicResource SendBorderBrush}"
-                BorderThickness="2"
+                BorderThickness="1"
                 CornerRadius="8"
                 Margin="8,0,0,0" 
-                Padding="12">
+                Padding="8">
           <PathIcon Data="{DynamicResource SendIcon}"
                     Width="24" 
                     Height="24"/>
         </Button>
       </Grid>
       <ProgressBar Grid.Row="1" 
-                   Margin="24,16,24,24"
+                   Margin="16,0,16,16"
                    IsIndeterminate="True"
                    IsVisible="{Binding IsAwaiting}"/>
     </Grid>

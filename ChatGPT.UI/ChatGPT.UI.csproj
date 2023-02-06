@@ -20,7 +20,4 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChatGPT\ChatGPT.csproj" />
-  </ItemGroup>
 </Project>

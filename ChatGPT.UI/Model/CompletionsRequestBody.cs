@@ -1,8 +1,7 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ChatGPT;
-
-// https://beta.openai.com/docs/api-reference/completions/create
+namespace ChatGPT.UI.Model;
 
 public class CompletionsRequestBody
 {
@@ -53,52 +52,4 @@ public class CompletionsRequestBody
 
     [JsonPropertyName("user")]
     public string? User { get; set; }
-}
-
-public class CompletionsResponse
-{
-    [JsonPropertyName("id")]
-    public string? Id { get; set; }
-
-    [JsonPropertyName("object")]
-    public string? Object { get; set; } // Escaped with @ symbol
-
-    [JsonPropertyName("created")]
-    public int Created { get; set; }
-
-    [JsonPropertyName("model")]
-    public string? Model { get; set; }
-
-    [JsonPropertyName("choices")]
-    public CompletionsChoice[]? Choices { get; set; }
-
-    [JsonPropertyName("usage")]
-    public CompletionsUsage? Usage { get; set; }
-}
-
-public class CompletionsChoice
-{
-    [JsonPropertyName("text")]
-    public string? Text { get; set; }
-
-    [JsonPropertyName("index")]
-    public int Index { get; set; }
-
-    [JsonPropertyName("logprobs")]
-    public object? Logprobs { get; set; }
-
-    [JsonPropertyName("finish_reason")]
-    public string? FinishReason { get; set; }
-}
-
-public class CompletionsUsage
-{
-    [JsonPropertyName("prompt_tokens")]
-    public int PromptTokens { get; set; }
-
-    [JsonPropertyName("completion_tokens")]
-    public int CompletionTokens { get; set; }
-
-    [JsonPropertyName("total_tokens")]
-    public int TotalTokens { get; set; }
 }

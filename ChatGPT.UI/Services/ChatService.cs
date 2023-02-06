@@ -1,10 +1,14 @@
+using System;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using ChatGPT.UI.Model;
 
-namespace ChatGPT;
+namespace ChatGPT.UI.Services;
 
-public class ChatService
+public static class ChatService
 {
     public static async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
     {

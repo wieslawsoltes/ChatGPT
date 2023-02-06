@@ -12,53 +12,54 @@
       <vm:SettingsViewModel.MaxTokens>100</vm:SettingsViewModel.MaxTokens>
     </vm:SettingsViewModel>
   </Design.DataContext>
-  <StackPanel Margin="8" 
+  <StackPanel Margin="16" 
               Orientation="Vertical" 
+              VerticalAlignment="Top"
               Width="250">
+    <Button Command="{Binding ExitCommand}"
+            Background="{DynamicResource ExitBackgroundBrush}" 
+            BorderBrush="{DynamicResource ExitBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Content="Exit Application"
+            Margin="4,0,4,8" 
+            Padding="16" 
+            FontSize="{DynamicResource SettingContentFontSize}"/>
     <StackPanel Orientation="Vertical">
       <StackPanel Orientation="Vertical">
         <TextBlock Text="Temperature:" 
-                   Margin="8" 
-                   Padding="0,8,0,8" 
+                   Margin="4" 
+                   Padding="0,4,0,4" 
                    FontSize="{DynamicResource SettingHeaderFontSize}" />
         <TextBox Text="{Binding Temperature}" 
-                 Margin="8" 
+                 Margin="4" 
                  Padding="8" 
                  FontSize="{DynamicResource SettingContentFontSize}"/>
       </StackPanel>
       <StackPanel Orientation="Vertical">
         <TextBlock Text="MaxTokens:" 
-                   Margin="8" 
-                   Padding="0,8,0,8" 
+                   Margin="4" 
+                   Padding="0,4,0,4" 
                    FontSize="{DynamicResource SettingHeaderFontSize}" />
         <TextBox Text="{Binding MaxTokens}" 
-                 Margin="8" 
+                 Margin="4" 
                  Padding="8" 
                  FontSize="{DynamicResource SettingContentFontSize}"/>
       </StackPanel>
       <StackPanel Orientation="Vertical">
         <TextBlock Text="ApiKey:" 
-                   Margin="8" 
-                   Padding="0,8,0,8" 
+                   Margin="4" 
+                   Padding="0,4,0,4" 
                    FontSize="{DynamicResource SettingHeaderFontSize}" />
         <TextBox Text="{Binding ApiKey}" 
                  Watermark="Override OpenAI api key"
                  PasswordChar="*"
-                 Margin="8" 
+                 Margin="4" 
                  Padding="8" 
                  FontSize="{DynamicResource SettingContentFontSize}" />
       </StackPanel>
     </StackPanel>
-    <Button Command="{Binding ExitCommand}"
-            Background="{DynamicResource ExitBackgroundBrush}" 
-            BorderBrush="{DynamicResource ExitBorderBrush}"
-            BorderThickness="2"
-            CornerRadius="8"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            Content="Exit"
-            Margin="8,24,8,16" 
-            Padding="16" 
-            FontSize="{DynamicResource SettingContentFontSize}"/>
   </StackPanel>
 </UserControl>
