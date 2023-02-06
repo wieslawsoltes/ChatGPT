@@ -27,13 +27,13 @@ public class CompletionsRequestBody
     public int N { get; set; } = 1;
 
     [JsonPropertyName("stream")]
-    public bool Stream { get; set; } = false;
+    public bool Stream { get; set; }
 
     [JsonPropertyName("logprobs")]
-    public int? Logprobs { get; set; } = null;
+    public int? Logprobs { get; set; }
 
     [JsonPropertyName("echo")]
-    public bool Echo { get; set; } = false;
+    public bool Echo { get; set; }
 
     [JsonPropertyName("stop")]
     public string? Stop { get; set; }
