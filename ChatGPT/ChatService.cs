@@ -23,8 +23,8 @@ public class ChatService
         // Set up the request body
         var requestBody = new CompletionsRequestBody
         {
-            //Model = "text-davinci-003",
-            Model = "text-chat-davinci-002-20221122",
+            Model = "text-davinci-003",
+            //Model = "text-chat-davinci-002-20221122",
             Prompt = prompt,
             Temperature = temperature,
             MaxTokens = maxTokens,
@@ -32,8 +32,8 @@ public class ChatService
             FrequencyPenalty = 0.0m,
             PresencePenalty = 0.0m,
             N = 1,
-            Stop = "[\n\n\n]"
-            //Stop = "[END]",
+            //Stop = "[\n\n\n]",
+            Stop = "[END]",
         };
 
         // Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true
