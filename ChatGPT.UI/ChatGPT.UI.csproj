@@ -9,6 +9,9 @@
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <XamlNameReferenceGeneratorVersion>1.5.1</XamlNameReferenceGeneratorVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
