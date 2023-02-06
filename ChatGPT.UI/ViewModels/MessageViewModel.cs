@@ -5,14 +5,14 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.UI.ViewModels;
 
-public partial class MessageViewModel : ObservableObject
+public class MessageViewModel : ObservableObject
 {
-    [ObservableProperty] private string? _prompt;
-    [ObservableProperty] private string? _message;
-    [ObservableProperty] private bool _isSent;
-    [ObservableProperty] private bool _isAwaiting;
-    [ObservableProperty] private bool _isError;
-    [ObservableProperty] private MessageViewModel? _result;
+    private string? _prompt;
+    private string? _message;
+    private bool _isSent;
+    private bool _isAwaiting;
+    private bool _isError;
+    private MessageViewModel? _result;
 
     public MessageViewModel() : this(null)
     {
@@ -48,6 +48,42 @@ public partial class MessageViewModel : ObservableObject
                 }
             }
         });
+    }
+
+    public string? Prompt
+    {
+        get => _prompt;
+        set => SetProperty(ref _prompt, value);
+    }
+
+    public string? Message
+    {
+        get => _message;
+        set => SetProperty(ref _message, value);
+    }
+
+    public bool IsSent
+    {
+        get => _isSent;
+        set => SetProperty(ref _isSent, value);
+    }
+
+    public bool IsAwaiting
+    {
+        get => _isAwaiting;
+        set => SetProperty(ref _isAwaiting, value);
+    }
+
+    public bool IsError
+    {
+        get => _isError;
+        set => SetProperty(ref _isError, value);
+    }
+    
+    public MessageViewModel? Result
+    {
+        get => _result;
+        set => SetProperty(ref _result, value);
     }
 
     public IAsyncRelayCommand SendCommand { get; }

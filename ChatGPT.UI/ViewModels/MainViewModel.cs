@@ -1,6 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ChatGPT.UI.Model;
 using ChatGPT.UI.Services;
@@ -8,12 +10,19 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ChatGPT.UI.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public class MainViewModel : ObservableObject
 {
-    [ObservableProperty] private ObservableCollection<MessageViewModel>? _messages;
-    [ObservableProperty] private MessageViewModel? _currentMessage;
-    [ObservableProperty] private SettingsViewModel? _settings;
-    [ObservableProperty] private bool _isEnabled;
+    private static readonly MainViewModelJsonContext s_serializerContext = new(
+        new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            IgnoreReadOnlyProperties = true
+        });
+
+    private ObservableCollection<MessageViewModel>? _messages;
+    private MessageViewModel? _currentMessage;
+    private SettingsViewModel? _settings;
+    private bool _isEnabled;
 
     public MainViewModel() : this(null)
     {
@@ -39,7 +48,31 @@ public partial class MainViewModel : ObservableObject
         _messages.Add(welcomeItem);
         _currentMessage = welcomeItem;
     }
-    
+
+    public ObservableCollection<MessageViewModel>? Messages
+    {
+        get => _messages;
+        set => SetProperty(ref _messages, value);
+    }
+
+    public MessageViewModel? CurrentMessage
+    {
+        get => _currentMessage;
+        set => SetProperty(ref _currentMessage, value);
+    }
+
+    public SettingsViewModel? Settings
+    {
+        get => _settings;
+        set => SetProperty(ref _settings, value);
+    }
+
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        set => SetProperty(ref _isEnabled, value);
+    }
+
     private async Task Send(MessageViewModel sendMessage)
     {
         if (Messages is null)
@@ -142,5 +175,24 @@ public partial class MainViewModel : ObservableObject
         }
 
         IsEnabled = true;
+    }
+
+    private void Save()
+    {
+        var json = JsonSerializer.Serialize(this, s_serializerContext.MainViewModel);
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            // TODO:
+        }
+    }
+
+    private void Load()
+    {
+        var json = "";
+        var mainViewModel = JsonSerializer.Deserialize(json, s_serializerContext.MainViewModel);
+        if (mainViewModel is { })
+        {
+            // TODO:
+        }
     }
 }
