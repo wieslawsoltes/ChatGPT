@@ -40,7 +40,7 @@
               BorderBrush="#00000000"
               BorderThickness="2"
               Background="#00FFFFFF"
-              CornerRadius="8"
+              CornerRadius="4"
               Padding="12"
               Margin="0,16,0,0">
         <Button.Flyout>
@@ -60,7 +60,7 @@
               BorderBrush="#00000000"
               BorderThickness="2"
               Background="#00FFFFFF"
-              CornerRadius="8"
+              CornerRadius="4"
               Padding="12"
               Margin="0,16,0,0">
         <PathIcon Data="{DynamicResource DarkThemeIcon}"
@@ -74,7 +74,7 @@
            Grid.Row="1"
            Name="ClippyImage"
            Height="100"
-           Margin="-30,-15,0,0"
+           Margin="-32,2,0,0"
            Source="/Assets/clipart855284.png" />
   </Grid>
 </UserControl>

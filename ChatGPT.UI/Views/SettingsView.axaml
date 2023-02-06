@@ -20,7 +20,7 @@
             Background="{DynamicResource ExitBackgroundBrush}" 
             BorderBrush="{DynamicResource ExitBorderBrush}"
             BorderThickness="1"
-            CornerRadius="8"
+            CornerRadius="4"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Center"
             Content="Exit Application"
