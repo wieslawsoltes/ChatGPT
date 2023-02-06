@@ -103,7 +103,7 @@ public partial class MainViewModel : ObservableObject
             resultMessage.IsSent = true;
         }
 
-        var choice = responseData.Choices?.FirstOrDefault()?.Text.Trim();
+        var choice = responseData?.Choices?.FirstOrDefault()?.Text?.Trim();
 
         resultMessage.Message = choice;
         resultMessage.Prompt = "";

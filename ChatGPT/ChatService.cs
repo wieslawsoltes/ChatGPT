@@ -1,18 +1,23 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ChatGPT;
 
 public class ChatService
 {
-    public static async Task<CompletionsResponse> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
+    public static async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
     {
         // Set up the API URL and API key
-        string apiUrl = "https://api.openai.com/v1/completions";
-        string? apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        var apiUrl = "https://api.openai.com/v1/completions";
+        var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        if (apiKey is null)
+        {
+            return null;
+        }
 
         // Get the request body JSON
-        string requestBodyJson = GetRequestBodyJson(prompt, temperature, maxTokens);
+        var requestBodyJson = GetRequestBodyJson(prompt, temperature, maxTokens);
 
         // Send the API request and get the response data
         return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
@@ -39,7 +44,7 @@ public class ChatService
         // Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true
         var serializerOptions = new JsonSerializerOptions
         {
-            IgnoreNullValues = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             IgnoreReadOnlyProperties = true,
         };
 
@@ -47,7 +52,7 @@ public class ChatService
         return JsonSerializer.Serialize(requestBody, serializerOptions);
     }
 
-    private static async Task<CompletionsResponse> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+    private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
     {
         // Create a new HttpClient for making the API request
         using HttpClient client = new HttpClient();
