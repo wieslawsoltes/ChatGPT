@@ -71,7 +71,7 @@
       <Grid Grid.Row="1" 
             Name="SendGrid"
             ColumnDefinitions="*, Auto"
-            Margin="8,0,8,0"
+            Margin="8,0,8,8"
             IsVisible="{Binding !IsSent}">
         <TextBox Grid.Column="0"
                  Name="Prompt"
