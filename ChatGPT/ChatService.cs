@@ -1,11 +1,12 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ChatGPT;
 
 public class ChatService
 {
-    public static async Task<CompletionsResponse> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
+    public static async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
     {
         // Set up the API URL and API key
         string apiUrl = "https://api.openai.com/v1/completions";
@@ -17,6 +18,12 @@ public class ChatService
         // Send the API request and get the response data
         return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
     }
+
+    private static readonly ChatApiJsonContext s_serializerContext = new(new()
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        IgnoreReadOnlyProperties = true,
+    });
 
     private static string GetRequestBodyJson(string prompt, decimal temperature, int maxTokens)
     {
@@ -36,24 +43,17 @@ public class ChatService
             Stop = "[END]",
         };
 
-        // Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true
-        var serializerOptions = new JsonSerializerOptions
-        {
-            IgnoreNullValues = true,
-            IgnoreReadOnlyProperties = true,
-        };
-
         // Serialize the request body to JSON using the JsonSerializer.Serialize method overload that takes a JsonSerializerOptions parameter
-        return JsonSerializer.Serialize(requestBody, serializerOptions);
+        return JsonSerializer.Serialize(requestBody, s_serializerContext.CompletionsRequestBody);
     }
 
-    private static async Task<CompletionsResponse> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+    private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string? apiKey, string requestBodyJson)
     {
         // Create a new HttpClient for making the API request
         using HttpClient client = new HttpClient();
 
         // Set the API key in the request headers
-        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + apiKey);
+        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
         // Create a new StringContent object with the JSON payload and the correct content type
         StringContent content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
@@ -65,6 +65,6 @@ public class ChatService
         var responseBody = await response.Content.ReadAsStringAsync();
 
         // Return the response data
-        return JsonSerializer.Deserialize<CompletionsResponse>(responseBody);
+        return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponse);
     }
 }

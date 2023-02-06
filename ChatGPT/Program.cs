@@ -5,7 +5,7 @@ var temperature = 0.6m;
 var maxTokens = 10;
 var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
 
-var choices = responseData.Choices;
+var choices = responseData?.Choices ?? Array.Empty<CompletionsChoice>();
 
 foreach (var choice in choices)
 {
