@@ -27,11 +27,25 @@ public partial class MessageViewModel : ObservableObject
             }
         });
 
-        EditCommand = new RelayCommand(() =>
+        EditCommand = new RelayCommand<string>(status =>
         {
-            Prompt = Message;
-            Message = null;
-            IsSent = false;
+            switch (status)
+            {
+                case "Edit":
+                {
+                    Prompt = Message;
+                    Message = null;
+                    IsSent = false;
+                    break;
+                }
+                case "Cancel":
+                {
+                    Message = Prompt;
+                    Prompt = null;
+                    IsSent = true;
+                    break;
+                }
+            }
         });
     }
 

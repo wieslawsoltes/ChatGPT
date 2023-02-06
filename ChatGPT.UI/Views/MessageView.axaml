@@ -37,6 +37,7 @@
         <Button Grid.Column="1"
                 Name="Edit"
                 Command="{Binding EditCommand}"
+                CommandParameter="Edit"
                 Background="#00FFFFFF" 
                 BorderBrush="#00000000"
                 BorderThickness="2"
@@ -46,6 +47,7 @@
           <Button.IsVisible>
             <MultiBinding Converter="{x:Static BoolConverters.And}">
               <Binding Path="IsSent" />
+              <Binding Path="IsAwaiting" Converter="{x:Static BoolConverters.Not}" />
               <Binding Path="Result" Converter="{x:Static ObjectConverters.IsNotNull}" />
             </MultiBinding>
           </Button.IsVisible>
@@ -55,7 +57,7 @@
         </Button>
       </Grid>
       <Grid Grid.Row="1" 
-            Name="Grid"
+            Name="SendGrid"
             ColumnDefinitions="*, Auto"
             Margin="16,16,16,24"
             IsVisible="{Binding !IsSent}">

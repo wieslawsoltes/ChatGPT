@@ -14,11 +14,19 @@ public partial class MessageView : UserControl
 
     private void PromptOnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (Grid.IsEnabled && e.Key == Key.Enter)
+        if (SendGrid.IsEnabled && e.Key is Key.Enter or Key.F2)
         {
-            if (Send.Command?.CanExecute(null) ?? false)
+            if (Send.Command?.CanExecute("Edit") ?? false)
             {
-                Send.Command?.Execute(null);
+                Send.Command?.Execute("Edit");
+            }
+        }
+
+        if (SendGrid.IsEnabled && e.Key == Key.Escape)
+        {
+            if (Edit.Command?.CanExecute("Cancel") ?? false)
+            {
+                Edit.Command?.Execute("Cancel");
             }
         }
     }
