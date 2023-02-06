@@ -101,7 +101,7 @@
       </Grid>
       <ProgressBar Grid.Row="1" 
                    Margin="16,0,16,16"
-                   IsIndeterminate="True"
+                   IsIndeterminate="{Binding IsAwaiting}"
                    IsVisible="{Binding IsAwaiting}"/>
     </Grid>
   </Border>
