@@ -10,6 +10,13 @@ namespace ChatGPT.UI.Services;
 
 public static class ChatService
 {
+    private static readonly CompletionsJsonContext s_serializerContext = new(
+        new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            IgnoreReadOnlyProperties = true
+        });
+
     public static async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
     {
         // Set up the API URL and API key
@@ -45,15 +52,8 @@ public static class ChatService
             Stop = "[END]",
         };
 
-        // Create a new JsonSerializerOptions object with the IgnoreNullValues and IgnoreReadOnlyProperties properties set to true
-        var serializerOptions = new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            IgnoreReadOnlyProperties = true,
-        };
-
-        // Serialize the request body to JSON using the JsonSerializer.Serialize method overload that takes a JsonSerializerOptions parameter
-        return JsonSerializer.Serialize(requestBody, serializerOptions);
+        // Serialize the request body to JSON using the JsonSerializer.
+        return JsonSerializer.Serialize(requestBody, s_serializerContext.CompletionsRequestBody);
     }
 
     private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
@@ -62,7 +62,7 @@ public static class ChatService
         using HttpClient client = new HttpClient();
 
         // Set the API key in the request headers
-        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + apiKey);
+        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
         // Create a new StringContent object with the JSON payload and the correct content type
         StringContent content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
@@ -74,6 +74,6 @@ public static class ChatService
         var responseBody = await response.Content.ReadAsStringAsync();
 
         // Return the response data
-        return JsonSerializer.Deserialize<CompletionsResponse>(responseBody);
+        return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponse);
     }
 }
