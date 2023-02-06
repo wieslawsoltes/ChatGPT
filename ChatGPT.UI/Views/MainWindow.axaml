@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
         xmlns:views="clr-namespace:ChatGPT.UI.Views"
-        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="850"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="850"
         x:Class="ChatGPT.UI.Views.MainWindow"
         Title="ChatGPT"
         Background="Transparent"
@@ -15,7 +15,7 @@
         SystemDecorations="None"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
-        Width="550"
+        Width="450"
         Height="850"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
