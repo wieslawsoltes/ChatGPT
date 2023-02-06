@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -59,21 +60,36 @@ public static class ChatService
     private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
     {
         // Create a new HttpClient for making the API request
-        using HttpClient client = new HttpClient();
+        using var client = new HttpClient();
 
         // Set the API key in the request headers
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
         // Create a new StringContent object with the JSON payload and the correct content type
-        StringContent content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
+        var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
 
         // Send the API request and get the response
-        HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+        var response = await client.PostAsync(apiUrl, content);
 
         // Deserialize the response
         var responseBody = await response.Content.ReadAsStringAsync();
 
+        switch (response.StatusCode)
+        {
+            case HttpStatusCode.Unauthorized:
+            case HttpStatusCode.TooManyRequests:
+            case HttpStatusCode.InternalServerError:
+            {
+                return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);
+            }
+        }
+
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+            return null;
+        }
+
         // Return the response data
-        return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponse);
+        return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseSuccess);
     }
 }

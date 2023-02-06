@@ -12,6 +12,7 @@
       <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
       <vm:MessageViewModel.IsSent>False</vm:MessageViewModel.IsSent>
       <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
+      <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
       <vm:MessageViewModel.Result>
         <vm:MessageViewModel />
       </vm:MessageViewModel.Result>
@@ -37,7 +38,14 @@
                              FontSize="{DynamicResource MessageFontSize}"
                              TextWrapping="Wrap"
                              Background="Transparent"
-                             IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                             IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                             Classes.error="{Binding IsError}">
+          <SelectableTextBlock.Styles>
+            <Style Selector="SelectableTextBlock.error">
+              <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
+            </Style>
+          </SelectableTextBlock.Styles>
+        </SelectableTextBlock>
         <Button Grid.Column="1"
                 Name="Edit"
                 Command="{Binding EditCommand}"

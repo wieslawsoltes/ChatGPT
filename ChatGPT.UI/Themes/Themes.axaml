@@ -4,6 +4,7 @@
     <ResourceDictionary x:Key='Default'>
       <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBorderBrush'>#80000000</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageErrorBrush'>Red</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='ExitBackgroundBrush'>#80FFFFFF</SolidColorBrush>
@@ -18,6 +19,7 @@
     <ResourceDictionary x:Key='Dark'>
       <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5303030</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBorderBrush'>#80FFFFFF</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageErrorBrush'>Yellow</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80303030</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='ExitBackgroundBrush'>#80303030</SolidColorBrush>

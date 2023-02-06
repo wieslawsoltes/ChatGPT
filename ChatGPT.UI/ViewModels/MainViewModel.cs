@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using ChatGPT.UI.Model;
 using ChatGPT.UI.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -53,77 +54,93 @@ public partial class MainViewModel : ObservableObject
 
         IsEnabled = false;
 
-        sendMessage.IsSent = true;
-
-        MessageViewModel? promptMessage;
-        MessageViewModel? resultMessage = null;
-        
-        if (sendMessage.Result is { })
+        try
         {
-            promptMessage = sendMessage;
-            resultMessage = sendMessage.Result;
-        }
-        else
-        {
-            promptMessage = new MessageViewModel(Send);
-            Messages.Add(promptMessage);
-        }
+            sendMessage.IsSent = true;
 
-        var prompt = sendMessage.Prompt;
+            MessageViewModel? promptMessage;
+            MessageViewModel? resultMessage = null;
 
-        promptMessage.Message = sendMessage.Prompt;
-        promptMessage.Prompt = "";
-        promptMessage.IsSent = true;
-
-        CurrentMessage = promptMessage;
-        promptMessage.IsAwaiting = true;
-
-        var temperature = Settings?.Temperature ?? 0.6m;
-        var maxTokens = Settings?.MaxTokens ?? 100;
-        var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-        var restoreApiKey = false;
-
-        if (!string.IsNullOrWhiteSpace(Settings?.ApiKey))
-        {
-            Environment.SetEnvironmentVariable("OPENAI_API_KEY", Settings.ApiKey);
-            restoreApiKey = true;
-        }
-
-        var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
-
-        if (resultMessage is null)
-        {
-            resultMessage = new MessageViewModel(Send)
+            if (sendMessage.Result is { })
             {
-                IsSent = false
-            };
-            Messages.Add(resultMessage);
+                promptMessage = sendMessage;
+                resultMessage = sendMessage.Result;
+            }
+            else
+            {
+                promptMessage = new MessageViewModel(Send);
+                Messages.Add(promptMessage);
+            }
+
+            var prompt = sendMessage.Prompt;
+
+            promptMessage.Message = sendMessage.Prompt;
+            promptMessage.Prompt = "";
+            promptMessage.IsSent = true;
+
+            CurrentMessage = promptMessage;
+            promptMessage.IsAwaiting = true;
+
+            var temperature = Settings?.Temperature ?? 0.6m;
+            var maxTokens = Settings?.MaxTokens ?? 100;
+            var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+            var restoreApiKey = false;
+
+            if (!string.IsNullOrWhiteSpace(Settings?.ApiKey))
+            {
+                Environment.SetEnvironmentVariable("OPENAI_API_KEY", Settings.ApiKey);
+                restoreApiKey = true;
+            }
+
+            var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
+            if (resultMessage is null)
+            {
+                resultMessage = new MessageViewModel(Send)
+                {
+                    IsSent = false
+                };
+                Messages.Add(resultMessage);
+            }
+            else
+            {
+                resultMessage.IsSent = true;
+            }
+
+            if (responseData is CompletionsResponseError error)
+            {
+                var message = error.Error?.Message;
+                resultMessage.Message = message ?? "Unknown error.";
+                resultMessage.IsError = true;
+            }
+            else if (responseData is CompletionsResponseSuccess success)
+            {
+                var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
+                resultMessage.Message = message ?? "";
+                resultMessage.IsError = false;
+            }
+
+            resultMessage.Prompt = "";
+
+            if (Messages.LastOrDefault() == resultMessage)
+            {
+                resultMessage.IsSent = false;
+            }
+
+            CurrentMessage = resultMessage;
+
+            promptMessage.IsAwaiting = false;
+            promptMessage.Result = resultMessage;
+
+            if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
+            {
+                Environment.SetEnvironmentVariable("OPENAI_API_KEY", apiKey);
+            }
         }
-        else
+        catch (Exception)
         {
-            resultMessage.IsSent = true;
+            // ignored
         }
 
-        var choice = responseData?.Choices?.FirstOrDefault()?.Text?.Trim();
-
-        resultMessage.Message = choice;
-        resultMessage.Prompt = "";
-
-        if (Messages.LastOrDefault() == resultMessage)
-        {
-            resultMessage.IsSent = false;
-        }
-        
-        CurrentMessage = resultMessage;
-
-        promptMessage.IsAwaiting = false;
-        promptMessage.Result = resultMessage;
-
-        if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
-        {
-            Environment.SetEnvironmentVariable("OPENAI_API_KEY", apiKey);
-        }
-        
         IsEnabled = true;
     }
 }

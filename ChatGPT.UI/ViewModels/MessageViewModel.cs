@@ -11,6 +11,7 @@ public partial class MessageViewModel : ObservableObject
     [ObservableProperty] private string? _message;
     [ObservableProperty] private bool _isSent;
     [ObservableProperty] private bool _isAwaiting;
+    [ObservableProperty] private bool _isError;
     [ObservableProperty] private MessageViewModel? _result;
 
     public MessageViewModel() : this(null)
