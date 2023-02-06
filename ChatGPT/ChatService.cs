@@ -23,7 +23,8 @@ public class ChatService
         // Set up the request body
         var requestBody = new CompletionsRequestBody
         {
-            Model = "text-davinci-003",
+            //Model = "text-davinci-003",
+            Model = "text-chat-davinci-002-20221122",
             Prompt = prompt,
             Temperature = temperature,
             MaxTokens = maxTokens,
