@@ -11,6 +11,8 @@ namespace ChatGPT.UI.Services;
 
 public static class ChatService
 {
+    private static readonly HttpClient s_client = new ();
+
     private static readonly CompletionsJsonContext s_serializerContext = new(
         new JsonSerializerOptions
         {
@@ -60,16 +62,15 @@ public static class ChatService
     private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
     {
         // Create a new HttpClient for making the API request
-        using var client = new HttpClient();
 
         // Set the API key in the request headers
-        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+        s_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
         // Create a new StringContent object with the JSON payload and the correct content type
         var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
 
         // Send the API request and get the response
-        var response = await client.PostAsync(apiUrl, content);
+        var response = await s_client.PostAsync(apiUrl, content);
 
         // Deserialize the response
         var responseBody = await response.Content.ReadAsStringAsync();
