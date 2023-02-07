@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="ChatGPT.UI.Views.RequestSettingsView"
+             x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+  <Design.DataContext>
+    <vm:SettingsViewModel>
+      <vm:SettingsViewModel.Temperature>0.6</vm:SettingsViewModel.Temperature>
+      <vm:SettingsViewModel.MaxTokens>100</vm:SettingsViewModel.MaxTokens>
+      <vm:SettingsViewModel.ApiKey><x:Null/></vm:SettingsViewModel.ApiKey>
+    </vm:SettingsViewModel>
+  </Design.DataContext>
+  <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical">
+      <TextBlock Text="Temperature:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <TextBox Text="{Binding Temperature}" 
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}"/>
+    </StackPanel>
+    <StackPanel Orientation="Vertical">
+      <TextBlock Text="MaxTokens:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <TextBox Text="{Binding MaxTokens}" 
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}"/>
+    </StackPanel>
+    <StackPanel Orientation="Vertical">
+      <TextBlock Text="ApiKey:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <TextBox Text="{Binding ApiKey}" 
+               Watermark="Override OpenAI api key"
+               PasswordChar="*"
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>
