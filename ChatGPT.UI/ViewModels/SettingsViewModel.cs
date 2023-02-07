@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -53,31 +54,39 @@ public partial class SettingsViewModel : ObservableObject
         });
     }
 
+    [JsonPropertyName("temperature")]
     public decimal Temperature
     {
         get => _temperature;
         set => SetProperty(ref _temperature, value);
     }
 
+    [JsonPropertyName("maxTokens")]
     public int MaxTokens
     {
         get => _maxTokens;
         set => SetProperty(ref _maxTokens, value);
     }
 
+    [JsonPropertyName("apiKey")]
     public string? ApiKey
     {
         get => _apiKey;
         set => SetProperty(ref _apiKey, value);
     }
 
+    [JsonIgnore]
     public IAsyncRelayCommand NewCommand { get; }
 
+    [JsonIgnore]
     public IAsyncRelayCommand OpenCommand { get; }
 
+    [JsonIgnore]
     public IAsyncRelayCommand SaveCommand { get; }
 
+    [JsonIgnore]
     public IAsyncRelayCommand ExportCommand { get; }
 
+    [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
 }
