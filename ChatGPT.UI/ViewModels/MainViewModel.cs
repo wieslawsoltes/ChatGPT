@@ -92,10 +92,18 @@ public class MainViewModel : ObservableObject
 
     private void NewCallback()
     {
-        if (Messages is null || Messages.Count <= 1)
+        if (Messages is null)
         {
             return;
         }
+
+        if (Messages.Count <= 1)
+        {
+            Messages[0].IsSent = false;
+            return;
+        }
+
+        Messages[0].IsSent = false;
 
         for (var i = Messages.Count - 1; i >= 1; i--)
         {
@@ -245,6 +253,11 @@ public class MainViewModel : ObservableObject
         {
             NewCallback();
 
+            if (Messages.Count <= 1)
+            {
+                Messages[0].IsSent = true;
+            }
+
             for (var i = 0; i < messages.Count; i++)
             {
                 var message = messages[i];
@@ -278,25 +291,30 @@ public class MainViewModel : ObservableObject
             return;
         }
 
-        var writer = new StreamWriter(stream);
+        await using var writer = new StreamWriter(stream);
 
         for (var i = 0; i < Messages.Count; i++)
         {
             var message = Messages[i];
 
-            if (i <= 0)
+            if (i < 1)
             {
                 continue;
             }
 
-            if (!string.IsNullOrEmpty(message.Prompt))
+            if (message.Result is { })
             {
-                await writer.WriteLineAsync(message.Prompt);
-            }
+                if (!string.IsNullOrEmpty(message.Message))
+                {
+                    await writer.WriteLineAsync(message.Message);
+                    await writer.WriteLineAsync("");
+                }
 
-            if (!string.IsNullOrEmpty(message.Message))
-            {
-                await writer.WriteLineAsync(message.Message);
+                if (!string.IsNullOrEmpty(message.Result.Message))
+                {
+                    await writer.WriteLineAsync(message.Result.Message);
+                    await writer.WriteLineAsync("");
+                }
             }
         }
     }
