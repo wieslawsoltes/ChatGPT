@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="850"
         x:Class="ChatGPT.UI.Views.MainWindow"
         Title="ChatGPT"
-        Background="Transparent"
+        Background="{x:Null}"
         TransparencyLevelHint="Transparent"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
