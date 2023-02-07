@@ -11,7 +11,12 @@ namespace ChatGPT.UI.Services;
 
 public static class ChatService
 {
-    private static readonly HttpClient s_client = new ();
+    private static readonly HttpClient s_client;
+
+    static ChatService()
+    {
+        s_client = new HttpClient();
+    }
 
     private static readonly CompletionsJsonContext s_serializerContext = new(
         new JsonSerializerOptions
@@ -64,6 +69,10 @@ public static class ChatService
         // Create a new HttpClient for making the API request
 
         // Set the API key in the request headers
+        if (s_client.DefaultRequestHeaders.Contains("Authorization"))
+        {
+            s_client.DefaultRequestHeaders.Remove("Authorization");
+        }
         s_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
         // Create a new StringContent object with the JSON payload and the correct content type
