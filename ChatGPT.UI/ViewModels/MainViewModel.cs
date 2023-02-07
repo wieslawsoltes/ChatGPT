@@ -76,11 +76,12 @@ public class MainViewModel : ObservableObject
             Exit = ApplicationService.Exit
         };
 
-        _settings = new SettingsViewModel(actions)
+        _settings = new SettingsViewModel()
         {
             Temperature = 0.7m,
             MaxTokens = 256
         };
+        _settings.SetActions(actions);
 
         _messages = new ObservableCollection<MessageViewModel>();
         _isEnabled = true;

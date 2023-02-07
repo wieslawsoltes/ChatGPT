@@ -9,48 +9,45 @@ public partial class SettingsViewModel : ObservableObject
     private decimal _temperature;
     private int _maxTokens;
     private string? _apiKey;
+    private ActionsViewModel? _actions;
 
-    public SettingsViewModel() : this(null)
-    {
-    }
-
-    public SettingsViewModel(ActionsViewModel? actionsViewModel)
+    public SettingsViewModel()
     {
         NewCommand = new AsyncRelayCommand(async () =>
         {
-            if (actionsViewModel?.New is { })
+            if (_actions?.New is { })
             {
-                await actionsViewModel.New();
+                await _actions.New();
             }
         });
 
         OpenCommand = new AsyncRelayCommand(async () =>
         {
-            if (actionsViewModel?.Open is { })
+            if (_actions?.Open is { })
             {
-                await actionsViewModel.Open();
+                await _actions.Open();
             }
         });
 
         SaveCommand = new AsyncRelayCommand(async () =>
         {
-            if (actionsViewModel?.Save is { })
+            if (_actions?.Save is { })
             {
-                await actionsViewModel.Save();
+                await _actions.Save();
             }
         });
 
         ExportCommand = new AsyncRelayCommand(async () =>
         {
-            if (actionsViewModel?.Export is { })
+            if (_actions?.Export is { })
             {
-                await actionsViewModel.Export();
+                await _actions.Export();
             }
         });
 
         ExitCommand = new RelayCommand(() =>
         {
-            actionsViewModel?.Exit?.Invoke();
+            _actions?.Exit?.Invoke();
         });
     }
 
@@ -89,4 +86,9 @@ public partial class SettingsViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
+
+    public void SetActions(ActionsViewModel? actions)
+    {
+        _actions = actions;
+    }
 }

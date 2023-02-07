@@ -18,34 +18,9 @@ public class MessageViewModel : ObservableObject
 
     public MessageViewModel()
     {
-        SendCommand = new AsyncRelayCommand(async _ =>
-        {
-            if (_send is { })
-            {
-                await _send(this);
-            }
-        });
+        SendCommand = new AsyncRelayCommand(async _ => await SendAction());
 
-        EditCommand = new RelayCommand<string>(status =>
-        {
-            switch (status)
-            {
-                case "Edit":
-                {
-                    Prompt = Message;
-                    Message = null;
-                    IsSent = false;
-                    break;
-                }
-                case "Cancel":
-                {
-                    Message = Prompt;
-                    Prompt = null;
-                    IsSent = true;
-                    break;
-                }
-            }
-        });
+        EditCommand = new RelayCommand<string>(EditAction);
     }
 
     [JsonPropertyName("Prompt")]
@@ -95,6 +70,35 @@ public class MessageViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand EditCommand { get; }
+
+    private async Task SendAction()
+    {
+        if (_send is { })
+        {
+            await _send(this);
+        }
+    }
+
+    private void EditAction(string? status)
+    {
+        switch (status)
+        {
+            case "Edit":
+            {
+                Prompt = Message;
+                Message = null;
+                IsSent = false;
+                break;
+            }
+            case "Cancel":
+            {
+                Message = Prompt;
+                Prompt = null;
+                IsSent = true;
+                break;
+            }
+        }
+    }
 
     public void SetSendAction(Func<MessageViewModel, Task>? send)
     {
