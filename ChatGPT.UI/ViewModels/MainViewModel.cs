@@ -17,8 +17,13 @@ public class MainViewModel : ObservableObject
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
         {
+            WriteIndented = true,
+            ReferenceHandler = ReferenceHandler.Preserve,
+            IncludeFields = false,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            IgnoreReadOnlyProperties = true
+            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
 
     private ObservableCollection<MessageViewModel>? _messages;
@@ -90,45 +95,28 @@ public class MainViewModel : ObservableObject
         _currentMessage = welcomeItem;
     }
 
-    private void NewCallback()
-    {
-        if (Messages is null)
-        {
-            return;
-        }
-
-        if (Messages.Count <= 1)
-        {
-            Messages[0].IsSent = false;
-            return;
-        }
-
-        Messages[0].IsSent = false;
-
-        for (var i = Messages.Count - 1; i >= 1; i--)
-        {
-            Messages.RemoveAt(i);
-        }
-    }
-
+    [JsonPropertyName("messages")]
     public ObservableCollection<MessageViewModel>? Messages
     {
         get => _messages;
         set => SetProperty(ref _messages, value);
     }
 
+    [JsonPropertyName("currentMessage")]
     public MessageViewModel? CurrentMessage
     {
         get => _currentMessage;
         set => SetProperty(ref _currentMessage, value);
     }
 
+    [JsonPropertyName("settings")]
     public SettingsViewModel? Settings
     {
         get => _settings;
         set => SetProperty(ref _settings, value);
     }
 
+    [JsonPropertyName("isEnabled")]
     public bool IsEnabled
     {
         get => _isEnabled;
@@ -237,6 +225,27 @@ public class MainViewModel : ObservableObject
         }
 
         IsEnabled = true;
+    }
+
+    private void NewCallback()
+    {
+        if (Messages is null)
+        {
+            return;
+        }
+
+        if (Messages.Count <= 1)
+        {
+            Messages[0].IsSent = false;
+            return;
+        }
+
+        Messages[0].IsSent = false;
+
+        for (var i = Messages.Count - 1; i >= 1; i--)
+        {
+            Messages.RemoveAt(i);
+        }
     }
 
     private async Task OpenCallbackAsync(Stream stream)
