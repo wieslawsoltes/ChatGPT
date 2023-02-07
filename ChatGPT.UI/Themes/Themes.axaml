@@ -7,10 +7,10 @@
       <SolidColorBrush x:Key='MessageErrorBrush'>Red</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80000000</SolidColorBrush>
-      <SolidColorBrush x:Key='ExitBackgroundBrush'>#80FFFFFF</SolidColorBrush>
-      <SolidColorBrush x:Key='ExitBorderBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='SettingsIconBrush'>DarkBlue</SolidColorBrush>
       <SolidColorBrush x:Key='ThemeIconBrush'>DarkBlue</SolidColorBrush>
+      <SolidColorBrush x:Key='ActionIconBrush'>Black</SolidColorBrush>
+      <SolidColorBrush x:Key='PowerIconBrush'>Gray</SolidColorBrush>
       <x:Double x:Key='MessageFontSize'>14</x:Double>
       <x:Double x:Key='PromptFontSize'>14</x:Double>
       <x:Double x:Key='SettingHeaderFontSize'>14</x:Double>
@@ -22,10 +22,10 @@
       <SolidColorBrush x:Key='MessageErrorBrush'>Yellow</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80303030</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80FFFFFF</SolidColorBrush>
-      <SolidColorBrush x:Key='ExitBackgroundBrush'>#80303030</SolidColorBrush>
-      <SolidColorBrush x:Key='ExitBorderBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SettingsIconBrush' >DarkBlue</SolidColorBrush>
       <SolidColorBrush x:Key='ThemeIconBrush' >DarkBlue</SolidColorBrush>
+      <SolidColorBrush x:Key='ActionIconBrush'>White</SolidColorBrush>
+      <SolidColorBrush x:Key='PowerIconBrush'>Gray</SolidColorBrush>
     </ResourceDictionary>
   </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

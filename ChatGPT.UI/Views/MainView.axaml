@@ -19,7 +19,7 @@
                   Grid.Column="0">
       <SelectingItemsControl Items="{Binding Messages}"
                              SelectedItem="{Binding CurrentMessage}"
-                             AutoScrollToSelectedItem="False">
+                             AutoScrollToSelectedItem="True">
         <SelectingItemsControl.ItemsPanel>
           <ItemsPanelTemplate>
             <VirtualizingStackPanel />

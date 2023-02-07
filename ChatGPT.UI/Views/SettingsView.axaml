@@ -16,17 +16,7 @@
               Orientation="Vertical" 
               VerticalAlignment="Top"
               Width="250">
-    <Button Command="{Binding ExitCommand}"
-            Background="{DynamicResource ExitBackgroundBrush}" 
-            BorderBrush="{DynamicResource ExitBorderBrush}"
-            BorderThickness="1"
-            CornerRadius="4"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            Content="Exit Application"
-            Margin="4,0,4,8" 
-            Padding="16" 
-            FontSize="{DynamicResource SettingContentFontSize}"/>
+
     <StackPanel Orientation="Vertical">
       <StackPanel Orientation="Vertical">
         <TextBlock Text="Temperature:" 
@@ -61,5 +51,77 @@
                  FontSize="{DynamicResource SettingContentFontSize}" />
       </StackPanel>
     </StackPanel>
+
+    <DockPanel HorizontalAlignment="Stretch"
+               Margin="0,16,0,0"
+               LastChildFill="False">
+      <Button Command="{Binding ExitCommand}"
+              Background="#00FFFFFF" 
+              BorderBrush="#00000000"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,0" 
+              Padding="8"
+              DockPanel.Dock="Right">
+        <PathIcon Data="{DynamicResource PowerIcon}"
+                  Width="24" 
+                  Height="24"
+                  Foreground="{DynamicResource PowerIconBrush}"
+                  Opacity="0.6"/>
+      </Button>
+      <Button Command="{Binding NewCommand}"
+              Background="#00FFFFFF" 
+              BorderBrush="#00000000"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,0" 
+              Padding="8"
+              DockPanel.Dock="Left">
+        <PathIcon Data="{DynamicResource DocumentIcon}"
+                  Width="24" 
+                  Height="24"
+                  Foreground="{DynamicResource ActionIconBrush}"/>
+      </Button>
+      <Button Command="{Binding OpenCommand}"
+              Background="#00FFFFFF" 
+              BorderBrush="#00000000"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,0" 
+              Padding="8"
+              DockPanel.Dock="Left">
+        <PathIcon Data="{DynamicResource OpenIcon}"
+                  Width="24" 
+                  Height="24"
+                  Foreground="{DynamicResource ActionIconBrush}"/>
+      </Button>
+      <Button Command="{Binding SaveCommand}"
+              Background="#00FFFFFF" 
+              BorderBrush="#00000000"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,0" 
+              Padding="8"
+              DockPanel.Dock="Left">
+        <PathIcon Data="{DynamicResource SaveIcon}"
+                  Width="24" 
+                  Height="24"
+                  Foreground="{DynamicResource ActionIconBrush}"/>
+      </Button>
+      <Button Command="{Binding ExportCommand}"
+              Background="#00FFFFFF" 
+              BorderBrush="#00000000"
+              BorderThickness="1"
+              CornerRadius="4"
+              Margin="0,0,0,0" 
+              Padding="8"
+              DockPanel.Dock="Left">
+        <PathIcon Data="{DynamicResource ArrowDownloadIcon}"
+                  Width="24" 
+                  Height="24"
+                  Foreground="{DynamicResource ActionIconBrush}"/>
+      </Button>
+    </DockPanel>
+
   </StackPanel>
 </UserControl>

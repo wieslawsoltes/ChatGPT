@@ -1,4 +1,3 @@
-using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -14,11 +13,43 @@ public partial class SettingsViewModel : ObservableObject
     {
     }
 
-    public SettingsViewModel(Action? exit = null)
+    public SettingsViewModel(ActionsViewModel? actionsViewModel)
     {
+        NewCommand = new AsyncRelayCommand(async () =>
+        {
+            if (actionsViewModel?.New is { })
+            {
+                await actionsViewModel.New();
+            }
+        });
+
+        OpenCommand = new AsyncRelayCommand(async () =>
+        {
+            if (actionsViewModel?.Open is { })
+            {
+                await actionsViewModel.Open();
+            }
+        });
+
+        SaveCommand = new AsyncRelayCommand(async () =>
+        {
+            if (actionsViewModel?.Save is { })
+            {
+                await actionsViewModel.Save();
+            }
+        });
+
+        ExportCommand = new AsyncRelayCommand(async () =>
+        {
+            if (actionsViewModel?.Export is { })
+            {
+                await actionsViewModel.Export();
+            }
+        });
+
         ExitCommand = new RelayCommand(() =>
         {
-            exit?.Invoke();
+            actionsViewModel?.Exit?.Invoke();
         });
     }
 
@@ -39,6 +70,14 @@ public partial class SettingsViewModel : ObservableObject
         get => _apiKey;
         set => SetProperty(ref _apiKey, value);
     }
+
+    public IAsyncRelayCommand NewCommand { get; }
+
+    public IAsyncRelayCommand OpenCommand { get; }
+
+    public IAsyncRelayCommand SaveCommand { get; }
+
+    public IAsyncRelayCommand ExportCommand { get; }
 
     public IRelayCommand ExitCommand { get; }
 }

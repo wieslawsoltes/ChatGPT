@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -24,13 +26,52 @@ public class MainViewModel : ObservableObject
     private SettingsViewModel? _settings;
     private bool _isEnabled;
 
-    public MainViewModel() : this(null)
+    public MainViewModel()
     {
-    }
+        async Task NewAction()
+        {
+            NewCallback();
+            await Task.Yield();
+        }
 
-    public MainViewModel(Action? exit = null)
-    {
-        _settings = new SettingsViewModel(exit)
+        async Task OpenAction()
+        {
+            await ApplicationService.OpenFile(
+                OpenCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Open");
+        }
+
+        async Task SaveAction()
+        {
+            await ApplicationService.SaveFile(
+                SaveCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Save", 
+                "messages", 
+                "json");
+        }
+
+        async Task ExportAction()
+        {
+            await ApplicationService.SaveFile(
+                ExportCallbackAsync, 
+                new List<string>(new[] { "Text", "All" }), 
+                "Export", 
+                "messages", 
+                "txt");
+        }
+
+        var actions = new ActionsViewModel
+        {
+            New = NewAction,
+            Open = OpenAction,
+            Save = SaveAction,
+            Export = ExportAction,
+            Exit = ApplicationService.Exit
+        };
+
+        _settings = new SettingsViewModel(actions)
         {
             Temperature = 0.7m,
             MaxTokens = 256
@@ -47,6 +88,19 @@ public class MainViewModel : ObservableObject
         };
         _messages.Add(welcomeItem);
         _currentMessage = welcomeItem;
+    }
+
+    private void NewCallback()
+    {
+        if (Messages is null || Messages.Count <= 1)
+        {
+            return;
+        }
+
+        for (var i = Messages.Count - 1; i >= 1; i--)
+        {
+            Messages.RemoveAt(i);
+        }
     }
 
     public ObservableCollection<MessageViewModel>? Messages
@@ -177,22 +231,73 @@ public class MainViewModel : ObservableObject
         IsEnabled = true;
     }
 
-    private void Save()
+    private async Task OpenCallbackAsync(Stream stream)
     {
-        var json = JsonSerializer.Serialize(this, s_serializerContext.MainViewModel);
-        if (string.IsNullOrWhiteSpace(json))
+        if (Messages is null)
         {
-            // TODO:
+            return;
+        }
+
+        var messages = await JsonSerializer.DeserializeAsync(
+            stream, 
+            s_serializerContext.ObservableCollectionMessageViewModel);
+        if (messages is { })
+        {
+            NewCallback();
+
+            for (var i = 0; i < messages.Count; i++)
+            {
+                var message = messages[i];
+
+                if (i <= 0)
+                {
+                    continue;
+                }
+
+                Messages.Add(message);
+            }
         }
     }
 
-    private void Load()
+    private async Task SaveCallbackAsync(Stream stream)
     {
-        var json = "";
-        var mainViewModel = JsonSerializer.Deserialize(json, s_serializerContext.MainViewModel);
-        if (mainViewModel is { })
+        if (Messages is null)
         {
-            // TODO:
+            return;
+        }
+
+        await JsonSerializer.SerializeAsync(
+            stream, 
+            Messages, s_serializerContext.ObservableCollectionMessageViewModel);
+    }
+
+    private async Task ExportCallbackAsync(Stream stream)
+    {
+        if (Messages is null)
+        {
+            return;
+        }
+
+        var writer = new StreamWriter(stream);
+
+        for (var i = 0; i < Messages.Count; i++)
+        {
+            var message = Messages[i];
+
+            if (i <= 0)
+            {
+                continue;
+            }
+
+            if (!string.IsNullOrEmpty(message.Prompt))
+            {
+                await writer.WriteLineAsync(message.Prompt);
+            }
+
+            if (!string.IsNullOrEmpty(message.Message))
+            {
+                await writer.WriteLineAsync(message.Message);
+            }
         }
     }
 }
