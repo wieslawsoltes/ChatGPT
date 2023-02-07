@@ -85,12 +85,13 @@ public class MainViewModel : ObservableObject
         _messages = new ObservableCollection<MessageViewModel>();
         _isEnabled = true;
 
-        var welcomeItem = new MessageViewModel(Send)
+        var welcomeItem = new MessageViewModel()
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
             IsSent = false
         };
+        welcomeItem.SetSendAction(Send);
         _messages.Add(welcomeItem);
         _currentMessage = welcomeItem;
     }
@@ -151,7 +152,8 @@ public class MainViewModel : ObservableObject
             }
             else
             {
-                promptMessage = new MessageViewModel(Send);
+                promptMessage = new MessageViewModel();
+                promptMessage.SetSendAction(Send);
                 Messages.Add(promptMessage);
             }
 
@@ -178,10 +180,11 @@ public class MainViewModel : ObservableObject
             var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
             if (resultMessage is null)
             {
-                resultMessage = new MessageViewModel(Send)
+                resultMessage = new MessageViewModel()
                 {
                     IsSent = false
                 };
+                resultMessage.SetSendAction(Send);
                 Messages.Add(resultMessage);
             }
             else
@@ -276,6 +279,7 @@ public class MainViewModel : ObservableObject
                     continue;
                 }
 
+                message.SetSendAction(Send);
                 Messages.Add(message);
             }
         }

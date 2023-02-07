@@ -14,18 +14,15 @@ public class MessageViewModel : ObservableObject
     private bool _isAwaiting;
     private bool _isError;
     private MessageViewModel? _result;
+    private Func<MessageViewModel, Task>? _send;
 
-    public MessageViewModel() : this(null)
-    {
-    }
-
-    public MessageViewModel(Func<MessageViewModel, Task>? send = null)
+    public MessageViewModel()
     {
         SendCommand = new AsyncRelayCommand(async _ =>
         {
-            if (send is { })
+            if (_send is { })
             {
-                await send(this);
+                await _send(this);
             }
         });
 
@@ -98,4 +95,9 @@ public class MessageViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand EditCommand { get; }
+
+    public void SetSendAction(Func<MessageViewModel, Task>? send)
+    {
+        _send = send;
+    }
 }
