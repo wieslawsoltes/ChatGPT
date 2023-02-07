@@ -8,11 +8,11 @@
         x:Class="ChatGPT.UI.Views.MainWindow"
         Title="ChatGPT"
         Background="{x:Null}"
-        TransparencyLevelHint="Transparent"
+        TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
-        SystemDecorations="None"
+        SystemDecorations="Full"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         Width="450"
@@ -23,6 +23,15 @@
     <vm:MainViewModel />
   </Design.DataContext>
   <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                                     TintColor="Transparent"
+                                     TintOpacity="0.5"
+                                     FallbackColor="Transparent"
+                                     MaterialOpacity="0.5" />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
     <Panel Margin="{Binding #Main.OffScreenMargin}">
       <Panel Margin="{Binding #Main.WindowDecorationMargin}">
         <views:MainView />

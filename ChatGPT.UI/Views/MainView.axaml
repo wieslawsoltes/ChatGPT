@@ -13,10 +13,10 @@
   <Grid Margin="0"
         RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
-        VerticalAlignment="Bottom"
         ShowGridLines="False">
     <ScrollViewer Grid.Row="0"
-                  Grid.Column="0">
+                  Grid.Column="0"
+                  VerticalAlignment="Top">
       <SelectingItemsControl Items="{Binding Messages}"
                              SelectedItem="{Binding CurrentMessage}"
                              AutoScrollToSelectedItem="True">
