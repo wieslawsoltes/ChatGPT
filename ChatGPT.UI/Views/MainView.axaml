@@ -67,44 +67,8 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         VerticalAlignment="Top" />
-    <StackPanel Grid.Column="0"
-                Grid.Row="1"
-                Orientation="Horizontal">
-      <Button Name="SettingsButton"
-              VerticalAlignment="Bottom"
-              BorderBrush="#00000000"
-              BorderThickness="2"
-              Background="#00FFFFFF"
-              CornerRadius="4"
-              Padding="12"
-              Margin="0,16,0,0">
-        <Button.Flyout>
-          <Flyout>
-            <views:SettingsView DataContext="{Binding Settings}" />
-          </Flyout>
-        </Button.Flyout>
-        <PathIcon Data="{DynamicResource SettingsIcon}"
-                  Width="24"
-                  Height="24"
-                  Opacity="0.5"
-                  Foreground="{DynamicResource SettingsIconBrush}" />
-      </Button>
-      <Button Name="ThemeButton"
-              Click="ThemeButton_OnClick"
-              VerticalAlignment="Bottom"
-              BorderBrush="#00000000"
-              BorderThickness="2"
-              Background="#00FFFFFF"
-              CornerRadius="4"
-              Padding="12"
-              Margin="0,16,0,0">
-        <PathIcon Data="{DynamicResource DarkThemeIcon}"
-                  Width="24"
-                  Height="24"
-                  Opacity="0.5"
-                  Foreground="{DynamicResource ThemeIconBrush}" />
-      </Button>
-    </StackPanel>
+    <views:MainToolbarView Grid.Column="0"
+                           Grid.Row="1" />
     <Image Grid.Column="1"
            Grid.Row="1"
            Name="ClippyImage"
