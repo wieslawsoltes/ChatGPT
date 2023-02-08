@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
              xmlns:views="clr-namespace:ChatGPT.UI.Views"
-             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="700"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.UI.Views.MainView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
@@ -76,6 +76,6 @@
            Name="ClippyImage"
            Height="100"
            Margin="-32,2,0,0"
-           Source="/Assets/clipart855284.png" />
+           Source="/Assets/clipart855284.png"/>
   </Grid>
 </UserControl>
