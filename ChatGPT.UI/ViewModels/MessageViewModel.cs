@@ -14,6 +14,7 @@ public class MessageViewModel : ObservableObject
     private bool _isAwaiting;
     private bool _isError;
     private bool _canRemove;
+    private bool _isEditing;
     private MessageViewModel? _result;
     private Func<MessageViewModel, Task>? _send;
     private Func<MessageViewModel, Task>? _copy;
@@ -95,6 +96,7 @@ public class MessageViewModel : ObservableObject
     {
         if (_send is { })
         {
+            _isEditing = false;
             await _send(this);
         }
     }
@@ -118,16 +120,24 @@ public class MessageViewModel : ObservableObject
 
     private void EditingState()
     {
-        Prompt = Message;
-        Message = null;
-        IsSent = false;
+        if (!_isEditing && IsSent)
+        {
+            Prompt = Message;
+            Message = null;
+            IsSent = false;
+            _isEditing = true;
+        }
     }
 
     private void CanceledState()
     {
-        Message = Prompt;
-        Prompt = null;
-        IsSent = true;
+        if (_isEditing)
+        {
+            Message = Prompt;
+            Prompt = null;
+            IsSent = true;
+            _isEditing = false;
+        }
     }
 
     private void CopyAction()
