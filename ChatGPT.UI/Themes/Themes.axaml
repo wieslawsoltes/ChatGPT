@@ -2,9 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <ResourceDictionary.ThemeDictionaries>
     <ResourceDictionary x:Key='Default'>
-      <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5FFFFFF</SolidColorBrush>
-      <SolidColorBrush x:Key='MessageBorderBrush'>#80000000</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageBackgroundBrush'>#C5FFFFFF</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageBorderBrush'>#40000000</SolidColorBrush>
       <SolidColorBrush x:Key='MessageErrorBrush'>Red</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageActionBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='SettingsIconBrush'>DarkBlue</SolidColorBrush>
@@ -17,9 +18,10 @@
       <x:Double x:Key='SettingContentFontSize'>14</x:Double>
     </ResourceDictionary>
     <ResourceDictionary x:Key='Dark'>
-      <SolidColorBrush x:Key='MessageBackgroundBrush'>#F5303030</SolidColorBrush>
-      <SolidColorBrush x:Key='MessageBorderBrush'>#80FFFFFF</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageBackgroundBrush'>#C5303030</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageBorderBrush'>#40FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='MessageErrorBrush'>Yellow</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageActionBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80303030</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SettingsIconBrush' >DarkBlue</SolidColorBrush>
