@@ -12,62 +12,45 @@
     <vm:MainViewModel>
       <vm:MainViewModel.Messages>
         <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
-          <vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
             <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
             <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.IsSent>False</vm:MessageViewModel.IsSent>
-            <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
-            <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
-            <vm:MessageViewModel.CanRemove>False</vm:MessageViewModel.CanRemove>
           </vm:MessageViewModel>
-          <vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
             <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
             <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.IsSent>True</vm:MessageViewModel.IsSent>
-            <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
-            <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
-            <vm:MessageViewModel.CanRemove>False</vm:MessageViewModel.CanRemove>
           </vm:MessageViewModel>
-          <vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
             <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
             <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.IsSent>False</vm:MessageViewModel.IsSent>
-            <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
-            <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
-            <vm:MessageViewModel.CanRemove>True</vm:MessageViewModel.CanRemove>
             <vm:MessageViewModel.Result>
               <vm:MessageViewModel />
             </vm:MessageViewModel.Result>
           </vm:MessageViewModel>
-          <vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
             <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
             <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.IsSent>True</vm:MessageViewModel.IsSent>
-            <vm:MessageViewModel.IsAwaiting>True</vm:MessageViewModel.IsAwaiting>
-            <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
-            <vm:MessageViewModel.CanRemove>True</vm:MessageViewModel.CanRemove>
             <vm:MessageViewModel.Result>
               <x:Null />
             </vm:MessageViewModel.Result>
           </vm:MessageViewModel>
-          <vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
             <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
             <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.IsSent>True</vm:MessageViewModel.IsSent>
-            <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
-            <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
-            <vm:MessageViewModel.CanRemove>True</vm:MessageViewModel.CanRemove>
+            <vm:MessageViewModel.Result>
+              <x:Null />
+            </vm:MessageViewModel.Result>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
             <vm:MessageViewModel.Result>
               <vm:MessageViewModel />
             </vm:MessageViewModel.Result>
           </vm:MessageViewModel>
-          <vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
             <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
             <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.IsSent>True</vm:MessageViewModel.IsSent>
-            <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
-            <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
-            <vm:MessageViewModel.CanRemove>True</vm:MessageViewModel.CanRemove>
             <vm:MessageViewModel.Result>
               <x:Null />
             </vm:MessageViewModel.Result>
@@ -80,25 +63,10 @@
         RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
         ShowGridLines="False">
-    <ScrollViewer Grid.Row="0"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="2"
-                  VerticalAlignment="Top">
-      <SelectingItemsControl Items="{Binding Messages}"
-                             SelectedItem="{Binding CurrentMessage}"
-                             AutoScrollToSelectedItem="True">
-        <SelectingItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <VirtualizingStackPanel />
-          </ItemsPanelTemplate>
-        </SelectingItemsControl.ItemsPanel>
-        <SelectingItemsControl.DataTemplates>
-          <DataTemplate DataType="vm:MessageViewModel">
-            <views:MessageView Margin="2,0,6,0" />
-          </DataTemplate>
-        </SelectingItemsControl.DataTemplates>
-      </SelectingItemsControl>
-    </ScrollViewer>
+    <views:MessagesView Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Top" />
     <StackPanel Grid.Column="0"
                 Grid.Row="1"
                 Orientation="Horizontal">
