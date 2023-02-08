@@ -9,6 +9,7 @@ To make the app work, you need to set the [OpenAI API key](https://beta.openai.c
 # Shortcuts
 
 - Ctrl+Shift+A - Toggle between transparent and acrylic blur window style.
+- Ctrl+Shift+S - Toggle between visible and hidden window state.
 
 # API
 
