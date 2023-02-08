@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
         xmlns:views="clr-namespace:ChatGPT.UI.Views"
-        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="850"
+        mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="700"
         x:Class="ChatGPT.UI.Views.MainWindow"
         Title="ChatGPT"
         Background="{x:Null}"
@@ -15,8 +15,8 @@
         SystemDecorations="Full"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
-        Width="450"
-        Height="850"
+        Width="360"
+        Height="700"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
@@ -27,9 +27,9 @@
       <ExperimentalAcrylicBorder.Material>
         <ExperimentalAcrylicMaterial BackgroundSource="Digger"
                                      TintColor="Transparent"
-                                     TintOpacity="0.5"
+                                     TintOpacity="0.1"
                                      FallbackColor="Transparent"
-                                     MaterialOpacity="0.5" />
+                                     MaterialOpacity="0.1" />
       </ExperimentalAcrylicBorder.Material>
     </ExperimentalAcrylicBorder>
     <Panel Margin="{Binding #Main.OffScreenMargin}">

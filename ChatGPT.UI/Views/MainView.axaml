@@ -4,18 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
              xmlns:views="clr-namespace:ChatGPT.UI.Views"
-             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="650"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="700"
              x:Class="ChatGPT.UI.Views.MainView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel />
   </Design.DataContext>
-  <Grid Margin="0"
+  <Grid Margin="12"
         RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
         ShowGridLines="False">
     <ScrollViewer Grid.Row="0"
                   Grid.Column="0"
+                  Grid.ColumnSpan="2"
                   VerticalAlignment="Top">
       <SelectingItemsControl Items="{Binding Messages}"
                              SelectedItem="{Binding CurrentMessage}"
@@ -27,7 +28,7 @@
         </SelectingItemsControl.ItemsPanel>
         <SelectingItemsControl.DataTemplates>
           <DataTemplate DataType="vm:MessageViewModel">
-            <views:MessageView />
+            <views:MessageView Margin="6,0,6,0" />
           </DataTemplate>
         </SelectingItemsControl.DataTemplates>
       </SelectingItemsControl>
