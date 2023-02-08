@@ -4,7 +4,6 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using ChatGPT.UI.Model.Services;
-using ChatGPT.UI.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace ChatGPT.UI.Views;
