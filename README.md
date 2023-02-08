@@ -8,8 +8,16 @@ To make the app work, you need to set the [OpenAI API key](https://beta.openai.c
 
 # Shortcuts
 
+### Main Window
+
 - Ctrl+Shift+A - Toggle between transparent and acrylic blur window style.
 - Ctrl+Shift+S - Toggle between visible and hidden window state.
+
+### Message Prompt
+
+- Enter - Send prompt.
+- Escape - Cancel edit.
+- F2 - Edit prompt.
 
 # API
 
