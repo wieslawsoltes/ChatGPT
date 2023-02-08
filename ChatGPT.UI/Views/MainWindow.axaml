@@ -23,7 +23,9 @@
     <vm:MainViewModel />
   </Design.DataContext>
   <Panel>
-    <ExperimentalAcrylicBorder IsHitTestVisible="False">
+    <ExperimentalAcrylicBorder Name="AcrylicBorder"
+                               IsHitTestVisible="False"
+                               IsVisible="True">
       <ExperimentalAcrylicBorder.Material>
         <ExperimentalAcrylicMaterial BackgroundSource="Digger"
                                      TintColor="Transparent"
