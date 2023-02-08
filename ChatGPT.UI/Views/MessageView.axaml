@@ -90,7 +90,7 @@
     <Border Background="{DynamicResource MessageBackgroundBrush}" 
             BorderThickness="1"
             BorderBrush="{DynamicResource MessageBorderBrush}"
-            CornerRadius="4"
+            CornerRadius="8"
             VerticalAlignment="Top"
             Margin="4,4,0,4"
             MinHeight="78">
