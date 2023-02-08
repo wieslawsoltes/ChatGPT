@@ -12,17 +12,14 @@
     <vm:MainViewModel>
       <vm:MainViewModel.Messages>
         <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
-          
           <vm:MessageViewModel IsSent="False" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" Message="This is message" />
           <vm:MessageViewModel IsSent="False" Message="This is message" />
-          
           <vm:MessageViewModel IsSent="False" IsAwaiting="True" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" IsAwaiting="True" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" IsAwaiting="True" Message="This is message" />
           <vm:MessageViewModel IsSent="False" IsAwaiting="True" Message="This is message" />
-
           <vm:MessageViewModel IsSent="False" IsError="True" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" IsError="True" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" IsError="True" Message="This is message" />
