@@ -1,6 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Platform;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.UI.Views;
@@ -14,25 +14,25 @@ public partial class MainWindow : Window
         KeyBindings.Add(new KeyBinding
         {
             Gesture = new KeyGesture(Key.A, KeyModifiers.Control | KeyModifiers.Shift),
-            Command = new RelayCommand(ToggleAcrylicBlur)
+            Command = new RelayCommand(() =>
+            {
+                if (Application.Current is App application)
+                {
+                    application.ToggleAcrylicBlur();
+                }
+            })
         });
-    }
 
-    private void ToggleAcrylicBlur()
-    {
-        if (TransparencyLevelHint == WindowTransparencyLevel.AcrylicBlur)
+        KeyBindings.Add(new KeyBinding
         {
-            SystemDecorations = SystemDecorations.None;
-            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-            TransparencyLevelHint = WindowTransparencyLevel.Transparent;
-            AcrylicBorder.IsVisible = false;
-        }
-        else
-        {
-            SystemDecorations = SystemDecorations.Full;
-            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
-            TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
-            AcrylicBorder.IsVisible = true;
-        }
+            Gesture = new KeyGesture(Key.S, KeyModifiers.Control | KeyModifiers.Shift),
+            Command = new RelayCommand(() =>
+            {
+                if (Application.Current is App application)
+                {
+                    application.ToggleWindowState();
+                }
+            })
+        });
     }
 }
