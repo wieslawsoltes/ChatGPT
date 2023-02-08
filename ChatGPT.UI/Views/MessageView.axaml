@@ -2,10 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:ChatGPT.UI.Views"
              xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="200"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
              x:Class="ChatGPT.UI.Views.MessageView"
-             x:CompileBindings="True" x:DataType="vm:MessageViewModel">
+             x:CompileBindings="True" x:DataType="vm:MessageViewModel"
+             Focusable="True">
   <Design.DataContext>
     <vm:MessageViewModel>
       <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
@@ -19,89 +21,29 @@
       </vm:MessageViewModel.Result>
     </vm:MessageViewModel>
   </Design.DataContext>
+  <UserControl.KeyBindings>
+    <KeyBinding Command="{Binding EditCommand}"
+                CommandParameter="Edit"
+                Gesture="F2"/>
+  </UserControl.KeyBindings>
   <DockPanel Background="Transparent">
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Vertical"
-                Margin="4,4,0,4"
-                Spacing="0"
-                DockPanel.Dock="Right"
-                Background="Transparent">
-      <Button Name="Copy"
-              Command="{Binding CopyCommand}"
-              HorizontalAlignment="Center"
-              Background="#00FFFFFF" 
-              BorderBrush="#00000000"
-              BorderThickness="1"
-              CornerRadius="4"
-              Margin="0,0,0,0" 
-              Padding="4,4,4,4"
-              MinWidth="24">
-        <PathIcon Data="{DynamicResource CopyIcon}"
-                  Width="16" 
-                  Height="16"
-                  Foreground="{DynamicResource MessageActionBrush}"/>
-      </Button>
-      <Button Name="Edit"
-              Command="{Binding EditCommand}"
-              CommandParameter="Edit"
-              HorizontalAlignment="Center"
-              Background="#00FFFFFF" 
-              BorderBrush="#00000000"
-              BorderThickness="1"
-              CornerRadius="4"
-              Margin="0,0,0,0" 
-              Padding="4,4,4,4"
-              MinWidth="24">
-        <Button.IsVisible>
-          <MultiBinding Converter="{x:Static BoolConverters.And}">
-            <Binding Path="IsSent" />
-            <Binding Path="IsAwaiting" Converter="{x:Static BoolConverters.Not}" />
-            <Binding Path="Result" Converter="{x:Static ObjectConverters.IsNotNull}" />
-          </MultiBinding>
-        </Button.IsVisible>
-        <PathIcon Data="{DynamicResource EditIcon}"
-                  Width="16" 
-                  Height="16"
-                  Foreground="{DynamicResource MessageActionBrush}"/>
-      </Button>
-      <Button Name="Remove"
-              Command="{Binding RemoveCommand}"
-              HorizontalAlignment="Center"
-              Background="#00FFFFFF" 
-              BorderBrush="#00000000"
-              BorderThickness="1"
-              CornerRadius="4"
-              Margin="0,0,0,0" 
-              Padding="4,4,4,4"
-              MinWidth="24">
-        <Button.IsVisible>
-          <MultiBinding Converter="{x:Static BoolConverters.And}">
-            <Binding Path="IsAwaiting" Converter="{x:Static BoolConverters.Not}" />
-            <Binding Path="CanRemove" />
-          </MultiBinding>
-        </Button.IsVisible>
-        <PathIcon Data="{DynamicResource DeleteIcon}"
-                  Width="16" 
-                  Height="16"
-                  Foreground="{DynamicResource MessageActionBrush}"/>
-      </Button>
-    </StackPanel>
+    <views:MessageActionsView Margin="4,4,0,4" 
+                              DockPanel.Dock="Right"/>
     <Border Background="{DynamicResource MessageBackgroundBrush}" 
             BorderThickness="1"
             BorderBrush="{DynamicResource MessageBorderBrush}"
             CornerRadius="8"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Margin="4,4,0,4"
             MinHeight="78">
       <Grid RowDefinitions="*,Auto"
-            Margin="0,12,0,12">
+            Margin="0,8,0,12">
         <SelectableTextBlock Grid.Column="0" 
                              Grid.Row="0"
                              Text="{Binding Message}" 
                              HorizontalAlignment="Stretch" 
                              VerticalAlignment="Center"
-                             Margin="16,0,16,4"
+                             Margin="16,4,16,4"
                              Padding="4,12,4,12" 
                              FontSize="{DynamicResource MessageFontSize}"
                              TextWrapping="Wrap"
@@ -114,37 +56,8 @@
             </Style>
           </SelectableTextBlock.Styles>
         </SelectableTextBlock>
-        <Grid Grid.Row="1" 
-              Name="SendGrid"
-              ColumnDefinitions="*, Auto"
-              Margin="8,0,8,8"
-              IsVisible="{Binding !IsSent}">
-          <TextBox Grid.Column="0"
-                   Name="Prompt"
-                   Text="{Binding Prompt}" 
-                   Watermark="Ask me anything"
-                   Background="Transparent"
-                   HorizontalAlignment="Stretch" 
-                   HorizontalContentAlignment="Left"
-                   VerticalAlignment="Stretch" 
-                   VerticalContentAlignment="Center"
-                   Margin="8,0,16,0"
-                   Padding="8" 
-                   FontSize="{DynamicResource PromptFontSize}" />
-          <Button Grid.Column="1"
-                  Name="Send"
-                  Command="{Binding SendCommand}"
-                  Background="{DynamicResource SendBackgroundBrush}" 
-                  BorderBrush="{DynamicResource SendBorderBrush}"
-                  BorderThickness="1"
-                  CornerRadius="4"
-                  Margin="0,0,8,0" 
-                  Padding="8">
-            <PathIcon Data="{DynamicResource SendIcon}"
-                      Width="24" 
-                      Height="24"/>
-          </Button>
-        </Grid>
+        <views:MessagePromptView Grid.Row="1" 
+                                 Margin="8,0,8,0"/>
         <ProgressBar Grid.Row="1" 
                      Margin="16,0,16,16"
                      IsIndeterminate="{Binding IsAwaiting}"
