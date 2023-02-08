@@ -10,6 +10,7 @@ using ChatGPT.UI.Model.Json;
 using ChatGPT.UI.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.UI.ViewModels;
 
@@ -116,6 +117,17 @@ public class MainViewModel : ObservableObject
         SetMessageActions(welcomeItem);
         _messages.Add(welcomeItem);
         _currentMessage = welcomeItem;
+
+        void ChangeThemeAction()
+        {
+            var app = Ioc.Default.GetService<IApplicationService>();
+            if (app is { })
+            {
+                app.ToggleTheme();
+            }
+        }
+
+        ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
     }
 
     [JsonPropertyName("messages")]
@@ -145,6 +157,9 @@ public class MainViewModel : ObservableObject
         get => _isEnabled;
         set => SetProperty(ref _isEnabled, value);
     }
+
+    [JsonIgnore]
+    public IRelayCommand ChangeThemeCommand { get; }
 
     private void SetMessageActions(MessageViewModel message)
     {
