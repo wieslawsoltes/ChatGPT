@@ -73,6 +73,13 @@ public class MessageViewModel : ObservableObject
         set => SetProperty(ref _canRemove, value);
     }
 
+    [JsonIgnore]
+    public bool IsEditing
+    {
+        get => _isEditing;
+        set => SetProperty(ref _isEditing, value);
+    }
+
     [JsonPropertyName("result")]
     public MessageViewModel? Result
     {
@@ -96,7 +103,7 @@ public class MessageViewModel : ObservableObject
     {
         if (_send is { })
         {
-            _isEditing = false;
+            IsEditing = false;
             await _send(this);
         }
     }
@@ -120,23 +127,23 @@ public class MessageViewModel : ObservableObject
 
     private void EditingState()
     {
-        if (!_isEditing && IsSent)
+        if (!IsEditing && IsSent)
         {
             Prompt = Message;
             Message = null;
             IsSent = false;
-            _isEditing = true;
+            IsEditing = true;
         }
     }
 
     private void CanceledState()
     {
-        if (_isEditing)
+        if (IsEditing)
         {
             Message = Prompt;
             Prompt = null;
             IsSent = true;
-            _isEditing = false;
+            IsEditing = false;
         }
     }
 
