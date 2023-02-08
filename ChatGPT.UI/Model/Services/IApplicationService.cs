@@ -10,5 +10,6 @@ public interface IApplicationService
     Task OpenFile(Func<Stream, Task> callback, List<string> fileTypes, string title);
     Task SaveFile(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension);
     void ToggleTheme();
+    Task SetClipboardText(string text);
     void Exit();
 }

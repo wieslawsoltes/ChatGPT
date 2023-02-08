@@ -155,6 +155,21 @@ public class ApplicationService : IApplicationService
         }
     }
 
+    public async Task SetClipboardText(string text)
+    {
+        try
+        {
+            if (Application.Current?.Clipboard is { } clipboard)
+            {
+                await clipboard.SetTextAsync(text);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
     public void Exit()
     {
         if (Application.Current?.ApplicationLifetime is IControlledApplicationLifetime lifetime)
