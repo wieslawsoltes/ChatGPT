@@ -28,9 +28,9 @@
                                IsVisible="True">
       <ExperimentalAcrylicBorder.Material>
         <ExperimentalAcrylicMaterial BackgroundSource="Digger"
-                                     TintColor="Transparent"
+                                     TintColor="White"
                                      TintOpacity="0.1"
-                                     FallbackColor="Transparent"
+                                     FallbackColor="White"
                                      MaterialOpacity="0.1" />
       </ExperimentalAcrylicBorder.Material>
     </ExperimentalAcrylicBorder>
