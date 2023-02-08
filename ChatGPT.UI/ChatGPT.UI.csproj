@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <TrimMode>full</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <AvaloniaVersion>11.0.999-cibuild0029648-beta</AvaloniaVersion>
+    <AvaloniaVersion>11.0.999-cibuild0029731-beta</AvaloniaVersion>
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <XamlNameReferenceGeneratorVersion>1.5.1</XamlNameReferenceGeneratorVersion>
   </PropertyGroup>
