@@ -21,7 +21,7 @@
   </Design.DataContext>
   <DockPanel Background="Transparent">
     <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Orientation="Vertical"
                 Margin="4,4,0,4"
                 Spacing="0"
