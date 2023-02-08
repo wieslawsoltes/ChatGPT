@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <TrimMode>full</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationIcon>Assets\clipart855284.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <AvaloniaVersion>11.0.999-cibuild0029731-beta</AvaloniaVersion>
