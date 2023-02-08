@@ -15,4 +15,19 @@
   <Application.Styles>
     <FluentTheme />
   </Application.Styles>
+  <TrayIcon.Icons>
+    <TrayIcons>
+      <TrayIcon Icon="/Assets/clipart855284.ico" Clicked="TrayIcon_OnClicked" ToolTipText="ChatGPT">
+        <NativeMenu.Menu>
+          <NativeMenu>
+            <NativeMenuItem Header="Toggle Show" Click="ToggleShow_OnClick" />
+            <NativeMenuItemSeparator />
+            <NativeMenuItem Header="Toggle Acrylic" Click="ToggleAcrylic_OnClick" />
+            <NativeMenuItemSeparator />
+            <NativeMenuItem Header="Quit" Click="Quit_OnClick" />
+          </NativeMenu>
+        </NativeMenu.Menu>
+      </TrayIcon>
+    </TrayIcons>
+  </TrayIcon.Icons>
 </Application>
