@@ -313,7 +313,9 @@ public class MainViewModel : ObservableObject
             return;
         }
 
+        Messages[0].Prompt = null;
         Messages[0].IsSent = false;
+        Messages[0].Result = null;
 
         for (var i = Messages.Count - 1; i >= 1; i--)
         {
