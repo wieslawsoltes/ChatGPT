@@ -5,18 +5,14 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ChatGPT.UI.Model;
+using ChatGPT.UI.Model.Json;
+using ChatGPT.UI.Model.Services;
 
 namespace ChatGPT.UI.Services;
 
-public static class ChatService
+public class ChatService : IChatService
 {
-    private static readonly HttpClient s_client;
-
-    static ChatService()
-    {
-        s_client = new HttpClient();
-    }
+    private static readonly HttpClient s_client = new();
 
     private static readonly CompletionsJsonContext s_serializerContext = new(
         new JsonSerializerOptions
@@ -24,23 +20,6 @@ public static class ChatService
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             IgnoreReadOnlyProperties = true
         });
-
-    public static async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
-    {
-        // Set up the API URL and API key
-        var apiUrl = "https://api.openai.com/v1/completions";
-        var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-        if (apiKey is null)
-        {
-            return null;
-        }
-
-        // Get the request body JSON
-        var requestBodyJson = GetRequestBodyJson(prompt, temperature, maxTokens);
-
-        // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
-    }
 
     private static string GetRequestBodyJson(string prompt, decimal temperature, int maxTokens)
     {
@@ -101,5 +80,22 @@ public static class ChatService
 
         // Return the response data
         return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseSuccess);
+    }
+
+    public async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
+    {
+        // Set up the API URL and API key
+        var apiUrl = "https://api.openai.com/v1/completions";
+        var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        if (apiKey is null)
+        {
+            return null;
+        }
+
+        // Get the request body JSON
+        var requestBodyJson = GetRequestBodyJson(prompt, temperature, maxTokens);
+
+        // Send the API request and get the response data
+        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
     }
 }
