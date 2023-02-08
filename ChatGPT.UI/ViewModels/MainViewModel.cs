@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ChatGPT.UI.Model;
-using ChatGPT.UI.Services;
+using ChatGPT.UI.Model.Json;
+using ChatGPT.UI.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace ChatGPT.UI.ViewModels;
 
@@ -41,30 +42,42 @@ public class MainViewModel : ObservableObject
 
         async Task OpenAction()
         {
-            await ApplicationService.OpenFile(
-                OpenCallbackAsync, 
-                new List<string>(new[] { "Json", "All" }), 
-                "Open");
+            var app = Ioc.Default.GetService<IApplicationService>();
+            if (app is { })
+            {
+                await app.OpenFile(
+                    OpenCallbackAsync, 
+                    new List<string>(new[] { "Json", "All" }), 
+                    "Open");
+            }
         }
 
         async Task SaveAction()
         {
-            await ApplicationService.SaveFile(
-                SaveCallbackAsync, 
-                new List<string>(new[] { "Json", "All" }), 
-                "Save", 
-                "messages", 
-                "json");
+            var app = Ioc.Default.GetService<IApplicationService>();
+            if (app is { })
+            {
+                await app.SaveFile(
+                    SaveCallbackAsync, 
+                    new List<string>(new[] { "Json", "All" }), 
+                    "Save", 
+                    "messages", 
+                    "json");
+            }
         }
 
         async Task ExportAction()
         {
-            await ApplicationService.SaveFile(
-                ExportCallbackAsync, 
-                new List<string>(new[] { "Text", "All" }), 
-                "Export", 
-                "messages", 
-                "txt");
+            var app = Ioc.Default.GetService<IApplicationService>();
+            if (app is { })
+            {
+                await app.SaveFile(
+                    ExportCallbackAsync, 
+                    new List<string>(new[] { "Text", "All" }), 
+                    "Export", 
+                    "messages", 
+                    "txt");
+            }
         }
 
         var actions = new ActionsViewModel
@@ -73,7 +86,14 @@ public class MainViewModel : ObservableObject
             Open = OpenAction,
             Save = SaveAction,
             Export = ExportAction,
-            Exit = ApplicationService.Exit
+            Exit = () =>
+            {
+                var app = Ioc.Default.GetService<IApplicationService>();
+                if (app is { })
+                {
+                    app.Exit();
+                }
+            }
         };
 
         _settings = new SettingsViewModel()
@@ -178,7 +198,13 @@ public class MainViewModel : ObservableObject
                 restoreApiKey = true;
             }
 
-            var responseData = await ChatService.GetResponseDataAsync(prompt, temperature, maxTokens);
+            var chat = Ioc.Default.GetService<IChatService>();
+            if (chat is null)
+            {
+                throw new Exception("Chat service not registered.");
+            }
+
+            var responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);
             if (resultMessage is null)
             {
                 resultMessage = new MessageViewModel()

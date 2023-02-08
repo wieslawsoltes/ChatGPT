@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ChatGPT.UI.Model;
+namespace ChatGPT.UI.Model.Json;
 
 public class CompletionsError
 {

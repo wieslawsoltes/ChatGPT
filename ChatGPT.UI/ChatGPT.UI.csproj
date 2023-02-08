@@ -5,8 +5,11 @@
     <Nullable>enable</Nullable>
     <TrimMode>full</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+  </PropertyGroup>
+  <PropertyGroup>
     <AvaloniaVersion>11.0.999-cibuild0029731-beta</AvaloniaVersion>
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
+    <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
     <XamlNameReferenceGeneratorVersion>1.5.1</XamlNameReferenceGeneratorVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -25,6 +28,7 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
-    <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
+    <PackageReference Include="XamlNameReferenceGenerator" Version="$(XamlNameReferenceGeneratorVersion)" />
   </ItemGroup>
 </Project>

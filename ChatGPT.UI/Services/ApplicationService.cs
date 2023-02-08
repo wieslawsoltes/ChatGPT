@@ -9,10 +9,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
+using ChatGPT.UI.Model.Services;
 
 namespace ChatGPT.UI.Services;
 
-public static class ApplicationService
+public class ApplicationService : IApplicationService
 {
     private static FilePickerFileType All { get; } = new("All")
     {
@@ -82,7 +83,7 @@ public static class ApplicationService
         return fileTypeFilters;
     }
 
-    public static async Task OpenFile(Func<Stream, Task> callback, List<string> fileTypes, string title)
+    public async Task OpenFile(Func<Stream, Task> callback, List<string> fileTypes, string title)
     {
         var storageProvider = GetStorageProvider();
         if (storageProvider is null)
@@ -112,7 +113,7 @@ public static class ApplicationService
         }
     }
 
-    public static async Task SaveFile(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension)
+    public async Task SaveFile(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension)
     {
         var storageProvider = GetStorageProvider();
         if (storageProvider is null)
@@ -143,7 +144,7 @@ public static class ApplicationService
         }
     }
 
-    public static void ToggleTheme()
+    public void ToggleTheme()
     {
         if (Application.Current is { })
         {
@@ -154,7 +155,7 @@ public static class ApplicationService
         }
     }
 
-    public static void Exit()
+    public void Exit()
     {
         if (Application.Current?.ApplicationLifetime is IControlledApplicationLifetime lifetime)
         {
