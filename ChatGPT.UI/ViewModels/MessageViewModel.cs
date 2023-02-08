@@ -105,19 +105,29 @@ public class MessageViewModel : ObservableObject
         {
             case "Edit":
             {
-                Prompt = Message;
-                Message = null;
-                IsSent = false;
+                EditingState();
                 break;
             }
             case "Cancel":
             {
-                Message = Prompt;
-                Prompt = null;
-                IsSent = true;
+                CanceledState();
                 break;
             }
         }
+    }
+
+    private void EditingState()
+    {
+        Prompt = Message;
+        Message = null;
+        IsSent = false;
+    }
+
+    private void CanceledState()
+    {
+        Message = Prompt;
+        Prompt = null;
+        IsSent = true;
     }
 
     private void CopyAction()
