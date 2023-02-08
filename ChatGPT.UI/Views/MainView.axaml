@@ -28,7 +28,7 @@
         </SelectingItemsControl.ItemsPanel>
         <SelectingItemsControl.DataTemplates>
           <DataTemplate DataType="vm:MessageViewModel">
-            <views:MessageView Margin="6,0,6,0" />
+            <views:MessageView Margin="2,0,6,0" />
           </DataTemplate>
         </SelectingItemsControl.DataTemplates>
       </SelectingItemsControl>

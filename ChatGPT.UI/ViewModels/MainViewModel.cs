@@ -110,9 +110,10 @@ public class MainViewModel : ObservableObject
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
-            IsSent = false
+            IsSent = false,
+            CanRemove = false
         };
-        welcomeItem.SetSendAction(Send);
+        SetMessageActions(welcomeItem);
         _messages.Add(welcomeItem);
         _currentMessage = welcomeItem;
     }
@@ -145,6 +146,13 @@ public class MainViewModel : ObservableObject
         set => SetProperty(ref _isEnabled, value);
     }
 
+    private void SetMessageActions(MessageViewModel message)
+    {
+        message.SetSendAction(Send);
+        message.SetCopyAction(Copy);
+        message.SetRemoveAction(Remove);
+    }
+
     private async Task Send(MessageViewModel sendMessage)
     {
         if (Messages is null)
@@ -173,8 +181,11 @@ public class MainViewModel : ObservableObject
             }
             else
             {
-                promptMessage = new MessageViewModel();
-                promptMessage.SetSendAction(Send);
+                promptMessage = new MessageViewModel
+                {
+                    CanRemove = true
+                };
+                SetMessageActions(promptMessage);
                 Messages.Add(promptMessage);
             }
 
@@ -209,9 +220,10 @@ public class MainViewModel : ObservableObject
             {
                 resultMessage = new MessageViewModel()
                 {
-                    IsSent = false
+                    IsSent = false,
+                    CanRemove = true
                 };
-                resultMessage.SetSendAction(Send);
+                SetMessageActions(resultMessage);
                 Messages.Add(resultMessage);
             }
             else
@@ -255,6 +267,37 @@ public class MainViewModel : ObservableObject
         }
 
         IsEnabled = true;
+    }
+
+    private async Task Copy(MessageViewModel message)
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            if (message.Message is { } text)
+            {
+                await app.SetClipboardText(text);
+            }
+        }
+    }
+
+    private void Remove(MessageViewModel message)
+    {
+        if (Messages is null)
+        {
+            return;
+        }
+
+        if (message is { CanRemove: true, IsAwaiting: false })
+        {
+            Messages.Remove(message);
+
+            var lastMessage = Messages.LastOrDefault();
+            if (lastMessage is { })
+            {
+                lastMessage.IsSent = false;
+            }
+        }
     }
 
     private void NewCallback()
@@ -306,7 +349,7 @@ public class MainViewModel : ObservableObject
                     continue;
                 }
 
-                message.SetSendAction(Send);
+                SetMessageActions(message);
                 Messages.Add(message);
             }
         }

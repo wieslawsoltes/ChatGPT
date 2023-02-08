@@ -13,14 +13,21 @@ public class MessageViewModel : ObservableObject
     private bool _isSent;
     private bool _isAwaiting;
     private bool _isError;
+    private bool _canRemove;
     private MessageViewModel? _result;
     private Func<MessageViewModel, Task>? _send;
+    private Func<MessageViewModel, Task>? _copy;
+    private Action<MessageViewModel>? _remove;
 
     public MessageViewModel()
     {
         SendCommand = new AsyncRelayCommand(async _ => await SendAction());
 
         EditCommand = new RelayCommand<string>(EditAction);
+
+        CopyCommand = new RelayCommand(CopyAction);
+
+        RemoveCommand = new RelayCommand(RemoveAction);
     }
 
     [JsonPropertyName("Prompt")]
@@ -58,6 +65,13 @@ public class MessageViewModel : ObservableObject
         set => SetProperty(ref _isError, value);
     }
 
+    [JsonPropertyName("canRemove")]
+    public bool CanRemove
+    {
+        get => _canRemove;
+        set => SetProperty(ref _canRemove, value);
+    }
+
     [JsonPropertyName("result")]
     public MessageViewModel? Result
     {
@@ -70,6 +84,12 @@ public class MessageViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand EditCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand CopyCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand RemoveCommand { get; }
 
     private async Task SendAction()
     {
@@ -100,8 +120,28 @@ public class MessageViewModel : ObservableObject
         }
     }
 
+    private void CopyAction()
+    {
+        _copy?.Invoke(this);
+    }
+
+    private void RemoveAction()
+    {
+        _remove?.Invoke(this);
+    }
+
     public void SetSendAction(Func<MessageViewModel, Task>? send)
     {
         _send = send;
+    }
+
+    public void SetCopyAction(Func<MessageViewModel, Task>? copy)
+    {
+        _copy = copy;
+    }
+
+    public void SetRemoveAction(Action<MessageViewModel>? remove)
+    {
+        _remove = remove;
     }
 }
