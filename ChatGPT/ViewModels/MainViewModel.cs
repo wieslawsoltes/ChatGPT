@@ -224,8 +224,31 @@ public class MainViewModel : ObservableObject
 
             CurrentMessage = promptMessage;
             promptMessage.IsAwaiting = true;
-        
+
+            // Response
+
+            var responseStr = default(string);
+            var isResponseStrError = false;
             var responseData = await GetResponseData(prompt, Settings);
+            if (responseData is null)
+            {
+                responseStr = "Unknown error.";
+                isResponseStrError = true;
+            }
+            else if (responseData is CompletionsResponseError error)
+            {
+                var message = error.Error?.Message;
+                responseStr = message ?? "Unknown error.";
+                isResponseStrError = true;
+            }
+            else if (responseData is CompletionsResponseSuccess success)
+            {
+                var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
+                responseStr = message ?? "";
+                isResponseStrError = false;
+            }
+
+            // Update
 
             if (resultMessage is null)
             {
@@ -242,24 +265,8 @@ public class MainViewModel : ObservableObject
                 resultMessage.IsSent = true;
             }
 
-            if (responseData is null)
-            {
-                resultMessage.Message = "Unknown error.";
-                resultMessage.IsError = true;
-            }
-            else if (responseData is CompletionsResponseError error)
-            {
-                var message = error.Error?.Message;
-                resultMessage.Message = message ?? "Unknown error.";
-                resultMessage.IsError = true;
-            }
-            else if (responseData is CompletionsResponseSuccess success)
-            {
-                var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
-                resultMessage.Message = message ?? "";
-                resultMessage.IsError = false;
-            }
-
+            resultMessage.Message = responseStr;
+            resultMessage.IsError = isResponseStrError;
             resultMessage.Prompt = "";
 
             if (Messages.LastOrDefault() == resultMessage)
