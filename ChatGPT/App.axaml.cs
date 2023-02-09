@@ -109,7 +109,7 @@ public partial class App : Application
             Directory.CreateDirectory(appPath);
         }
         var appSettingPath = Path.Combine(appPath, "settings.json");
-        await using var stream = File.OpenWrite(appSettingPath);
+        await using var stream = File.Open(appSettingPath, FileMode.Create);
         await _mainViewModel.SaveSettings(stream);
     }
 
