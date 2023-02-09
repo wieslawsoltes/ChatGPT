@@ -18,6 +18,7 @@ To make the app work, you need to set the [OpenAI API key](https://beta.openai.c
 - Enter - Send prompt.
 - Escape - Cancel edit.
 - F2 - Edit prompt.
+- Alt+Enter - Insert new line.
 
 # API
 
