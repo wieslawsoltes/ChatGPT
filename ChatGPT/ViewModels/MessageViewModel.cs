@@ -122,6 +122,11 @@ public class MessageViewModel : ObservableObject
                 CanceledState();
                 break;
             }
+            case "NewLine":
+            {
+                NewLineState();
+                break;
+            }
         }
     }
 
@@ -144,6 +149,14 @@ public class MessageViewModel : ObservableObject
             Prompt = null;
             IsSent = true;
             IsEditing = false;
+        }
+    }
+
+    private void NewLineState()
+    {
+        if (!IsSent)
+        {
+            Prompt += Environment.NewLine;
         }
     }
 
