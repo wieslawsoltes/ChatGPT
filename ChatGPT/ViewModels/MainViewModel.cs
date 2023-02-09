@@ -250,6 +250,11 @@ public class MainViewModel : ObservableObject
 
             // Update
 
+            if (isResponseStrError)
+            {
+                resultMessage = promptMessage;
+            }
+
             if (resultMessage is null)
             {
                 resultMessage = new MessageViewModel()
@@ -262,12 +267,15 @@ public class MainViewModel : ObservableObject
             }
             else
             {
-                resultMessage.IsSent = true;
+                if (!isResponseStrError)
+                {
+                    resultMessage.IsSent = true;
+                }
             }
 
             resultMessage.Message = responseStr;
             resultMessage.IsError = isResponseStrError;
-            resultMessage.Prompt = "";
+            resultMessage.Prompt = isResponseStrError ? prompt : "";
 
             if (Messages.LastOrDefault() == resultMessage)
             {
@@ -277,7 +285,7 @@ public class MainViewModel : ObservableObject
             CurrentMessage = resultMessage;
 
             promptMessage.IsAwaiting = false;
-            promptMessage.Result = resultMessage;
+            promptMessage.Result = isResponseStrError ? null : resultMessage;
         }
         catch (Exception)
         {
