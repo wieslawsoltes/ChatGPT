@@ -24,7 +24,6 @@
           <vm:MessageViewModel IsSent="True" IsError="True" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" IsError="True" Message="This is message" />
           <vm:MessageViewModel IsSent="False" IsError="True" Message="This is message" />
-
         </objectModel:ObservableCollection>
       </vm:MainViewModel.Messages>
     </vm:MainViewModel>
