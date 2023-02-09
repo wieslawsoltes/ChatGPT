@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -192,6 +194,55 @@ public class MainViewModel : ObservableObject
             return;
         }
 
+        
+        
+        
+        
+        
+        var user = "User";
+
+        var sb = new StringBuilder();
+
+        sb.Append("You are ChatGPT, a large language model trained by OpenAI. Respond conversationally. Do not answer as the user. Current date: ");
+        sb.Append(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        
+        if (!string.IsNullOrWhiteSpace(Settings.Directions))
+        {
+            sb.Append("\n");
+            sb.Append(Settings.Directions);
+        }
+        
+        sb.Append("\n\n");
+        sb.Append(user);
+        sb.Append(": Hello\n");
+        sb.Append("ChatGPT: Hello! How can I help you today? <|im_end|>\n\n\n");
+
+        foreach (var message in Messages)
+        {
+            if (!string.IsNullOrEmpty(message.Message) && message.Result is { })
+            {
+                sb.Append(user);
+                sb.Append(": ");
+                sb.Append(message.Message);
+                sb.Append("\n\n\n");
+                sb.Append("ChatGPT: ");
+                sb.Append(message.Result.Message);
+                sb.Append("<|im_end|>\n");
+            }
+        }
+
+        sb.Append(user);
+        sb.Append(": ");
+        sb.Append(sendMessage.Prompt);
+        sb.Append("\nChatGPT: ");
+
+        var chatPrompt = sb.ToString();
+        Console.WriteLine(sb.ToString());
+
+        
+        
+        
+        
         IsEnabled = false;
 
         try
@@ -229,7 +280,8 @@ public class MainViewModel : ObservableObject
 
             var responseStr = default(string);
             var isResponseStrError = false;
-            var responseData = await GetResponseData(prompt, Settings);
+            //var responseData = await GetResponseData(prompt, Settings);
+            var responseData = await GetResponseData(chatPrompt, Settings);
             if (responseData is null)
             {
                 responseStr = "Unknown error.";
@@ -245,6 +297,9 @@ public class MainViewModel : ObservableObject
             {
                 var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
                 responseStr = message ?? "";
+
+responseStr = responseStr.TrimEnd("<|im_end|>".ToCharArray());
+                
                 isResponseStrError = false;
             }
 
