@@ -16,6 +16,14 @@ namespace ChatGPT.ViewModels;
 
 public class MainViewModel : ObservableObject
 {
+    private const string EnvironmentVariableApiKey = "OPENAI_API_KEY";
+
+    private const decimal DefaultTemperature = 0.7m;
+
+    private const int DefaultMaxTokens = 256;
+
+    private const string DefaultDirections = "Write answers in Markdown blocks";
+
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
         {
@@ -54,9 +62,9 @@ public class MainViewModel : ObservableObject
 
         _settings = new SettingsViewModel()
         {
-            Temperature = 0.7m,
-            MaxTokens = 256,
-            Directions = "Write answers in Markdown blocks",
+            Temperature = DefaultTemperature,
+            MaxTokens = DefaultMaxTokens,
+            Directions = DefaultDirections,
             ApiKey = null
         };
         _settings.SetActions(_actions);
@@ -174,7 +182,7 @@ public class MainViewModel : ObservableObject
 
     private async Task Send(MessageViewModel sendMessage)
     {
-        if (Messages is null)
+        if (Messages is null || Settings is null)
         {
             return;
         }
@@ -216,39 +224,9 @@ public class MainViewModel : ObservableObject
 
             CurrentMessage = promptMessage;
             promptMessage.IsAwaiting = true;
+        
+            var responseData = await GetResponseData(prompt, Settings);
 
-            var temperature = Settings?.Temperature ?? 0.6m;
-            var maxTokens = Settings?.MaxTokens ?? 100;
-            var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-            var restoreApiKey = false;
-
-            if (!string.IsNullOrWhiteSpace(Settings?.ApiKey))
-            {
-                Environment.SetEnvironmentVariable("OPENAI_API_KEY", Settings.ApiKey);
-                restoreApiKey = true;
-            }
-
-            var chat = Ioc.Default.GetService<IChatService>();
-            if (chat is null)
-            {
-                throw new Exception("Chat service not registered.");
-            }
-
-            if (!string.IsNullOrWhiteSpace(Settings?.Directions))
-            {
-                prompt = $"{Settings.Directions}\n\n{prompt}";
-            }
-
-            CompletionsResponse? responseData = null;
-            try
-            {
-                responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-    
             if (resultMessage is null)
             {
                 resultMessage = new MessageViewModel()
@@ -293,11 +271,6 @@ public class MainViewModel : ObservableObject
 
             promptMessage.IsAwaiting = false;
             promptMessage.Result = resultMessage;
-
-            if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
-            {
-                Environment.SetEnvironmentVariable("OPENAI_API_KEY", apiKey);
-            }
         }
         catch (Exception)
         {
@@ -305,6 +278,48 @@ public class MainViewModel : ObservableObject
         }
 
         IsEnabled = true;
+    }
+
+    private static async Task<CompletionsResponse?> GetResponseData(string prompt, SettingsViewModel settings)
+    {
+        var chat = Ioc.Default.GetService<IChatService>();
+        if (chat is null)
+        {
+            return null;
+        }
+
+        var temperature = settings.Temperature;
+        var maxTokens = settings.MaxTokens;
+        var apiKey = Environment.GetEnvironmentVariable(EnvironmentVariableApiKey);
+        var restoreApiKey = false;
+
+        if (!string.IsNullOrWhiteSpace(settings.ApiKey))
+        {
+            Environment.SetEnvironmentVariable(EnvironmentVariableApiKey, settings.ApiKey);
+            restoreApiKey = true;
+        }
+
+        if (!string.IsNullOrWhiteSpace(settings.Directions))
+        {
+            prompt = $"{settings.Directions}\n\n{prompt}";
+        }
+
+        CompletionsResponse? responseData = null;
+        try
+        {
+            responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
+
+        if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
+        {
+            Environment.SetEnvironmentVariable(EnvironmentVariableApiKey, apiKey);
+        }
+
+        return responseData;
     }
 
     private async Task Copy(MessageViewModel message)
