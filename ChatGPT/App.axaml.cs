@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -15,8 +17,12 @@ namespace ChatGPT;
 
 public partial class App : Application
 {
+    private readonly MainViewModel _mainViewModel;
+
     public App()
     {
+        _mainViewModel = new MainViewModel();
+
         ConfigureServices();
     }
 
@@ -25,20 +31,31 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = _mainViewModel
             };
+
+            try
+            {
+                await LoadSettings();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            desktop.Exit += DesktopOnExit;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
             single.MainView = new MainView
             {
-                DataContext = new MainViewModel()
+                DataContext = _mainViewModel
             };
         }
 
@@ -58,6 +75,42 @@ public partial class App : Application
                 .AddTransient<MessageViewModel>()
                 .AddTransient<MainViewModel>()
                 .BuildServiceProvider());
+    }
+
+    private async void DesktopOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+    {
+        try
+        {
+            await SaveSettings();
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+        }
+    }
+
+    private async Task LoadSettings()
+    {
+        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var appSettingPath = Path.Combine(appDataPath, "ChatGPT", "settings.json");
+        if (File.Exists(appSettingPath))
+        {
+            await using var stream = File.OpenRead(appSettingPath);
+            await _mainViewModel.LoadSettings(stream);
+        }
+    }
+
+    private async Task SaveSettings()
+    {
+        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var appPath = Path.Combine(appDataPath, "ChatGPT");
+        if (!Directory.Exists(appPath))
+        {
+            Directory.CreateDirectory(appPath);
+        }
+        var appSettingPath = Path.Combine(appPath, "settings.json");
+        await using var stream = File.OpenWrite(appSettingPath);
+        await _mainViewModel.SaveSettings(stream);
     }
 
     public void ToggleAcrylicBlur()

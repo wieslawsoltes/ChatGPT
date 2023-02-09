@@ -32,56 +32,11 @@ public class MainViewModel : ObservableObject
     private MessageViewModel? _currentMessage;
     private SettingsViewModel? _settings;
     private bool _isEnabled;
+    private readonly ActionsViewModel _actions;
 
     public MainViewModel()
     {
-        async Task NewAction()
-        {
-            NewCallback();
-            await Task.Yield();
-        }
-
-        async Task OpenAction()
-        {
-            var app = Ioc.Default.GetService<IApplicationService>();
-            if (app is { })
-            {
-                await app.OpenFile(
-                    OpenCallbackAsync, 
-                    new List<string>(new[] { "Json", "All" }), 
-                    "Open");
-            }
-        }
-
-        async Task SaveAction()
-        {
-            var app = Ioc.Default.GetService<IApplicationService>();
-            if (app is { })
-            {
-                await app.SaveFile(
-                    SaveCallbackAsync, 
-                    new List<string>(new[] { "Json", "All" }), 
-                    "Save", 
-                    "messages", 
-                    "json");
-            }
-        }
-
-        async Task ExportAction()
-        {
-            var app = Ioc.Default.GetService<IApplicationService>();
-            if (app is { })
-            {
-                await app.SaveFile(
-                    ExportCallbackAsync, 
-                    new List<string>(new[] { "Text", "All" }), 
-                    "Export", 
-                    "messages", 
-                    "txt");
-            }
-        }
-
-        var actions = new ActionsViewModel
+        _actions = new ActionsViewModel
         {
             New = NewAction,
             Open = OpenAction,
@@ -102,12 +57,11 @@ public class MainViewModel : ObservableObject
             Temperature = 0.7m,
             MaxTokens = 256
         };
-        _settings.SetActions(actions);
+        _settings.SetActions(_actions);
 
         _messages = new ObservableCollection<MessageViewModel>();
-        _isEnabled = true;
 
-        var welcomeItem = new MessageViewModel()
+        var welcomeItem = new MessageViewModel
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
@@ -118,14 +72,7 @@ public class MainViewModel : ObservableObject
         _messages.Add(welcomeItem);
         _currentMessage = welcomeItem;
 
-        void ChangeThemeAction()
-        {
-            var app = Ioc.Default.GetService<IApplicationService>();
-            if (app is { })
-            {
-                app.ToggleTheme();
-            }
-        }
+        _isEnabled = true;
 
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
     }
@@ -160,6 +107,61 @@ public class MainViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
+
+    private async Task NewAction()
+    {
+        NewCallback();
+        await Task.Yield();
+    }
+
+    private async Task OpenAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            await app.OpenFile(
+                OpenCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Open");
+        }
+    }
+
+    private async Task SaveAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            await app.SaveFile(
+                SaveCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Save", 
+                "messages", 
+                "json");
+        }
+    }
+
+    private async Task ExportAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            await app.SaveFile(
+                ExportCallbackAsync, 
+                new List<string>(new[] { "Text", "All" }), 
+                "Export", 
+                "messages", 
+                "txt");
+        }
+    }
+
+    private void ChangeThemeAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            app.ToggleTheme();
+        }
+    }
 
     private void SetMessageActions(MessageViewModel message)
     {
@@ -417,5 +419,29 @@ public class MainViewModel : ObservableObject
                 }
             }
         }
+    }
+
+    public async Task LoadSettings(Stream stream)
+    {
+        var settings = await JsonSerializer.DeserializeAsync(
+            stream, 
+            s_serializerContext.SettingsViewModel);
+        if (settings is { })
+        {
+            settings.SetActions(_actions);
+            Settings = settings;
+        }
+    }
+
+    public async Task SaveSettings(Stream stream)
+    {
+        if (Settings is null)
+        {
+            return;
+        }
+
+        await JsonSerializer.SerializeAsync(
+            stream, 
+            Settings, s_serializerContext.SettingsViewModel);
     }
 }
