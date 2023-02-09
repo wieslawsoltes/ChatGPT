@@ -22,7 +22,7 @@ public class MainViewModel : ObservableObject
 
     private const int DefaultMaxTokens = 256;
 
-    private const string DefaultDirections = "Write answers in Markdown blocks";
+    private const string DefaultDirections = "Write answers in Markdown blocks.";
 
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
