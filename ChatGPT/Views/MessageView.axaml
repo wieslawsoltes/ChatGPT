@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:ChatGPT.Views"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels"
+             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
+             xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
              x:Class="ChatGPT.Views.MessageView"
              x:CompileBindings="True" x:DataType="vm:MessageViewModel"
@@ -38,6 +40,8 @@
             MinHeight="78">
       <Grid RowDefinitions="*,Auto"
             Margin="0,8,0,12">
+        <!-- TODO: Make message text control configurable. -->
+        <!--
         <SelectableTextBlock Grid.Column="0" 
                              Grid.Row="0"
                              Text="{Binding Message}" 
@@ -56,6 +60,23 @@
             </Style>
           </SelectableTextBlock.Styles>
         </SelectableTextBlock>
+        --> 
+        <md:MarkdownScrollViewer Grid.Column="0" 
+                                 Grid.Row="0"
+                                 Markdown="{Binding Message}" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Center"
+                                 Margin="16,4,16,4"
+                                 TextElement.FontSize="{DynamicResource MessageFontSize}"
+                                 IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 Classes.error="{Binding IsError}">
+          <md:MarkdownScrollViewer.Styles>
+            <Style Selector="md|MarkdownScrollViewer.error ctxt|CTextBlock">
+              <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
+            </Style>
+          </md:MarkdownScrollViewer.Styles>
+        </md:MarkdownScrollViewer>
         <views:MessagePromptView Grid.Row="1" 
                                  Margin="8,0,8,0"/>
         <ProgressBar Grid.Row="1" 

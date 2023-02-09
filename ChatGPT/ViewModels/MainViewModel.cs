@@ -55,7 +55,9 @@ public class MainViewModel : ObservableObject
         _settings = new SettingsViewModel()
         {
             Temperature = 0.7m,
-            MaxTokens = 256
+            MaxTokens = 256,
+            Directions = "Write answers in Markdown blocks",
+            ApiKey = null
         };
         _settings.SetActions(_actions);
 
