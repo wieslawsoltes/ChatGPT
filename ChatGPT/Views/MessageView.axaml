@@ -40,6 +40,7 @@
             MinHeight="78">
       <Grid RowDefinitions="*,Auto"
             Margin="0,8,0,12">
+        <!-- TODO: Make message text control configurable. -->
         <!--
         <SelectableTextBlock Grid.Column="0" 
                              Grid.Row="0"
@@ -71,9 +72,6 @@
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                  Classes.error="{Binding IsError}">
           <md:MarkdownScrollViewer.Styles>
-            <!--<Style Selector="md|MarkdownScrollViewer ctxt|CTextBlock">
-              <Setter Property="Padding" Value="4,12,4,12" />
-            </Style>-->
             <Style Selector="md|MarkdownScrollViewer.error ctxt|CTextBlock">
               <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
             </Style>
