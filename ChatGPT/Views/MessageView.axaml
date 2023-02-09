@@ -27,6 +27,9 @@
     <KeyBinding Command="{Binding EditCommand}"
                 CommandParameter="Edit"
                 Gesture="F2"/>
+    <KeyBinding Command="{Binding EditCommand}"
+                CommandParameter="NewLine"
+                Gesture="Alt+Enter"/>
   </UserControl.KeyBindings>
   <DockPanel Background="Transparent">
     <views:MessageActionsView Margin="4,4,0,4" 
