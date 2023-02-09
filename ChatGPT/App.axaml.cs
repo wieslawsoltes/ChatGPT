@@ -17,6 +17,10 @@ namespace ChatGPT;
 
 public partial class App : Application
 {
+    private const string SettingsFolderName = "ChatGPT";
+
+    private const string SettingsFileName = "settings.json";
+
     private readonly MainViewModel _mainViewModel;
 
     public App()
@@ -92,7 +96,7 @@ public partial class App : Application
     private async Task LoadSettings()
     {
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var appSettingPath = Path.Combine(appDataPath, "ChatGPT", "settings.json");
+        var appSettingPath = Path.Combine(appDataPath, SettingsFolderName, SettingsFileName);
         if (File.Exists(appSettingPath))
         {
             await using var stream = File.OpenRead(appSettingPath);
@@ -103,12 +107,12 @@ public partial class App : Application
     private async Task SaveSettings()
     {
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var appPath = Path.Combine(appDataPath, "ChatGPT");
+        var appPath = Path.Combine(appDataPath, SettingsFolderName);
         if (!Directory.Exists(appPath))
         {
             Directory.CreateDirectory(appPath);
         }
-        var appSettingPath = Path.Combine(appPath, "settings.json");
+        var appSettingPath = Path.Combine(appPath, SettingsFileName);
         await using var stream = File.Open(appSettingPath, FileMode.Create);
         await _mainViewModel.SaveSettings(stream);
     }
