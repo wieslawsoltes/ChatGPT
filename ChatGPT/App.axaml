@@ -1,0 +1,33 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ChatGPT.App"
+             Name="ChatGPT"
+             RequestedThemeVariant="Light">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="/Themes/Themes.axaml" />
+        <MergeResourceInclude Source="/Themes/Icons.axaml" />
+        <MergeResourceInclude Source="/Themes/Controls.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+  </Application.Styles>
+  <TrayIcon.Icons>
+    <TrayIcons>
+      <TrayIcon Icon="/Assets/clipart855284.ico" Clicked="TrayIcon_OnClicked" ToolTipText="ChatGPT">
+        <NativeMenu.Menu>
+          <NativeMenu>
+            <NativeMenuItem Header="Toggle Show" Click="ToggleShow_OnClick" />
+            <NativeMenuItemSeparator />
+            <NativeMenuItem Header="Toggle Acrylic" Click="ToggleAcrylic_OnClick" />
+            <NativeMenuItemSeparator />
+            <NativeMenuItem Header="Quit" Click="Quit_OnClick" />
+          </NativeMenu>
+        </NativeMenu.Menu>
+      </TrayIcon>
+    </TrayIcons>
+  </TrayIcon.Icons>
+</Application>

@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="78"
+             x:Class="ChatGPT.Views.MessagePromptView"
+             x:CompileBindings="True" x:DataType="vm:MessageViewModel">
+  <Design.DataContext>
+    <vm:MessageViewModel>
+      <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+      <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+      <vm:MessageViewModel.IsSent>False</vm:MessageViewModel.IsSent>
+      <vm:MessageViewModel.IsAwaiting>False</vm:MessageViewModel.IsAwaiting>
+      <vm:MessageViewModel.IsError>False</vm:MessageViewModel.IsError>
+      <vm:MessageViewModel.CanRemove>True</vm:MessageViewModel.CanRemove>
+      <vm:MessageViewModel.Result>
+        <vm:MessageViewModel />
+      </vm:MessageViewModel.Result>
+    </vm:MessageViewModel>
+  </Design.DataContext>
+  <Grid Name="SendGrid"
+        Tag="{Binding EditCommand}"
+        ColumnDefinitions="*, Auto"
+        IsVisible="{Binding !IsSent}">
+    <TextBox Grid.Column="0"
+             Name="Prompt"
+             Text="{Binding Prompt}" 
+             Watermark="Ask me anything"
+             Background="Transparent"
+             HorizontalAlignment="Stretch" 
+             HorizontalContentAlignment="Left"
+             VerticalAlignment="Stretch" 
+             VerticalContentAlignment="Center"
+             Margin="8,0,16,0"
+             Padding="8" 
+             FontSize="{DynamicResource PromptFontSize}">
+      <TextBox.KeyBindings>
+        <KeyBinding Command="{Binding SendCommand}"
+                    Gesture="Enter"/>
+        <KeyBinding Command="{Binding EditCommand}"
+                    CommandParameter="Cancel"
+                    Gesture="Escape"/>
+      </TextBox.KeyBindings>
+    </TextBox>
+    <Button Grid.Column="1"
+            Name="Send"
+            Command="{Binding SendCommand}"
+            Background="{DynamicResource SendBackgroundBrush}" 
+            BorderBrush="{DynamicResource SendBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,8,0" 
+            Padding="8">
+      <PathIcon Data="{DynamicResource SendIcon}"
+                Width="24" 
+                Height="24"/>
+    </Button>
+  </Grid>
+</UserControl>

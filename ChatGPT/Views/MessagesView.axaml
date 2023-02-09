@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels"
+             xmlns:views="clr-namespace:ChatGPT.Views"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             x:Class="ChatGPT.Views.MessagesView"
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+    <Design.DataContext>
+    <vm:MainViewModel>
+      <vm:MainViewModel.Messages>
+        <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
+          <vm:MessageViewModel IsSent="False" Prompt="This is prompt"/>
+          <vm:MessageViewModel IsSent="True" Prompt="This is prompt"/>
+          <vm:MessageViewModel IsSent="True" Message="This is message" />
+          <vm:MessageViewModel IsSent="False" Message="This is message" />
+          <vm:MessageViewModel IsSent="False" IsAwaiting="True" Prompt="This is prompt"/>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="True" Prompt="This is prompt"/>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="True" Message="This is message" />
+          <vm:MessageViewModel IsSent="False" IsAwaiting="True" Message="This is message" />
+          <vm:MessageViewModel IsSent="False" IsError="True" Prompt="This is prompt"/>
+          <vm:MessageViewModel IsSent="True" IsError="True" Prompt="This is prompt"/>
+          <vm:MessageViewModel IsSent="True" IsError="True" Message="This is message" />
+          <vm:MessageViewModel IsSent="False" IsError="True" Message="This is message" />
+
+        </objectModel:ObservableCollection>
+      </vm:MainViewModel.Messages>
+    </vm:MainViewModel>
+  </Design.DataContext>
+  <ScrollViewer>
+    <SelectingItemsControl Items="{Binding Messages}"
+                           SelectedItem="{Binding CurrentMessage}"
+                           AutoScrollToSelectedItem="True">
+      <SelectingItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel />
+        </ItemsPanelTemplate>
+      </SelectingItemsControl.ItemsPanel>
+      <SelectingItemsControl.DataTemplates>
+        <DataTemplate DataType="vm:MessageViewModel">
+          <views:MessageView Margin="2,0,6,0" />
+        </DataTemplate>
+      </SelectingItemsControl.DataTemplates>
+    </SelectingItemsControl>
+  </ScrollViewer>
+</UserControl>
+

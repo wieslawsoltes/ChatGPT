@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="ChatGPT.Views.SettingsActionsView"
+             x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+  <Design.DataContext>
+    <vm:SettingsViewModel>
+    </vm:SettingsViewModel>
+  </Design.DataContext>
+  <DockPanel HorizontalAlignment="Stretch"
+             LastChildFill="False">
+    <Button Command="{Binding ExitCommand}"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Right">
+      <PathIcon Data="{DynamicResource PowerIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource PowerIconBrush}"
+                Opacity="0.6"/>
+    </Button>
+    <Button Command="{Binding NewCommand}"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource DocumentIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource ActionIconBrush}"/>
+    </Button>
+    <Button Command="{Binding OpenCommand}"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource OpenIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource ActionIconBrush}"/>
+    </Button>
+    <Button Command="{Binding SaveCommand}"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource SaveIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource ActionIconBrush}"/>
+    </Button>
+    <Button Command="{Binding ExportCommand}"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource ArrowDownloadIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource ActionIconBrush}"/>
+    </Button>
+  </DockPanel>
+</UserControl>

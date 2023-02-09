@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels"
+             xmlns:views="clr-namespace:ChatGPT.Views"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             x:Class="ChatGPT.Views.MainView"
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <vm:MainViewModel>
+      <vm:MainViewModel.Messages>
+        <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
+          <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
+            <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
+            <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
+            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+            <vm:MessageViewModel.Result>
+              <vm:MessageViewModel />
+            </vm:MessageViewModel.Result>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+            <vm:MessageViewModel.Result>
+              <x:Null />
+            </vm:MessageViewModel.Result>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
+            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+            <vm:MessageViewModel.Result>
+              <x:Null />
+            </vm:MessageViewModel.Result>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+            <vm:MessageViewModel.Result>
+              <vm:MessageViewModel />
+            </vm:MessageViewModel.Result>
+          </vm:MessageViewModel>
+          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+            <vm:MessageViewModel.Result>
+              <x:Null />
+            </vm:MessageViewModel.Result>
+          </vm:MessageViewModel>
+        </objectModel:ObservableCollection>
+      </vm:MainViewModel.Messages>
+    </vm:MainViewModel>
+  </Design.DataContext>
+  <Grid Margin="12"
+        RowDefinitions="*,Auto"
+        ColumnDefinitions="*,Auto"
+        ShowGridLines="False">
+    <views:MessagesView Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Top" />
+    <views:MainToolbarView Grid.Column="0"
+                           Grid.Row="1" />
+    <Image Grid.Column="1"
+           Grid.Row="1"
+           Name="ClippyImage"
+           Height="100"
+           Margin="-32,2,0,0"
+           Source="/Assets/clipart855284.png"/>
+  </Grid>
+</UserControl>

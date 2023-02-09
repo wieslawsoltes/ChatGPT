@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.UI", "ChatGPT.UI\ChatGPT.UI.csproj", "{F889FC8A-C21C-49CD-813C-A801F0B45ABE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT", "ChatGPT\ChatGPT.csproj", "{F889FC8A-C21C-49CD-813C-A801F0B45ABE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{62EB4E5F-59EB-4D59-83A0-2A8B5B2397ED}"
 	ProjectSection(SolutionItems) = preProject
