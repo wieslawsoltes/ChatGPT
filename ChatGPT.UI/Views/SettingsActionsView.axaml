@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.UI.ViewModels"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
-             x:Class="ChatGPT.UI.Views.ActionsView"
+             x:Class="ChatGPT.UI.Views.SettingsActionsView"
              x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
   <Design.DataContext>
     <vm:SettingsViewModel>

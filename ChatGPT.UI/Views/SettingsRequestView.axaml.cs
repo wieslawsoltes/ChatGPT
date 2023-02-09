@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace ChatGPT.UI.Views;
 
-public partial class ActionsView : UserControl
+public partial class SettingsRequestView : UserControl
 {
-    public ActionsView()
+    public SettingsRequestView()
     {
         InitializeComponent();
     }

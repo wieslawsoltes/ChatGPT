@@ -19,7 +19,7 @@
               Orientation="Vertical" 
               VerticalAlignment="Top"
               Width="250">
-    <views:RequestSettingsView />
-    <views:ActionsView />
+    <views:SettingsRequestView />
+    <views:SettingsActionsView />
   </StackPanel>
 </UserControl>
