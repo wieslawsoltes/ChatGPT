@@ -239,7 +239,16 @@ public class MainViewModel : ObservableObject
                 prompt = $"{Settings.Directions}\n\n{prompt}";
             }
 
-            var responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);
+            CompletionsResponse? responseData = null;
+            try
+            {
+                responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+    
             if (resultMessage is null)
             {
                 resultMessage = new MessageViewModel()
@@ -255,7 +264,12 @@ public class MainViewModel : ObservableObject
                 resultMessage.IsSent = true;
             }
 
-            if (responseData is CompletionsResponseError error)
+            if (responseData is null)
+            {
+                resultMessage.Message = "Unknown error.";
+                resultMessage.IsError = true;
+            }
+            else if (responseData is CompletionsResponseError error)
             {
                 var message = error.Error?.Message;
                 resultMessage.Message = message ?? "Unknown error.";
