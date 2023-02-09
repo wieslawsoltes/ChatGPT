@@ -12,6 +12,7 @@
   </Design.DataContext>
   <StackPanel Orientation="Horizontal">
     <Button Name="SettingsButton"
+            ToolTip.Tip="Settings"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
             BorderThickness="2"
@@ -32,6 +33,7 @@
     </Button>
     <Button Name="ThemeButton"
             Command="{Binding ChangeThemeCommand}"
+            ToolTip.Tip="Change theme"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
             BorderThickness="2"

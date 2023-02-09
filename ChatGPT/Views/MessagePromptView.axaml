@@ -46,6 +46,7 @@
     <Button Grid.Column="1"
             Name="Send"
             Command="{Binding SendCommand}"
+            ToolTip.Tip="Send"
             Background="{DynamicResource SendBackgroundBrush}" 
             BorderBrush="{DynamicResource SendBorderBrush}"
             BorderThickness="1"

@@ -13,6 +13,7 @@
   <DockPanel HorizontalAlignment="Stretch"
              LastChildFill="False">
     <Button Command="{Binding ExitCommand}"
+            ToolTip.Tip="Exit"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"
@@ -27,6 +28,7 @@
                 Opacity="0.6"/>
     </Button>
     <Button Command="{Binding NewCommand}"
+            ToolTip.Tip="New"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"
@@ -40,6 +42,7 @@
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
     <Button Command="{Binding OpenCommand}"
+            ToolTip.Tip="Open"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"
@@ -53,6 +56,7 @@
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
     <Button Command="{Binding SaveCommand}"
+            ToolTip.Tip="Save"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"
@@ -66,6 +70,7 @@
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
     <Button Command="{Binding ExportCommand}"
+            ToolTip.Tip="Export"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"

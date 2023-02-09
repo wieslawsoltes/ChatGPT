@@ -27,6 +27,7 @@
     <!-- Copy -->
     <Button Name="Copy"
             Command="{Binding CopyCommand}"
+            ToolTip.Tip="Copy"
             HorizontalAlignment="Center"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
@@ -44,6 +45,7 @@
     <Button Name="Edit"
             Command="{Binding EditCommand}"
             CommandParameter="Edit"
+            ToolTip.Tip="Edit"
             HorizontalAlignment="Center"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
@@ -68,6 +70,7 @@
     <Button Name="Remove"
             Command="{Binding RemoveCommand}"
             HorizontalAlignment="Center"
+            ToolTip.Tip="Remove"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"
