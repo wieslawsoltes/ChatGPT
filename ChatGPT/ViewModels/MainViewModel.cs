@@ -208,7 +208,7 @@ public class MainViewModel : ObservableObject
 
             var prompt = sendMessage.Prompt;
 
-            promptMessage.Message = sendMessage.Prompt;
+            promptMessage.Message = prompt;
             promptMessage.Prompt = "";
             promptMessage.IsSent = true;
 
@@ -230,6 +230,11 @@ public class MainViewModel : ObservableObject
             if (chat is null)
             {
                 throw new Exception("Chat service not registered.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(Settings?.Directions))
+            {
+                prompt = $"{Settings.Directions}\n\n{prompt}";
             }
 
             var responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);

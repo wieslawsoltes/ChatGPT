@@ -35,6 +35,17 @@
                FontSize="{DynamicResource SettingContentFontSize}"/>
     </StackPanel>
     <StackPanel Orientation="Vertical">
+      <TextBlock Text="Directions:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <TextBox Text="{Binding Directions}" 
+               Watermark="Initial message directions"
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}" />
+    </StackPanel>
+    <StackPanel Orientation="Vertical">
       <TextBlock Text="ApiKey:" 
                  Margin="4" 
                  Padding="0,4,0,4" 
