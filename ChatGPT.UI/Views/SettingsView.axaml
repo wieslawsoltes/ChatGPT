@@ -39,7 +39,7 @@
       <TabItem Header="Chat">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
-                      MaxHeight="350">
+                      MinHeight="350">
           <views:ChatSettingsView DataContext="{Binding ChatSettings}" />
         </ScrollViewer>
       </TabItem>
