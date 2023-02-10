@@ -102,6 +102,7 @@ public class MainViewModel : ObservableObject
         {
             Temperature = Constants.DefaultTemperature,
             MaxTokens = Constants.DefaultMaxTokens,
+            Model = "text-davinci-003",
             ApiKey = null,
             Directions = Constants.DefaultDirections,
             EnableChat = true,
@@ -262,7 +263,7 @@ public class MainViewModel : ObservableObject
 
             var chatServiceSettings = new ChatServiceSettings
             {
-                Model = "text-davinci-003",
+                Model = Settings.Model,
                 Prompt = Settings.EnableChat ? chatPrompt : prompt,
                 Suffix = null,
                 Temperature = Settings.Temperature,
