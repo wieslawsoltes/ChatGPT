@@ -17,99 +17,108 @@
       <vm:ChatSettingsViewModel.StopTag>StopTag</vm:ChatSettingsViewModel.StopTag>
     </vm:ChatSettingsViewModel>
   </Design.DataContext>
-  <StackPanel Orientation="Vertical">
-    <!-- UserName -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="User name:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding UserName}" 
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"/>
-    </StackPanel>
-    <!-- ChatName -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Chat name:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding ChatName}" 
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"/>
-    </StackPanel>
-    <!-- InstructionsTemplate -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Instructions template:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding InstructionsTemplate}" 
-               Watermark="Initial message directions"
-               TextWrapping="Wrap"
-               AcceptsReturn="True"
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}" />
-    </StackPanel>
-    <!-- MessageTemplate -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Message template:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding MessageTemplate}" 
-               Watermark="Initial message directions"
-               TextWrapping="Wrap"
-               AcceptsReturn="True"
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}" />
-    </StackPanel>
-    <!-- PromptTemplate -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Prompt template:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding PromptTemplate}" 
-               Watermark="Initial message directions"
-               TextWrapping="Wrap"
-               AcceptsReturn="True"
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}" />
-    </StackPanel>
-    <!-- Stop -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Stop:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding Stop}" 
-               Watermark="Initial message directions"
-               TextWrapping="Wrap"
-               AcceptsReturn="True"
-               AcceptsTab="True"
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}" />
-    </StackPanel>
-    <!-- StopTag -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Stop tag:" 
-                 Margin="4" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding StopTag}" 
-               Watermark="Initial message directions"
-               TextWrapping="Wrap"
-               AcceptsReturn="True"
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}" />
-    </StackPanel>
-  </StackPanel>
+  
+  <TabControl TabStripPlacement="Top">
+    <TabItem Header="Templates">
+      <StackPanel Orientation="Vertical">
+        <!-- InstructionsTemplate -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Instructions template:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding InstructionsTemplate}" 
+                   Watermark="Initial message directions"
+                   TextWrapping="Wrap"
+                   AcceptsReturn="True"
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}" />
+        </StackPanel>
+        <!-- MessageTemplate -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Message template:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding MessageTemplate}" 
+                   Watermark="Initial message directions"
+                   TextWrapping="Wrap"
+                   AcceptsReturn="True"
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}" />
+        </StackPanel>
+        <!-- PromptTemplate -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Prompt template:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding PromptTemplate}" 
+                   Watermark="Initial message directions"
+                   TextWrapping="Wrap"
+                   AcceptsReturn="True"
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}" />
+        </StackPanel>
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Params">
+      <StackPanel Orientation="Vertical">
+        <!-- UserName -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="User name:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding UserName}" 
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}"/>
+        </StackPanel>
+        <!-- ChatName -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Chat name:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding ChatName}" 
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}"/>
+        </StackPanel>
+        <!-- Stop -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Stop:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding Stop}" 
+                   Watermark="Initial message directions"
+                   TextWrapping="Wrap"
+                   AcceptsReturn="True"
+                   AcceptsTab="True"
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}" />
+        </StackPanel>
+        <!-- StopTag -->
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="Stop tag:" 
+                     Margin="4" 
+                     Padding="0,4,0,4" 
+                     FontSize="{DynamicResource SettingHeaderFontSize}" />
+          <TextBox Text="{Binding StopTag}" 
+                   Watermark="Initial message directions"
+                   TextWrapping="Wrap"
+                   AcceptsReturn="True"
+                   Margin="4" 
+                   Padding="8" 
+                   FontSize="{DynamicResource SettingContentFontSize}" />
+        </StackPanel>
+      </StackPanel>
+    </TabItem>
+  </TabControl>
 </UserControl>
