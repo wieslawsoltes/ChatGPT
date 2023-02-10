@@ -1,42 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputType>WinExe</OutputType>
-  </PropertyGroup>
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <TrimMode>full</TrimMode>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <ApplicationIcon>Assets\clipart855284.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AvaloniaVersion>11.0.999-cibuild0029731-beta</AvaloniaVersion>
-    <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
-    <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
-    <XamlNameReferenceGeneratorVersion>1.5.1</XamlNameReferenceGeneratorVersion>
-    <MarkdownAvaloniaVersion>11.0.0-a9</MarkdownAvaloniaVersion>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
-  </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <PublishAot>True</PublishAot>
-    <TrimmerSingleWarn>false</TrimmerSingleWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
-    <PackageReference Include="XamlNameReferenceGenerator" Version="$(XamlNameReferenceGeneratorVersion)" />
-    <PackageReference Include="Markdown.Avalonia" Version="$(MarkdownAvaloniaVersion)" />
   </ItemGroup>
 </Project>

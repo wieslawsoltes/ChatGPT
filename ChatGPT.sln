@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{62EB4E5F
 	ProjectSection(SolutionItems) = preProject
 		NuGet.Config = NuGet.Config
 		global.json = global.json
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0CAF70C8-9597-40F7-B7BA-A387AFBB7B61}"
@@ -14,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0CAF70C8-9
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D8FA6D06-CC99-4421-84C1-776023ED413C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.UI", "ChatGPT.UI\ChatGPT.UI.csproj", "{D2EE52D9-A974-40F5-AEAC-FB67B2532CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.UI.Desktop", "ChatGPT.UI.Desktop\ChatGPT.UI.Desktop.csproj", "{BADB6E47-1860-4115-ADD0-A000B5A59687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,8 +30,18 @@ Global
 		{F889FC8A-C21C-49CD-813C-A801F0B45ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F889FC8A-C21C-49CD-813C-A801F0B45ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F889FC8A-C21C-49CD-813C-A801F0B45ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2EE52D9-A974-40F5-AEAC-FB67B2532CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2EE52D9-A974-40F5-AEAC-FB67B2532CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2EE52D9-A974-40F5-AEAC-FB67B2532CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2EE52D9-A974-40F5-AEAC-FB67B2532CAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BADB6E47-1860-4115-ADD0-A000B5A59687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BADB6E47-1860-4115-ADD0-A000B5A59687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADB6E47-1860-4115-ADD0-A000B5A59687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BADB6E47-1860-4115-ADD0-A000B5A59687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F889FC8A-C21C-49CD-813C-A801F0B45ABE} = {D8FA6D06-CC99-4421-84C1-776023ED413C}
+		{D2EE52D9-A974-40F5-AEAC-FB67B2532CAB} = {D8FA6D06-CC99-4421-84C1-776023ED413C}
+		{BADB6E47-1860-4115-ADD0-A000B5A59687} = {D8FA6D06-CC99-4421-84C1-776023ED413C}
 	EndGlobalSection
 EndGlobal
