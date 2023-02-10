@@ -24,7 +24,7 @@ public class MainViewModel : ObservableObject
 
     private const int DefaultMaxTokens = 256;
 
-    private const string DefaultDirections = "Write answers in Markdown blocks.";
+    private const string DefaultDirections = "Write answers in Markdown blocks. For code blocks always define used language.";
 
     private const string ChatStopTag = "<|im_end|>";
 
