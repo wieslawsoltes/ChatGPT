@@ -21,22 +21,20 @@ public class ChatService : IChatService
             IgnoreReadOnlyProperties = true
         });
 
-    private static string GetRequestBodyJson(string prompt, decimal temperature, int maxTokens)
+    private static string GetRequestBodyJson(ChatServiceSettings settings)
     {
         // Set up the request body
         var requestBody = new CompletionsRequestBody
         {
             Model = "text-davinci-003",
-            //Model = "text-chat-davinci-002-20221122",
-            Prompt = prompt,
-            Temperature = temperature,
-            MaxTokens = maxTokens,
+            Prompt = settings.Prompt,
+            Temperature = settings.Temperature,
+            MaxTokens = settings.MaxTokens,
             TopP = 1.0m,
             FrequencyPenalty = 0.0m,
             PresencePenalty = 0.0m,
             N = 1,
-            Stop = "[\n\n\n]",
-            //Stop = "[END]",
+            Stop = settings.Stop,
         };
 
         // Serialize the request body to JSON using the JsonSerializer.
@@ -82,7 +80,7 @@ public class ChatService : IChatService
         return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseSuccess);
     }
 
-    public async Task<CompletionsResponse?> GetResponseDataAsync(string prompt, decimal temperature, int maxTokens)
+    public async Task<CompletionsResponse?> GetResponseDataAsync(ChatServiceSettings settings)
     {
         // Set up the API URL and API key
         var apiUrl = "https://api.openai.com/v1/completions";
@@ -93,7 +91,7 @@ public class ChatService : IChatService
         }
 
         // Get the request body JSON
-        var requestBodyJson = GetRequestBodyJson(prompt, temperature, maxTokens);
+        var requestBodyJson = GetRequestBodyJson(settings);
 
         // Send the API request and get the response data
         return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);

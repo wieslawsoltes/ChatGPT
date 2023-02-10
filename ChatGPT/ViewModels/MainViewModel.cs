@@ -237,9 +237,16 @@ public class MainViewModel : ObservableObject
 
             // Response
 
+            var chatServiceSettings = new ChatServiceSettings
+            {
+                Prompt = Settings.EnableChat ? chatPrompt : prompt,
+                Temperature = Settings.Temperature,
+                MaxTokens = Settings.MaxTokens,
+                Stop = Settings.EnableChat ? "[\n\n\n]" : "[END]",
+            };
             var responseStr = default(string);
             var isResponseStrError = false;
-            var responseData = await GetResponseData(Settings.EnableChat ? chatPrompt : prompt, Settings);
+            var responseData = await GetResponseData(chatServiceSettings, Settings);
             if (responseData is null)
             {
                 responseStr = "Unknown error.";
@@ -360,7 +367,7 @@ public class MainViewModel : ObservableObject
         return chatPrompt;
     }
 
-    private static async Task<CompletionsResponse?> GetResponseData(string prompt, SettingsViewModel settings)
+    private static async Task<CompletionsResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, SettingsViewModel settings)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -368,8 +375,6 @@ public class MainViewModel : ObservableObject
             return null;
         }
 
-        var temperature = settings.Temperature;
-        var maxTokens = settings.MaxTokens;
         var apiKey = Environment.GetEnvironmentVariable(EnvironmentVariableApiKey);
         var restoreApiKey = false;
 
@@ -381,13 +386,13 @@ public class MainViewModel : ObservableObject
 
         if (!string.IsNullOrWhiteSpace(settings.Directions))
         {
-            prompt = $"{settings.Directions}\n\n{prompt}";
+            chatServiceSettings.Prompt = $"{settings.Directions}\n\n{chatServiceSettings.Prompt}";
         }
 
         CompletionsResponse? responseData = null;
         try
         {
-            responseData = await chat.GetResponseDataAsync(prompt, temperature, maxTokens);
+            responseData = await chat.GetResponseDataAsync(chatServiceSettings);
         }
         catch (Exception)
         {
