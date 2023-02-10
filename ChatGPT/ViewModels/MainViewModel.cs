@@ -318,7 +318,7 @@ public class MainViewModel : ObservableObject
         IsEnabled = true;
     }
 
-    private string CreateChatPrompt(MessageViewModel sendMessage, ObservableCollection<MessageViewModel> messages, SettingsViewModel settings)
+    private static string CreateChatPrompt(MessageViewModel sendMessage, ObservableCollection<MessageViewModel> messages, SettingsViewModel settings)
     {
         var sb = new StringBuilder();
         
