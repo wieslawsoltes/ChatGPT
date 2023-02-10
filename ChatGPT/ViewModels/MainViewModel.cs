@@ -422,7 +422,7 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
         sb.Append(sbp);
 
         var chatPrompt = sb.ToString();
-        Console.WriteLine(sb.ToString());
+        //Console.WriteLine(sb.ToString());
         return chatPrompt;
     }
 
