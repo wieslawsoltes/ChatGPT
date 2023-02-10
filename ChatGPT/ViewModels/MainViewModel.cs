@@ -64,7 +64,6 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
     private ObservableCollection<MessageViewModel>? _messages;
     private MessageViewModel? _currentMessage;
     private SettingsViewModel? _settings;
-    private ChatSettingsViewModel? _chatSettings;
     private ActionsViewModel? _actions;
     private bool _isEnabled;
 
@@ -72,7 +71,6 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
     {
         CreateDefaultActions();
         CreateDefaultSettings();
-        CreateDefaultChatSettings();
 
         _messages = new ObservableCollection<MessageViewModel>();
         _isEnabled = true;
@@ -101,13 +99,6 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
     {
         get => _settings;
         set => SetProperty(ref _settings, value);
-    }
-
-    [JsonPropertyName("chatSettings")]
-    public ChatSettingsViewModel? ChatSettings
-    {
-        get => _chatSettings;
-        set => SetProperty(ref _chatSettings, value);
     }
 
     [JsonPropertyName("isEnabled")]
@@ -145,14 +136,15 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
             ApiKey = null,
             Directions = DefaultDirections,
             EnableChat = true,
+            ChatSettings = CreateDefaultChatSettings()
         };
         settings.SetActions(_actions);
         Settings = settings;
     }
 
-    private void CreateDefaultChatSettings()
+    private ChatSettingsViewModel CreateDefaultChatSettings()
     {
-        var chatSettings = new ChatSettingsViewModel()
+        return new ChatSettingsViewModel
         {
             UserName = "User",
             ChatName = "ChatGPT",
@@ -160,9 +152,8 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
             MessageTemplate = DefaultMessageTemplate,
             PromptTemplate = DefaultPromptTemplate,
             Stop = "\n\n\n",
-            StopTag = DefaultChatStopTag
+            StopTag = DefaultChatStopTag,
         };
-        ChatSettings = chatSettings;
     }
 
     private void CreateWelcomeMessage()
@@ -249,7 +240,7 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
 
     private async Task Send(MessageViewModel sendMessage)
     {
-        if (Messages is null || Settings is null || ChatSettings is null)
+        if (Messages is null || Settings is null || Settings.ChatSettings is null)
         {
             return;
         }
@@ -262,7 +253,7 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
         var chatPrompt = "";
         if (Settings.EnableChat)
         {
-            chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings, ChatSettings);
+            chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings, Settings.ChatSettings);
         }
 
         IsEnabled = false;
@@ -326,9 +317,9 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
                 var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
                 responseStr = message ?? "";
 
-                if (Settings.EnableChat && !string.IsNullOrEmpty(ChatSettings.StopTag))
+                if (Settings.EnableChat && !string.IsNullOrEmpty(Settings.ChatSettings.StopTag))
                 {
-                    responseStr = responseStr.TrimEnd(ChatSettings.StopTag.ToCharArray());
+                    responseStr = responseStr.TrimEnd(Settings.ChatSettings.StopTag.ToCharArray());
                 }
 
                 isResponseStrError = false;
@@ -609,6 +600,10 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
         if (settings is { })
         {
             settings.SetActions(_actions);
+            if (settings.ChatSettings is null)
+            {
+                settings.ChatSettings = CreateDefaultChatSettings();
+            }
             Settings = settings;
         }
     }
