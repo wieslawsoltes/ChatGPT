@@ -26,15 +26,18 @@ public class ChatService : IChatService
         // Set up the request body
         var requestBody = new CompletionsRequestBody
         {
-            Model = "text-davinci-003",
+            Model = settings.Model,
             Prompt = settings.Prompt,
-            Temperature = settings.Temperature,
+            Suffix = null,
             MaxTokens = settings.MaxTokens,
-            TopP = 1.0m,
+            Temperature = settings.Temperature,
+            TopP = settings.TopP,
+            N = 1,
+            Stream = false,
+            Stop = settings.Stop,
             FrequencyPenalty = 0.0m,
             PresencePenalty = 0.0m,
-            N = 1,
-            Stop = settings.Stop,
+            User = null
         };
 
         // Serialize the request body to JSON using the JsonSerializer.

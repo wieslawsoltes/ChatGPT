@@ -293,9 +293,12 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
 
             var chatServiceSettings = new ChatServiceSettings
             {
+                Model = "text-davinci-003",
                 Prompt = Settings.EnableChat ? chatPrompt : prompt,
+                Suffix = null,
                 Temperature = Settings.Temperature,
                 MaxTokens = Settings.MaxTokens,
+                TopP = 1.0m,
                 Stop = Settings.EnableChat ? "[\n\n\n]" : "[END]",
             };
             var responseStr = default(string);
