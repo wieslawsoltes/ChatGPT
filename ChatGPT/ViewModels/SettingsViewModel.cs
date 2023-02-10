@@ -10,6 +10,7 @@ public partial class SettingsViewModel : ObservableObject
     private int _maxTokens;
     private string? _apiKey;
     private string? _directions;
+    private bool _enableChat;
     private ActionsViewModel? _actions;
 
     public SettingsViewModel()
@@ -78,6 +79,13 @@ public partial class SettingsViewModel : ObservableObject
     {
         get => _directions;
         set => SetProperty(ref _directions, value);
+    }
+
+    [JsonPropertyName("enableChat")]
+    public bool EnableChat
+    {
+        get => _enableChat;
+        set => SetProperty(ref _enableChat, value);
     }
 
     [JsonIgnore]

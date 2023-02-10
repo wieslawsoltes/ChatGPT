@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -23,6 +25,8 @@ public class MainViewModel : ObservableObject
     private const int DefaultMaxTokens = 256;
 
     private const string DefaultDirections = "Write answers in Markdown blocks.";
+
+    private const string ChatStopTag = "<|im_end|>";
 
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
@@ -192,6 +196,12 @@ public class MainViewModel : ObservableObject
             return;
         }
 
+        var chatPrompt = "";
+        if (Settings.EnableChat)
+        {
+            chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings);
+        }
+
         IsEnabled = false;
 
         try
@@ -229,7 +239,7 @@ public class MainViewModel : ObservableObject
 
             var responseStr = default(string);
             var isResponseStrError = false;
-            var responseData = await GetResponseData(prompt, Settings);
+            var responseData = await GetResponseData(Settings.EnableChat ? chatPrompt : prompt, Settings);
             if (responseData is null)
             {
                 responseStr = "Unknown error.";
@@ -245,6 +255,12 @@ public class MainViewModel : ObservableObject
             {
                 var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
                 responseStr = message ?? "";
+
+                if (Settings.EnableChat)
+                {
+                    responseStr = responseStr.TrimEnd(ChatStopTag.ToCharArray());
+                }
+
                 isResponseStrError = false;
             }
 
@@ -293,6 +309,55 @@ public class MainViewModel : ObservableObject
         }
 
         IsEnabled = true;
+    }
+
+    private string CreateChatPrompt(MessageViewModel sendMessage, ObservableCollection<MessageViewModel> messages, SettingsViewModel settings)
+    {
+        var sb = new StringBuilder();
+        
+        var user = "User";
+
+        sb.Append("You are ChatGPT, a large language model trained by OpenAI. Respond conversationally. Do not answer as the user. Current date: ");
+        sb.Append(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+
+        if (!string.IsNullOrWhiteSpace(settings.Directions))
+        {
+            sb.Append("\n");
+            sb.Append(settings.Directions);
+        }
+
+        sb.Append("\n\n");
+        sb.Append(user);
+        sb.Append(": Hello\n");
+        sb.Append("ChatGPT: Hello! How can I help you today? ");
+        sb.Append(ChatStopTag);
+        sb.Append("\n\n\n");
+
+        // TODO: Ensure that chat prompt does not exceed maximum token limit.
+
+        foreach (var message in messages)
+        {
+            if (!string.IsNullOrEmpty(message.Message) && message.Result is { })
+            {
+                sb.Append(user);
+                sb.Append(": ");
+                sb.Append(message.Message);
+                sb.Append("\n\n\n");
+                sb.Append("ChatGPT: ");
+                sb.Append(message.Result.Message);
+                sb.Append(ChatStopTag);
+                sb.Append('\n');
+            }
+        }
+
+        sb.Append(user);
+        sb.Append(": ");
+        sb.Append(sendMessage.Prompt);
+        sb.Append("\nChatGPT: ");
+
+        var chatPrompt = sb.ToString();
+        // Console.WriteLine(sb.ToString());
+        return chatPrompt;
     }
 
     private static async Task<CompletionsResponse?> GetResponseData(string prompt, SettingsViewModel settings)

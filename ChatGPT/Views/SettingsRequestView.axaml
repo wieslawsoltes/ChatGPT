@@ -25,7 +25,7 @@
                FontSize="{DynamicResource SettingContentFontSize}"/>
     </StackPanel>
     <StackPanel Orientation="Vertical">
-      <TextBlock Text="MaxTokens:" 
+      <TextBlock Text="Max tokens:" 
                  Margin="4" 
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
@@ -41,12 +41,28 @@
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
       <TextBox Text="{Binding Directions}" 
                Watermark="Initial message directions"
+               TextWrapping="Wrap"
+               AcceptsReturn="True"
                Margin="4" 
                Padding="8" 
                FontSize="{DynamicResource SettingContentFontSize}" />
     </StackPanel>
     <StackPanel Orientation="Vertical">
-      <TextBlock Text="ApiKey:" 
+      <CheckBox IsChecked="{Binding EnableChat}"
+                Content="Enable chat"
+                ToolTip.Tip="Enable chat mode"
+                Margin="4" 
+                Padding="8" 
+                FontSize="{DynamicResource SettingContentFontSize}" />
+      <TextBlock Text="Warning: Chat mode sends entire chat history on each request." 
+                 TextWrapping="Wrap"
+                 FontStyle="Italic"
+                 Margin="4" 
+                 Padding="0,0,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+    </StackPanel>
+    <StackPanel Orientation="Vertical">
+      <TextBlock Text="Api key:" 
                  Margin="4" 
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />

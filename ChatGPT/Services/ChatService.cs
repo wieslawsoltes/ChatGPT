@@ -35,8 +35,8 @@ public class ChatService : IChatService
             FrequencyPenalty = 0.0m,
             PresencePenalty = 0.0m,
             N = 1,
-            //Stop = "[\n\n\n]",
-            Stop = "[END]",
+            Stop = "[\n\n\n]",
+            //Stop = "[END]",
         };
 
         // Serialize the request body to JSON using the JsonSerializer.
