@@ -26,7 +26,28 @@ public class MainViewModel : ObservableObject
 
     private const string DefaultDirections = "Write answers in Markdown blocks. For code blocks always define used language.";
 
-    private const string ChatStopTag = "<|im_end|>";
+    private const string DefaultChatStopTag = "<|im_end|>";
+
+    private const string DefaultInstructionsTemplate = """
+You are %CHAT%, a large language model trained by OpenAI. Respond conversationally. Do not answer as the %USER%. Current date: %DATE%
+%DIRECTIONS%
+%USER%: Hello
+%CHAT%: Hello! How can I help you today?
+%TAG%
+%STOP%
+""";
+
+    private const string DefaultMessageTemplate = """
+%USER%: %PROMPT%
+%STOP%
+%CHAT%: %MESSAGE% %TAG%
+
+""";
+    
+    private const string DefaultPromptTemplate = """
+%USER%: %PROMPT%
+%CHAT%: 
+""";
 
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
@@ -43,6 +64,7 @@ public class MainViewModel : ObservableObject
     private ObservableCollection<MessageViewModel>? _messages;
     private MessageViewModel? _currentMessage;
     private SettingsViewModel? _settings;
+    private ChatSettingsViewModel? _chatSettings;
     private ActionsViewModel? _actions;
     private bool _isEnabled;
 
@@ -50,6 +72,7 @@ public class MainViewModel : ObservableObject
     {
         CreateDefaultActions();
         CreateDefaultSettings();
+        CreateDefaultChatSettings();
 
         _messages = new ObservableCollection<MessageViewModel>();
         _isEnabled = true;
@@ -78,6 +101,13 @@ public class MainViewModel : ObservableObject
     {
         get => _settings;
         set => SetProperty(ref _settings, value);
+    }
+
+    [JsonPropertyName("chatSettings")]
+    public ChatSettingsViewModel? ChatSettings
+    {
+        get => _chatSettings;
+        set => SetProperty(ref _chatSettings, value);
     }
 
     [JsonPropertyName("isEnabled")]
@@ -118,6 +148,21 @@ public class MainViewModel : ObservableObject
         };
         settings.SetActions(_actions);
         Settings = settings;
+    }
+
+    private void CreateDefaultChatSettings()
+    {
+        var chatSettings = new ChatSettingsViewModel()
+        {
+            UserName = "User",
+            ChatName = "ChatGPT",
+            InstructionsTemplate = DefaultInstructionsTemplate,
+            MessageTemplate = DefaultMessageTemplate,
+            PromptTemplate = DefaultPromptTemplate,
+            Stop = "\n\n\n",
+            StopTag = DefaultChatStopTag
+        };
+        ChatSettings = chatSettings;
     }
 
     private void CreateWelcomeMessage()
@@ -204,7 +249,7 @@ public class MainViewModel : ObservableObject
 
     private async Task Send(MessageViewModel sendMessage)
     {
-        if (Messages is null || Settings is null)
+        if (Messages is null || Settings is null || ChatSettings is null)
         {
             return;
         }
@@ -217,7 +262,7 @@ public class MainViewModel : ObservableObject
         var chatPrompt = "";
         if (Settings.EnableChat)
         {
-            chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings);
+            chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings, ChatSettings);
         }
 
         IsEnabled = false;
@@ -281,9 +326,9 @@ public class MainViewModel : ObservableObject
                 var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
                 responseStr = message ?? "";
 
-                if (Settings.EnableChat)
+                if (Settings.EnableChat && !string.IsNullOrEmpty(ChatSettings.StopTag))
                 {
-                    responseStr = responseStr.TrimEnd(ChatStopTag.ToCharArray());
+                    responseStr = responseStr.TrimEnd(ChatSettings.StopTag.ToCharArray());
                 }
 
                 isResponseStrError = false;
@@ -336,27 +381,22 @@ public class MainViewModel : ObservableObject
         IsEnabled = true;
     }
 
-    private static string CreateChatPrompt(MessageViewModel sendMessage, ObservableCollection<MessageViewModel> messages, SettingsViewModel settings)
+    private static string CreateChatPrompt(
+        MessageViewModel sendMessage, 
+        ObservableCollection<MessageViewModel> messages, 
+        SettingsViewModel settings,
+        ChatSettingsViewModel chatSettings)
     {
         var sb = new StringBuilder();
-        
-        var user = "User";
 
-        sb.Append("You are ChatGPT, a large language model trained by OpenAI. Respond conversationally. Do not answer as the user. Current date: ");
-        sb.Append(DateTime.Now.ToString(CultureInfo.InvariantCulture));
-
-        if (!string.IsNullOrWhiteSpace(settings.Directions))
-        {
-            sb.Append("\n");
-            sb.Append(settings.Directions);
-        }
-
-        sb.Append("\n\n");
-        sb.Append(user);
-        sb.Append(": Hello\n");
-        sb.Append("ChatGPT: Hello! How can I help you today? ");
-        sb.Append(ChatStopTag);
-        sb.Append("\n\n\n");
+        var sbi = new StringBuilder(chatSettings.InstructionsTemplate);
+        sbi.Replace("%DATE%", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        sbi.Replace("%USER%", chatSettings.UserName);
+        sbi.Replace("%CHAT%", chatSettings.ChatName);
+        sbi.Replace("%TAG%", chatSettings.StopTag);
+        sbi.Replace("%STOP%", chatSettings.Stop);
+        sbi.Replace("%DIRECTIONS%", !string.IsNullOrWhiteSpace(settings.Directions) ? $"\n{settings.Directions}\n" : "\n");
+        sb.Append(sbi);
 
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
 
@@ -364,24 +404,25 @@ public class MainViewModel : ObservableObject
         {
             if (!string.IsNullOrEmpty(message.Message) && message.Result is { })
             {
-                sb.Append(user);
-                sb.Append(": ");
-                sb.Append(message.Message);
-                sb.Append("\n\n\n");
-                sb.Append("ChatGPT: ");
-                sb.Append(message.Result.Message);
-                sb.Append(ChatStopTag);
-                sb.Append('\n');
+                var sbm = new StringBuilder(chatSettings.MessageTemplate);
+                sbm.Replace("%USER%", chatSettings.UserName);
+                sbm.Replace("%CHAT%", chatSettings.ChatName);
+                sbm.Replace("%PROMPT%", message.Message);
+                sbm.Replace("%MESSAGE%", message.Result.Message);
+                sbm.Replace("%STOP%", chatSettings.Stop);
+                sbm.Replace("%TAG%", chatSettings.StopTag);
+                sb.Append(sbm);
             }
         }
 
-        sb.Append(user);
-        sb.Append(": ");
-        sb.Append(sendMessage.Prompt);
-        sb.Append("\nChatGPT: ");
+        var sbp = new StringBuilder(chatSettings.PromptTemplate);
+        sbp.Replace("%USER%", chatSettings.UserName);
+        sbp.Replace("%CHAT%", chatSettings.ChatName);
+        sbp.Replace("%PROMPT%", sendMessage.Prompt);
+        sb.Append(sbp);
 
         var chatPrompt = sb.ToString();
-        // Console.WriteLine(sb.ToString());
+        Console.WriteLine(sb.ToString());
         return chatPrompt;
     }
 
