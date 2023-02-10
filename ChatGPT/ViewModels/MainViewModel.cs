@@ -64,12 +64,13 @@ public class MainViewModel : ObservableObject
             }
         };
 
-        _settings = new SettingsViewModel()
+        _settings = new SettingsViewModel
         {
             Temperature = DefaultTemperature,
             MaxTokens = DefaultMaxTokens,
+            ApiKey = null,
             Directions = DefaultDirections,
-            ApiKey = null
+            EnableChat = true,
         };
         _settings.SetActions(_actions);
 
