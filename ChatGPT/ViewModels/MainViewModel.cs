@@ -43,51 +43,18 @@ public class MainViewModel : ObservableObject
     private ObservableCollection<MessageViewModel>? _messages;
     private MessageViewModel? _currentMessage;
     private SettingsViewModel? _settings;
+    private ActionsViewModel? _actions;
     private bool _isEnabled;
-    private readonly ActionsViewModel _actions;
 
     public MainViewModel()
     {
-        _actions = new ActionsViewModel
-        {
-            New = NewAction,
-            Open = OpenAction,
-            Save = SaveAction,
-            Export = ExportAction,
-            Exit = () =>
-            {
-                var app = Ioc.Default.GetService<IApplicationService>();
-                if (app is { })
-                {
-                    app.Exit();
-                }
-            }
-        };
-
-        _settings = new SettingsViewModel
-        {
-            Temperature = DefaultTemperature,
-            MaxTokens = DefaultMaxTokens,
-            ApiKey = null,
-            Directions = DefaultDirections,
-            EnableChat = true,
-        };
-        _settings.SetActions(_actions);
+        CreateDefaultActions();
+        CreateDefaultSettings();
 
         _messages = new ObservableCollection<MessageViewModel>();
-
-        var welcomeItem = new MessageViewModel
-        {
-            Prompt = "",
-            Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
-            IsSent = false,
-            CanRemove = false
-        };
-        SetMessageActions(welcomeItem);
-        _messages.Add(welcomeItem);
-        _currentMessage = welcomeItem;
-
         _isEnabled = true;
+
+        CreateWelcomeMessage();
 
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
     }
@@ -122,6 +89,56 @@ public class MainViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
+
+    private void CreateDefaultActions()
+    {
+        _actions = new ActionsViewModel
+        {
+            New = NewAction,
+            Open = OpenAction,
+            Save = SaveAction,
+            Export = ExportAction,
+            Exit = () =>
+            {
+                var app = Ioc.Default.GetService<IApplicationService>();
+                app?.Exit();
+            }
+        };
+    }
+
+    private void CreateDefaultSettings()
+    {
+        var settings = new SettingsViewModel
+        {
+            Temperature = DefaultTemperature,
+            MaxTokens = DefaultMaxTokens,
+            ApiKey = null,
+            Directions = DefaultDirections,
+            EnableChat = true,
+        };
+        settings.SetActions(_actions);
+        Settings = settings;
+    }
+
+    private void CreateWelcomeMessage()
+    {
+        if (Messages is null)
+        {
+            return;
+        }
+
+        var welcomeItem = new MessageViewModel
+        {
+            Prompt = "",
+            Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
+            IsSent = false,
+            CanRemove = false
+        };
+        SetMessageActions(welcomeItem);
+        Messages.Add(welcomeItem);
+
+        CurrentMessage = welcomeItem;
+    }
 
     private async Task NewAction()
     {
@@ -281,7 +298,7 @@ public class MainViewModel : ObservableObject
 
             if (resultMessage is null)
             {
-                resultMessage = new MessageViewModel()
+                resultMessage = new MessageViewModel
                 {
                     IsSent = false,
                     CanRemove = true
