@@ -26,6 +26,8 @@ public class MainViewModel : ObservableObject
 
     private const string DefaultDirections = "Write answers in Markdown blocks.";
 
+    private const string ChatStopTag = "<|im_end|>";
+
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
         {
@@ -256,7 +258,7 @@ public class MainViewModel : ObservableObject
 
                 if (Settings.EnableChat)
                 {
-                    responseStr = responseStr.TrimEnd(StopTag.ToCharArray());
+                    responseStr = responseStr.TrimEnd(ChatStopTag.ToCharArray());
                 }
 
                 isResponseStrError = false;
@@ -309,8 +311,6 @@ public class MainViewModel : ObservableObject
         IsEnabled = true;
     }
 
-    private const string StopTag = "<|im_end|>";
-
     private string CreateChatPrompt(MessageViewModel sendMessage, ObservableCollection<MessageViewModel> messages, SettingsViewModel settings)
     {
         var sb = new StringBuilder();
@@ -330,7 +330,7 @@ public class MainViewModel : ObservableObject
         sb.Append(user);
         sb.Append(": Hello\n");
         sb.Append("ChatGPT: Hello! How can I help you today? ");
-        sb.Append(StopTag);
+        sb.Append(ChatStopTag);
         sb.Append("\n\n\n");
 
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
@@ -345,7 +345,7 @@ public class MainViewModel : ObservableObject
                 sb.Append("\n\n\n");
                 sb.Append("ChatGPT: ");
                 sb.Append(message.Result.Message);
-                sb.Append(StopTag);
+                sb.Append(ChatStopTag);
                 sb.Append('\n');
             }
         }
