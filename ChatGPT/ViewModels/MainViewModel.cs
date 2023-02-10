@@ -18,37 +18,6 @@ namespace ChatGPT.ViewModels;
 
 public class MainViewModel : ObservableObject
 {
-    private const string EnvironmentVariableApiKey = "OPENAI_API_KEY";
-
-    private const decimal DefaultTemperature = 0.7m;
-
-    private const int DefaultMaxTokens = 256;
-
-    private const string DefaultDirections = "Write answers in Markdown blocks. For code blocks always define used language.";
-
-    private const string DefaultChatStopTag = "<|im_end|>";
-
-    private const string DefaultInstructionsTemplate = """
-You are %CHAT%, a large language model trained by OpenAI. Respond conversationally. Do not answer as the %USER%. Current date: %DATE%
-%DIRECTIONS%
-%USER%: Hello
-%CHAT%: Hello! How can I help you today?
-%TAG%
-%STOP%
-""";
-
-    private const string DefaultMessageTemplate = """
-%USER%: %PROMPT%
-%STOP%
-%CHAT%: %MESSAGE% %TAG%
-
-""";
-    
-    private const string DefaultPromptTemplate = """
-%USER%: %PROMPT%
-%CHAT%: 
-""";
-
     private static readonly MainViewModelJsonContext s_serializerContext = new(
         new JsonSerializerOptions
         {
@@ -131,10 +100,10 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
     {
         var settings = new SettingsViewModel
         {
-            Temperature = DefaultTemperature,
-            MaxTokens = DefaultMaxTokens,
+            Temperature = Constants.DefaultTemperature,
+            MaxTokens = Constants.DefaultMaxTokens,
             ApiKey = null,
-            Directions = DefaultDirections,
+            Directions = Constants.DefaultDirections,
             EnableChat = true,
             ChatSettings = CreateDefaultChatSettings()
         };
@@ -148,11 +117,11 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
         {
             UserName = "User",
             ChatName = "ChatGPT",
-            InstructionsTemplate = DefaultInstructionsTemplate,
-            MessageTemplate = DefaultMessageTemplate,
-            PromptTemplate = DefaultPromptTemplate,
+            InstructionsTemplate = Constants.DefaultInstructionsTemplate,
+            MessageTemplate = Constants.DefaultMessageTemplate,
+            PromptTemplate = Constants.DefaultPromptTemplate,
             Stop = "\n\n\n",
-            StopTag = DefaultChatStopTag,
+            StopTag = Constants.DefaultChatStopTag,
         };
     }
 
@@ -428,12 +397,12 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
             return null;
         }
 
-        var apiKey = Environment.GetEnvironmentVariable(EnvironmentVariableApiKey);
+        var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         var restoreApiKey = false;
 
         if (!string.IsNullOrWhiteSpace(settings.ApiKey))
         {
-            Environment.SetEnvironmentVariable(EnvironmentVariableApiKey, settings.ApiKey);
+            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, settings.ApiKey);
             restoreApiKey = true;
         }
 
@@ -454,7 +423,7 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
 
         if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
         {
-            Environment.SetEnvironmentVariable(EnvironmentVariableApiKey, apiKey);
+            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, apiKey);
         }
 
         return responseData;
@@ -603,10 +572,7 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
         if (settings is { })
         {
             settings.SetActions(_actions);
-            if (settings.ChatSettings is null)
-            {
-                settings.ChatSettings = CreateDefaultChatSettings();
-            }
+            settings.ChatSettings ??= CreateDefaultChatSettings();
             Settings = settings;
         }
     }

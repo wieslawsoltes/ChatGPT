@@ -87,7 +87,7 @@ public class ChatService : IChatService
     {
         // Set up the API URL and API key
         var apiUrl = "https://api.openai.com/v1/completions";
-        var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         if (apiKey is null)
         {
             return null;
