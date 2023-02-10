@@ -156,6 +156,7 @@ public class MessageViewModel : ObservableObject
     {
         if (!IsSent)
         {
+            // TODO: Use caret position to insert new line.
             Prompt += Environment.NewLine;
         }
     }
