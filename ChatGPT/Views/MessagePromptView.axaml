@@ -27,6 +27,7 @@
              Name="Prompt"
              Text="{Binding Prompt}" 
              Watermark="Ask me anything"
+             TextWrapping="Wrap"
              Background="Transparent"
              HorizontalAlignment="Stretch" 
              HorizontalContentAlignment="Left"
