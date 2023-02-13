@@ -31,7 +31,7 @@
               Spacing="16"
               Orientation="Vertical" 
               VerticalAlignment="Top"
-              Width="350">
+              Width="300">
     <TabControl TabStripPlacement="Bottom">
       <TabItem Header="Request">
         <views:SettingsRequestView />
