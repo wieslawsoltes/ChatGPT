@@ -61,6 +61,15 @@ public partial class App : Application
             {
                 DataContext = _mainViewModel
             };
+
+            try
+            {
+                await LoadSettings();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -93,7 +102,7 @@ public partial class App : Application
         }
     }
 
-    private async Task LoadSettings()
+    public async Task LoadSettings()
     {
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         var appSettingPath = Path.Combine(appDataPath, SettingsFolderName, SettingsFileName);
@@ -104,7 +113,7 @@ public partial class App : Application
         }
     }
 
-    private async Task SaveSettings()
+    public async Task SaveSettings()
     {
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         var appPath = Path.Combine(appDataPath, SettingsFolderName);
