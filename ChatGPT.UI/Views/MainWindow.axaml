@@ -29,9 +29,9 @@
       <ExperimentalAcrylicBorder.Material>
         <ExperimentalAcrylicMaterial BackgroundSource="Digger"
                                      TintColor="{DynamicResource AcrylicColor}"
-                                     TintOpacity="0.1"
+                                     TintOpacity="1"
                                      FallbackColor="{DynamicResource AcrylicColor}"
-                                     MaterialOpacity="0.1" />
+                                     MaterialOpacity="0.8" />
       </ExperimentalAcrylicBorder.Material>
     </ExperimentalAcrylicBorder>
     <Panel Margin="{Binding #Main.OffScreenMargin}">
