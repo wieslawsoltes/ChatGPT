@@ -17,7 +17,6 @@
       <vm:ChatSettingsViewModel.StopTag>StopTag</vm:ChatSettingsViewModel.StopTag>
     </vm:ChatSettingsViewModel>
   </Design.DataContext>
-  
   <TabControl TabStripPlacement="Top">
     <TabItem Header="Templates">
       <StackPanel Orientation="Vertical">
