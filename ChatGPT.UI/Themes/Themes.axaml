@@ -8,8 +8,8 @@
       <SolidColorBrush x:Key='MessageActionBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80000000</SolidColorBrush>
-      <SolidColorBrush x:Key='SettingsIconBrush'>DarkBlue</SolidColorBrush>
-      <SolidColorBrush x:Key='ThemeIconBrush'>DarkBlue</SolidColorBrush>
+      <SolidColorBrush x:Key='SettingsIconBrush'>#80000000</SolidColorBrush>
+      <SolidColorBrush x:Key='ThemeIconBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='ActionIconBrush'>Black</SolidColorBrush>
       <SolidColorBrush x:Key='PowerIconBrush'>Gray</SolidColorBrush>
       <Color x:Key="AcrylicColor">White</Color>
@@ -22,11 +22,11 @@
       <SolidColorBrush x:Key='MessageBackgroundBrush'>#C5303030</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBorderBrush'>#40FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='MessageErrorBrush'>Yellow</SolidColorBrush>
-      <SolidColorBrush x:Key='MessageActionBrush'>#80000000</SolidColorBrush>
+      <SolidColorBrush x:Key='MessageActionBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80303030</SolidColorBrush>
       <SolidColorBrush x:Key='SendBorderBrush'>#80FFFFFF</SolidColorBrush>
-      <SolidColorBrush x:Key='SettingsIconBrush' >DarkBlue</SolidColorBrush>
-      <SolidColorBrush x:Key='ThemeIconBrush' >DarkBlue</SolidColorBrush>
+      <SolidColorBrush x:Key='SettingsIconBrush' >#80FFFFFF</SolidColorBrush>
+      <SolidColorBrush x:Key='ThemeIconBrush' >#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='ActionIconBrush'>White</SolidColorBrush>
       <SolidColorBrush x:Key='PowerIconBrush'>Gray</SolidColorBrush>
       <Color x:Key="AcrylicColor">Black</Color>
