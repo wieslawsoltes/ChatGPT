@@ -5,5 +5,6 @@
     <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
     <XamlNameReferenceGeneratorVersion>1.5.1</XamlNameReferenceGeneratorVersion>
     <MarkdownAvaloniaVersion>11.0.0-a9</MarkdownAvaloniaVersion>
+    <AvaloniaHtmlRendererVersion>11.0.0-preview5</AvaloniaHtmlRendererVersion>
   </PropertyGroup>
 </Project>
