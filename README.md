@@ -26,4 +26,4 @@ To make the app work, you need to set the [OpenAI API key](https://beta.openai.c
 
 # License
 
-To be decided.
+MIT
