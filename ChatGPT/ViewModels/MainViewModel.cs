@@ -106,7 +106,8 @@ public class MainViewModel : ObservableObject
             ApiKey = null,
             Directions = Constants.DefaultDirections,
             EnableChat = true,
-            ChatSettings = CreateDefaultChatSettings()
+            ChatSettings = CreateDefaultChatSettings(),
+            MessageSettings = CreateDefaultMessageSettings(),
         };
         settings.SetActions(_actions);
         Settings = settings;
@@ -126,6 +127,14 @@ public class MainViewModel : ObservableObject
         };
     }
 
+    private MessageSettingsViewModel CreateDefaultMessageSettings()
+    {
+        return new MessageSettingsViewModel
+        {
+            Format = Constants.MarkdownMessageFormat,
+        };
+    }
+
     private void CreateWelcomeMessage()
     {
         if (Messages is null)
@@ -137,6 +146,7 @@ public class MainViewModel : ObservableObject
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
+            Format = Constants.TextMessageFormat,
             IsSent = false,
             CanRemove = false
         };
@@ -210,7 +220,10 @@ public class MainViewModel : ObservableObject
 
     private async Task Send(MessageViewModel sendMessage)
     {
-        if (Messages is null || Settings is null || Settings.ChatSettings is null)
+        if (Messages is null 
+            || Settings is null 
+            || Settings.ChatSettings is null 
+            || Settings.MessageSettings is null)
         {
             return;
         }
@@ -244,7 +257,8 @@ public class MainViewModel : ObservableObject
             {
                 promptMessage = new MessageViewModel
                 {
-                    CanRemove = true
+                    CanRemove = true,
+                    Format = Constants.TextMessageFormat
                 };
                 SetMessageActions(promptMessage);
                 Messages.Add(promptMessage);
@@ -310,7 +324,8 @@ public class MainViewModel : ObservableObject
                 resultMessage = new MessageViewModel
                 {
                     IsSent = false,
-                    CanRemove = true
+                    CanRemove = true,
+                    Format = Settings.MessageSettings.Format
                 };
                 SetMessageActions(resultMessage);
                 Messages.Add(resultMessage);
@@ -326,6 +341,7 @@ public class MainViewModel : ObservableObject
             resultMessage.Message = responseStr;
             resultMessage.IsError = isResponseStrError;
             resultMessage.Prompt = isResponseStrError ? prompt : "";
+            resultMessage.Format = Settings.MessageSettings.Format;
 
             if (Messages.LastOrDefault() == resultMessage)
             {
@@ -574,6 +590,7 @@ public class MainViewModel : ObservableObject
         {
             settings.SetActions(_actions);
             settings.ChatSettings ??= CreateDefaultChatSettings();
+            settings.MessageSettings ??= CreateDefaultMessageSettings();
             Settings = settings;
         }
     }

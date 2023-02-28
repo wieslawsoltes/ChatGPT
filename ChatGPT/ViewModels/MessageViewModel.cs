@@ -10,6 +10,7 @@ public class MessageViewModel : ObservableObject
 {
     private string? _prompt;
     private string? _message;
+    private string? _format;
     private bool _isSent;
     private bool _isAwaiting;
     private bool _isError;
@@ -31,18 +32,25 @@ public class MessageViewModel : ObservableObject
         RemoveCommand = new RelayCommand(RemoveAction);
     }
 
-    [JsonPropertyName("Prompt")]
+    [JsonPropertyName("prompt")]
     public string? Prompt
     {
         get => _prompt;
         set => SetProperty(ref _prompt, value);
     }
 
-    [JsonPropertyName("prompt")]
+    [JsonPropertyName("message")]
     public string? Message
     {
         get => _message;
         set => SetProperty(ref _message, value);
+    }
+
+    [JsonPropertyName("format")]
+    public string? Format
+    {
+        get => _format;
+        set => SetProperty(ref _format, value);
     }
 
     [JsonPropertyName("isSent")]
