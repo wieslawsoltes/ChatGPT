@@ -13,6 +13,11 @@
       <vm:SettingsViewModel.MaxTokens>100</vm:SettingsViewModel.MaxTokens>
       <vm:SettingsViewModel.ApiKey><x:Null/></vm:SettingsViewModel.ApiKey>
       <vm:SettingsViewModel.Directions>Directions</vm:SettingsViewModel.Directions>
+      <vm:SettingsViewModel.MessageSettings>
+        <vm:MessageSettingsViewModel>
+          <vm:MessageSettingsViewModel.Format>Markdown</vm:MessageSettingsViewModel.Format>
+        </vm:MessageSettingsViewModel>
+      </vm:SettingsViewModel.MessageSettings>
       <vm:SettingsViewModel.EnableChat>True</vm:SettingsViewModel.EnableChat>
       <vm:SettingsViewModel.ChatSettings>
         <vm:ChatSettingsViewModel>
@@ -31,7 +36,7 @@
               Spacing="16"
               Orientation="Vertical" 
               VerticalAlignment="Top"
-              Width="300">
+              Width="320">
     <TabControl TabStripPlacement="Bottom">
       <TabItem Header="Request">
         <views:SettingsRequestView />
@@ -41,6 +46,13 @@
                       VerticalScrollBarVisibility="Auto"
                       MinHeight="350">
           <views:ChatSettingsView DataContext="{Binding ChatSettings}" />
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Message">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      MinHeight="350">
+          <views:MessageSettingsView DataContext="{Binding MessageSettings}" />
         </ScrollViewer>
       </TabItem>
     </TabControl>

@@ -13,6 +13,7 @@ public partial class SettingsViewModel : ObservableObject
     private string? _directions;
     private bool _enableChat;
     private ChatSettingsViewModel? _chatSettings;
+    private MessageSettingsViewModel? _messageSettings;
     private ActionsViewModel? _actions;
 
     public SettingsViewModel()
@@ -102,6 +103,13 @@ public partial class SettingsViewModel : ObservableObject
     {
         get => _chatSettings;
         set => SetProperty(ref _chatSettings, value);
+    }
+
+    [JsonPropertyName("messageSettings")]
+    public MessageSettingsViewModel? MessageSettings
+    {
+        get => _messageSettings;
+        set => SetProperty(ref _messageSettings, value);
     }
 
     [JsonIgnore]

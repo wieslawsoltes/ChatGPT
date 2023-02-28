@@ -33,4 +33,11 @@ You are %CHAT%, a large language model trained by OpenAI. Respond conversational
 %CHAT%: 
 """;
 
+    public const string DefaultMessageFormat = "Markdown";
+
+    public const string TextMessageFormat = "Text";
+    
+    public const string MarkdownMessageFormat = "Markdown";
+    
+    public const string HtmlMessageTextFormat = "Html";
 }

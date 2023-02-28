@@ -7,6 +7,7 @@
              xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
              xmlns:html="clr-namespace:TheArtOfDev.HtmlRenderer.Avalonia;assembly=Avalonia.HtmlRenderer"
              xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
+             xmlns:dt="clr-namespace:ChatGPT.DataTemplates"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
              x:Class="ChatGPT.Views.MessageView"
              x:CompileBindings="True" x:DataType="vm:MessageViewModel"
@@ -44,57 +45,60 @@
             MinHeight="78">
       <Grid RowDefinitions="*,Auto"
             Margin="0,8,0,12">
-        <!-- TODO: Make message text control configurable. -->
-        <!--
-        <SelectableTextBlock Grid.Column="0" 
-                             Grid.Row="0"
-                             Text="{Binding Message}" 
-                             HorizontalAlignment="Stretch" 
-                             VerticalAlignment="Center"
-                             Margin="16,4,16,4"
-                             Padding="4,12,4,12" 
-                             FontSize="{DynamicResource MessageFontSize}"
-                             TextWrapping="Wrap"
-                             Background="Transparent"
-                             IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
-                             Classes.error="{Binding IsError}">
-          <SelectableTextBlock.Styles>
-            <Style Selector="SelectableTextBlock.error">
-              <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
-            </Style>
-          </SelectableTextBlock.Styles>
-        </SelectableTextBlock>
-        --> 
-        <!--
-        <md:MarkdownScrollViewer Grid.Column="0" 
-                                 Grid.Row="0"
-                                 Markdown="{Binding Message}" 
-                                 HorizontalAlignment="Stretch" 
-                                 VerticalAlignment="Center"
-                                 Margin="16,4,16,4"
-                                 TextElement.FontSize="{DynamicResource MessageFontSize}"
-                                 IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 Classes.error="{Binding IsError}">
-          <md:MarkdownScrollViewer.Styles>
-            <Style Selector="md|MarkdownScrollViewer.error ctxt|CTextBlock">
-              <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
-            </Style>
-          </md:MarkdownScrollViewer.Styles>
-        </md:MarkdownScrollViewer>
-        -->
-        <html:HtmlPanel Grid.Column="0" 
+        <ContentControl Grid.Column="0"
                         Grid.Row="0"
-                        Text="{Binding Message}" 
-                        HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Center"
-                        Margin="16,4,16,4"
-                        TextElement.FontSize="{DynamicResource MessageFontSize}"
-                        IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        Classes.error="{Binding IsError}" >
-          <!-- TODO: -->
-        </html:HtmlPanel>
+                        Content="{Binding}"
+                        Margin="16,4,16,4">
+          <ContentControl.DataTemplates>
+            <dt:MessageDataTemplate>
+              <dt:MessageDataTemplate.Resources>
+                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="TextMessageTemplate">
+                  <SelectableTextBlock Text="{Binding Message}" 
+                                       HorizontalAlignment="Stretch" 
+                                       VerticalAlignment="Center"
+                                       Padding="4,12,4,12" 
+                                       FontSize="{DynamicResource MessageFontSize}"
+                                       TextWrapping="Wrap"
+                                       Background="Transparent"
+                                       IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                       Classes.error="{Binding IsError}">
+                    <SelectableTextBlock.Styles>
+                      <Style Selector="SelectableTextBlock.error">
+                        <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
+                      </Style>
+                    </SelectableTextBlock.Styles>
+                  </SelectableTextBlock>
+                </DataTemplate>
+                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="MarkdownMessageTemplate">
+                  <md:MarkdownScrollViewer Markdown="{Binding Message}" 
+                                           HorizontalAlignment="Stretch" 
+                                           VerticalAlignment="Center"
+                                           TextElement.FontSize="{DynamicResource MessageFontSize}"
+                                           IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                           Classes.error="{Binding IsError}">
+                    <md:MarkdownScrollViewer.Styles>
+                      <Style Selector="md|MarkdownScrollViewer.error ctxt|CTextBlock">
+                        <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
+                      </Style>
+                    </md:MarkdownScrollViewer.Styles>
+                  </md:MarkdownScrollViewer>
+                </DataTemplate>
+                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="HtmlMessageTemplate">
+                  <html:HtmlPanel Text="{Binding Message}" 
+                                  HorizontalAlignment="Stretch" 
+                                  VerticalAlignment="Center"
+                                  TextElement.FontSize="{DynamicResource MessageFontSize}"
+                                  IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  Classes.error="{Binding IsError}" >
+                    <!-- TODO: -->
+                  </html:HtmlPanel>
+                </DataTemplate>
+              </dt:MessageDataTemplate.Resources>
+            </dt:MessageDataTemplate>
+          </ContentControl.DataTemplates>
+        </ContentControl>
         <views:MessagePromptView Grid.Row="1" 
                                  Margin="8,0,8,0"/>
         <ProgressBar Grid.Row="1" 
