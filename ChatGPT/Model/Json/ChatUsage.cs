@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ChatGPT.Model.Json;
 
-public class CompletionsUsage
+public class ChatUsage
 {
     [JsonPropertyName("prompt_tokens")]
     public int PromptTokens { get; set; }

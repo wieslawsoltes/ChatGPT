@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -102,29 +100,13 @@ public class MainViewModel : ObservableObject
         {
             Temperature = Constants.DefaultTemperature,
             MaxTokens = Constants.DefaultMaxTokens,
-            Model = "text-davinci-003",
+            Model = "gpt-3.5-turbo",
             ApiKey = null,
             Directions = Constants.DefaultDirections,
-            EnableChat = true,
-            ChatSettings = CreateDefaultChatSettings(),
             MessageSettings = CreateDefaultMessageSettings(),
         };
         settings.SetActions(_actions);
         Settings = settings;
-    }
-
-    private ChatSettingsViewModel CreateDefaultChatSettings()
-    {
-        return new ChatSettingsViewModel
-        {
-            UserName = "User",
-            ChatName = "ChatGPT",
-            InstructionsTemplate = Constants.DefaultInstructionsTemplate,
-            MessageTemplate = Constants.DefaultMessageTemplate,
-            PromptTemplate = Constants.DefaultPromptTemplate,
-            Stop = "\n\n\n",
-            StopTag = Constants.DefaultChatStopTag,
-        };
     }
 
     private MessageSettingsViewModel CreateDefaultMessageSettings()
@@ -222,7 +204,6 @@ public class MainViewModel : ObservableObject
     {
         if (Messages is null 
             || Settings is null 
-            || Settings.ChatSettings is null 
             || Settings.MessageSettings is null)
         {
             return;
@@ -233,11 +214,7 @@ public class MainViewModel : ObservableObject
             return;
         }
 
-        var chatPrompt = "";
-        if (Settings.EnableChat)
-        {
-            chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings, Settings.ChatSettings);
-        }
+        var chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings);
 
         IsEnabled = false;
 
@@ -278,12 +255,12 @@ public class MainViewModel : ObservableObject
             var chatServiceSettings = new ChatServiceSettings
             {
                 Model = Settings.Model,
-                Prompt = Settings.EnableChat ? chatPrompt : prompt,
+                Messages = chatPrompt,
                 Suffix = null,
                 Temperature = Settings.Temperature,
                 MaxTokens = Settings.MaxTokens,
                 TopP = 1.0m,
-                Stop = Settings.EnableChat ? "[\n\n\n]" : "[END]",
+                Stop = null,
             };
             var responseStr = default(string);
             var isResponseStrError = false;
@@ -293,22 +270,16 @@ public class MainViewModel : ObservableObject
                 responseStr = "Unknown error.";
                 isResponseStrError = true;
             }
-            else if (responseData is CompletionsResponseError error)
+            else if (responseData is ChatResponseError error)
             {
                 var message = error.Error?.Message;
                 responseStr = message ?? "Unknown error.";
                 isResponseStrError = true;
             }
-            else if (responseData is CompletionsResponseSuccess success)
+            else if (responseData is ChatResponseSuccess success)
             {
-                var message = success.Choices?.FirstOrDefault()?.Text?.Trim();
+                var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
                 responseStr = message ?? "";
-
-                if (Settings.EnableChat && !string.IsNullOrEmpty(Settings.ChatSettings.StopTag))
-                {
-                    responseStr = responseStr.TrimEnd(Settings.ChatSettings.StopTag.ToCharArray());
-                }
-
                 isResponseStrError = false;
             }
 
@@ -361,22 +332,18 @@ public class MainViewModel : ObservableObject
         IsEnabled = true;
     }
 
-    private static string CreateChatPrompt(
+    private static ChatMessage[] CreateChatPrompt(
         MessageViewModel sendMessage, 
         ObservableCollection<MessageViewModel> messages, 
-        SettingsViewModel settings,
-        ChatSettingsViewModel chatSettings)
+        SettingsViewModel settings)
     {
-        var sb = new StringBuilder();
+        var chatMessages = new List<ChatMessage>();
 
-        var sbi = new StringBuilder(chatSettings.InstructionsTemplate);
-        sbi.Replace("%DATE%", DateTime.Now.ToString(CultureInfo.InvariantCulture));
-        sbi.Replace("%USER%", chatSettings.UserName);
-        sbi.Replace("%CHAT%", chatSettings.ChatName);
-        sbi.Replace("%TAG%", chatSettings.StopTag);
-        sbi.Replace("%STOP%", chatSettings.Stop);
-        sbi.Replace("%DIRECTIONS%", !string.IsNullOrWhiteSpace(settings.Directions) ? $"\n{settings.Directions}\n" : "\n");
-        sb.Append(sbi);
+        chatMessages.Add(new ChatMessage
+        {
+            Role = "system",
+            Content = settings.Directions
+        });
 
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
 
@@ -384,29 +351,29 @@ public class MainViewModel : ObservableObject
         {
             if (!string.IsNullOrEmpty(message.Message) && message.Result is { })
             {
-                var sbm = new StringBuilder(chatSettings.MessageTemplate);
-                sbm.Replace("%USER%", chatSettings.UserName);
-                sbm.Replace("%CHAT%", chatSettings.ChatName);
-                sbm.Replace("%PROMPT%", message.Message);
-                sbm.Replace("%MESSAGE%", message.Result.Message);
-                sbm.Replace("%STOP%", chatSettings.Stop);
-                sbm.Replace("%TAG%", chatSettings.StopTag);
-                sb.Append(sbm);
+                chatMessages.Add(new ChatMessage
+                {
+                    Role = "user",
+                    Content = message.Message
+                });
+                chatMessages.Add(new ChatMessage
+                {
+                    Role = "assistant",
+                    Content = message.Result.Message
+                });
             }
         }
 
-        var sbp = new StringBuilder(chatSettings.PromptTemplate);
-        sbp.Replace("%USER%", chatSettings.UserName);
-        sbp.Replace("%CHAT%", chatSettings.ChatName);
-        sbp.Replace("%PROMPT%", sendMessage.Prompt);
-        sb.Append(sbp);
+        chatMessages.Add(new ChatMessage
+        {
+            Role = "user",
+            Content = sendMessage.Prompt
+        });
 
-        var chatPrompt = sb.ToString();
-        //Console.WriteLine(sb.ToString());
-        return chatPrompt;
+        return chatMessages.ToArray();
     }
 
-    private static async Task<CompletionsResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, SettingsViewModel settings)
+    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, SettingsViewModel settings)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -423,12 +390,7 @@ public class MainViewModel : ObservableObject
             restoreApiKey = true;
         }
 
-        if (!string.IsNullOrWhiteSpace(settings.Directions))
-        {
-            chatServiceSettings.Prompt = $"{settings.Directions}\n\n{chatServiceSettings.Prompt}";
-        }
-
-        CompletionsResponse? responseData = null;
+        ChatResponse? responseData = null;
         try
         {
             responseData = await chat.GetResponseDataAsync(chatServiceSettings);
@@ -589,7 +551,6 @@ public class MainViewModel : ObservableObject
         if (settings is { })
         {
             settings.SetActions(_actions);
-            settings.ChatSettings ??= CreateDefaultChatSettings();
             settings.MessageSettings ??= CreateDefaultMessageSettings();
             Settings = settings;
         }

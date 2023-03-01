@@ -14,7 +14,7 @@ public class ChatService : IChatService
 {
     private static readonly HttpClient s_client = new();
 
-    private static readonly CompletionsJsonContext s_serializerContext = new(
+    private static readonly ChatJsonContext s_serializerContext = new(
         new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -24,11 +24,10 @@ public class ChatService : IChatService
     private static string GetRequestBodyJson(ChatServiceSettings settings)
     {
         // Set up the request body
-        var requestBody = new CompletionsRequestBody
+        var requestBody = new ChatRequestBody
         {
             Model = settings.Model,
-            Prompt = settings.Prompt,
-            Suffix = null,
+            Messages = settings.Messages,
             MaxTokens = settings.MaxTokens,
             Temperature = settings.Temperature,
             TopP = settings.TopP,
@@ -41,10 +40,10 @@ public class ChatService : IChatService
         };
 
         // Serialize the request body to JSON using the JsonSerializer.
-        return JsonSerializer.Serialize(requestBody, s_serializerContext.CompletionsRequestBody);
+        return JsonSerializer.Serialize(requestBody, s_serializerContext.ChatRequestBody);
     }
 
-    private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+    private static async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
     {
         // Create a new HttpClient for making the API request
 
@@ -70,7 +69,7 @@ public class ChatService : IChatService
             case HttpStatusCode.TooManyRequests:
             case HttpStatusCode.InternalServerError:
             {
-                return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);
+                return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);
             }
         }
 
@@ -80,13 +79,13 @@ public class ChatService : IChatService
         }
 
         // Return the response data
-        return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseSuccess);
+        return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseSuccess);
     }
 
-    public async Task<CompletionsResponse?> GetResponseDataAsync(ChatServiceSettings settings)
+    public async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings)
     {
         // Set up the API URL and API key
-        var apiUrl = "https://api.openai.com/v1/completions";
+        var apiUrl = "https://api.openai.com/v1/chat/completions";
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         if (apiKey is null)
         {

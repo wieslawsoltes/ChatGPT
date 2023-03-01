@@ -5,5 +5,5 @@ namespace ChatGPT.Model.Services;
 
 public interface IChatService
 {
-    Task<CompletionsResponse?> GetResponseDataAsync(ChatServiceSettings settings);
+    Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings);
 }
