@@ -18,18 +18,6 @@
           <vm:MessageSettingsViewModel.Format>Markdown</vm:MessageSettingsViewModel.Format>
         </vm:MessageSettingsViewModel>
       </vm:SettingsViewModel.MessageSettings>
-      <vm:SettingsViewModel.EnableChat>True</vm:SettingsViewModel.EnableChat>
-      <vm:SettingsViewModel.ChatSettings>
-        <vm:ChatSettingsViewModel>
-          <vm:ChatSettingsViewModel.UserName>UserName</vm:ChatSettingsViewModel.UserName>
-          <vm:ChatSettingsViewModel.ChatName>ChatName</vm:ChatSettingsViewModel.ChatName>
-          <vm:ChatSettingsViewModel.InstructionsTemplate>InstructionsTemplate</vm:ChatSettingsViewModel.InstructionsTemplate>
-          <vm:ChatSettingsViewModel.MessageTemplate>MessageTemplate</vm:ChatSettingsViewModel.MessageTemplate>
-          <vm:ChatSettingsViewModel.PromptTemplate>PromptTemplate</vm:ChatSettingsViewModel.PromptTemplate>
-          <vm:ChatSettingsViewModel.Stop>Stop</vm:ChatSettingsViewModel.Stop>
-          <vm:ChatSettingsViewModel.StopTag>StopTag</vm:ChatSettingsViewModel.StopTag>
-        </vm:ChatSettingsViewModel>
-      </vm:SettingsViewModel.ChatSettings>
     </vm:SettingsViewModel>
   </Design.DataContext>
   <StackPanel Margin="16" 
@@ -40,13 +28,6 @@
     <TabControl TabStripPlacement="Bottom">
       <TabItem Header="Request">
         <views:SettingsRequestView />
-      </TabItem>
-      <TabItem Header="Chat">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      MinHeight="350">
-          <views:ChatSettingsView DataContext="{Binding ChatSettings}" />
-        </ScrollViewer>
       </TabItem>
       <TabItem Header="Message">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
