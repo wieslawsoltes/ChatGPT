@@ -12,7 +12,7 @@ public class MessageDataTemplate : StyledElement, IDataTemplate
     {
         if (data is not MessageViewModel messageViewModel)
         {
-            return new TextBlock {Text = "Invalid data type."};
+            return new TextBlock { Text = "Invalid data type." };
         }
 
         var format = messageViewModel.Format ?? "Text";
