@@ -48,11 +48,16 @@
         <ContentControl Grid.Column="0"
                         Grid.Row="0"
                         Content="{Binding}"
-                        Margin="16,4,16,4">
-          <ContentControl.DataTemplates>
-            <dt:MessageDataTemplate>
-              <dt:MessageDataTemplate.Resources>
-                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="TextMessageTemplate">
+                        Margin="16,4,16,4"
+                        Name="ContentControl">
+          <ContentControl.ContentTemplate>
+            <dt:DataTemplateSelector DataContext="{Binding #ContentControl.Content}"
+                                     Selector="{Binding Format}"
+                                     DefaultSelector="Text"
+                                     TemplateSuffix="DataTemplate"
+                                     x:DataType="vm:MessageViewModel">
+              <dt:DataTemplateSelector.Resources>
+                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="TextDataTemplate">
                   <SelectableTextBlock Text="{Binding Message}" 
                                        HorizontalAlignment="Stretch" 
                                        VerticalAlignment="Center"
@@ -69,7 +74,7 @@
                     </SelectableTextBlock.Styles>
                   </SelectableTextBlock>
                 </DataTemplate>
-                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="MarkdownMessageTemplate">
+                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="MarkdownDataTemplate">
                   <md:MarkdownScrollViewer Markdown="{Binding Message}" 
                                            HorizontalAlignment="Stretch" 
                                            VerticalAlignment="Center"
@@ -84,7 +89,7 @@
                     </md:MarkdownScrollViewer.Styles>
                   </md:MarkdownScrollViewer>
                 </DataTemplate>
-                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="HtmlMessageTemplate">
+                <DataTemplate x:DataType="vm:MessageViewModel" x:Key="HtmlDataTemplate">
                   <html:HtmlPanel Text="{Binding Message}" 
                                   HorizontalAlignment="Stretch" 
                                   VerticalAlignment="Center"
@@ -95,9 +100,9 @@
                     <!-- TODO: -->
                   </html:HtmlPanel>
                 </DataTemplate>
-              </dt:MessageDataTemplate.Resources>
-            </dt:MessageDataTemplate>
-          </ContentControl.DataTemplates>
+              </dt:DataTemplateSelector.Resources>
+            </dt:DataTemplateSelector>
+          </ContentControl.ContentTemplate>
         </ContentControl>
         <views:MessagePromptView Grid.Row="1" 
                                  Margin="8,0,8,0"/>
