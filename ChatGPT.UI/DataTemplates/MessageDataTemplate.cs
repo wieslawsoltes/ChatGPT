@@ -17,12 +17,6 @@ public class MessageDataTemplate : StyledElement, IDataTemplate
 
         var format = messageViewModel.Format ?? "Text";
         var key = $"{format}MessageTemplate";
-
-        if (Application.Current is null)
-        {
-            return new TextBlock {Text = "Current application is null."};
-        }
-
         this.TryFindResource(key, out var resource);
         if (resource is DataTemplate dataTemplate)
         {
