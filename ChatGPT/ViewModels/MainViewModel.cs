@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -6,9 +5,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using AI;
-using AI.Model.Json;
-using AI.Model.Services;
 using ChatGPT.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
@@ -32,22 +28,13 @@ public class MainViewModel : ObservableObject
 
     private ObservableCollection<ChatViewModel> _chats;
     private ChatViewModel? _currentChat;
-    private bool _isEnabled;
     private string? _theme;
 
     public MainViewModel()
     {
         _chats = new ObservableCollection<ChatViewModel>();
-        _currentChat = new ChatViewModel
-        {
-            Name = "Chat",
-            Settings = CurrentChat?.Settings?.Copy() ?? CreateDefaultChatSettings()
-        };
-        _chats.Add(_currentChat);
 
-        _isEnabled = true;
-
-        CreateWelcomeMessage();
+        NewCallback();
 
         AddChatCommand = new AsyncRelayCommand(NewAction);
 
@@ -59,11 +46,9 @@ public class MainViewModel : ObservableObject
 
         ExportChatCommand = new AsyncRelayCommand(ExportAction);
 
-        ExitCommand = new RelayCommand(() =>
-        {
-            var app = Ioc.Default.GetService<IApplicationService>();
-            app?.Exit();
-        });
+        DefaultChatSettingsCommand = new RelayCommand(DefaultChatSettingsAction);
+
+        ExitCommand = new RelayCommand(ExitAction);
         
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
     }
@@ -90,13 +75,6 @@ public class MainViewModel : ObservableObject
     }
 
     [JsonIgnore]
-    public bool IsEnabled
-    {
-        get => _isEnabled;
-        set => SetProperty(ref _isEnabled, value);
-    }
-
-    [JsonIgnore]
     public IAsyncRelayCommand AddChatCommand { get; }
 
     [JsonIgnore]
@@ -110,6 +88,9 @@ public class MainViewModel : ObservableObject
 
     [JsonIgnore]
     public IAsyncRelayCommand ExportChatCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand DefaultChatSettingsCommand { get; }
 
     [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
@@ -128,27 +109,6 @@ public class MainViewModel : ObservableObject
             Directions = Defaults.DefaultDirections,
             Format = Defaults.MarkdownMessageFormat,
         };
-    }
-
-    private void CreateWelcomeMessage()
-    {
-        if (CurrentChat is null)
-        {
-            return;
-        }
-
-        var welcomeItem = new ChatMessageViewModel
-        {
-            Prompt = "",
-            Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
-            Format = Defaults.TextMessageFormat,
-            IsSent = false,
-            CanRemove = false
-        };
-        SetMessageActions(welcomeItem);
-        CurrentChat.Messages.Add(welcomeItem);
-
-        CurrentChat.CurrentMessage = welcomeItem;
     }
 
     private async Task NewAction()
@@ -203,257 +163,33 @@ public class MainViewModel : ObservableObject
         }
     }
 
+    private void DefaultChatSettingsAction()
+    {
+        if (CurrentChat is { } chat)
+        {
+            var apiKey = chat.Settings?.ApiKey;
+
+            chat.Settings = CreateDefaultChatSettings();
+
+            if (apiKey is { })
+            {
+                chat.Settings.ApiKey = apiKey;
+            }
+        }
+    }
+
+    private void ExitAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        app?.Exit();
+    }
+
     private void ChangeThemeAction()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
             app.ToggleTheme();
-        }
-    }
-
-    private void SetMessageActions(ChatMessageViewModel message)
-    {
-        message.SetSendAction(Send);
-        message.SetCopyAction(Copy);
-        message.SetRemoveAction(Remove);
-    }
-
-    private async Task Send(ChatMessageViewModel sendMessage)
-    {
-        if (CurrentChat is null 
-            || CurrentChat.Settings is null)
-        {
-            return;
-        }
-
-        if (string.IsNullOrEmpty(sendMessage.Prompt))
-        {
-            return;
-        }
-
-        var chatPrompt = CreateChatPrompt(sendMessage, CurrentChat.Messages, CurrentChat.Settings);
-
-        IsEnabled = false;
-
-        try
-        {
-            sendMessage.IsSent = true;
-
-            ChatMessageViewModel? promptMessage;
-            ChatMessageViewModel? resultMessage = null;
-
-            if (sendMessage.Result is { })
-            {
-                promptMessage = sendMessage;
-                resultMessage = sendMessage.Result;
-            }
-            else
-            {
-                promptMessage = new ChatMessageViewModel
-                {
-                    CanRemove = true,
-                    Format = Defaults.TextMessageFormat
-                };
-                SetMessageActions(promptMessage);
-                CurrentChat.Messages.Add(promptMessage);
-            }
-
-            var prompt = sendMessage.Prompt;
-
-            promptMessage.Message = prompt;
-            promptMessage.Prompt = "";
-            promptMessage.IsSent = true;
-
-            CurrentChat.CurrentMessage = promptMessage;
-            promptMessage.IsAwaiting = true;
-
-            // Response
-
-            var chatServiceSettings = new ChatServiceSettings
-            {
-                Model = CurrentChat.Settings.Model,
-                Messages = chatPrompt,
-                Suffix = null,
-                Temperature = CurrentChat.Settings.Temperature,
-                MaxTokens = CurrentChat.Settings.MaxTokens,
-                TopP = 1.0m,
-                Stop = null,
-            };
-            var responseStr = default(string);
-            var isResponseStrError = false;
-            var responseData = await GetResponseData(chatServiceSettings, CurrentChat.Settings);
-            if (responseData is null)
-            {
-                responseStr = "Unknown error.";
-                isResponseStrError = true;
-            }
-            else if (responseData is ChatResponseError error)
-            {
-                var message = error.Error?.Message;
-                responseStr = message ?? "Unknown error.";
-                isResponseStrError = true;
-            }
-            else if (responseData is ChatResponseSuccess success)
-            {
-                var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
-                responseStr = message ?? "";
-                isResponseStrError = false;
-            }
-
-            // Update
-
-            if (isResponseStrError)
-            {
-                resultMessage = promptMessage;
-            }
-
-            if (resultMessage is null)
-            {
-                resultMessage = new ChatMessageViewModel
-                {
-                    IsSent = false,
-                    CanRemove = true,
-                    Format = CurrentChat.Settings.Format
-                };
-                SetMessageActions(resultMessage);
-                CurrentChat.Messages.Add(resultMessage);
-            }
-            else
-            {
-                if (!isResponseStrError)
-                {
-                    resultMessage.IsSent = true;
-                }
-            }
-
-            resultMessage.Message = responseStr;
-            resultMessage.IsError = isResponseStrError;
-            resultMessage.Prompt = isResponseStrError ? prompt : "";
-            resultMessage.Format = CurrentChat.Settings.Format;
-
-            if (CurrentChat.Messages.LastOrDefault() == resultMessage)
-            {
-                resultMessage.IsSent = false;
-            }
-
-            CurrentChat.CurrentMessage = resultMessage;
-
-            promptMessage.IsAwaiting = false;
-            promptMessage.Result = isResponseStrError ? null : resultMessage;
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-
-        IsEnabled = true;
-    }
-
-    private static ChatMessage[] CreateChatPrompt(
-        ChatMessageViewModel sendMessage, 
-        ObservableCollection<ChatMessageViewModel> messages, 
-        ChatSettingsViewModel chatSettings)
-    {
-        var chatMessages = new List<ChatMessage>();
-
-        chatMessages.Add(new ChatMessage
-        {
-            Role = "system",
-            Content = chatSettings.Directions
-        });
-
-        // TODO: Ensure that chat prompt does not exceed maximum token limit.
-
-        foreach (var message in messages)
-        {
-            if (!string.IsNullOrEmpty(message.Message) && message.Result is { })
-            {
-                chatMessages.Add(new ChatMessage
-                {
-                    Role = "user",
-                    Content = message.Message
-                });
-                chatMessages.Add(new ChatMessage
-                {
-                    Role = "assistant",
-                    Content = message.Result.Message
-                });
-            }
-        }
-
-        chatMessages.Add(new ChatMessage
-        {
-            Role = "user",
-            Content = sendMessage.Prompt
-        });
-
-        return chatMessages.ToArray();
-    }
-
-    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings)
-    {
-        var chat = Ioc.Default.GetService<IChatService>();
-        if (chat is null)
-        {
-            return null;
-        }
-
-        var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
-        var restoreApiKey = false;
-
-        if (!string.IsNullOrWhiteSpace(chatSettings.ApiKey))
-        {
-            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, chatSettings.ApiKey);
-            restoreApiKey = true;
-        }
-
-        ChatResponse? responseData = null;
-        try
-        {
-            responseData = await chat.GetResponseDataAsync(chatServiceSettings);
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-
-        if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
-        {
-            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, apiKey);
-        }
-
-        return responseData;
-    }
-
-    private async Task Copy(ChatMessageViewModel message)
-    {
-        var app = Ioc.Default.GetService<IApplicationService>();
-        if (app is { })
-        {
-            if (message.Message is { } text)
-            {
-                await app.SetClipboardText(text);
-            }
-        }
-    }
-
-    private void Remove(ChatMessageViewModel message)
-    {
-        if (CurrentChat is null)
-        {
-            return;
-        }
-
-        if (message is { CanRemove: true, IsAwaiting: false })
-        {
-            CurrentChat.Messages.Remove(message);
-
-            var lastMessage = CurrentChat.Messages.LastOrDefault();
-            if (lastMessage is { })
-            {
-                lastMessage.IsSent = false;
-            }
         }
     }
 
@@ -464,9 +200,21 @@ public class MainViewModel : ObservableObject
             Name = "Chat",
             Settings = CurrentChat?.Settings?.Copy() ?? CreateDefaultChatSettings()
         };
+
+        var welcomeItem = new ChatMessageViewModel
+        {
+            Prompt = "",
+            Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
+            Format = Defaults.TextMessageFormat,
+            IsSent = false,
+            CanRemove = false
+        };
+        chat.SetMessageActions(welcomeItem);
+        chat.Messages.Add(welcomeItem);
+        chat.CurrentMessage = welcomeItem;
+
         Chats.Add(chat);
         CurrentChat = chat;
-        CreateWelcomeMessage();
     }
 
     private void DeleteCallback()
@@ -480,11 +228,6 @@ public class MainViewModel : ObservableObject
 
     private async Task OpenCallbackAsync(Stream stream)
     {
-        if (CurrentChat is null)
-        {
-            return;
-        }
-
         var chat = await JsonSerializer.DeserializeAsync(
             stream, 
             s_serializerContext.ChatViewModel);
@@ -492,7 +235,7 @@ public class MainViewModel : ObservableObject
         {
             foreach (var message in chat.Messages)
             {
-                SetMessageActions(message);
+                chat.SetMessageActions(message);
             }
 
             Chats.Add(chat);
@@ -560,7 +303,7 @@ public class MainViewModel : ObservableObject
                 {
                     foreach (var message in chat.Messages)
                     {
-                        SetMessageActions(message);
+                        chat.SetMessageActions(message);
                     }
                 }
 
