@@ -8,12 +8,12 @@ public class ChatViewModel : ObservableObject
 {
     private string? _name;
     private ChatSettingsViewModel? _settings;
-    private ObservableCollection<MessageViewModel> _messages;
-    private MessageViewModel? _currentMessage;
+    private ObservableCollection<ChatMessageViewModel> _messages;
+    private ChatMessageViewModel? _currentMessage;
 
     public ChatViewModel()
     {
-        _messages = new ObservableCollection<MessageViewModel>();
+        _messages = new ObservableCollection<ChatMessageViewModel>();
     }
 
     [JsonPropertyName("name")]
@@ -31,14 +31,14 @@ public class ChatViewModel : ObservableObject
     }
 
     [JsonPropertyName("messages")]
-    public ObservableCollection<MessageViewModel> Messages
+    public ObservableCollection<ChatMessageViewModel> Messages
     {
         get => _messages;
         set => SetProperty(ref _messages, value);
     }
 
     [JsonPropertyName("currentMessage")]
-    public MessageViewModel? CurrentMessage
+    public ChatMessageViewModel? CurrentMessage
     {
         get => _currentMessage;
         set => SetProperty(ref _currentMessage, value);

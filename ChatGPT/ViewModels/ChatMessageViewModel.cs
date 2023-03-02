@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
 
-public class MessageViewModel : ObservableObject
+public class ChatMessageViewModel : ObservableObject
 {
     private string? _prompt;
     private string? _message;
@@ -16,12 +16,12 @@ public class MessageViewModel : ObservableObject
     private bool _isError;
     private bool _canRemove;
     private bool _isEditing;
-    private MessageViewModel? _result;
-    private Func<MessageViewModel, Task>? _send;
-    private Func<MessageViewModel, Task>? _copy;
-    private Action<MessageViewModel>? _remove;
+    private ChatMessageViewModel? _result;
+    private Func<ChatMessageViewModel, Task>? _send;
+    private Func<ChatMessageViewModel, Task>? _copy;
+    private Action<ChatMessageViewModel>? _remove;
 
-    public MessageViewModel()
+    public ChatMessageViewModel()
     {
         SendCommand = new AsyncRelayCommand(async _ => await SendAction());
 
@@ -89,7 +89,7 @@ public class MessageViewModel : ObservableObject
     }
 
     [JsonPropertyName("result")]
-    public MessageViewModel? Result
+    public ChatMessageViewModel? Result
     {
         get => _result;
         set => SetProperty(ref _result, value);
@@ -179,17 +179,17 @@ public class MessageViewModel : ObservableObject
         _remove?.Invoke(this);
     }
 
-    public void SetSendAction(Func<MessageViewModel, Task>? send)
+    public void SetSendAction(Func<ChatMessageViewModel, Task>? send)
     {
         _send = send;
     }
 
-    public void SetCopyAction(Func<MessageViewModel, Task>? copy)
+    public void SetCopyAction(Func<ChatMessageViewModel, Task>? copy)
     {
         _copy = copy;
     }
 
-    public void SetRemoveAction(Action<MessageViewModel>? remove)
+    public void SetRemoveAction(Action<ChatMessageViewModel>? remove)
     {
         _remove = remove;
     }

@@ -25,7 +25,7 @@
               Orientation="Vertical" 
               VerticalAlignment="Top"
               Width="320">
-    <views:SettingsChatView DataContext="{Binding ChatSettings}" />
+    <views:ChatSettingsView DataContext="{Binding ChatSettings}" />
     <views:SettingsActionsView />
   </StackPanel>
 </UserControl>

@@ -99,9 +99,11 @@ public partial class App : Application
                 .AddSingleton<ICompletionsService, CompletionsService>()
                 // ViewModels
                 .AddTransient<ActionsViewModel>()
-                .AddTransient<SettingsViewModel>()
-                .AddTransient<MessageViewModel>()
+                .AddTransient<ChatMessageViewModel>()
+                .AddTransient<ChatSettingsViewModel>()
+                .AddTransient<ChatViewModel>()
                 .AddTransient<MainViewModel>()
+                .AddTransient<SettingsViewModel>()
                 .BuildServiceProvider());
     }
 

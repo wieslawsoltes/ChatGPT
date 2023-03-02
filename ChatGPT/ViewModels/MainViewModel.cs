@@ -133,7 +133,7 @@ public class MainViewModel : ObservableObject
             return;
         }
 
-        var welcomeItem = new MessageViewModel
+        var welcomeItem = new ChatMessageViewModel
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
@@ -202,14 +202,14 @@ public class MainViewModel : ObservableObject
         }
     }
 
-    private void SetMessageActions(MessageViewModel message)
+    private void SetMessageActions(ChatMessageViewModel message)
     {
         message.SetSendAction(Send);
         message.SetCopyAction(Copy);
         message.SetRemoveAction(Remove);
     }
 
-    private async Task Send(MessageViewModel sendMessage)
+    private async Task Send(ChatMessageViewModel sendMessage)
     {
         if (CurrentChat is null 
             || Settings is null 
@@ -231,8 +231,8 @@ public class MainViewModel : ObservableObject
         {
             sendMessage.IsSent = true;
 
-            MessageViewModel? promptMessage;
-            MessageViewModel? resultMessage = null;
+            ChatMessageViewModel? promptMessage;
+            ChatMessageViewModel? resultMessage = null;
 
             if (sendMessage.Result is { })
             {
@@ -241,7 +241,7 @@ public class MainViewModel : ObservableObject
             }
             else
             {
-                promptMessage = new MessageViewModel
+                promptMessage = new ChatMessageViewModel
                 {
                     CanRemove = true,
                     Format = Defaults.TextMessageFormat
@@ -301,7 +301,7 @@ public class MainViewModel : ObservableObject
 
             if (resultMessage is null)
             {
-                resultMessage = new MessageViewModel
+                resultMessage = new ChatMessageViewModel
                 {
                     IsSent = false,
                     CanRemove = true,
@@ -342,8 +342,8 @@ public class MainViewModel : ObservableObject
     }
 
     private static ChatMessage[] CreateChatPrompt(
-        MessageViewModel sendMessage, 
-        ObservableCollection<MessageViewModel> messages, 
+        ChatMessageViewModel sendMessage, 
+        ObservableCollection<ChatMessageViewModel> messages, 
         ChatSettingsViewModel chatSettings)
     {
         var chatMessages = new List<ChatMessage>();
@@ -417,7 +417,7 @@ public class MainViewModel : ObservableObject
         return responseData;
     }
 
-    private async Task Copy(MessageViewModel message)
+    private async Task Copy(ChatMessageViewModel message)
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
@@ -429,7 +429,7 @@ public class MainViewModel : ObservableObject
         }
     }
 
-    private void Remove(MessageViewModel message)
+    private void Remove(ChatMessageViewModel message)
     {
         if (CurrentChat is null)
         {
@@ -480,7 +480,7 @@ public class MainViewModel : ObservableObject
 
         var messages = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.ObservableCollectionMessageViewModel);
+            s_serializerContext.ObservableCollectionChatMessageViewModel);
         if (messages is { })
         {
             NewCallback();
@@ -507,14 +507,14 @@ public class MainViewModel : ObservableObject
 
     private async Task SaveCallbackAsync(Stream stream)
     {
-        if (CurrentChat.Messages is null)
+        if (CurrentChat is null)
         {
             return;
         }
 
         await JsonSerializer.SerializeAsync(
             stream, 
-            CurrentChat.Messages, s_serializerContext.ObservableCollectionMessageViewModel);
+            CurrentChat.Messages, s_serializerContext.ObservableCollectionChatMessageViewModel);
     }
 
     private async Task ExportCallbackAsync(Stream stream)

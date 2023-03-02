@@ -11,19 +11,19 @@
     <Design.DataContext>
     <vm:ChatViewModel>
       <vm:ChatViewModel.Messages>
-        <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
-          <vm:MessageViewModel IsSent="False" Prompt="This is prompt"/>
-          <vm:MessageViewModel IsSent="True" Prompt="This is prompt"/>
-          <vm:MessageViewModel IsSent="True" Message="This is message" />
-          <vm:MessageViewModel IsSent="False" Message="This is message" />
-          <vm:MessageViewModel IsSent="False" IsAwaiting="True" Prompt="This is prompt"/>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="True" Prompt="This is prompt"/>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="True" Message="This is message" />
-          <vm:MessageViewModel IsSent="False" IsAwaiting="True" Message="This is message" />
-          <vm:MessageViewModel IsSent="False" IsError="True" Prompt="This is prompt"/>
-          <vm:MessageViewModel IsSent="True" IsError="True" Prompt="This is prompt"/>
-          <vm:MessageViewModel IsSent="True" IsError="True" Message="This is message" />
-          <vm:MessageViewModel IsSent="False" IsError="True" Message="This is message" />
+        <objectModel:ObservableCollection x:TypeArguments="vm:ChatMessageViewModel">
+          <vm:ChatMessageViewModel IsSent="False" Prompt="This is prompt"/>
+          <vm:ChatMessageViewModel IsSent="True" Prompt="This is prompt"/>
+          <vm:ChatMessageViewModel IsSent="True" Message="This is message" />
+          <vm:ChatMessageViewModel IsSent="False" Message="This is message" />
+          <vm:ChatMessageViewModel IsSent="False" IsAwaiting="True" Prompt="This is prompt"/>
+          <vm:ChatMessageViewModel IsSent="True" IsAwaiting="True" Prompt="This is prompt"/>
+          <vm:ChatMessageViewModel IsSent="True" IsAwaiting="True" Message="This is message" />
+          <vm:ChatMessageViewModel IsSent="False" IsAwaiting="True" Message="This is message" />
+          <vm:ChatMessageViewModel IsSent="False" IsError="True" Prompt="This is prompt"/>
+          <vm:ChatMessageViewModel IsSent="True" IsError="True" Prompt="This is prompt"/>
+          <vm:ChatMessageViewModel IsSent="True" IsError="True" Message="This is message" />
+          <vm:ChatMessageViewModel IsSent="False" IsError="True" Message="This is message" />
         </objectModel:ObservableCollection>
       </vm:ChatViewModel.Messages>
     </vm:ChatViewModel>
@@ -38,8 +38,8 @@
         </ItemsPanelTemplate>
       </SelectingItemsControl.ItemsPanel>
       <SelectingItemsControl.DataTemplates>
-        <DataTemplate DataType="vm:MessageViewModel">
-          <views:MessageView Margin="2,0,6,0" />
+        <DataTemplate DataType="vm:ChatMessageViewModel">
+          <views:ChatMessageView Margin="2,0,6,0" />
         </DataTemplate>
       </SelectingItemsControl.DataTemplates>
     </SelectingItemsControl>

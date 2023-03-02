@@ -13,50 +13,50 @@
       <vm:MainViewModel.CurrentChat>
         <vm:ChatViewModel>
           <vm:ChatViewModel.Messages>
-            <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
-              <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
-                <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
-              </vm:MessageViewModel>
-              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
-                <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
-              </vm:MessageViewModel>
-              <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-                <vm:MessageViewModel.Result>
-                  <vm:MessageViewModel />
-                </vm:MessageViewModel.Result>
-              </vm:MessageViewModel>
-              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-                <vm:MessageViewModel.Result>
+            <objectModel:ObservableCollection x:TypeArguments="vm:ChatMessageViewModel">
+              <vm:ChatMessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
+                <vm:ChatMessageViewModel.Prompt></vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:ChatMessageViewModel.Message>
+              </vm:ChatMessageViewModel>
+              <vm:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
+                <vm:ChatMessageViewModel.Prompt></vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:ChatMessageViewModel.Message>
+              </vm:ChatMessageViewModel>
+              <vm:ChatMessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
+                <vm:ChatMessageViewModel.Result>
+                  <vm:ChatMessageViewModel />
+                </vm:ChatMessageViewModel.Result>
+              </vm:ChatMessageViewModel>
+              <vm:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
+                <vm:ChatMessageViewModel.Result>
                   <x:Null />
-                </vm:MessageViewModel.Result>
-              </vm:MessageViewModel>
-              <vm:MessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
-                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-                <vm:MessageViewModel.Result>
+                </vm:ChatMessageViewModel.Result>
+              </vm:ChatMessageViewModel>
+              <vm:ChatMessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
+                <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
+                <vm:ChatMessageViewModel.Result>
                   <x:Null />
-                </vm:MessageViewModel.Result>
-              </vm:MessageViewModel>
-              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-                <vm:MessageViewModel.Result>
-                  <vm:MessageViewModel />
-                </vm:MessageViewModel.Result>
-              </vm:MessageViewModel>
-              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-                <vm:MessageViewModel.Result>
+                </vm:ChatMessageViewModel.Result>
+              </vm:ChatMessageViewModel>
+              <vm:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
+                <vm:ChatMessageViewModel.Result>
+                  <vm:ChatMessageViewModel />
+                </vm:ChatMessageViewModel.Result>
+              </vm:ChatMessageViewModel>
+              <vm:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+                <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
+                <vm:ChatMessageViewModel.Result>
                   <x:Null />
-                </vm:MessageViewModel.Result>
-              </vm:MessageViewModel>
+                </vm:ChatMessageViewModel.Result>
+              </vm:ChatMessageViewModel>
             </objectModel:ObservableCollection>
           </vm:ChatViewModel.Messages>
         </vm:ChatViewModel>

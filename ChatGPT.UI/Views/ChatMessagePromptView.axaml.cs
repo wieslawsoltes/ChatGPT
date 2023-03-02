@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace ChatGPT.Views;
 
-public partial class MessagePromptView : UserControl
+public partial class ChatMessagePromptView : UserControl
 {
-    public MessagePromptView()
+    public ChatMessagePromptView()
     {
         InitializeComponent();
     }
