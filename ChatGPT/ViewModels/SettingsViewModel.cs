@@ -11,7 +11,6 @@ public partial class SettingsViewModel : ObservableObject
     private string? _apiKey;
     private string? _model;
     private string? _directions;
-    private bool _enableChat;
     private MessageSettingsViewModel? _messageSettings;
     private ActionsViewModel? _actions;
 
