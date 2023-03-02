@@ -99,7 +99,7 @@ public class ApplicationService : IApplicationService
         });
 
         var file = result.FirstOrDefault();
-        if (file is not null && file.CanOpenRead)
+        if (file is not null)
         {
             try
             {
@@ -130,7 +130,7 @@ public class ApplicationService : IApplicationService
             ShowOverwritePrompt = true
         });
 
-        if (file is not null && file.CanOpenWrite)
+        if (file is not null)
         {
             try
             {
