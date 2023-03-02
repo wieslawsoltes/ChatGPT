@@ -50,6 +50,7 @@ public partial class App : Application
             desktop.Exit += DesktopOnExit;
 
             await InitSettings();
+            SetTheme();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
@@ -59,6 +60,7 @@ public partial class App : Application
             };
 
             await InitSettings();
+            SetTheme();
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -74,7 +76,10 @@ public partial class App : Application
         {
             Console.WriteLine(e);
         }
+    }
 
+    private void SetTheme()
+    {
         if (_mainViewModel.Theme is { } theme)
         {
             switch (theme)
@@ -88,7 +93,7 @@ public partial class App : Application
             }
         }
     }
-    
+
     private void ConfigureServices()
     {
         Ioc.Default.ConfigureServices(
