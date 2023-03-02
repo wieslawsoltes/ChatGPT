@@ -6,6 +6,8 @@ public static class Defaults
 
     public const int DefaultMaxTokens = 256;
 
+    public const string DefaultModel = "gpt-3.5-turbo";
+    
     public const string DefaultDirections = "You are a helpful assistant named Clippy. Write answers in Markdown blocks. For code blocks always define used language.";
 
     public const string DefaultMessageFormat = "Markdown";
