@@ -178,13 +178,13 @@ public class MainViewModel : ObservableObject
     private async Task SaveAction()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
-        if (app is { })
+        if (app is { } && CurrentChat is { })
         {
             await app.SaveFile(
                 SaveCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Save", 
-                "messages", 
+                CurrentChat.Name ?? "chat", 
                 "json");
         }
     }
@@ -192,13 +192,13 @@ public class MainViewModel : ObservableObject
     private async Task ExportAction()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
-        if (app is { })
+        if (app is { } && CurrentChat is { })
         {
             await app.SaveFile(
                 ExportCallbackAsync, 
                 new List<string>(new[] { "Text", "All" }), 
                 "Export", 
-                "messages", 
+                CurrentChat.Name ?? "chat",
                 "txt");
         }
     }
