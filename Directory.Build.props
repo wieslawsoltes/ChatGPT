@@ -3,7 +3,7 @@
     <AvaloniaVersion>11.0.0-preview5</AvaloniaVersion>
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
-    <XamlNameReferenceGeneratorVersion>1.5.1</XamlNameReferenceGeneratorVersion>
+    <XamlNameReferenceGeneratorVersion>1.6.1</XamlNameReferenceGeneratorVersion>
     <MarkdownAvaloniaVersion>11.0.0-a9</MarkdownAvaloniaVersion>
     <AvaloniaHtmlRendererVersion>11.0.0-preview5</AvaloniaHtmlRendererVersion>
   </PropertyGroup>
