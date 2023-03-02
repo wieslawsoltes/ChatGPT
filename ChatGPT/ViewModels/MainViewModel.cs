@@ -490,6 +490,11 @@ public class MainViewModel : ObservableObject
             s_serializerContext.ChatViewModel);
         if (chat is { })
         {
+            foreach (var message in chat.Messages)
+            {
+                SetMessageActions(message);
+            }
+
             Chats.Add(chat);
             CurrentChat = chat;
         }
@@ -551,6 +556,14 @@ public class MainViewModel : ObservableObject
         {
             if (storage.Chats is { })
             {
+                foreach (var chat in storage.Chats)
+                {
+                    foreach (var message in chat.Messages)
+                    {
+                        SetMessageActions(message);
+                    }
+                }
+
                 Chats = storage.Chats;
                 CurrentChat = storage.CurrentChat;
             }
