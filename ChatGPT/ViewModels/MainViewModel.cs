@@ -104,7 +104,7 @@ public class MainViewModel : ObservableObject
         {
             Temperature = Defaults.DefaultTemperature,
             MaxTokens = Defaults.DefaultMaxTokens,
-            Model = "gpt-3.5-turbo",
+            Model = Defaults.DefaultModel,
             ApiKey = null,
             Directions = Defaults.DefaultDirections,
             Format = Defaults.MarkdownMessageFormat,
