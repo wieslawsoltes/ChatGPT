@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
+             xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
              xmlns:history="clr-namespace:ChatGPT.Views.History"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="650"
              x:Class="ChatGPT.Views.History.HistoryView"
@@ -39,7 +40,7 @@
         </ItemsPanelTemplate>
       </ListBox.ItemsPanel>
       <ListBox.DataTemplates>
-        <DataTemplate DataType="vm:ChatViewModel">
+        <DataTemplate DataType="vmc:ChatViewModel">
           <StackPanel Orientation="Horizontal">
             <PathIcon Data="{DynamicResource ChatIcon}"
                       Width="24"

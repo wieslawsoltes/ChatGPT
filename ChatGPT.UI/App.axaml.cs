@@ -12,6 +12,8 @@ using Avalonia.Styling;
 using ChatGPT.Model.Services;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
+using ChatGPT.ViewModels.Chat;
+using ChatGPT.ViewModels.Settings;
 using ChatGPT.Views;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;

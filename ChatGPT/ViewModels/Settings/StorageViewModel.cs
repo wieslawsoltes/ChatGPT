@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
+using ChatGPT.ViewModels.Chat;
 
-namespace ChatGPT.ViewModels;
+namespace ChatGPT.ViewModels.Settings;
 
 public class StorageViewModel
 {

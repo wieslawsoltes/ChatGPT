@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace ChatGPT.ViewModels;
+namespace ChatGPT.ViewModels.Chat;
 
 public partial class ChatSettingsViewModel : ObservableObject
 {
