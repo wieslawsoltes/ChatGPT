@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
+             xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
              xmlns:views="clr-namespace:ChatGPT.Views"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
@@ -67,11 +68,11 @@
         RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
         ShowGridLines="False">
-    <views:MessagesView Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        VerticalAlignment="Top"
-                        DataContext="{Binding CurrentChat}"/>
+    <chat:ChatView Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Top"
+                   DataContext="{Binding CurrentChat}"/>
     <views:MainToolbarView Grid.Column="0"
                            Grid.Row="1" />
     <Image Grid.Column="1"

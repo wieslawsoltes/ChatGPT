@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace ChatGPT.Views;
+namespace ChatGPT.Views.Chat;
 
 public partial class ChatMessageActionsView : UserControl
 {

@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
              xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
-             x:Class="ChatGPT.Views.ChatSettingsView"
+             x:Class="ChatGPT.Views.Chat.ChatSettingsView"
              x:CompileBindings="True" x:DataType="vm:ChatSettingsViewModel">
   <Design.DataContext>
     <vm:ChatSettingsViewModel>

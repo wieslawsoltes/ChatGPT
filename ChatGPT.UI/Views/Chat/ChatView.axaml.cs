@@ -1,11 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ChatGPT.Views;
+namespace ChatGPT.Views.Chat;
 
-public partial class MessagesView : UserControl
+public partial class ChatView : UserControl
 {
-    public MessagesView()
+    public ChatView()
     {
         InitializeComponent();
     }
