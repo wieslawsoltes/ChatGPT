@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ChatGPT.Model.Json;
+using AI;
+using AI.Model.Json;
+using AI.Model.Services;
 using ChatGPT.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
@@ -98,11 +100,11 @@ public class MainViewModel : ObservableObject
     {
         var settings = new SettingsViewModel
         {
-            Temperature = Constants.DefaultTemperature,
-            MaxTokens = Constants.DefaultMaxTokens,
+            Temperature = Defaults.DefaultTemperature,
+            MaxTokens = Defaults.DefaultMaxTokens,
             Model = "gpt-3.5-turbo",
             ApiKey = null,
-            Directions = Constants.DefaultDirections,
+            Directions = Defaults.DefaultDirections,
             MessageSettings = CreateDefaultMessageSettings(),
         };
         settings.SetActions(_actions);
@@ -113,7 +115,7 @@ public class MainViewModel : ObservableObject
     {
         return new MessageSettingsViewModel
         {
-            Format = Constants.MarkdownMessageFormat,
+            Format = Defaults.MarkdownMessageFormat,
         };
     }
 
@@ -128,7 +130,7 @@ public class MainViewModel : ObservableObject
         {
             Prompt = "",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
-            Format = Constants.TextMessageFormat,
+            Format = Defaults.TextMessageFormat,
             IsSent = false,
             CanRemove = false
         };
@@ -235,7 +237,7 @@ public class MainViewModel : ObservableObject
                 promptMessage = new MessageViewModel
                 {
                     CanRemove = true,
-                    Format = Constants.TextMessageFormat
+                    Format = Defaults.TextMessageFormat
                 };
                 SetMessageActions(promptMessage);
                 Messages.Add(promptMessage);

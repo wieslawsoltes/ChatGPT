@@ -1,9 +1,7 @@
 namespace ChatGPT;
 
-internal static class Constants
+public static class Defaults
 {
-    public const string EnvironmentVariableApiKey = "OPENAI_API_KEY";
-
     public const decimal DefaultTemperature = 0.7m;
 
     public const int DefaultMaxTokens = 256;

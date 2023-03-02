@@ -5,10 +5,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using ChatGPT.Model.Json;
-using ChatGPT.Model.Services;
+using AI.Model.Json;
+using AI.Model.Services;
 
-namespace ChatGPT.Services;
+namespace AI.Services;
 
 public class CompletionsService : ICompletionsService
 {

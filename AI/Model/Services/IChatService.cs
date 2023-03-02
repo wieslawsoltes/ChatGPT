@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using ChatGPT.Model.Json;
+using AI.Model.Json;
 
-namespace ChatGPT.Model.Services;
+namespace AI.Model.Services;
 
 public interface IChatService
 {

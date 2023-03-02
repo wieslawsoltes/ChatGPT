@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ChatGPT.Model.Json;
+namespace AI.Model.Json;
 
 public class CompletionsResponseError : CompletionsResponse
 {

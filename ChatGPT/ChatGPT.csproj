@@ -8,4 +8,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AI\AI.csproj" />
+  </ItemGroup>
 </Project>

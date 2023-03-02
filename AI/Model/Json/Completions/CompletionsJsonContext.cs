@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ChatGPT.Model.Json;
+namespace AI.Model.Json;
 
 [JsonSerializable(typeof(CompletionsRequestBody))]
 [JsonSerializable(typeof(CompletionsResponseSuccess))]

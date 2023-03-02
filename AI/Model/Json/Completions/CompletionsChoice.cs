@@ -1,11 +1,11 @@
 using System.Text.Json.Serialization;
 
-namespace ChatGPT.Model.Json;
+namespace AI.Model.Json;
 
-public class ChatChoice
+public class CompletionsChoice
 {
-    [JsonPropertyName("message")]
-    public ChatMessage? Message { get; set; }
+    [JsonPropertyName("text")]
+    public string? Text { get; set; }
 
     [JsonPropertyName("index")]
     public int Index { get; set; }

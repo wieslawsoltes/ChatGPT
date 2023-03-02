@@ -1,4 +1,4 @@
-namespace ChatGPT.Model.Json;
+namespace AI.Model.Json;
 
 public abstract class CompletionsResponse
 {

@@ -1,14 +1,14 @@
 using System.Text.Json.Serialization;
 
-namespace ChatGPT.Model.Json;
+namespace AI.Model.Json;
 
-public class ChatResponseSuccess : ChatResponse
+public class CompletionsResponseSuccess : CompletionsResponse
 {
     [JsonPropertyName("id")]
     public string? Id { get; set; }
 
     [JsonPropertyName("object")]
-    public string? Object { get; set; }
+    public string? Object { get; set; } // Escaped with @ symbol
 
     [JsonPropertyName("created")]
     public int Created { get; set; }
@@ -17,8 +17,8 @@ public class ChatResponseSuccess : ChatResponse
     public string? Model { get; set; }
 
     [JsonPropertyName("choices")]
-    public ChatChoice[]? Choices { get; set; }
+    public CompletionsChoice[]? Choices { get; set; }
 
     [JsonPropertyName("usage")]
-    public ChatUsage? Usage { get; set; }
+    public CompletionsUsage? Usage { get; set; }
 }
