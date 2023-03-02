@@ -24,6 +24,7 @@ public class SplashActivity : AvaloniaSplashActivity<App>
         {
             try
             {
+                app.SaveTheme();
                 await app.SaveSettings();
             }
             catch (Exception exception)

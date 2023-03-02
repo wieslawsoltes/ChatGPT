@@ -13,6 +13,7 @@ public partial class SettingsViewModel : ObservableObject
     private string? _directions;
     private MessageSettingsViewModel? _messageSettings;
     private ActionsViewModel? _actions;
+    private string? _theme;
 
     public SettingsViewModel()
     {
@@ -94,6 +95,13 @@ public partial class SettingsViewModel : ObservableObject
     {
         get => _messageSettings;
         set => SetProperty(ref _messageSettings, value);
+    }
+
+    [JsonPropertyName("theme")]
+    public string? Theme
+    {
+        get => _theme;
+        set => SetProperty(ref _theme, value);
     }
 
     [JsonIgnore]

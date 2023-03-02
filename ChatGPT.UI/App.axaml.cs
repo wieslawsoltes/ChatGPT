@@ -8,6 +8,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
+using Avalonia.Styling;
 using ChatGPT.Model.Services;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
@@ -46,16 +47,9 @@ public partial class App : Application
                 DataContext = _mainViewModel
             };
 
-            try
-            {
-                await LoadSettings();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
             desktop.Exit += DesktopOnExit;
+
+            await InitSettings();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
@@ -64,19 +58,37 @@ public partial class App : Application
                 DataContext = _mainViewModel
             };
 
-            try
-            {
-                await LoadSettings();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            await InitSettings();
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
+    private async Task InitSettings()
+    {
+        try
+        {
+            await LoadSettings();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+        if (_mainViewModel.Settings?.Theme is { } theme)
+        {
+            switch (theme)
+            {
+                case "Light":
+                    RequestedThemeVariant = ThemeVariant.Light;
+                    break;
+                case "Dark":
+                    RequestedThemeVariant = ThemeVariant.Dark;
+                    break;
+            }
+        }
+    }
+    
     private void ConfigureServices()
     {
         Ioc.Default.ConfigureServices(
@@ -97,6 +109,7 @@ public partial class App : Application
     {
         try
         {
+            SaveTheme();
             await SaveSettings();
         }
         catch (Exception exception)
@@ -127,6 +140,20 @@ public partial class App : Application
         var appSettingPath = Path.Combine(appPath, SettingsFileName);
         await using var stream = File.Open(appSettingPath, FileMode.Create);
         await _mainViewModel.SaveSettings(stream);
+    }
+
+    public void SaveTheme()
+    {
+        if (_mainViewModel.Settings is { })
+        {
+            var theme = "Light";
+            if (RequestedThemeVariant == ThemeVariant.Dark)
+            {
+                theme = "Dark";
+            }
+
+            _mainViewModel.Settings.Theme = theme;
+        }
     }
 
     public void ToggleAcrylicBlur()
