@@ -82,6 +82,7 @@ public partial class App : Application
                 // Services
                 .AddSingleton<IApplicationService, ApplicationService>()
                 .AddSingleton<IChatService, ChatService>()
+                .AddSingleton<ICompletionsService, CompletionsService>()
                 // ViewModels
                 .AddTransient<ActionsViewModel>()
                 .AddTransient<SettingsViewModel>()
