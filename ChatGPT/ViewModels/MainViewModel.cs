@@ -30,8 +30,8 @@ public class MainViewModel : ObservableObject
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
 
-    private ObservableCollection<MessageViewModel>? _messages;
-    private MessageViewModel? _currentMessage;
+    private ObservableCollection<ChatViewModel>? _chats;
+    private ChatViewModel? _currentChat;
     private SettingsViewModel? _settings;
     private ActionsViewModel? _actions;
     private bool _isEnabled;
@@ -41,7 +41,13 @@ public class MainViewModel : ObservableObject
         CreateDefaultActions();
         CreateDefaultSettings();
 
-        _messages = new ObservableCollection<MessageViewModel>();
+        _chats = new ObservableCollection<ChatViewModel>();
+        _currentChat = new ChatViewModel()
+        {
+            Name = "Chat"
+        };
+        _chats.Add(_currentChat);
+
         _isEnabled = true;
 
         CreateWelcomeMessage();
@@ -49,18 +55,18 @@ public class MainViewModel : ObservableObject
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
     }
 
-    [JsonPropertyName("messages")]
-    public ObservableCollection<MessageViewModel>? Messages
+    [JsonPropertyName("chats")]
+    public ObservableCollection<ChatViewModel>? Chats
     {
-        get => _messages;
-        set => SetProperty(ref _messages, value);
+        get => _chats;
+        set => SetProperty(ref _chats, value);
     }
 
-    [JsonPropertyName("currentMessage")]
-    public MessageViewModel? CurrentMessage
+    [JsonPropertyName("currentChat")]
+    public ChatViewModel? CurrentChat
     {
-        get => _currentMessage;
-        set => SetProperty(ref _currentMessage, value);
+        get => _currentChat;
+        set => SetProperty(ref _currentChat, value);
     }
 
     [JsonPropertyName("settings")]
@@ -100,28 +106,28 @@ public class MainViewModel : ObservableObject
     {
         var settings = new SettingsViewModel
         {
-            Temperature = Defaults.DefaultTemperature,
-            MaxTokens = Defaults.DefaultMaxTokens,
-            Model = "gpt-3.5-turbo",
-            ApiKey = null,
-            Directions = Defaults.DefaultDirections,
-            MessageSettings = CreateDefaultMessageSettings(),
+            ChatSettings = CreateDefaultChatSettings()
         };
         settings.SetActions(_actions);
         Settings = settings;
     }
 
-    private MessageSettingsViewModel CreateDefaultMessageSettings()
+    private ChatSettingsViewModel CreateDefaultChatSettings()
     {
-        return new MessageSettingsViewModel
+        return new ChatSettingsViewModel
         {
+            Temperature = Defaults.DefaultTemperature,
+            MaxTokens = Defaults.DefaultMaxTokens,
+            Model = "gpt-3.5-turbo",
+            ApiKey = null,
+            Directions = Defaults.DefaultDirections,
             Format = Defaults.MarkdownMessageFormat,
         };
     }
 
     private void CreateWelcomeMessage()
     {
-        if (Messages is null)
+        if (CurrentChat is null)
         {
             return;
         }
@@ -135,9 +141,9 @@ public class MainViewModel : ObservableObject
             CanRemove = false
         };
         SetMessageActions(welcomeItem);
-        Messages.Add(welcomeItem);
+        CurrentChat.Messages.Add(welcomeItem);
 
-        CurrentMessage = welcomeItem;
+        CurrentChat.CurrentMessage = welcomeItem;
     }
 
     private async Task NewAction()
@@ -204,9 +210,9 @@ public class MainViewModel : ObservableObject
 
     private async Task Send(MessageViewModel sendMessage)
     {
-        if (Messages is null 
+        if (CurrentChat is null 
             || Settings is null 
-            || Settings.MessageSettings is null)
+            || Settings.ChatSettings is null)
         {
             return;
         }
@@ -216,7 +222,7 @@ public class MainViewModel : ObservableObject
             return;
         }
 
-        var chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings);
+        var chatPrompt = CreateChatPrompt(sendMessage, CurrentChat.Messages, Settings.ChatSettings);
 
         IsEnabled = false;
 
@@ -240,7 +246,7 @@ public class MainViewModel : ObservableObject
                     Format = Defaults.TextMessageFormat
                 };
                 SetMessageActions(promptMessage);
-                Messages.Add(promptMessage);
+                CurrentChat.Messages.Add(promptMessage);
             }
 
             var prompt = sendMessage.Prompt;
@@ -249,24 +255,24 @@ public class MainViewModel : ObservableObject
             promptMessage.Prompt = "";
             promptMessage.IsSent = true;
 
-            CurrentMessage = promptMessage;
+            CurrentChat.CurrentMessage = promptMessage;
             promptMessage.IsAwaiting = true;
 
             // Response
 
             var chatServiceSettings = new ChatServiceSettings
             {
-                Model = Settings.Model,
+                Model = Settings.ChatSettings.Model,
                 Messages = chatPrompt,
                 Suffix = null,
-                Temperature = Settings.Temperature,
-                MaxTokens = Settings.MaxTokens,
+                Temperature = Settings.ChatSettings.Temperature,
+                MaxTokens = Settings.ChatSettings.MaxTokens,
                 TopP = 1.0m,
                 Stop = null,
             };
             var responseStr = default(string);
             var isResponseStrError = false;
-            var responseData = await GetResponseData(chatServiceSettings, Settings);
+            var responseData = await GetResponseData(chatServiceSettings, Settings.ChatSettings);
             if (responseData is null)
             {
                 responseStr = "Unknown error.";
@@ -298,10 +304,10 @@ public class MainViewModel : ObservableObject
                 {
                     IsSent = false,
                     CanRemove = true,
-                    Format = Settings.MessageSettings.Format
+                    Format = Settings.ChatSettings.Format
                 };
                 SetMessageActions(resultMessage);
-                Messages.Add(resultMessage);
+                CurrentChat.Messages.Add(resultMessage);
             }
             else
             {
@@ -314,14 +320,14 @@ public class MainViewModel : ObservableObject
             resultMessage.Message = responseStr;
             resultMessage.IsError = isResponseStrError;
             resultMessage.Prompt = isResponseStrError ? prompt : "";
-            resultMessage.Format = Settings.MessageSettings.Format;
+            resultMessage.Format = Settings.ChatSettings.Format;
 
-            if (Messages.LastOrDefault() == resultMessage)
+            if (CurrentChat.Messages.LastOrDefault() == resultMessage)
             {
                 resultMessage.IsSent = false;
             }
 
-            CurrentMessage = resultMessage;
+            CurrentChat.CurrentMessage = resultMessage;
 
             promptMessage.IsAwaiting = false;
             promptMessage.Result = isResponseStrError ? null : resultMessage;
@@ -337,14 +343,14 @@ public class MainViewModel : ObservableObject
     private static ChatMessage[] CreateChatPrompt(
         MessageViewModel sendMessage, 
         ObservableCollection<MessageViewModel> messages, 
-        SettingsViewModel settings)
+        ChatSettingsViewModel chatSettings)
     {
         var chatMessages = new List<ChatMessage>();
 
         chatMessages.Add(new ChatMessage
         {
             Role = "system",
-            Content = settings.Directions
+            Content = chatSettings.Directions
         });
 
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
@@ -375,7 +381,7 @@ public class MainViewModel : ObservableObject
         return chatMessages.ToArray();
     }
 
-    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, SettingsViewModel settings)
+    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -386,9 +392,9 @@ public class MainViewModel : ObservableObject
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         var restoreApiKey = false;
 
-        if (!string.IsNullOrWhiteSpace(settings.ApiKey))
+        if (!string.IsNullOrWhiteSpace(chatSettings.ApiKey))
         {
-            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, settings.ApiKey);
+            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, chatSettings.ApiKey);
             restoreApiKey = true;
         }
 
@@ -424,16 +430,16 @@ public class MainViewModel : ObservableObject
 
     private void Remove(MessageViewModel message)
     {
-        if (Messages is null)
+        if (CurrentChat is null)
         {
             return;
         }
 
         if (message is { CanRemove: true, IsAwaiting: false })
         {
-            Messages.Remove(message);
+            CurrentChat.Messages.Remove(message);
 
-            var lastMessage = Messages.LastOrDefault();
+            var lastMessage = CurrentChat.Messages.LastOrDefault();
             if (lastMessage is { })
             {
                 lastMessage.IsSent = false;
@@ -443,30 +449,30 @@ public class MainViewModel : ObservableObject
 
     private void NewCallback()
     {
-        if (Messages is null)
+        if (CurrentChat is null)
         {
             return;
         }
 
-        if (Messages.Count <= 1)
+        if (CurrentChat.Messages.Count <= 1)
         {
-            Messages[0].IsSent = false;
+            CurrentChat.Messages[0].IsSent = false;
             return;
         }
 
-        Messages[0].Prompt = null;
-        Messages[0].IsSent = false;
-        Messages[0].Result = null;
+        CurrentChat.Messages[0].Prompt = null;
+        CurrentChat.Messages[0].IsSent = false;
+        CurrentChat.Messages[0].Result = null;
 
-        for (var i = Messages.Count - 1; i >= 1; i--)
+        for (var i = CurrentChat.Messages.Count - 1; i >= 1; i--)
         {
-            Messages.RemoveAt(i);
+            CurrentChat.Messages.RemoveAt(i);
         }
     }
 
     private async Task OpenCallbackAsync(Stream stream)
     {
-        if (Messages is null)
+        if (CurrentChat is null)
         {
             return;
         }
@@ -478,9 +484,9 @@ public class MainViewModel : ObservableObject
         {
             NewCallback();
 
-            if (Messages.Count <= 1)
+            if (CurrentChat.Messages.Count <= 1)
             {
-                Messages[0].IsSent = true;
+                CurrentChat.Messages[0].IsSent = true;
             }
 
             for (var i = 0; i < messages.Count; i++)
@@ -493,35 +499,35 @@ public class MainViewModel : ObservableObject
                 }
 
                 SetMessageActions(message);
-                Messages.Add(message);
+                CurrentChat.Messages.Add(message);
             }
         }
     }
 
     private async Task SaveCallbackAsync(Stream stream)
     {
-        if (Messages is null)
+        if (CurrentChat.Messages is null)
         {
             return;
         }
 
         await JsonSerializer.SerializeAsync(
             stream, 
-            Messages, s_serializerContext.ObservableCollectionMessageViewModel);
+            CurrentChat.Messages, s_serializerContext.ObservableCollectionMessageViewModel);
     }
 
     private async Task ExportCallbackAsync(Stream stream)
     {
-        if (Messages is null)
+        if (CurrentChat is null)
         {
             return;
         }
 
         await using var writer = new StreamWriter(stream);
 
-        for (var i = 0; i < Messages.Count; i++)
+        for (var i = 0; i < CurrentChat.Messages.Count; i++)
         {
-            var message = Messages[i];
+            var message = CurrentChat.Messages[i];
 
             if (i < 1)
             {
@@ -553,7 +559,7 @@ public class MainViewModel : ObservableObject
         if (settings is { })
         {
             settings.SetActions(_actions);
-            settings.MessageSettings ??= CreateDefaultMessageSettings();
+            settings.ChatSettings ??= CreateDefaultChatSettings();
             Settings = settings;
         }
     }

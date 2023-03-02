@@ -6,12 +6,7 @@ namespace ChatGPT.ViewModels;
 
 public partial class SettingsViewModel : ObservableObject
 {
-    private decimal _temperature;
-    private int _maxTokens;
-    private string? _apiKey;
-    private string? _model;
-    private string? _directions;
-    private MessageSettingsViewModel? _messageSettings;
+    private ChatSettingsViewModel? _chatSettings;
     private ActionsViewModel? _actions;
     private string? _theme;
 
@@ -55,46 +50,11 @@ public partial class SettingsViewModel : ObservableObject
         });
     }
 
-    [JsonPropertyName("temperature")]
-    public decimal Temperature
+    [JsonPropertyName("chatSettings")]
+    public ChatSettingsViewModel? ChatSettings
     {
-        get => _temperature;
-        set => SetProperty(ref _temperature, value);
-    }
-
-    [JsonPropertyName("maxTokens")]
-    public int MaxTokens
-    {
-        get => _maxTokens;
-        set => SetProperty(ref _maxTokens, value);
-    }
-
-    [JsonPropertyName("apiKey")]
-    public string? ApiKey
-    {
-        get => _apiKey;
-        set => SetProperty(ref _apiKey, value);
-    }
-
-    [JsonPropertyName("model")]
-    public string? Model
-    {
-        get => _model;
-        set => SetProperty(ref _model, value);
-    }
-
-    [JsonPropertyName("directions")]
-    public string? Directions
-    {
-        get => _directions;
-        set => SetProperty(ref _directions, value);
-    }
-
-    [JsonPropertyName("messageSettings")]
-    public MessageSettingsViewModel? MessageSettings
-    {
-        get => _messageSettings;
-        set => SetProperty(ref _messageSettings, value);
+        get => _chatSettings;
+        set => SetProperty(ref _chatSettings, value);
     }
 
     [JsonPropertyName("theme")]

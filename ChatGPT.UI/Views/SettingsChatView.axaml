@@ -3,15 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
+             xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
-             x:Class="ChatGPT.Views.SettingsRequestView"
-             x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+             x:Class="ChatGPT.Views.SettingsChatView"
+             x:CompileBindings="True" x:DataType="vm:ChatSettingsViewModel">
   <Design.DataContext>
-    <vm:SettingsViewModel>
-      <vm:SettingsViewModel.Temperature>0.6</vm:SettingsViewModel.Temperature>
-      <vm:SettingsViewModel.MaxTokens>100</vm:SettingsViewModel.MaxTokens>
-      <vm:SettingsViewModel.ApiKey><x:Null/></vm:SettingsViewModel.ApiKey>
-    </vm:SettingsViewModel>
+    <vm:ChatSettingsViewModel>
+      <vm:ChatSettingsViewModel.Temperature>0.6</vm:ChatSettingsViewModel.Temperature>
+      <vm:ChatSettingsViewModel.MaxTokens>100</vm:ChatSettingsViewModel.MaxTokens>
+      <vm:ChatSettingsViewModel.ApiKey><x:Null/></vm:ChatSettingsViewModel.ApiKey>
+    </vm:ChatSettingsViewModel>
   </Design.DataContext>
   <StackPanel Orientation="Vertical">
     <StackPanel Orientation="Vertical">
@@ -74,6 +75,34 @@
                Margin="4" 
                Padding="8" 
                FontSize="{DynamicResource SettingContentFontSize}" />
+    </StackPanel>
+    <StackPanel Orientation="Vertical">
+      <TextBlock Text="Format:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <!--<TextBox Text="{Binding Format}" 
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}"/>-->
+      <ComboBox SelectedItem="{Binding Format}"
+                Margin="4" 
+                Padding="8" 
+                FontSize="{DynamicResource SettingContentFontSize}"
+                HorizontalAlignment="Stretch">
+        <ComboBox.Items>
+          <generic:List x:TypeArguments="x:String">
+            <x:String>Text</x:String>
+            <x:String>Markdown</x:String>
+            <x:String>Html</x:String>
+          </generic:List>
+        </ComboBox.Items>
+      </ComboBox>
+      <!--<TextBlock Text="Text, Markdown, Html" 
+                 TextWrapping="Wrap"
+                 Margin="4" 
+                 Padding="0,0,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />-->
     </StackPanel>
   </StackPanel>
 </UserControl>

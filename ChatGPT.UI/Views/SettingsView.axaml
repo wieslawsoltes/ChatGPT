@@ -9,15 +9,15 @@
              x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
   <Design.DataContext>
     <vm:SettingsViewModel>
-      <vm:SettingsViewModel.Temperature>0.6</vm:SettingsViewModel.Temperature>
-      <vm:SettingsViewModel.MaxTokens>100</vm:SettingsViewModel.MaxTokens>
-      <vm:SettingsViewModel.ApiKey><x:Null/></vm:SettingsViewModel.ApiKey>
-      <vm:SettingsViewModel.Directions>Directions</vm:SettingsViewModel.Directions>
-      <vm:SettingsViewModel.MessageSettings>
-        <vm:MessageSettingsViewModel>
-          <vm:MessageSettingsViewModel.Format>Markdown</vm:MessageSettingsViewModel.Format>
-        </vm:MessageSettingsViewModel>
-      </vm:SettingsViewModel.MessageSettings>
+      <vm:SettingsViewModel.ChatSettings>
+        <vm:ChatSettingsViewModel>
+          <vm:ChatSettingsViewModel.Temperature>0.6</vm:ChatSettingsViewModel.Temperature>
+          <vm:ChatSettingsViewModel.MaxTokens>100</vm:ChatSettingsViewModel.MaxTokens>
+          <vm:ChatSettingsViewModel.ApiKey><x:Null/></vm:ChatSettingsViewModel.ApiKey>
+          <vm:ChatSettingsViewModel.Directions>Directions</vm:ChatSettingsViewModel.Directions>
+          <vm:ChatSettingsViewModel.Format>Markdown</vm:ChatSettingsViewModel.Format>
+        </vm:ChatSettingsViewModel>
+      </vm:SettingsViewModel.ChatSettings>
     </vm:SettingsViewModel>
   </Design.DataContext>
   <StackPanel Margin="16" 
@@ -25,18 +25,7 @@
               Orientation="Vertical" 
               VerticalAlignment="Top"
               Width="320">
-    <TabControl TabStripPlacement="Bottom">
-      <TabItem Header="Request">
-        <views:SettingsRequestView />
-      </TabItem>
-      <TabItem Header="Message">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto"
-                      MinHeight="350">
-          <views:MessageSettingsView DataContext="{Binding MessageSettings}" />
-        </ScrollViewer>
-      </TabItem>
-    </TabControl>
+    <views:SettingsChatView DataContext="{Binding ChatSettings}" />
     <views:SettingsActionsView />
   </StackPanel>
 </UserControl>

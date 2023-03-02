@@ -10,53 +10,57 @@
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
-      <vm:MainViewModel.Messages>
-        <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
-          <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
-            <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
-          </vm:MessageViewModel>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
-            <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
-          </vm:MessageViewModel>
-          <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
-            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.Result>
-              <vm:MessageViewModel />
-            </vm:MessageViewModel.Result>
-          </vm:MessageViewModel>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.Result>
-              <x:Null />
-            </vm:MessageViewModel.Result>
-          </vm:MessageViewModel>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
-            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.Result>
-              <x:Null />
-            </vm:MessageViewModel.Result>
-          </vm:MessageViewModel>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.Result>
-              <vm:MessageViewModel />
-            </vm:MessageViewModel.Result>
-          </vm:MessageViewModel>
-          <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-            <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
-            <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
-            <vm:MessageViewModel.Result>
-              <x:Null />
-            </vm:MessageViewModel.Result>
-          </vm:MessageViewModel>
-        </objectModel:ObservableCollection>
-      </vm:MainViewModel.Messages>
+      <vm:MainViewModel.CurrentChat>
+        <vm:ChatViewModel>
+          <vm:ChatViewModel.Messages>
+            <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
+              <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
+                <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
+              </vm:MessageViewModel>
+              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
+                <vm:MessageViewModel.Prompt></vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vm:MessageViewModel.Message>
+              </vm:MessageViewModel>
+              <vm:MessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+                <vm:MessageViewModel.Result>
+                  <vm:MessageViewModel />
+                </vm:MessageViewModel.Result>
+              </vm:MessageViewModel>
+              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+                <vm:MessageViewModel.Result>
+                  <x:Null />
+                </vm:MessageViewModel.Result>
+              </vm:MessageViewModel>
+              <vm:MessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
+                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+                <vm:MessageViewModel.Result>
+                  <x:Null />
+                </vm:MessageViewModel.Result>
+              </vm:MessageViewModel>
+              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+                <vm:MessageViewModel.Result>
+                  <vm:MessageViewModel />
+                </vm:MessageViewModel.Result>
+              </vm:MessageViewModel>
+              <vm:MessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
+                <vm:MessageViewModel.Prompt>This is prompt</vm:MessageViewModel.Prompt>
+                <vm:MessageViewModel.Message>This is message</vm:MessageViewModel.Message>
+                <vm:MessageViewModel.Result>
+                  <x:Null />
+                </vm:MessageViewModel.Result>
+              </vm:MessageViewModel>
+            </objectModel:ObservableCollection>
+          </vm:ChatViewModel.Messages>
+        </vm:ChatViewModel>
+      </vm:MainViewModel.CurrentChat>
     </vm:MainViewModel>
   </Design.DataContext>
   <Grid Margin="12"
@@ -66,7 +70,8 @@
     <views:MessagesView Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        VerticalAlignment="Top" />
+                        VerticalAlignment="Top"
+                        DataContext="{Binding CurrentChat}"/>
     <views:MainToolbarView Grid.Column="0"
                            Grid.Row="1" />
     <Image Grid.Column="1"

@@ -7,10 +7,10 @@
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.MessagesView"
-             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+             x:CompileBindings="True" x:DataType="vm:ChatViewModel">
     <Design.DataContext>
-    <vm:MainViewModel>
-      <vm:MainViewModel.Messages>
+    <vm:ChatViewModel>
+      <vm:ChatViewModel.Messages>
         <objectModel:ObservableCollection x:TypeArguments="vm:MessageViewModel">
           <vm:MessageViewModel IsSent="False" Prompt="This is prompt"/>
           <vm:MessageViewModel IsSent="True" Prompt="This is prompt"/>
@@ -25,8 +25,8 @@
           <vm:MessageViewModel IsSent="True" IsError="True" Message="This is message" />
           <vm:MessageViewModel IsSent="False" IsError="True" Message="This is message" />
         </objectModel:ObservableCollection>
-      </vm:MainViewModel.Messages>
-    </vm:MainViewModel>
+      </vm:ChatViewModel.Messages>
+    </vm:ChatViewModel>
   </Design.DataContext>
   <ScrollViewer>
     <SelectingItemsControl Items="{Binding Messages}"
