@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using AI.Model.Json;
+using AI.Model.Json.Chat;
 using AI.Model.Services;
 
 namespace AI.Services;

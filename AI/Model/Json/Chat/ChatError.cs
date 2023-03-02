@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace AI.Model.Json;
+namespace AI.Model.Json.Chat;
 
 public class ChatError
 {

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using AI.Model.Json;
+using AI.Model.Json.Completions;
 
 namespace AI.Model.Services;
 

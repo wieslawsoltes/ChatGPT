@@ -1,4 +1,4 @@
-namespace AI.Model.Json;
+namespace AI.Model.Json.Completions;
 
 public abstract class CompletionsResponse
 {

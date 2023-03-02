@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace AI.Model.Json;
+namespace AI.Model.Json.Completions;
 
 public class CompletionsResponseSuccess : CompletionsResponse
 {

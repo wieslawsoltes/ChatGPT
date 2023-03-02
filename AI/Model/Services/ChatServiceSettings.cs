@@ -1,4 +1,4 @@
-using AI.Model.Json;
+using AI.Model.Json.Chat;
 
 namespace AI.Model.Services;
 
