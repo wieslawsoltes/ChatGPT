@@ -5,10 +5,10 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
              x:Class="ChatGPT.Views.SettingsActionsView"
-             x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
-    <vm:SettingsViewModel>
-    </vm:SettingsViewModel>
+    <vm:MainViewModel>
+    </vm:MainViewModel>
   </Design.DataContext>
   <DockPanel HorizontalAlignment="Stretch"
              LastChildFill="False">
@@ -26,62 +26,6 @@
                 Height="24"
                 Foreground="{DynamicResource PowerIconBrush}"
                 Opacity="0.6"/>
-    </Button>
-    <Button Command="{Binding NewCommand}"
-            ToolTip.Tip="New"
-            Background="#00FFFFFF" 
-            BorderBrush="#00000000"
-            BorderThickness="1"
-            CornerRadius="4"
-            Margin="0,0,0,0" 
-            Padding="8"
-            DockPanel.Dock="Left">
-      <PathIcon Data="{DynamicResource DocumentIcon}"
-                Width="24" 
-                Height="24"
-                Foreground="{DynamicResource ActionIconBrush}"/>
-    </Button>
-    <Button Command="{Binding OpenCommand}"
-            ToolTip.Tip="Open"
-            Background="#00FFFFFF" 
-            BorderBrush="#00000000"
-            BorderThickness="1"
-            CornerRadius="4"
-            Margin="0,0,0,0" 
-            Padding="8"
-            DockPanel.Dock="Left">
-      <PathIcon Data="{DynamicResource OpenIcon}"
-                Width="24" 
-                Height="24"
-                Foreground="{DynamicResource ActionIconBrush}"/>
-    </Button>
-    <Button Command="{Binding SaveCommand}"
-            ToolTip.Tip="Save"
-            Background="#00FFFFFF" 
-            BorderBrush="#00000000"
-            BorderThickness="1"
-            CornerRadius="4"
-            Margin="0,0,0,0" 
-            Padding="8"
-            DockPanel.Dock="Left">
-      <PathIcon Data="{DynamicResource SaveIcon}"
-                Width="24" 
-                Height="24"
-                Foreground="{DynamicResource ActionIconBrush}"/>
-    </Button>
-    <Button Command="{Binding ExportCommand}"
-            ToolTip.Tip="Export"
-            Background="#00FFFFFF" 
-            BorderBrush="#00000000"
-            BorderThickness="1"
-            CornerRadius="4"
-            Margin="0,0,0,0" 
-            Padding="8"
-            DockPanel.Dock="Left">
-      <PathIcon Data="{DynamicResource ArrowDownloadIcon}"
-                Width="24" 
-                Height="24"
-                Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
   </DockPanel>
 </UserControl>

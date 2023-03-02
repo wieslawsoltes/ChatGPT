@@ -30,22 +30,18 @@ public class MainViewModel : ObservableObject
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
 
-    private ObservableCollection<ChatViewModel>? _chats;
+    private ObservableCollection<ChatViewModel> _chats;
     private ChatViewModel? _currentChat;
-    private SettingsViewModel? _settings;
-    private ActionsViewModel? _actions;
     private bool _isEnabled;
+    private string? _theme;
 
     public MainViewModel()
     {
-        CreateDefaultActions();
-        CreateDefaultSettings();
-
         _chats = new ObservableCollection<ChatViewModel>();
         _currentChat = new ChatViewModel
         {
             Name = "Chat",
-            Settings = Settings?.ChatSettings ?? CreateDefaultChatSettings()
+            Settings = CurrentChat?.Settings?.Copy() ?? CreateDefaultChatSettings()
         };
         _chats.Add(_currentChat);
 
@@ -53,11 +49,27 @@ public class MainViewModel : ObservableObject
 
         CreateWelcomeMessage();
 
+        AddChatCommand = new AsyncRelayCommand(NewAction);
+
+        DeleteChatCommand = new AsyncRelayCommand(DeleteAction);
+
+        OpenChatCommand = new AsyncRelayCommand(OpenAction);
+
+        SaveChatCommand = new AsyncRelayCommand(SaveAction);
+
+        ExportChatCommand = new AsyncRelayCommand(ExportAction);
+
+        ExitCommand = new RelayCommand(() =>
+        {
+            var app = Ioc.Default.GetService<IApplicationService>();
+            app?.Exit();
+        });
+        
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
     }
 
     [JsonPropertyName("chats")]
-    public ObservableCollection<ChatViewModel>? Chats
+    public ObservableCollection<ChatViewModel> Chats
     {
         get => _chats;
         set => SetProperty(ref _chats, value);
@@ -70,14 +82,14 @@ public class MainViewModel : ObservableObject
         set => SetProperty(ref _currentChat, value);
     }
 
-    [JsonPropertyName("settings")]
-    public SettingsViewModel? Settings
+    [JsonPropertyName("theme")]
+    public string? Theme
     {
-        get => _settings;
-        set => SetProperty(ref _settings, value);
+        get => _theme;
+        set => SetProperty(ref _theme, value);
     }
 
-    [JsonPropertyName("isEnabled")]
+    [JsonIgnore]
     public bool IsEnabled
     {
         get => _isEnabled;
@@ -85,33 +97,25 @@ public class MainViewModel : ObservableObject
     }
 
     [JsonIgnore]
+    public IAsyncRelayCommand AddChatCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand DeleteChatCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand OpenChatCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand SaveChatCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand ExportChatCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand ExitCommand { get; }
+
+    [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
-
-    private void CreateDefaultActions()
-    {
-        _actions = new ActionsViewModel
-        {
-            New = NewAction,
-            Open = OpenAction,
-            Save = SaveAction,
-            Export = ExportAction,
-            Exit = () =>
-            {
-                var app = Ioc.Default.GetService<IApplicationService>();
-                app?.Exit();
-            }
-        };
-    }
-
-    private void CreateDefaultSettings()
-    {
-        var settings = new SettingsViewModel
-        {
-            ChatSettings = CreateDefaultChatSettings()
-        };
-        settings.SetActions(_actions);
-        Settings = settings;
-    }
 
     private ChatSettingsViewModel CreateDefaultChatSettings()
     {
@@ -150,6 +154,12 @@ public class MainViewModel : ObservableObject
     private async Task NewAction()
     {
         NewCallback();
+        await Task.Yield();
+    }
+
+    private async Task DeleteAction()
+    {
+        DeleteCallback();
         await Task.Yield();
     }
 
@@ -212,8 +222,7 @@ public class MainViewModel : ObservableObject
     private async Task Send(ChatMessageViewModel sendMessage)
     {
         if (CurrentChat is null 
-            || Settings is null 
-            || Settings.ChatSettings is null)
+            || CurrentChat.Settings is null)
         {
             return;
         }
@@ -223,7 +232,7 @@ public class MainViewModel : ObservableObject
             return;
         }
 
-        var chatPrompt = CreateChatPrompt(sendMessage, CurrentChat.Messages, Settings.ChatSettings);
+        var chatPrompt = CreateChatPrompt(sendMessage, CurrentChat.Messages, CurrentChat.Settings);
 
         IsEnabled = false;
 
@@ -263,17 +272,17 @@ public class MainViewModel : ObservableObject
 
             var chatServiceSettings = new ChatServiceSettings
             {
-                Model = Settings.ChatSettings.Model,
+                Model = CurrentChat.Settings.Model,
                 Messages = chatPrompt,
                 Suffix = null,
-                Temperature = Settings.ChatSettings.Temperature,
-                MaxTokens = Settings.ChatSettings.MaxTokens,
+                Temperature = CurrentChat.Settings.Temperature,
+                MaxTokens = CurrentChat.Settings.MaxTokens,
                 TopP = 1.0m,
                 Stop = null,
             };
             var responseStr = default(string);
             var isResponseStrError = false;
-            var responseData = await GetResponseData(chatServiceSettings, Settings.ChatSettings);
+            var responseData = await GetResponseData(chatServiceSettings, CurrentChat.Settings);
             if (responseData is null)
             {
                 responseStr = "Unknown error.";
@@ -305,7 +314,7 @@ public class MainViewModel : ObservableObject
                 {
                     IsSent = false,
                     CanRemove = true,
-                    Format = Settings.ChatSettings.Format
+                    Format = CurrentChat.Settings.Format
                 };
                 SetMessageActions(resultMessage);
                 CurrentChat.Messages.Add(resultMessage);
@@ -321,7 +330,7 @@ public class MainViewModel : ObservableObject
             resultMessage.Message = responseStr;
             resultMessage.IsError = isResponseStrError;
             resultMessage.Prompt = isResponseStrError ? prompt : "";
-            resultMessage.Format = Settings.ChatSettings.Format;
+            resultMessage.Format = CurrentChat.Settings.Format;
 
             if (CurrentChat.Messages.LastOrDefault() == resultMessage)
             {
@@ -450,24 +459,22 @@ public class MainViewModel : ObservableObject
 
     private void NewCallback()
     {
-        if (CurrentChat is null)
+        var chat = new ChatViewModel
         {
-            return;
-        }
+            Name = "Chat",
+            Settings = CurrentChat?.Settings?.Copy() ?? CreateDefaultChatSettings()
+        };
+        Chats.Add(chat);
+        CurrentChat = chat;
+        CreateWelcomeMessage();
+    }
 
-        if (CurrentChat.Messages.Count <= 1)
+    private void DeleteCallback()
+    {
+        if (CurrentChat is { })
         {
-            CurrentChat.Messages[0].IsSent = false;
-            return;
-        }
-
-        CurrentChat.Messages[0].Prompt = null;
-        CurrentChat.Messages[0].IsSent = false;
-        CurrentChat.Messages[0].Result = null;
-
-        for (var i = CurrentChat.Messages.Count - 1; i >= 1; i--)
-        {
-            CurrentChat.Messages.RemoveAt(i);
+            Chats.Remove(CurrentChat);
+            CurrentChat = Chats.LastOrDefault();
         }
     }
 
@@ -478,30 +485,13 @@ public class MainViewModel : ObservableObject
             return;
         }
 
-        var messages = await JsonSerializer.DeserializeAsync(
+        var chat = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.ObservableCollectionChatMessageViewModel);
-        if (messages is { })
+            s_serializerContext.ChatViewModel);
+        if (chat is { })
         {
-            NewCallback();
-
-            if (CurrentChat.Messages.Count <= 1)
-            {
-                CurrentChat.Messages[0].IsSent = true;
-            }
-
-            for (var i = 0; i < messages.Count; i++)
-            {
-                var message = messages[i];
-
-                if (i <= 0)
-                {
-                    continue;
-                }
-
-                SetMessageActions(message);
-                CurrentChat.Messages.Add(message);
-            }
+            Chats.Add(chat);
+            CurrentChat = chat;
         }
     }
 
@@ -514,7 +504,7 @@ public class MainViewModel : ObservableObject
 
         await JsonSerializer.SerializeAsync(
             stream, 
-            CurrentChat.Messages, s_serializerContext.ObservableCollectionChatMessageViewModel);
+            CurrentChat, s_serializerContext.ChatViewModel);
     }
 
     private async Task ExportCallbackAsync(Stream stream)
@@ -554,26 +544,34 @@ public class MainViewModel : ObservableObject
 
     public async Task LoadSettings(Stream stream)
     {
-        var settings = await JsonSerializer.DeserializeAsync(
+        var storage = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.SettingsViewModel);
-        if (settings is { })
+            s_serializerContext.StorageViewModel);
+        if (storage is { })
         {
-            settings.SetActions(_actions);
-            settings.ChatSettings ??= CreateDefaultChatSettings();
-            Settings = settings;
+            if (storage.Chats is { })
+            {
+                Chats = storage.Chats;
+                CurrentChat = storage.CurrentChat;
+            }
+
+            if (storage.Theme is { })
+            {
+                Theme = storage.Theme;
+            }
         }
     }
 
     public async Task SaveSettings(Stream stream)
     {
-        if (Settings is null)
+        var storage = new StorageViewModel
         {
-            return;
-        }
-
+            Chats = Chats,
+            CurrentChat = CurrentChat,
+            Theme = Theme,
+        };
         await JsonSerializer.SerializeAsync(
             stream, 
-            Settings, s_serializerContext.SettingsViewModel);
+            storage, s_serializerContext.StorageViewModel);
     }
 }

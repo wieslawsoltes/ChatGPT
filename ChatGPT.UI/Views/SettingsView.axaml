@@ -6,26 +6,17 @@
              xmlns:views="clr-namespace:ChatGPT.Views"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="650"
              x:Class="ChatGPT.Views.SettingsView"
-             x:CompileBindings="True" x:DataType="vm:SettingsViewModel">
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
-    <vm:SettingsViewModel>
-      <vm:SettingsViewModel.ChatSettings>
-        <vm:ChatSettingsViewModel>
-          <vm:ChatSettingsViewModel.Temperature>0.6</vm:ChatSettingsViewModel.Temperature>
-          <vm:ChatSettingsViewModel.MaxTokens>100</vm:ChatSettingsViewModel.MaxTokens>
-          <vm:ChatSettingsViewModel.ApiKey><x:Null/></vm:ChatSettingsViewModel.ApiKey>
-          <vm:ChatSettingsViewModel.Directions>Directions</vm:ChatSettingsViewModel.Directions>
-          <vm:ChatSettingsViewModel.Format>Markdown</vm:ChatSettingsViewModel.Format>
-        </vm:ChatSettingsViewModel>
-      </vm:SettingsViewModel.ChatSettings>
-    </vm:SettingsViewModel>
+    <vm:MainViewModel>
+    </vm:MainViewModel>
   </Design.DataContext>
   <StackPanel Margin="16" 
               Spacing="16"
               Orientation="Vertical" 
               VerticalAlignment="Top"
               Width="320">
-    <views:ChatSettingsView DataContext="{Binding ChatSettings}" />
+    <views:ChatSettingsView DataContext="{Binding CurrentChat.Settings}" />
     <views:SettingsActionsView />
   </StackPanel>
 </UserControl>

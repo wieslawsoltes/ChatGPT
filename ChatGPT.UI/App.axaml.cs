@@ -75,7 +75,7 @@ public partial class App : Application
             Console.WriteLine(e);
         }
 
-        if (_mainViewModel.Settings?.Theme is { } theme)
+        if (_mainViewModel.Theme is { } theme)
         {
             switch (theme)
             {
@@ -98,12 +98,11 @@ public partial class App : Application
                 .AddSingleton<IChatService, ChatService>()
                 .AddSingleton<ICompletionsService, CompletionsService>()
                 // ViewModels
-                .AddTransient<ActionsViewModel>()
                 .AddTransient<ChatMessageViewModel>()
                 .AddTransient<ChatSettingsViewModel>()
                 .AddTransient<ChatViewModel>()
                 .AddTransient<MainViewModel>()
-                .AddTransient<SettingsViewModel>()
+                .AddTransient<StorageViewModel>()
                 .BuildServiceProvider());
     }
 
@@ -146,16 +145,13 @@ public partial class App : Application
 
     public void SaveTheme()
     {
-        if (_mainViewModel.Settings is { })
+        var theme = "Light";
+        if (RequestedThemeVariant == ThemeVariant.Dark)
         {
-            var theme = "Light";
-            if (RequestedThemeVariant == ThemeVariant.Dark)
-            {
-                theme = "Dark";
-            }
-
-            _mainViewModel.Settings.Theme = theme;
+            theme = "Dark";
         }
+
+        _mainViewModel.Theme = theme;
     }
 
     public void ToggleAcrylicBlur()

@@ -53,4 +53,17 @@ public partial class ChatSettingsViewModel : ObservableObject
         get => _format;
         set => SetProperty(ref _format, value);
     }
+
+    public ChatSettingsViewModel Copy()
+    {
+        return new ChatSettingsViewModel
+        {
+            Temperature = _temperature,
+            MaxTokens = _maxTokens,
+            ApiKey = _apiKey,
+            Model = _model,
+            Directions = _directions,
+            Format = _format,
+        };
+    }
 }

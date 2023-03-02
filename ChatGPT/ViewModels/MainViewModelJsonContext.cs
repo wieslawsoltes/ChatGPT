@@ -8,9 +8,8 @@ namespace ChatGPT.ViewModels;
 [JsonSerializable(typeof(ObservableCollection<ChatViewModel>))]
 [JsonSerializable(typeof(ChatSettingsViewModel))]
 [JsonSerializable(typeof(ObservableCollection<ChatMessageViewModel>))]
-[JsonSerializable(typeof(ActionsViewModel))]
-[JsonSerializable(typeof(SettingsViewModel))]
 [JsonSerializable(typeof(MainViewModel))]
+[JsonSerializable(typeof(StorageViewModel))]
 public partial class MainViewModelJsonContext : JsonSerializerContext
 {
 }
