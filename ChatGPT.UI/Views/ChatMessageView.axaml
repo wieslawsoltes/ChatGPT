@@ -35,7 +35,8 @@
   </UserControl.KeyBindings>
   <DockPanel Background="Transparent">
     <views:ChatMessageActionsView Margin="4,4,0,4" 
-                              DockPanel.Dock="Right"/>
+                                  VerticalAlignment="Top"
+                                  DockPanel.Dock="Right"/>
     <Border Background="{DynamicResource MessageBackgroundBrush}" 
             BorderThickness="1"
             BorderBrush="{DynamicResource MessageBorderBrush}"
