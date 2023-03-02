@@ -19,20 +19,26 @@
                  Margin="4" 
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding Temperature}" 
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"/>
+      <NumericUpDown Value="{Binding Temperature}" 
+                     Minimum="0" 
+                     Maximum="2" 
+                     Increment="0.1"
+                     Margin="4" 
+                     Padding="8" 
+                     FontSize="{DynamicResource SettingContentFontSize}" />
     </StackPanel>
     <StackPanel Orientation="Vertical">
       <TextBlock Text="Max tokens:" 
                  Margin="4" 
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding MaxTokens}" 
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"/>
+      <NumericUpDown Value="{Binding MaxTokens}" 
+                     Minimum="0" 
+                     Maximum="4096" 
+                     Increment="100"
+                     Margin="4" 
+                     Padding="8" 
+                     FontSize="{DynamicResource SettingContentFontSize}" />
     </StackPanel>
     <StackPanel Orientation="Vertical">
       <TextBlock Text="Directions:" 
