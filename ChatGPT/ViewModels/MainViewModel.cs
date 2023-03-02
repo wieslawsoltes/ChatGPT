@@ -42,9 +42,10 @@ public class MainViewModel : ObservableObject
         CreateDefaultSettings();
 
         _chats = new ObservableCollection<ChatViewModel>();
-        _currentChat = new ChatViewModel()
+        _currentChat = new ChatViewModel
         {
-            Name = "Chat"
+            Name = "Chat",
+            Settings = Settings?.ChatSettings ?? CreateDefaultChatSettings()
         };
         _chats.Add(_currentChat);
 

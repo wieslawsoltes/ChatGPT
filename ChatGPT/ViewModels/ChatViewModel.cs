@@ -7,6 +7,7 @@ namespace ChatGPT.ViewModels;
 public class ChatViewModel : ObservableObject
 {
     private string? _name;
+    private ChatSettingsViewModel? _settings;
     private ObservableCollection<MessageViewModel> _messages;
     private MessageViewModel? _currentMessage;
 
@@ -20,6 +21,13 @@ public class ChatViewModel : ObservableObject
     {
         get => _name;
         set => SetProperty(ref _name, value);
+    }
+
+    [JsonPropertyName("settings")]
+    public ChatSettingsViewModel? Settings
+    {
+        get => _settings;
+        set => SetProperty(ref _settings, value);
     }
 
     [JsonPropertyName("messages")]
