@@ -50,6 +50,8 @@ public class MainViewModel : ObservableObject, IPluginContext
 
         ExportChatCommand = new AsyncRelayCommand(ExportAction);
 
+        CopyChatCommand = new AsyncRelayCommand(CopyAction);
+
         DefaultChatSettingsCommand = new RelayCommand(DefaultChatSettingsAction);
 
         ExitCommand = new RelayCommand(ExitAction);
@@ -92,6 +94,9 @@ public class MainViewModel : ObservableObject, IPluginContext
 
     [JsonIgnore]
     public IAsyncRelayCommand ExportChatCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand CopyChatCommand { get; }
 
     [JsonIgnore]
     public IRelayCommand DefaultChatSettingsCommand { get; }
