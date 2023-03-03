@@ -167,6 +167,18 @@ public class MainViewModel : ObservableObject, IPluginContext
         }
     }
 
+    private async Task CopyAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { } && CurrentChat is { })
+        {
+            var sb = new StringBuilder();
+            await using var writer = new StringWriter(sb);
+            await ExportAsync(CurrentChat, writer);
+            await app.SetClipboardText(sb.ToString());
+        }
+    }
+
     private void DefaultChatSettingsAction()
     {
         if (CurrentChat is { } chat)
