@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AI.Model.Services;
@@ -9,7 +10,9 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Styling;
+using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
+using ChatGPT.Plugins;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
@@ -28,9 +31,13 @@ public partial class App : Application
 
     private readonly MainViewModel _mainViewModel;
 
+    private readonly List<IChatPlugin> _plugins = new();
+
     public App()
     {
         _mainViewModel = new MainViewModel();
+        
+        _plugins.Add(new ClipboardListenerChatPlugin());
 
         ConfigureServices();
     }
@@ -53,6 +60,9 @@ public partial class App : Application
 
             await InitSettings();
             SetTheme();
+
+            // TODO: Enable plugins.
+            // InitPlugins();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
@@ -66,6 +76,27 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void InitPlugins()
+    {
+        foreach (var plugin in _plugins)
+        {
+            plugin.Initialize(_mainViewModel);
+        }
+
+        foreach (var plugin in _plugins)
+        {
+            plugin.Start();
+        }
+    }
+
+    private void ShutdownPlugins()
+    {
+        foreach (var plugin in _plugins)
+        {
+            plugin.Shutdown();
+        }
     }
 
     private async Task InitSettings()
@@ -117,6 +148,8 @@ public partial class App : Application
     {
         try
         {
+            ShutdownPlugins();
+
             SaveTheme();
             await SaveSettings();
         }
