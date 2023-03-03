@@ -82,5 +82,19 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <Button Command="{Binding CopyChatCommand}"
+            ToolTip.Tip="Copy"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource CopyIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource ActionIconBrush}"/>
+    </Button>
   </DockPanel>
 </UserControl>
