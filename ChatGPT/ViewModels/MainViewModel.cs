@@ -251,16 +251,34 @@ public class MainViewModel : ObservableObject, IPluginContext
 
     private void ShowSettingsAction()
     {
-        ShowSettings = true;
-        ShowChats = false;
-        ShowMenu = true;
+        if (ShowMenu)
+        {
+            ShowSettings = false;
+            ShowChats = false;
+            ShowMenu = false;
+        }
+        else
+        {
+            ShowSettings = true;
+            ShowChats = false;
+            ShowMenu = true;
+        }
     }
 
     private void ShowChatsAction()
     {
-        ShowChats = true;
-        ShowSettings = false;
-        ShowMenu = true;
+        if (ShowMenu)
+        {
+            ShowChats = false;
+            ShowSettings = false;
+            ShowMenu = false;
+        }
+        else
+        {
+            ShowChats = true;
+            ShowSettings = false;
+            ShowMenu = true;
+        }
     }
 
     private void NewCallback()
