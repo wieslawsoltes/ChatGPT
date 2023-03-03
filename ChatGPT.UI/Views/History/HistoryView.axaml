@@ -14,9 +14,7 @@
     </vm:MainViewModel>
   </Design.DataContext>
   <DockPanel Margin="16" 
-             VerticalAlignment="Stretch"
-             Width="250"
-             MaxHeight="500">
+             VerticalAlignment="Stretch">
     <history:HistoryActionsView DockPanel.Dock="Bottom" 
                                 Margin="0,16,0,0"/>
     <StackPanel Orientation="Vertical"

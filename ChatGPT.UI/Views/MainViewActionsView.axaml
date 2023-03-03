@@ -6,13 +6,14 @@
              xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
              xmlns:history="clr-namespace:ChatGPT.Views.History"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
-             x:Class="ChatGPT.Views.MainToolbarView"
+             x:Class="ChatGPT.Views.MainViewActionsView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel />
   </Design.DataContext>
   <StackPanel Orientation="Horizontal">
     <Button Name="SettingsButton"
+            Command="{Binding ShowSettingsCommand}"
             ToolTip.Tip="Settings"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
@@ -21,11 +22,11 @@
             CornerRadius="4"
             Padding="12"
             Margin="0,16,0,0">
-      <Button.Flyout>
+      <!--<Button.Flyout>
         <Flyout Placement="TopEdgeAlignedLeft">
           <settings:SettingsView MinHeight="300"/>
         </Flyout>
-      </Button.Flyout>
+      </Button.Flyout>-->
       <PathIcon Data="{DynamicResource SettingsIcon}"
                 Width="24"
                 Height="24"
@@ -33,6 +34,7 @@
                 Foreground="{DynamicResource SettingsIconBrush}" />
     </Button>
     <Button Name="HistoryButton"
+            Command="{Binding ShowChatsCommand}"
             ToolTip.Tip="History"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
@@ -41,11 +43,11 @@
             CornerRadius="4"
             Padding="12"
             Margin="0,16,0,0">
-      <Button.Flyout>
+      <!--<Button.Flyout>
         <Flyout Placement="TopEdgeAlignedLeft">
           <history:HistoryView MinHeight="300" />
         </Flyout>
-      </Button.Flyout>
+      </Button.Flyout>-->
       <PathIcon Data="{DynamicResource HistoryIcon}"
                 Width="24"
                 Height="24"

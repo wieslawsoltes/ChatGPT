@@ -10,14 +10,16 @@
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
+      <!-- TODO: -->
     </vm:MainViewModel>
   </Design.DataContext>
-  <StackPanel Margin="16" 
-              Spacing="16"
-              Orientation="Vertical" 
-              VerticalAlignment="Top"
-              Width="320">
-    <chat:ChatSettingsView DataContext="{Binding CurrentChat.Settings}" />
-    <settings:SettingsActionsView />
-  </StackPanel>
+  <DockPanel Margin="16" 
+             VerticalAlignment="Stretch">
+    <settings:SettingsActionsView DockPanel.Dock="Bottom" 
+                                  Margin="0,16,0,0" />
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+      <chat:ChatSettingsView DataContext="{Binding CurrentChat.Settings}" />
+    </ScrollViewer>
+  </DockPanel>
 </UserControl>

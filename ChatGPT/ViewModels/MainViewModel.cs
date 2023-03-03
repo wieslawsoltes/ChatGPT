@@ -34,6 +34,9 @@ public class MainViewModel : ObservableObject, IPluginContext
     private ObservableCollection<ChatViewModel> _chats;
     private ChatViewModel? _currentChat;
     private string? _theme;
+    private bool _showMenu;
+    private bool _showSettings;
+    private bool _showChats;
 
     public MainViewModel()
     {
@@ -58,6 +61,10 @@ public class MainViewModel : ObservableObject, IPluginContext
         ExitCommand = new RelayCommand(ExitAction);
         
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
+
+        ShowSettingsCommand = new RelayCommand(ShowSettingsAction);
+
+        ShowChatsCommand = new RelayCommand(ShowChatsAction);
     }
 
     [JsonPropertyName("chats")]
@@ -79,6 +86,27 @@ public class MainViewModel : ObservableObject, IPluginContext
     {
         get => _theme;
         set => SetProperty(ref _theme, value);
+    }
+
+    [JsonIgnore]
+    public bool ShowMenu
+    {
+        get => _showMenu;
+        set => SetProperty(ref _showMenu, value);
+    }
+
+    [JsonIgnore]
+    public bool ShowSettings
+    {
+        get => _showSettings;
+        set => SetProperty(ref _showSettings, value);
+    }
+
+    [JsonIgnore]
+    public bool ShowChats
+    {
+        get => _showChats;
+        set => SetProperty(ref _showChats, value);
     }
 
     [JsonIgnore]
@@ -107,6 +135,12 @@ public class MainViewModel : ObservableObject, IPluginContext
 
     [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand ShowSettingsCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand ShowChatsCommand { get; }
 
     private ChatSettingsViewModel CreateDefaultChatSettings()
     {
@@ -213,6 +247,20 @@ public class MainViewModel : ObservableObject, IPluginContext
         {
             app.ToggleTheme();
         }
+    }
+
+    private void ShowSettingsAction()
+    {
+        ShowSettings = true;
+        ShowChats = false;
+        ShowMenu = true;
+    }
+
+    private void ShowChatsAction()
+    {
+        ShowChats = true;
+        ShowSettings = false;
+        ShowMenu = true;
     }
 
     private void NewCallback()

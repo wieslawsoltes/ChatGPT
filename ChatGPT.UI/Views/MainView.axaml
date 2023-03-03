@@ -6,6 +6,8 @@
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
              xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
              xmlns:views="clr-namespace:ChatGPT.Views"
+             xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
+             xmlns:history="clr-namespace:ChatGPT.Views.History"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.MainView"
@@ -69,13 +71,35 @@
         RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
         ShowGridLines="False">
-    <chat:ChatView Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   VerticalAlignment="Top"
-                   DataContext="{Binding CurrentChat}"/>
-    <views:MainToolbarView Grid.Column="0"
-                           Grid.Row="1" />
+    <SplitView Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Name="ChatSplitView"
+               PanePlacement="Left"
+               OpenPaneLength="{Binding #ChatSplitView.Bounds.Width}"
+               CompactPaneLength="0"
+               IsPaneOpen="{Binding ShowMenu, Mode=TwoWay}"
+               DisplayMode="CompactOverlay"
+               UseLightDismissOverlayMode="True">
+      <SplitView.Pane>
+        <Panel>
+          <settings:SettingsView IsVisible="{Binding ShowSettings}" />
+          <history:HistoryView IsVisible="{Binding ShowChats}" />
+        </Panel>
+      </SplitView.Pane>
+      <Panel IsVisible="{Binding !ShowMenu}">
+        <ContentControl Content="{Binding CurrentChat}"
+                        VerticalAlignment="Top">
+          <ContentControl.ContentTemplate>
+            <DataTemplate DataType="vmc:ChatViewModel">
+              <chat:ChatView />
+            </DataTemplate>
+          </ContentControl.ContentTemplate>
+        </ContentControl>
+      </Panel>
+    </SplitView>
+    <views:MainViewActionsView Grid.Column="0"
+                               Grid.Row="1" />
     <Image Grid.Column="1"
            Grid.Row="1"
            Name="ClippyImage"
