@@ -267,6 +267,19 @@ public class MainViewModel : ObservableObject, IPluginContext
         }
 
         await using var writer = new StreamWriter(stream);
+        await ExportAsync(CurrentChat, writer);
+    }
+
+    private async Task ExportAsync(ChatViewModel chat, TextWriter writer)
+    {
+        if (chat.Settings?.Directions is { } directions)
+        {
+            await writer.WriteLineAsync("SYSTEM:");
+            await writer.WriteLineAsync("");
+
+            await writer.WriteLineAsync(directions);
+            await writer.WriteLineAsync("");
+        }
 
         for (var i = 0; i < CurrentChat.Messages.Count; i++)
         {
@@ -281,12 +294,18 @@ public class MainViewModel : ObservableObject, IPluginContext
             {
                 if (!string.IsNullOrEmpty(message.Message))
                 {
+                    await writer.WriteLineAsync("USER:");
+                    await writer.WriteLineAsync("");
+
                     await writer.WriteLineAsync(message.Message);
                     await writer.WriteLineAsync("");
                 }
 
                 if (!string.IsNullOrEmpty(message.Result.Message))
                 {
+                    await writer.WriteLineAsync("ASSISTANT:");
+                    await writer.WriteLineAsync("");
+
                     await writer.WriteLineAsync(message.Result.Message);
                     await writer.WriteLineAsync("");
                 }
