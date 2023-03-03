@@ -34,7 +34,9 @@
                            AutoScrollToSelectedItem="True">
       <SelectingItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
-          <VirtualizingStackPanel />
+          <!-- TODO: -->
+          <!-- <VirtualizingStackPanel /> -->
+          <StackPanel />
         </ItemsPanelTemplate>
       </SelectingItemsControl.ItemsPanel>
       <SelectingItemsControl.DataTemplates>
