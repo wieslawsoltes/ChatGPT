@@ -281,9 +281,9 @@ public class MainViewModel : ObservableObject, IPluginContext
             await writer.WriteLineAsync("");
         }
 
-        for (var i = 0; i < CurrentChat.Messages.Count; i++)
+        for (var i = 0; i < chat.Messages.Count; i++)
         {
-            var message = CurrentChat.Messages[i];
+            var message = chat.Messages[i];
 
             if (i < 1)
             {
