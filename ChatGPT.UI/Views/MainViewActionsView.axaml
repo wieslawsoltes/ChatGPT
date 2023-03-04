@@ -3,8 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
-             xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
-             xmlns:history="clr-namespace:ChatGPT.Views.History"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.MainViewActionsView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
@@ -22,11 +20,6 @@
             CornerRadius="4"
             Padding="12"
             Margin="0,16,0,0">
-      <!--<Button.Flyout>
-        <Flyout Placement="TopEdgeAlignedLeft">
-          <settings:SettingsView MinHeight="300"/>
-        </Flyout>
-      </Button.Flyout>-->
       <PathIcon Data="{DynamicResource SettingsIcon}"
                 Width="24"
                 Height="24"
@@ -43,11 +36,6 @@
             CornerRadius="4"
             Padding="12"
             Margin="0,16,0,0">
-      <!--<Button.Flyout>
-        <Flyout Placement="TopEdgeAlignedLeft">
-          <history:HistoryView MinHeight="300" />
-        </Flyout>
-      </Button.Flyout>-->
       <PathIcon Data="{DynamicResource HistoryIcon}"
                 Width="24"
                 Height="24"
