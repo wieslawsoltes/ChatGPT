@@ -8,6 +8,7 @@
              xmlns:views="clr-namespace:ChatGPT.Views"
              xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
              xmlns:history="clr-namespace:ChatGPT.Views.History"
+             xmlns:prompts="clr-namespace:ChatGPT.Views.Prompts"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.MainView"
@@ -85,6 +86,7 @@
         <Panel>
           <settings:SettingsView IsVisible="{Binding ShowSettings}" />
           <history:HistoryView IsVisible="{Binding ShowChats}" />
+          <prompts:PromptsView IsVisible="{Binding ShowPrompts}" />
         </Panel>
       </SplitView.Pane>
       <Panel IsVisible="{Binding !ShowMenu}">

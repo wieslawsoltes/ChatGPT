@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
+             xmlns:vms="clr-namespace:ChatGPT.ViewModels.Settings;assembly=ChatGPT"
+             xmlns:promtps="clr-namespace:ChatGPT.Views.Prompts"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="650"
+             x:Class="ChatGPT.Views.Prompts.PromptsView"
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <vm:MainViewModel>
+      <!-- TODO: -->
+    </vm:MainViewModel>
+  </Design.DataContext>
+  <DockPanel Margin="16" 
+             VerticalAlignment="Stretch">
+    <promtps:PromptsActionsView DockPanel.Dock="Bottom" 
+                                Margin="0,16,0,0"/>
+    <StackPanel Orientation="Vertical"
+                IsVisible="{Binding !!CurrentPrompt}"
+                DockPanel.Dock="Bottom">
+      <TextBlock Text="Act:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <TextBox Text="{Binding CurrentPrompt.Act}" 
+               Watermark="Chat prompt act name"
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}"/>
+      <TextBlock Text="Prompt:" 
+                 Margin="4" 
+                 Padding="0,4,0,4" 
+                 FontSize="{DynamicResource SettingHeaderFontSize}" />
+      <TextBox Text="{Binding CurrentPrompt.Prompt}" 
+               Watermark="Chat prompt initial system directions"
+               TextWrapping="Wrap"
+               AcceptsReturn="True"
+               MaxHeight="188"
+               Margin="4" 
+               Padding="8" 
+               FontSize="{DynamicResource SettingContentFontSize}"/>
+    </StackPanel>
+    <ListBox Items="{Binding Prompts}"
+             SelectedItem="{Binding CurrentPrompt}"
+             AutoScrollToSelectedItem="True">
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel />
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+      <ListBox.DataTemplates>
+        <DataTemplate DataType="vms:PromptViewModel">
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Data="{DynamicResource DirectionsIcon}"
+                      Width="24"
+                      Height="24"
+                      Opacity="0.5"
+                      Foreground="{DynamicResource SettingsIconBrush}" />
+            <TextBlock Text="{Binding Act}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="6,0,6,0" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.DataTemplates>
+    </ListBox>
+  </DockPanel>
+</UserControl>

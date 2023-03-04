@@ -42,6 +42,22 @@
                 Opacity="0.5"
                 Foreground="{DynamicResource SettingsIconBrush}" />
     </Button>
+    <Button Name="PromptsButton"
+            Command="{Binding ShowPromptsCommand}"
+            ToolTip.Tip="Directions"
+            VerticalAlignment="Bottom"
+            BorderBrush="#00000000"
+            BorderThickness="2"
+            Background="#00FFFFFF"
+            CornerRadius="4"
+            Padding="12"
+            Margin="0,16,0,0">
+      <PathIcon Data="{DynamicResource DirectionsIcon}"
+                Width="24"
+                Height="24"
+                Opacity="0.5"
+                Foreground="{DynamicResource SettingsIconBrush}" />
+    </Button>
     <Button Name="ThemeButton"
             Command="{Binding ChangeThemeCommand}"
             ToolTip.Tip="Change theme"
