@@ -47,7 +47,7 @@
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
       <TextBox Text="{Binding Directions}" 
-               Watermark="Initial message directions"
+               Watermark="Chat prompt initial system directions"
                TextWrapping="Wrap"
                AcceptsReturn="True"
                Margin="4" 
@@ -81,10 +81,6 @@
                  Margin="4" 
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <!--<TextBox Text="{Binding Format}" 
-               Margin="4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"/>-->
       <ComboBox SelectedItem="{Binding Format}"
                 Margin="4" 
                 Padding="8" 
@@ -98,11 +94,6 @@
           </generic:List>
         </ComboBox.Items>
       </ComboBox>
-      <!--<TextBlock Text="Text, Markdown, Html" 
-                 TextWrapping="Wrap"
-                 Margin="4" 
-                 Padding="0,0,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />-->
     </StackPanel>
   </StackPanel>
 </UserControl>
