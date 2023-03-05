@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AI.Model.Services;
@@ -12,7 +11,6 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
-using ChatGPT.Plugins;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
@@ -29,17 +27,11 @@ public partial class App : Application
 
     private const string SettingsFileName = "settings.json";
 
-    private readonly MainViewModel _mainViewModel;
-
-    private readonly List<IChatPlugin> _plugins = new();
-
     public App()
     {
-        _mainViewModel = new MainViewModel();
-        
-        _plugins.Add(new ClipboardListenerChatPlugin());
+        ConfigureServices();  
 
-        ConfigureServices();
+        Ioc.Default.GetService<IPluginsService>()?.DiscoverPlugins();
     }
 
     public override void Initialize()
@@ -53,7 +45,7 @@ public partial class App : Application
         {
             desktop.MainWindow = new MainWindow
             {
-                DataContext = _mainViewModel
+                DataContext = Ioc.Default.GetService<MainViewModel>()
             };
 
             desktop.Exit += DesktopOnExit;
@@ -62,13 +54,14 @@ public partial class App : Application
             SetTheme();
 
             // TODO: Enable plugins.
-            // InitPlugins();
+            Ioc.Default.GetService<IPluginsService>()?.InitPlugins();
+            // Ioc.Default.GetService<IPluginsService>()?.StartPlugins();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
             single.MainView = new MainView
             {
-                DataContext = _mainViewModel
+                DataContext = Ioc.Default.GetService<MainViewModel>()
             };
 
             await InitSettings();
@@ -76,27 +69,6 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
-    }
-
-    private void InitPlugins()
-    {
-        foreach (var plugin in _plugins)
-        {
-            plugin.Initialize(_mainViewModel);
-        }
-
-        foreach (var plugin in _plugins)
-        {
-            plugin.Start();
-        }
-    }
-
-    private void ShutdownPlugins()
-    {
-        foreach (var plugin in _plugins)
-        {
-            plugin.Shutdown();
-        }
     }
 
     private async Task InitSettings()
@@ -113,7 +85,8 @@ public partial class App : Application
 
     private void SetTheme()
     {
-        if (_mainViewModel.Theme is { } theme)
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel?.Theme is { } theme)
         {
             switch (theme)
             {
@@ -133,13 +106,16 @@ public partial class App : Application
             new ServiceCollection()
                 // Services
                 .AddSingleton<IApplicationService, ApplicationService>()
+                .AddSingleton<IPluginsService, PluginsService>()
                 .AddSingleton<IChatService, ChatService>()
                 .AddSingleton<ICompletionsService, CompletionsService>()
+                .AddSingleton<MainViewModel>()
+                .AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>())
                 // ViewModels
                 .AddTransient<ChatMessageViewModel>()
                 .AddTransient<ChatSettingsViewModel>()
                 .AddTransient<ChatViewModel>()
-                .AddTransient<MainViewModel>()
+                .AddTransient<PromptViewModel>()
                 .AddTransient<StorageViewModel>()
                 .BuildServiceProvider());
     }
@@ -148,7 +124,7 @@ public partial class App : Application
     {
         try
         {
-            ShutdownPlugins();
+            Ioc.Default.GetService<IPluginsService>()?.ShutdownPlugins();
 
             SaveTheme();
             await SaveSettings();
@@ -161,17 +137,27 @@ public partial class App : Application
 
     public async Task LoadSettings()
     {
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is null)
+        {
+            return;
+        }
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         var appSettingPath = Path.Combine(appDataPath, SettingsFolderName, SettingsFileName);
         if (File.Exists(appSettingPath))
         {
             await using var stream = File.OpenRead(appSettingPath);
-            await _mainViewModel.LoadSettings(stream);
+            await mainViewModel.LoadSettings(stream);
         }
     }
 
     public async Task SaveSettings()
     {
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is null)
+        {
+            return;
+        }
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         var appPath = Path.Combine(appDataPath, SettingsFolderName);
         if (!Directory.Exists(appPath))
@@ -180,7 +166,7 @@ public partial class App : Application
         }
         var appSettingPath = Path.Combine(appPath, SettingsFileName);
         await using var stream = File.Open(appSettingPath, FileMode.Create);
-        await _mainViewModel.SaveSettings(stream);
+        await mainViewModel.SaveSettings(stream);
     }
 
     public void SaveTheme()
@@ -191,7 +177,11 @@ public partial class App : Application
             theme = "Dark";
         }
 
-        _mainViewModel.Theme = theme;
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is { })
+        {
+            mainViewModel.Theme = theme;
+        }
     }
 
     public void ToggleAcrylicBlur()
