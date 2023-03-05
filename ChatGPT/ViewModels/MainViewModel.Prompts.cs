@@ -163,8 +163,10 @@ public partial class MainViewModel
 
     private async Task ImportPromptsCallbackAsync(Stream stream)
     {
-        using var reader = new StreamReader(stream);
-        using var parser = new TextFieldParser(reader);
+        using var streamReader = new StreamReader(stream);
+        var csv = await streamReader.ReadToEndAsync();
+        using var stringReader = new StringReader(csv);
+        using var parser = new TextFieldParser(stringReader);
 
         parser.HasFieldsEnclosedInQuotes = true;
         parser.Delimiters = new[] { "," };
