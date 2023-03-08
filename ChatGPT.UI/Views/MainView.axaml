@@ -85,9 +85,12 @@
                UseLightDismissOverlayMode="True">
       <SplitView.Pane>
         <Panel>
-          <settings:SettingsView IsVisible="{Binding ShowSettings}" />
-          <history:HistoryView IsVisible="{Binding ShowChats}" />
-          <prompts:PromptsView IsVisible="{Binding ShowPrompts}" />
+          <settings:SettingsView Margin="16" 
+                                 IsVisible="{Binding ShowSettings}" />
+          <history:HistoryView Margin="16" 
+                               IsVisible="{Binding ShowChats}" />
+          <prompts:PromptsView Margin="16" 
+                               IsVisible="{Binding ShowPrompts}" />
         </Panel>
       </SplitView.Pane>
       <Panel IsVisible="{Binding !ShowMenu}">

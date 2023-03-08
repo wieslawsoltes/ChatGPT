@@ -13,8 +13,7 @@
       <!-- TODO: -->
     </vm:MainViewModel>
   </Design.DataContext>
-  <DockPanel Margin="16" 
-             VerticalAlignment="Stretch">
+  <DockPanel VerticalAlignment="Stretch">
     <settings:SettingsActionsView DockPanel.Dock="Bottom" 
                                   Margin="0,16,0,0" />
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
