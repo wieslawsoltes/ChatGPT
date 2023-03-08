@@ -10,6 +10,7 @@
              xmlns:history="clr-namespace:ChatGPT.Views.History"
              xmlns:prompts="clr-namespace:ChatGPT.Views.Prompts"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             xmlns:controls="clr-namespace:ChatGPT.Controls"
              FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.MainView"
@@ -69,48 +70,79 @@
       </vm:MainViewModel.CurrentChat>
     </vm:MainViewModel>
   </Design.DataContext>
+
   <Grid Margin="12"
         RowDefinitions="*,Auto"
         ColumnDefinitions="*,Auto"
         ShowGridLines="False">
-    <SplitView Grid.Row="0"
-               Grid.Column="0"
-               Grid.ColumnSpan="2"
-               Name="ChatSplitView"
-               PanePlacement="Left"
-               OpenPaneLength="{Binding #ChatSplitView.Bounds.Width}"
-               CompactPaneLength="0"
-               IsPaneOpen="{Binding ShowMenu, Mode=TwoWay}"
-               DisplayMode="CompactOverlay"
-               UseLightDismissOverlayMode="True">
-      <SplitView.Pane>
-        <Panel>
-          <settings:SettingsView Margin="16" 
-                                 IsVisible="{Binding ShowSettings}" />
-          <history:HistoryView Margin="16" 
-                               IsVisible="{Binding ShowChats}" />
-          <prompts:PromptsView Margin="16" 
-                               IsVisible="{Binding ShowPrompts}" />
-        </Panel>
-      </SplitView.Pane>
-      <Panel IsVisible="{Binding !ShowMenu}">
+
+    <Panel Grid.Row="0"
+           Grid.Column="0"
+           Grid.ColumnSpan="2">
+
+      <Grid Name="WorkspaceGrid">
+
+        <Grid.ColumnDefinitions>
+          <controls:CustomColumnDefinition BindWidth="{Binding ChatsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ShowChats}"/>
+          <ColumnDefinition Width="8" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="8" />
+          <controls:CustomColumnDefinition BindWidth="{Binding PromptsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ShowPrompts}"/>
+          <ColumnDefinition Width="8" />
+          <controls:CustomColumnDefinition BindWidth="{Binding SettingsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ShowSettings}"/>
+        </Grid.ColumnDefinitions>
+
+        <history:HistoryView Name="History" 
+                             IsVisible="{Binding ShowChats}"
+                             Grid.Column="0" />
+
+        <GridSplitter Name="HistorySplitter" 
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      Background="Transparent"
+                      Grid.Column="1" />
+
         <ContentControl Content="{Binding CurrentChat}"
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Top"
+                        Grid.Column="2">
           <ContentControl.ContentTemplate>
             <DataTemplate DataType="vmc:ChatViewModel">
               <chat:ChatView />
             </DataTemplate>
           </ContentControl.ContentTemplate>
         </ContentControl>
-      </Panel>
-    </SplitView>
+    
+        <GridSplitter Name="SettingsSplitter" 
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      Background="Transparent"
+                      Grid.Column="3" />
+
+        <prompts:PromptsView Name="Prompts"
+                             Grid.Column="4"
+                             IsVisible="{Binding ShowPrompts}" />
+
+        <settings:SettingsView Name="Settings"
+                               IsVisible="{Binding ShowSettings}" 
+                               Grid.Column="6"  />
+
+      </Grid>
+
+    </Panel>
+
     <views:MainViewActionsView Grid.Column="0"
                                Grid.Row="1" />
+
     <Image Grid.Column="1"
            Grid.Row="1"
            Name="ClippyImage"
            Height="100"
            Margin="-32,2,0,0"
            Source="/Assets/clipart855284.png"/>
+
   </Grid>
+
 </UserControl>

@@ -30,6 +30,14 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         _chats = new ObservableCollection<ChatViewModel>();
         _prompts = new ObservableCollection<PromptViewModel>();
 
+        _showChats = true;
+        _showSettings = true;
+        _showPrompts = true;
+
+        _settingsWidth = "250";
+        _chatsWidth = "290";
+        _promptsWidth = "290";
+
         NewPromptCallback();
 
         NewChatCallback();

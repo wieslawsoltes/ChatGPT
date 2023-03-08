@@ -115,7 +115,6 @@ public partial class MainViewModel
     private async Task SetPromptAction()
     {
         SetPromptCallback();
-        HideMenusAction();
         await Task.Yield();
     }
 

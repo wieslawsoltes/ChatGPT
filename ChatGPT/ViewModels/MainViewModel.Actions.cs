@@ -8,23 +8,18 @@ namespace ChatGPT.ViewModels;
 public partial class MainViewModel
 {
     private string? _theme;
-    private bool _showMenu;
     private bool _showSettings;
     private bool _showChats;
     private bool _showPrompts;
+    private string _settingsWidth;
+    private string _chatsWidth;
+    private string _promptsWidth;
 
     [JsonPropertyName("theme")]
     public string? Theme
     {
         get => _theme;
         set => SetProperty(ref _theme, value);
-    }
-
-    [JsonIgnore]
-    public bool ShowMenu
-    {
-        get => _showMenu;
-        set => SetProperty(ref _showMenu, value);
     }
 
     [JsonIgnore]
@@ -46,6 +41,27 @@ public partial class MainViewModel
     {
         get => _showPrompts;
         set => SetProperty(ref _showPrompts, value);
+    }
+
+    [JsonIgnore]
+    public string SettingsWidth
+    {
+        get => _settingsWidth;
+        set => SetProperty(ref _settingsWidth, value);
+    }
+
+    [JsonIgnore]
+    public string ChatsWidth
+    {
+        get => _chatsWidth;
+        set => SetProperty(ref _chatsWidth, value);
+    }
+
+    [JsonIgnore]
+    public string PromptsWidth
+    {
+        get => _promptsWidth;
+        set => SetProperty(ref _promptsWidth, value);
     }
 
     [JsonIgnore]
@@ -78,56 +94,18 @@ public partial class MainViewModel
         }
     }
 
-    private void HideMenusAction()
-    {
-        ShowSettings = false;
-        ShowChats = false;
-        ShowPrompts = false;
-        ShowMenu = false;
-    }
-
     private void ShowSettingsAction()
     {
-        if (ShowMenu)
-        {
-            HideMenusAction();
-        }
-        else
-        {
-            ShowSettings = true;
-            ShowChats = false;
-            ShowPrompts = false;
-            ShowMenu = true;
-        }
+        ShowSettings = !ShowSettings;
     }
 
     private void ShowChatsAction()
     {
-        if (ShowMenu)
-        {
-            HideMenusAction();
-        }
-        else
-        {
-            ShowChats = true;
-            ShowSettings = false;
-            ShowPrompts = false;
-            ShowMenu = true;
-        }
+        ShowChats = !ShowChats;
     }
 
     private void ShowPromptsAction()
     {
-        if (ShowMenu)
-        {
-            HideMenusAction();
-        }
-        else
-        {
-            ShowPrompts = true;
-            ShowChats = false;
-            ShowSettings = false;
-            ShowMenu = true;
-        }
+        ShowPrompts = !ShowPrompts;
     }
 }
