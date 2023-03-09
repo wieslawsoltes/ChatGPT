@@ -20,9 +20,6 @@
       <vm:ChatMessageViewModel.IsAwaiting>False</vm:ChatMessageViewModel.IsAwaiting>
       <vm:ChatMessageViewModel.IsError>False</vm:ChatMessageViewModel.IsError>
       <vm:ChatMessageViewModel.CanRemove>True</vm:ChatMessageViewModel.CanRemove>
-      <vm:ChatMessageViewModel.Result>
-        <vm:ChatMessageViewModel />
-      </vm:ChatMessageViewModel.Result>
     </vm:ChatMessageViewModel>
   </Design.DataContext>
   <UserControl.KeyBindings>
@@ -50,8 +47,13 @@
                         Grid.Row="0"
                         Content="{Binding}"
                         Margin="16,4,16,4"
-                        Name="ContentControl"
-                        IsVisible="{Binding IsSent}">
+                        Name="ContentControl">
+          <ContentControl.IsVisible>
+            <MultiBinding Converter="{x:Static BoolConverters.And}">
+              <Binding Path="IsSent" />
+              <Binding Path="IsEditing" Converter="{x:Static BoolConverters.Not}"/>
+            </MultiBinding>
+          </ContentControl.IsVisible>
           <ContentControl.ContentTemplate>
             <dt:DataTemplateSelector DataContext="{Binding #ContentControl.Content}"
                                      Selector="{Binding Format}"
