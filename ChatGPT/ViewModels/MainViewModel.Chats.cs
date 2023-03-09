@@ -250,26 +250,11 @@ public partial class MainViewModel
                 continue;
             }
 
-            if (message.Result is { })
-            {
-                if (!string.IsNullOrEmpty(message.Message))
-                {
-                    await writer.WriteLineAsync("USER:");
-                    await writer.WriteLineAsync("");
+            await writer.WriteLineAsync($"{message.Role}:");
+            await writer.WriteLineAsync("");
 
-                    await writer.WriteLineAsync(message.Message);
-                    await writer.WriteLineAsync("");
-                }
-
-                if (!string.IsNullOrEmpty(message.Result.Message))
-                {
-                    await writer.WriteLineAsync("ASSISTANT:");
-                    await writer.WriteLineAsync("");
-
-                    await writer.WriteLineAsync(message.Result.Message);
-                    await writer.WriteLineAsync("");
-                }
-            }
+            await writer.WriteLineAsync(message.Message);
+            await writer.WriteLineAsync("");
         }
     }
 }
