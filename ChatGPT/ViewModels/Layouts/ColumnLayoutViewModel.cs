@@ -20,21 +20,21 @@ public partial class ColumnLayoutViewModel : LayoutViewModel
         _promptsWidth = "290";
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("settingsWidth")]
     public string SettingsWidth
     {
         get => _settingsWidth;
         set => SetProperty(ref _settingsWidth, value);
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("chatsWidth")]
     public string ChatsWidth
     {
         get => _chatsWidth;
         set => SetProperty(ref _chatsWidth, value);
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("promptsWidth")]
     public string PromptsWidth
     {
         get => _promptsWidth;
