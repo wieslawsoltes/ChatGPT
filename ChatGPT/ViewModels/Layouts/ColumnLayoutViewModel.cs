@@ -11,6 +11,9 @@ public partial class ColumnLayoutViewModel : LayoutViewModel
 
     public ColumnLayoutViewModel()
     {
+        Width = 1400;
+        Height = 830;
+
         ShowChats = true;
         ShowSettings = true;
         ShowPrompts = true;
