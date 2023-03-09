@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using ChatGPT.ViewModels.Chat;
+using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 
 namespace ChatGPT.ViewModels;
@@ -13,6 +14,10 @@ namespace ChatGPT.ViewModels;
 [JsonSerializable(typeof(MainViewModel))]
 [JsonSerializable(typeof(PromptViewModel))]
 [JsonSerializable(typeof(ObservableCollection<PromptViewModel>))]
+[JsonSerializable(typeof(LayoutViewModel))]
+[JsonSerializable(typeof(SingleLayoutViewModel))]
+[JsonSerializable(typeof(ColumnLayoutViewModel))]
+[JsonSerializable(typeof(ObservableCollection<LayoutViewModel>))]
 [JsonSerializable(typeof(StorageViewModel))]
 public partial class MainViewModelJsonContext : JsonSerializerContext
 {

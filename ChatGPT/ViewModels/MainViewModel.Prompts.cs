@@ -115,6 +115,12 @@ public partial class MainViewModel
     private async Task SetPromptAction()
     {
         SetPromptCallback();
+
+        if (CurrentLayout is { })
+        {
+            await CurrentLayout.Back();
+        }
+
         await Task.Yield();
     }
 

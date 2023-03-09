@@ -4,13 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
-             xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
-             xmlns:views="clr-namespace:ChatGPT.Views"
-             xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
-             xmlns:history="clr-namespace:ChatGPT.Views.History"
-             xmlns:prompts="clr-namespace:ChatGPT.Views.Prompts"
+             xmlns:vml="clr-namespace:ChatGPT.ViewModels.Layouts;assembly=ChatGPT"
+             xmlns:layouts="clr-namespace:ChatGPT.Views.Layouts"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
-             xmlns:controls="clr-namespace:ChatGPT.Controls"
              FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.MainView"
@@ -70,79 +66,16 @@
       </vm:MainViewModel.CurrentChat>
     </vm:MainViewModel>
   </Design.DataContext>
-
-  <Grid Margin="12"
-        RowDefinitions="*,Auto"
-        ColumnDefinitions="*,Auto"
-        ShowGridLines="False">
-
-    <Panel Grid.Row="0"
-           Grid.Column="0"
-           Grid.ColumnSpan="2">
-
-      <Grid Name="WorkspaceGrid">
-
-        <Grid.ColumnDefinitions>
-          <controls:CustomColumnDefinition BindWidth="{Binding ChatsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ShowChats}"/>
-          <ColumnDefinition Width="8" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding PromptsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ShowPrompts}"/>
-          <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding SettingsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ShowSettings}"/>
-        </Grid.ColumnDefinitions>
-
-        <history:HistoryView Name="History" 
-                             IsVisible="{Binding ShowChats}"
-                             Grid.Column="0" />
-
-        <GridSplitter Name="HistorySplitter" 
-                      ResizeBehavior="PreviousAndNext"
-                      ResizeDirection="Columns"
-                      Background="Transparent"
-                      Grid.Column="1" />
-
-        <ContentControl Content="{Binding CurrentChat}"
-                        VerticalAlignment="Top"
-                        Grid.Column="2">
-          <ContentControl.ContentTemplate>
-            <DataTemplate DataType="vmc:ChatViewModel">
-              <chat:ChatView />
-            </DataTemplate>
-          </ContentControl.ContentTemplate>
-        </ContentControl>
-    
-        <GridSplitter Name="SettingsSplitter" 
-                      ResizeBehavior="PreviousAndNext"
-                      ResizeDirection="Columns"
-                      Background="Transparent"
-                      Grid.Column="3" />
-
-        <prompts:PromptsView Name="Prompts"
-                             Grid.Column="4"
-                             IsVisible="{Binding ShowPrompts}" />
-
-        <settings:SettingsView Name="Settings"
-                               IsVisible="{Binding ShowSettings}" 
-                               Grid.Column="6"  />
-
-      </Grid>
-
-    </Panel>
-
-    <views:MainViewActionsView Grid.Column="0"
-                               Grid.Row="1" />
-
-    <Image Grid.Column="1"
-           Grid.Row="1"
-           Name="ClippyImage"
-           Height="100"
-           Margin="-32,2,0,0"
-           Source="/Assets/clipart855284.png"/>
-
-  </Grid>
-
+  <!--<ContentControl Content="{Binding CurrentLayout}">
+    <ContentControl.DataTemplates>
+      <DataTemplate DataType="vml:SingleLayoutViewModel">
+        <layouts:SingleLayoutView />
+      </DataTemplate>
+      <DataTemplate DataType="vml:ColumnLayoutViewModel">
+        <layouts:ColumnLayoutView />
+      </DataTemplate>
+    </ContentControl.DataTemplates>
+  </ContentControl>-->
+  <!-- <layouts:SingleLayoutView /> -->
+  <layouts:ColumnLayoutView />
 </UserControl>

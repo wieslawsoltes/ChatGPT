@@ -11,7 +11,7 @@
   </Design.DataContext>
   <StackPanel Orientation="Horizontal">
     <Button Name="SettingsButton"
-            Command="{Binding ShowSettingsCommand}"
+            Command="{Binding CurrentLayout.ShowSettingsCommand}"
             ToolTip.Tip="Settings"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
@@ -27,7 +27,7 @@
                 Foreground="{DynamicResource SettingsIconBrush}" />
     </Button>
     <Button Name="HistoryButton"
-            Command="{Binding ShowChatsCommand}"
+            Command="{Binding CurrentLayout.ShowChatsCommand}"
             ToolTip.Tip="History"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
@@ -43,7 +43,7 @@
                 Foreground="{DynamicResource SettingsIconBrush}" />
     </Button>
     <Button Name="PromptsButton"
-            Command="{Binding ShowPromptsCommand}"
+            Command="{Binding CurrentLayout.ShowPromptsCommand}"
             ToolTip.Tip="Directions"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"

@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
+             xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
+             xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
+             xmlns:views="clr-namespace:ChatGPT.Views"
+             xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
+             xmlns:history="clr-namespace:ChatGPT.Views.History"
+             xmlns:prompts="clr-namespace:ChatGPT.Views.Prompts"
+             xmlns:controls="clr-namespace:ChatGPT.Controls"
+             FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             x:Class="ChatGPT.Views.Layouts.ColumnLayoutView"
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <vm:MainViewModel>
+      <!-- TODO: -->
+    </vm:MainViewModel>
+  </Design.DataContext>
+
+  <Grid Margin="12"
+        RowDefinitions="*,Auto"
+        ColumnDefinitions="*,Auto"
+        ShowGridLines="False">
+
+    <Panel Grid.Row="0"
+           Grid.Column="0"
+           Grid.ColumnSpan="2">
+
+      <Grid Name="WorkspaceGrid">
+
+        <Grid.ColumnDefinitions>
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.ChatsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ColumnLayout.ShowChats}"/>
+          <ColumnDefinition Width="8" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="8" />
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ColumnLayout.ShowPrompts}"/>
+          <ColumnDefinition Width="8" />
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ColumnLayout.ShowSettings}"/>
+        </Grid.ColumnDefinitions>
+
+        <history:HistoryView Name="History" 
+                             IsVisible="{Binding ColumnLayout.ShowChats}"
+                             Grid.Column="0" />
+
+        <GridSplitter Name="HistorySplitter" 
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      Background="Transparent"
+                      Grid.Column="1" />
+
+        <ContentControl Content="{Binding CurrentChat}"
+                        VerticalAlignment="Top"
+                        Grid.Column="2">
+          <ContentControl.ContentTemplate>
+            <DataTemplate DataType="vmc:ChatViewModel">
+              <chat:ChatView />
+            </DataTemplate>
+          </ContentControl.ContentTemplate>
+        </ContentControl>
+    
+        <GridSplitter Name="SettingsSplitter" 
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      Background="Transparent"
+                      Grid.Column="3" />
+
+        <settings:SettingsView Name="Settings"
+                               IsVisible="{Binding ColumnLayout.ShowSettings}" 
+                               Grid.Column="4"  />
+
+        <prompts:PromptsView Name="Prompts"
+                             Grid.Column="6"
+                             IsVisible="{Binding ColumnLayout.ShowPrompts}" />
+
+      </Grid>
+
+    </Panel>
+
+    <views:MainViewActionsView Grid.Column="0"
+                               Grid.Row="1" />
+
+    <Image Grid.Column="1"
+           Grid.Row="1"
+           Name="ClippyImage"
+           Height="100"
+           Margin="-32,2,0,0"
+           Source="/Assets/clipart855284.png"/>
+
+  </Grid>
+
+</UserControl>
