@@ -12,16 +12,10 @@
     <vm:ChatViewModel>
       <vm:ChatViewModel.Messages>
         <objectModel:ObservableCollection x:TypeArguments="vm:ChatMessageViewModel">
-          <vm:ChatMessageViewModel IsSent="False" Prompt="This is prompt"/>
-          <vm:ChatMessageViewModel IsSent="True" Prompt="This is prompt"/>
           <vm:ChatMessageViewModel IsSent="True" Message="This is message" />
           <vm:ChatMessageViewModel IsSent="False" Message="This is message" />
-          <vm:ChatMessageViewModel IsSent="False" IsAwaiting="True" Prompt="This is prompt"/>
-          <vm:ChatMessageViewModel IsSent="True" IsAwaiting="True" Prompt="This is prompt"/>
           <vm:ChatMessageViewModel IsSent="True" IsAwaiting="True" Message="This is message" />
           <vm:ChatMessageViewModel IsSent="False" IsAwaiting="True" Message="This is message" />
-          <vm:ChatMessageViewModel IsSent="False" IsError="True" Prompt="This is prompt"/>
-          <vm:ChatMessageViewModel IsSent="True" IsError="True" Prompt="This is prompt"/>
           <vm:ChatMessageViewModel IsSent="True" IsError="True" Message="This is message" />
           <vm:ChatMessageViewModel IsSent="False" IsError="True" Message="This is message" />
         </objectModel:ObservableCollection>

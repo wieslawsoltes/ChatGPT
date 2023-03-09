@@ -91,6 +91,11 @@ public class ChatViewModel : ObservableObject
             if (lastMessage is { })
             {
                 lastMessage.IsSent = false;
+
+                if (Messages.Count == 2)
+                {
+                    lastMessage.CanRemove = false;
+                }
             }
         }
     }
@@ -102,46 +107,34 @@ public class ChatViewModel : ObservableObject
             return;
         }
 
-        if (string.IsNullOrEmpty(sendMessage.Prompt))
+        if (string.IsNullOrEmpty(sendMessage.Message))
         {
             return;
         }
 
-        var chatPrompt = CreateChatPrompt(sendMessage, Messages, Settings);
+        var chatPrompt = CreateChatPrompt(Messages, Settings);
 
         IsEnabled = false;
 
         try
         {
+            var resultMessage = new ChatMessageViewModel
+            {
+                Role = "assistant",
+                Message = "Sending...",
+                IsSent = false,
+                CanRemove = true,
+                Format = Defaults.TextMessageFormat
+            };
+            SetMessageActions(resultMessage);
+            Messages.Add(resultMessage);
+
+            CurrentMessage = resultMessage;
+
+            sendMessage.CanRemove = true;
             sendMessage.IsSent = true;
 
-            ChatMessageViewModel? promptMessage;
-            ChatMessageViewModel? resultMessage = null;
-
-            if (sendMessage.Result is { })
-            {
-                promptMessage = sendMessage;
-                resultMessage = sendMessage.Result;
-            }
-            else
-            {
-                promptMessage = new ChatMessageViewModel
-                {
-                    CanRemove = true,
-                    Format = Defaults.TextMessageFormat
-                };
-                SetMessageActions(promptMessage);
-                Messages.Add(promptMessage);
-            }
-
-            var prompt = sendMessage.Prompt;
-
-            promptMessage.Message = prompt;
-            promptMessage.Prompt = "";
-            promptMessage.IsSent = true;
-
-            CurrentMessage = promptMessage;
-            promptMessage.IsAwaiting = true;
+            resultMessage.IsAwaiting = true;
 
             // Response
 
@@ -178,44 +171,23 @@ public class ChatViewModel : ObservableObject
 
             // Update
 
-            if (isResponseStrError)
-            {
-                resultMessage = promptMessage;
-            }
-
-            if (resultMessage is null)
-            {
-                resultMessage = new ChatMessageViewModel
-                {
-                    IsSent = false,
-                    CanRemove = true,
-                    Format = Settings.Format
-                };
-                SetMessageActions(resultMessage);
-                Messages.Add(resultMessage);
-            }
-            else
-            {
-                if (!isResponseStrError)
-                {
-                    resultMessage.IsSent = true;
-                }
-            }
-
             resultMessage.Message = responseStr;
             resultMessage.IsError = isResponseStrError;
-            resultMessage.Prompt = isResponseStrError ? prompt : "";
             resultMessage.Format = Settings.Format;
+            resultMessage.IsAwaiting = false;
+            resultMessage.IsSent = true;
 
-            if (Messages.LastOrDefault() == resultMessage)
+            var nextMessage = new ChatMessageViewModel
             {
-                resultMessage.IsSent = false;
-            }
-
-            CurrentMessage = resultMessage;
-
-            promptMessage.IsAwaiting = false;
-            promptMessage.Result = isResponseStrError ? null : resultMessage;
+                Role = "user",
+                Message = "",
+                IsSent = false,
+                CanRemove = true,
+                Format = Settings.Format
+            };
+            SetMessageActions(nextMessage);
+            Messages.Add(nextMessage);
+            CurrentMessage = nextMessage;
         }
         catch (Exception)
         {
@@ -226,7 +198,6 @@ public class ChatViewModel : ObservableObject
     }
 
     private static ChatMessage[] CreateChatPrompt(
-        ChatMessageViewModel sendMessage, 
         ObservableCollection<ChatMessageViewModel> messages, 
         ChatSettingsViewModel chatSettings)
     {
@@ -240,28 +211,17 @@ public class ChatViewModel : ObservableObject
 
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
 
-        foreach (var message in messages)
+        for (var i = 0; i < messages.Count; i++)
         {
-            if (!string.IsNullOrEmpty(message.Message) && message.Result is { })
+            if (i == 0)
             {
-                chatMessages.Add(new ChatMessage
-                {
-                    Role = "user",
-                    Content = message.Message
-                });
-                chatMessages.Add(new ChatMessage
-                {
-                    Role = "assistant",
-                    Content = message.Result.Message
-                });
+                continue;
             }
-        }
 
-        chatMessages.Add(new ChatMessage
-        {
-            Role = "user",
-            Content = sendMessage.Prompt
-        });
+            var message = messages[i];
+  
+            chatMessages.Add(new ChatMessage {Role = message.Role, Content = message.Message});
+        }
 
         return chatMessages.ToArray();
     }

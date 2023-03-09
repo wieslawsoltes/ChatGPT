@@ -8,7 +8,7 @@ namespace ChatGPT.ViewModels.Chat;
 
 public class ChatMessageViewModel : ObservableObject
 {
-    private string? _prompt;
+    private string? _role;
     private string? _message;
     private string? _format;
     private bool _isSent;
@@ -32,11 +32,11 @@ public class ChatMessageViewModel : ObservableObject
         RemoveCommand = new RelayCommand(RemoveAction);
     }
 
-    [JsonPropertyName("prompt")]
-    public string? Prompt
+    [JsonPropertyName("role")]
+    public string? Role
     {
-        get => _prompt;
-        set => SetProperty(ref _prompt, value);
+        get => _role;
+        set => SetProperty(ref _role, value);
     }
 
     [JsonPropertyName("message")]
@@ -142,8 +142,6 @@ public class ChatMessageViewModel : ObservableObject
     {
         if (!IsEditing && IsSent)
         {
-            Prompt = Message;
-            Message = null;
             IsSent = false;
             IsEditing = true;
         }
@@ -153,8 +151,6 @@ public class ChatMessageViewModel : ObservableObject
     {
         if (IsEditing)
         {
-            Message = Prompt;
-            Prompt = null;
             IsSent = true;
             IsEditing = false;
         }
@@ -165,7 +161,7 @@ public class ChatMessageViewModel : ObservableObject
         if (!IsSent)
         {
             // TODO: Use caret position to insert new line.
-            Prompt += Environment.NewLine;
+            Message += Environment.NewLine;
         }
     }
 

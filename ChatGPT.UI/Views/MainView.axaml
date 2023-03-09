@@ -18,44 +18,44 @@
           <vmc:ChatViewModel.Messages>
             <objectModel:ObservableCollection x:TypeArguments="vmc:ChatMessageViewModel">
               <vmc:ChatMessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="False">
-                <vmc:ChatMessageViewModel.Prompt></vmc:ChatMessageViewModel.Prompt>
+                <vmc:ChatMessageViewModel.Role>system</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vmc:ChatMessageViewModel.Message>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="False">
-                <vmc:ChatMessageViewModel.Prompt></vmc:ChatMessageViewModel.Prompt>
+                <vmc:ChatMessageViewModel.Role>system</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?</vmc:ChatMessageViewModel.Message>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vmc:ChatMessageViewModel.Prompt>This is prompt</vmc:ChatMessageViewModel.Prompt>
+                <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
                 <vmc:ChatMessageViewModel.Result>
                   <vmc:ChatMessageViewModel />
                 </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vmc:ChatMessageViewModel.Prompt>This is prompt</vmc:ChatMessageViewModel.Prompt>
+                <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
                 <vmc:ChatMessageViewModel.Result>
                   <x:Null />
                 </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
-                <vmc:ChatMessageViewModel.Prompt>This is prompt</vmc:ChatMessageViewModel.Prompt>
+                <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
                 <vmc:ChatMessageViewModel.Result>
                   <x:Null />
                 </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vmc:ChatMessageViewModel.Prompt>This is prompt</vmc:ChatMessageViewModel.Prompt>
+                <vmc:ChatMessageViewModel.Role>assistant</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
                 <vmc:ChatMessageViewModel.Result>
                   <vmc:ChatMessageViewModel />
                 </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
-                <vmc:ChatMessageViewModel.Prompt>This is prompt</vmc:ChatMessageViewModel.Prompt>
-                <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
+                <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
+                <vmc:ChatMessageViewModel.Message>This is prompt</vmc:ChatMessageViewModel.Message>
                 <vmc:ChatMessageViewModel.Result>
                   <x:Null />
                 </vmc:ChatMessageViewModel.Result>

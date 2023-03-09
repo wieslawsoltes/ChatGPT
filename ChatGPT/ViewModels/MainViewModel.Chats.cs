@@ -155,15 +155,27 @@ public partial class MainViewModel
 
         var welcomeItem = new ChatMessageViewModel
         {
-            Prompt = "",
+            Role = "system",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
             Format = Defaults.TextMessageFormat,
-            IsSent = false,
+            IsSent = true,
             CanRemove = false
         };
         chat.SetMessageActions(welcomeItem);
         chat.Messages.Add(welcomeItem);
-        chat.CurrentMessage = welcomeItem;
+
+        var promptItem = new ChatMessageViewModel
+        {
+            Role = "user",
+            Message = "",
+            Format = Defaults.TextMessageFormat,
+            IsSent = false,
+            CanRemove = false
+        };
+        chat.SetMessageActions(promptItem);
+        chat.Messages.Add(promptItem);
+
+        chat.CurrentMessage = promptItem;
 
         Chats.Add(chat);
         CurrentChat = chat;

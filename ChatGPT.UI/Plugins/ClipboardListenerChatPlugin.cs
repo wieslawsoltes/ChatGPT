@@ -179,7 +179,8 @@ public class ClipboardListenerChatPlugin : IChatPlugin
             var message = chat.CurrentMessage ?? chat.Messages.LastOrDefault();
             if (message is { })
             {
-                message.Prompt = prompt;
+                message.Role = "user";
+                message.Message = prompt;
                 await chat.Send(message);
             }
         }

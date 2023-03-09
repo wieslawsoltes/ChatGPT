@@ -8,7 +8,7 @@
              x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel">
   <Design.DataContext>
     <vm:ChatMessageViewModel>
-      <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+      <vm:ChatMessageViewModel.Role>user</vm:ChatMessageViewModel.Role>
       <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
       <vm:ChatMessageViewModel.IsSent>False</vm:ChatMessageViewModel.IsSent>
       <vm:ChatMessageViewModel.IsAwaiting>False</vm:ChatMessageViewModel.IsAwaiting>
@@ -25,7 +25,7 @@
         IsVisible="{Binding !IsSent}">
     <TextBox Grid.Column="0"
              Name="Prompt"
-             Text="{Binding Prompt}" 
+             Text="{Binding Message}" 
              Watermark="Ask me anything"
              TextWrapping="Wrap"
              Background="Transparent"
