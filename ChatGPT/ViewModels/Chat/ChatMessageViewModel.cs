@@ -16,7 +16,6 @@ public class ChatMessageViewModel : ObservableObject
     private bool _isError;
     private bool _canRemove;
     private bool _isEditing;
-    private ChatMessageViewModel? _result;
     private Func<ChatMessageViewModel, Task>? _send;
     private Func<ChatMessageViewModel, Task>? _copy;
     private Action<ChatMessageViewModel>? _remove;
@@ -88,13 +87,6 @@ public class ChatMessageViewModel : ObservableObject
         set => SetProperty(ref _isEditing, value);
     }
 
-    [JsonPropertyName("result")]
-    public ChatMessageViewModel? Result
-    {
-        get => _result;
-        set => SetProperty(ref _result, value);
-    }
-
     [JsonIgnore]
     public IAsyncRelayCommand SendCommand { get; }
 
@@ -112,7 +104,11 @@ public class ChatMessageViewModel : ObservableObject
         if (_send is { })
         {
             IsEditing = false;
-            await _send(this);
+
+            if (!IsSent)
+            {
+                await _send(this);
+            }
         }
     }
 
@@ -142,7 +138,6 @@ public class ChatMessageViewModel : ObservableObject
     {
         if (!IsEditing && IsSent)
         {
-            IsSent = false;
             IsEditing = true;
         }
     }
@@ -151,7 +146,6 @@ public class ChatMessageViewModel : ObservableObject
     {
         if (IsEditing)
         {
-            IsSent = true;
             IsEditing = false;
         }
     }
