@@ -40,7 +40,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             SingleLayout,
             ColumnLayout
         };
-        _currentLayout = _layouts[1];
+
+        CurrentLayout = SingleLayout;
 
         NewPromptCallback();
 
