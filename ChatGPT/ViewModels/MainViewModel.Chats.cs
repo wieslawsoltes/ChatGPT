@@ -234,7 +234,7 @@ public partial class MainViewModel
     {
         if (chat.Settings?.Directions is { } directions)
         {
-            await writer.WriteLineAsync("SYSTEM:");
+            await writer.WriteLineAsync("system:");
             await writer.WriteLineAsync("");
 
             await writer.WriteLineAsync(directions);
@@ -250,11 +250,14 @@ public partial class MainViewModel
                 continue;
             }
 
-            await writer.WriteLineAsync($"{message.Role}:");
-            await writer.WriteLineAsync("");
+            if (!string.IsNullOrEmpty(message.Message))
+            {
+                await writer.WriteLineAsync($"{message.Role}:");
+                await writer.WriteLineAsync("");
 
-            await writer.WriteLineAsync(message.Message);
-            await writer.WriteLineAsync("");
+                await writer.WriteLineAsync(message.Message);
+                await writer.WriteLineAsync("");
+            }
         }
     }
 }
