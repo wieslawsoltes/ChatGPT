@@ -37,11 +37,11 @@
           <ColumnDefinition Width="8" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ColumnLayout.ShowPrompts}"/>
-          <ColumnDefinition Width="8" />
           <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowSettings}"/>
+          <ColumnDefinition Width="8" />
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding ColumnLayout.ShowPrompts}"/>
         </Grid.ColumnDefinitions>
 
         <history:HistoryView Name="History" 
