@@ -31,8 +31,6 @@ public class CustomColumnDefinition : ColumnDefinition
     {
         base.OnPropertyChanged(change);
 
-        Console.WriteLine($"{change.Property.Name}");
-
         if (change.Property == IsVisibleProperty)
         {
             var isVisible = change.GetNewValue<bool>();
@@ -48,6 +46,7 @@ public class CustomColumnDefinition : ColumnDefinition
 
         if (change.Property == BindWidthProperty)
         {
+            // TODO:
             Width = change.GetNewValue<GridLength>();
         }
     }
@@ -56,18 +55,22 @@ public class CustomColumnDefinition : ColumnDefinition
     {
         if (_disposable1 is null && _disposable2 is null)
         {
+            // TODO:
             Width = BindWidth;
-            _disposable1 = Bind(WidthProperty, this.GetObservable(BindWidthProperty));
-            _disposable2 = Bind(BindWidthProperty, this.GetObservable(WidthProperty));
+            // _disposable1 = Bind(WidthProperty, this.GetObservable(BindWidthProperty));
+            // _disposable2 = Bind(BindWidthProperty, this.GetObservable(WidthProperty));
         }
     }
 
     private void Hide()
     {
-        _disposable1?.Dispose();
-        _disposable1 = null;
         _disposable2?.Dispose();
         _disposable2 = null;
+        _disposable1?.Dispose();
+        _disposable1 = null;
+
+        // TODO:
+        BindWidth = Width;
         Width = new GridLength(0, GridUnitType.Pixel);
     }
 }
