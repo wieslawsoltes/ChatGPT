@@ -28,14 +28,14 @@ public abstract partial class LayoutViewModel : ObservableObject
         set => SetProperty(ref _showSettings, value);
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("showChats")]
     public bool ShowChats
     {
         get => _showChats;
         set => SetProperty(ref _showChats, value);
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("showPrompts")]
     public bool ShowPrompts
     {
         get => _showPrompts;
