@@ -14,9 +14,6 @@
       <vm:ChatMessageViewModel.IsAwaiting>False</vm:ChatMessageViewModel.IsAwaiting>
       <vm:ChatMessageViewModel.IsError>False</vm:ChatMessageViewModel.IsError>
       <vm:ChatMessageViewModel.CanRemove>True</vm:ChatMessageViewModel.CanRemove>
-      <vm:ChatMessageViewModel.Result>
-        <vm:ChatMessageViewModel />
-      </vm:ChatMessageViewModel.Result>
     </vm:ChatMessageViewModel>
   </Design.DataContext>
   <StackPanel HorizontalAlignment="Center"
@@ -58,7 +55,6 @@
         <MultiBinding Converter="{x:Static BoolConverters.And}">
           <Binding Path="IsSent" />
           <Binding Path="IsAwaiting" Converter="{x:Static BoolConverters.Not}" />
-          <Binding Path="Result" Converter="{x:Static ObjectConverters.IsNotNull}" />
         </MultiBinding>
       </Button.IsVisible>
       <PathIcon Data="{DynamicResource EditIcon}"
