@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
+             xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
+             xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
+             xmlns:views="clr-namespace:ChatGPT.Views"
+             xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
+             xmlns:history="clr-namespace:ChatGPT.Views.History"
+             xmlns:prompts="clr-namespace:ChatGPT.Views.Prompts"
+             FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             x:Class="ChatGPT.Views.Layouts.SingleLayoutView"
+             x:CompileBindings="True" x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <vm:MainViewModel>
+      <!-- TODO: -->
+    </vm:MainViewModel>
+  </Design.DataContext>
+
+  <Grid Margin="12"
+        RowDefinitions="*,Auto"
+        ColumnDefinitions="*,Auto"
+        ShowGridLines="False">
+
+    <SplitView Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Name="ChatSplitView"
+               PanePlacement="Left"
+               OpenPaneLength="{Binding #ChatSplitView.Bounds.Width}"
+               CompactPaneLength="0"
+               IsPaneOpen="{Binding SingleLayout.ShowMenu, Mode=TwoWay}"
+               DisplayMode="CompactOverlay"
+               UseLightDismissOverlayMode="True">
+
+      <SplitView.Pane>
+        <Panel>
+          <settings:SettingsView  Margin="16" 
+                                  IsVisible="{Binding SingleLayout.ShowSettings}" />
+          <history:HistoryView  Margin="16" 
+                                IsVisible="{Binding SingleLayout.ShowChats}" />
+          <prompts:PromptsView  Margin="16" 
+                                IsVisible="{Binding SingleLayout.ShowPrompts}" />
+        </Panel>
+      </SplitView.Pane>
+
+      <Panel IsVisible="{Binding !SingleLayout.ShowMenu}">
+        <ContentControl Content="{Binding CurrentChat}"
+                        VerticalAlignment="Top">
+          <ContentControl.ContentTemplate>
+            <DataTemplate DataType="vmc:ChatViewModel">
+              <chat:ChatView />
+            </DataTemplate>
+          </ContentControl.ContentTemplate>
+        </ContentControl>
+      </Panel>
+
+    </SplitView>
+
+    <views:MainViewActionsView Grid.Column="0"
+                               Grid.Row="1" />
+
+    <Image Grid.Column="1"
+           Grid.Row="1"
+           Name="ClippyImage"
+           Height="100"
+           Margin="-32,2,0,0"
+           Source="/Assets/clipart855284.png"/>
+  </Grid>
+
+</UserControl>

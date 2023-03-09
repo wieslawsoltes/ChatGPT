@@ -1,5 +1,7 @@
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using ChatGPT.Model.Services;
+using ChatGPT.ViewModels.Layouts;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
@@ -7,11 +9,27 @@ namespace ChatGPT.ViewModels;
 
 public partial class MainViewModel
 {
+    private ObservableCollection<LayoutViewModel>? _layouts;
+    private LayoutViewModel? _currentLayout;
     private string? _theme;
-    private bool _showMenu;
-    private bool _showSettings;
-    private bool _showChats;
-    private bool _showPrompts;
+
+    [JsonIgnore]
+    public ObservableCollection<LayoutViewModel>? Layouts
+    {
+        get => _layouts;
+        set => SetProperty(ref _layouts, value);
+    }
+
+    [JsonIgnore]
+    public LayoutViewModel? CurrentLayout
+    {
+        get => _currentLayout;
+        set => SetProperty(ref _currentLayout, value);
+    }
+
+    public SingleLayoutViewModel? SingleLayout { get; private set; }
+
+    public ColumnLayoutViewModel? ColumnLayout { get; private set; }
 
     [JsonPropertyName("theme")]
     public string? Theme
@@ -21,47 +39,10 @@ public partial class MainViewModel
     }
 
     [JsonIgnore]
-    public bool ShowMenu
-    {
-        get => _showMenu;
-        set => SetProperty(ref _showMenu, value);
-    }
-
-    [JsonIgnore]
-    public bool ShowSettings
-    {
-        get => _showSettings;
-        set => SetProperty(ref _showSettings, value);
-    }
-
-    [JsonIgnore]
-    public bool ShowChats
-    {
-        get => _showChats;
-        set => SetProperty(ref _showChats, value);
-    }
-
-    [JsonIgnore]
-    public bool ShowPrompts
-    {
-        get => _showPrompts;
-        set => SetProperty(ref _showPrompts, value);
-    }
-
-    [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
 
     [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
-
-    [JsonIgnore]
-    public IRelayCommand ShowSettingsCommand { get; }
-
-    [JsonIgnore]
-    public IRelayCommand ShowChatsCommand { get; }
-
-    [JsonIgnore]
-    public IRelayCommand ShowPromptsCommand { get; }
 
     private void ExitAction()
     {
@@ -75,59 +56,6 @@ public partial class MainViewModel
         if (app is { })
         {
             app.ToggleTheme();
-        }
-    }
-
-    private void HideMenusAction()
-    {
-        ShowSettings = false;
-        ShowChats = false;
-        ShowPrompts = false;
-        ShowMenu = false;
-    }
-
-    private void ShowSettingsAction()
-    {
-        if (ShowMenu)
-        {
-            HideMenusAction();
-        }
-        else
-        {
-            ShowSettings = true;
-            ShowChats = false;
-            ShowPrompts = false;
-            ShowMenu = true;
-        }
-    }
-
-    private void ShowChatsAction()
-    {
-        if (ShowMenu)
-        {
-            HideMenusAction();
-        }
-        else
-        {
-            ShowChats = true;
-            ShowSettings = false;
-            ShowPrompts = false;
-            ShowMenu = true;
-        }
-    }
-
-    private void ShowPromptsAction()
-    {
-        if (ShowMenu)
-        {
-            HideMenusAction();
-        }
-        else
-        {
-            ShowPrompts = true;
-            ShowChats = false;
-            ShowSettings = false;
-            ShowMenu = true;
         }
     }
 }

@@ -13,8 +13,7 @@
       <!-- TODO: -->
     </vm:MainViewModel>
   </Design.DataContext>
-  <DockPanel Margin="16" 
-             VerticalAlignment="Stretch">
+  <DockPanel VerticalAlignment="Stretch">
     <promtps:PromptsActionsView DockPanel.Dock="Bottom" 
                                 Margin="0,16,0,0"/>
     <StackPanel Orientation="Vertical"

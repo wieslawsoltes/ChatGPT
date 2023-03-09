@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ChatGPT.Model.Plugins;
 using ChatGPT.ViewModels.Chat;
+using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -29,6 +30,18 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     {
         _chats = new ObservableCollection<ChatViewModel>();
         _prompts = new ObservableCollection<PromptViewModel>();
+
+        SingleLayout = new SingleLayoutViewModel();
+
+        ColumnLayout = new ColumnLayoutViewModel();
+
+        _layouts = new ObservableCollection<LayoutViewModel>
+        {
+            SingleLayout,
+            ColumnLayout
+        };
+
+        CurrentLayout = SingleLayout;
 
         NewPromptCallback();
 
@@ -71,12 +84,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         ExitCommand = new RelayCommand(ExitAction);
 
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
-
-        ShowSettingsCommand = new RelayCommand(ShowSettingsAction);
-
-        ShowChatsCommand = new RelayCommand(ShowChatsAction);
-
-        ShowPromptsCommand = new RelayCommand(ShowPromptsAction);
     }
 
     public async Task LoadSettings(Stream stream)
