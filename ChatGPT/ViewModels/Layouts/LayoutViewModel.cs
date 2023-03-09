@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels.Layouts;
 
+[JsonPolymorphic]
 public abstract partial class LayoutViewModel : ObservableObject
 {
     private bool _showSettings;
