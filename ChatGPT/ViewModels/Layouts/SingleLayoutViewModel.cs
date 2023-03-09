@@ -9,6 +9,9 @@ public partial class SingleLayoutViewModel : LayoutViewModel
 
     public SingleLayoutViewModel()
     {
+        Width = 400;
+        Height = 740;
+
         ShowChats = false;
         ShowSettings = false;
         ShowPrompts = false;
