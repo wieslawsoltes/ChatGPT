@@ -8,7 +8,7 @@
              xmlns:layouts="clr-namespace:ChatGPT.Views.Layouts"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="740"
              x:Class="ChatGPT.Views.MainView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
@@ -66,7 +66,9 @@
       </vm:MainViewModel.CurrentChat>
     </vm:MainViewModel>
   </Design.DataContext>
-  <!--<ContentControl Content="{Binding CurrentLayout}">
+
+  <!--
+  <ContentControl Content="{Binding CurrentLayout}">
     <ContentControl.DataTemplates>
       <DataTemplate DataType="vml:SingleLayoutViewModel">
         <layouts:SingleLayoutView />
@@ -75,7 +77,10 @@
         <layouts:ColumnLayoutView />
       </DataTemplate>
     </ContentControl.DataTemplates>
-  </ContentControl>-->
-  <!-- <layouts:SingleLayoutView /> -->
-  <layouts:ColumnLayoutView />
+  </ContentControl>
+  -->
+
+  <layouts:SingleLayoutView />
+  <!-- <layouts:ColumnLayoutView /> -->
+
 </UserControl>
