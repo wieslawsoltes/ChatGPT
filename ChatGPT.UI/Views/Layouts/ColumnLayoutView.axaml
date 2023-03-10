@@ -33,15 +33,15 @@
       <Grid Name="WorkspaceGrid">
 
         <Grid.ColumnDefinitions>
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.ChatsWidth, Converter={x:Static converters:GridLengthConverter.Instance}}"
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.ChatsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowChats}"/>
           <ColumnDefinition Width="8" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Converter={x:Static converters:GridLengthConverter.Instance}}"
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowSettings}"/>
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Converter={x:Static converters:GridLengthConverter.Instance}}"
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowPrompts}"/>
         </Grid.ColumnDefinitions>
 
