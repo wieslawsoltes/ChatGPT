@@ -6,8 +6,8 @@ using CommunityToolkit.Mvvm.Input;
 namespace ChatGPT.ViewModels.Layouts;
 
 [JsonPolymorphic]
-[JsonDerivedType(typeof(SingleLayoutViewModel))]
-[JsonDerivedType(typeof(ColumnLayoutViewModel))]
+[JsonDerivedType(typeof(SingleLayoutViewModel), typeDiscriminator: "single")]
+[JsonDerivedType(typeof(ColumnLayoutViewModel), typeDiscriminator: "column")]
 public abstract partial class LayoutViewModel : ObservableObject
 {
     private double _width;
