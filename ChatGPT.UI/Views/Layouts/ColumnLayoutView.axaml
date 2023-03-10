@@ -10,6 +10,7 @@
              xmlns:history="clr-namespace:ChatGPT.Views.History"
              xmlns:prompts="clr-namespace:ChatGPT.Views.Prompts"
              xmlns:controls="clr-namespace:ChatGPT.Controls"
+             xmlns:converters="clr-namespace:ChatGPT.Converters"
              FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
              x:Class="ChatGPT.Views.Layouts.ColumnLayoutView"
@@ -32,15 +33,15 @@
       <Grid Name="WorkspaceGrid">
 
         <Grid.ColumnDefinitions>
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.ChatsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.ChatsWidth, Converter={x:Static converters:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowChats}"/>
           <ColumnDefinition Width="8" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Converter={x:Static converters:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowSettings}"/>
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Converter={x:Static controls:GridLengthConverter.Instance}}"
+          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Converter={x:Static converters:GridLengthConverter.Instance}}"
                                            IsVisible="{Binding ColumnLayout.ShowPrompts}"/>
         </Grid.ColumnDefinitions>
 

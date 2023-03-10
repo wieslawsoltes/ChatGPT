@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using ChatGPT.ViewModels.Chat;
+using ChatGPT.ViewModels.Layouts;
 
 namespace ChatGPT.ViewModels.Settings;
 
@@ -13,5 +14,11 @@ public class StorageViewModel
 
     public PromptViewModel? CurrentPrompt { get; set; }
 
+    public ObservableCollection<LayoutViewModel>? Layouts { get; set; }
+
+    public LayoutViewModel? CurrentLayout { get; set; }
+    
     public string? Theme { get; set; }
+
+    public string? Layout { get; set; }
 }

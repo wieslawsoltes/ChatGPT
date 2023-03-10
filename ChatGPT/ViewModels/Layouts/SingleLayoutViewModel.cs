@@ -7,6 +7,7 @@ public partial class SingleLayoutViewModel : LayoutViewModel
 {
     private bool _showMenu;
 
+    [JsonConstructor]
     public SingleLayoutViewModel()
     {
         Width = 400;

@@ -9,6 +9,7 @@ public partial class ColumnLayoutViewModel : LayoutViewModel
     private string _chatsWidth;
     private string _promptsWidth;
 
+    [JsonConstructor]
     public ColumnLayoutViewModel()
     {
         Width = 1400;
