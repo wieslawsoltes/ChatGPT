@@ -156,7 +156,7 @@ public partial class MainViewModel
         var welcomeItem = new ChatMessageViewModel
         {
             Role = "system",
-            Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
+            Message = Defaults.WelcomeMessage,
             Format = Defaults.TextMessageFormat,
             IsSent = true,
             CanRemove = false
