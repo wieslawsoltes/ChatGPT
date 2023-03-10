@@ -2,6 +2,8 @@ namespace ChatGPT;
 
 public static class Defaults
 {
+    public const string WelcomeMessage = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?";
+
     public const decimal DefaultTemperature = 0.7m;
 
     public const int DefaultMaxTokens = 256;
