@@ -232,21 +232,21 @@ public partial class MainViewModel
 
     private async Task ExportChatAsync(ChatViewModel chat, TextWriter writer)
     {
-        if (chat.Settings?.Directions is { } directions)
-        {
-            await writer.WriteLineAsync("system:");
-            await writer.WriteLineAsync("");
-
-            await writer.WriteLineAsync(directions);
-            await writer.WriteLineAsync("");
-        }
-
         for (var i = 0; i < chat.Messages.Count; i++)
         {
             var message = chat.Messages[i];
 
-            if (i < 1)
+            if (i == 0)
             {
+                if (chat.Settings?.Directions is { } directions)
+                {
+                    await writer.WriteLineAsync($"{message.Role}:");
+                    await writer.WriteLineAsync("");
+
+                    await writer.WriteLineAsync(directions);
+                    await writer.WriteLineAsync("");
+                }
+
                 continue;
             }
 
