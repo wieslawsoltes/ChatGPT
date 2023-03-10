@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
+             xmlns:converters="clr-namespace:ChatGPT.Converters"
              xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
              xmlns:html="clr-namespace:TheArtOfDev.HtmlRenderer.Avalonia;assembly=Avalonia.HtmlRenderer"
              xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
@@ -31,6 +32,29 @@
                 Gesture="Alt+Enter"/>
   </UserControl.KeyBindings>
   <DockPanel Background="Transparent">
+    <Button Name="RoleButton"
+            ToolTip.Tip="Role"
+            VerticalAlignment="Top"
+            BorderBrush="#00000000"
+            BorderThickness="2"
+            Background="#00FFFFFF"
+            CornerRadius="4"
+            Padding="12"
+            Margin="0,16,0,0"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{Binding Role, Converter={x:Static converters:RoleIconConverter.Instance}}"
+                Width="24"
+                Height="24"
+                Opacity="0.5"
+                Foreground="{DynamicResource SettingsIconBrush}" />
+      <Button.Flyout>
+        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+          <MenuItem Header="System" Command="{Binding SetRoleCommand}" CommandParameter="system" />
+          <MenuItem Header="User" Command="{Binding SetRoleCommand}" CommandParameter="user" />
+          <MenuItem Header="Assistant" Command="{Binding SetRoleCommand}" CommandParameter="assistant" />
+        </MenuFlyout>
+      </Button.Flyout>
+    </Button>
     <chat:ChatMessageActionsView Margin="4,4,0,4" 
                                  VerticalAlignment="Top"
                                  DockPanel.Dock="Right"/>
