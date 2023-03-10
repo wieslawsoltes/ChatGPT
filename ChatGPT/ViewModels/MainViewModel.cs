@@ -43,6 +43,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         CurrentLayout = SingleLayout;
 
+        Layout = "Mobile";
+
         NewPromptCallback();
 
         NewChatCallback();
@@ -84,6 +86,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         ExitCommand = new RelayCommand(ExitAction);
 
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
+
+        ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
     }
 
     public async Task LoadSettings(Stream stream)
@@ -113,6 +117,17 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                 CurrentPrompt = storage.CurrentPrompt;
             }
 
+            if (storage.Layouts is { })
+            {
+                Layouts = storage.Layouts;
+                CurrentLayout = storage.CurrentLayout;
+            }
+
+            if (storage.Layout is { })
+            {
+                Layout = storage.Layout;
+            }
+
             if (storage.Theme is { })
             {
                 Theme = storage.Theme;
@@ -128,7 +143,10 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             CurrentChat = CurrentChat,
             Prompts = Prompts,
             CurrentPrompt = CurrentPrompt,
+            Layouts = Layouts,
+            CurrentLayout = CurrentLayout,
             Theme = Theme,
+            Layout = Layout
         };
         await JsonSerializer.SerializeAsync(
             stream, 

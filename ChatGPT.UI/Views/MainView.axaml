@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT"
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
-             xmlns:vml="clr-namespace:ChatGPT.ViewModels.Layouts;assembly=ChatGPT"
-             xmlns:layouts="clr-namespace:ChatGPT.Views.Layouts"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             xmlns:controls="clr-namespace:ChatGPT.Controls"
              FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="740"
              x:Class="ChatGPT.Views.MainView"
@@ -52,20 +51,8 @@
     </vm:MainViewModel>
   </Design.DataContext>
 
-  <!--
-  <ContentControl Content="{Binding CurrentLayout}">
-    <ContentControl.DataTemplates>
-      <DataTemplate DataType="vml:SingleLayoutViewModel">
-        <layouts:SingleLayoutView />
-      </DataTemplate>
-      <DataTemplate DataType="vml:ColumnLayoutViewModel">
-        <layouts:ColumnLayoutView />
-      </DataTemplate>
-    </ContentControl.DataTemplates>
-  </ContentControl>
-  -->
-
-  <layouts:SingleLayoutView />
-  <!-- <layouts:ColumnLayoutView /> -->
+  <Panel>
+    <controls:LayoutContainer Layout="{Binding Layout}" />
+  </Panel>
 
 </UserControl>

@@ -6,6 +6,8 @@ using CommunityToolkit.Mvvm.Input;
 namespace ChatGPT.ViewModels.Layouts;
 
 [JsonPolymorphic]
+[JsonDerivedType(typeof(SingleLayoutViewModel))]
+[JsonDerivedType(typeof(ColumnLayoutViewModel))]
 public abstract partial class LayoutViewModel : ObservableObject
 {
     private double _width;
@@ -14,6 +16,7 @@ public abstract partial class LayoutViewModel : ObservableObject
     private bool _showChats;
     private bool _showPrompts;
 
+    [JsonConstructor]
     public LayoutViewModel()
     {
         ShowSettingsCommand = new RelayCommand(ShowSettingsAction);

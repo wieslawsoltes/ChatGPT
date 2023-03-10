@@ -4,7 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 
-namespace ChatGPT.Controls;
+namespace ChatGPT.Converters;
 
 public class GridLengthConverter : IValueConverter
 {

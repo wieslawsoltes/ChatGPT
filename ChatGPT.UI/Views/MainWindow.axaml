@@ -15,10 +15,13 @@
         SystemDecorations="Full"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
-        Width="{Binding CurrentLayout.Width, FallbackValue=1400}"
-        Height="{Binding CurrentLayout.Height, FallbackValue=830}"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
+  <!-- TODO: -->
+  <!--
+  Width="{Binding CurrentLayout.Width, FallbackValue=1400}"
+  Height="{Binding CurrentLayout.Height, FallbackValue=830}"
+  -->
   <Design.DataContext>
     <vm:MainViewModel />
   </Design.DataContext>
