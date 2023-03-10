@@ -27,6 +27,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
 
+    private double _width;
+    private double _height;
+
     public MainViewModel()
     {
         _chats = new ObservableCollection<ChatViewModel>();
@@ -46,6 +49,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         Layout = "Mobile";
 
+        Width = 400;
+        Height = 740;
+        
         NewPromptCallback();
 
         NewChatCallback();
@@ -89,6 +95,20 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
 
         ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
+    }
+
+    [JsonPropertyName("width")]
+    public double Width
+    {
+        get => _width;
+        set => SetProperty(ref _width, value);
+    }
+
+    [JsonPropertyName("height")]
+    public double Height
+    {
+        get => _height;
+        set => SetProperty(ref _height, value);
     }
 
     public async Task LoadSettings(Stream stream)
@@ -135,6 +155,16 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             {
                 Theme = storage.Theme;
             }
+
+            if (storage.Width is { })
+            {
+                Width = storage.Width.Value;
+            }
+
+            if (storage.Height is { })
+            {
+                Height = storage.Height.Value;
+            }
         }
     }
 
@@ -149,7 +179,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             Layouts = Layouts,
             CurrentLayout = CurrentLayout,
             Theme = Theme,
-            Layout = Layout
+            Layout = Layout,
+            Width = Width,
+            Height = Height
         };
         await JsonSerializer.SerializeAsync(
             stream, 
