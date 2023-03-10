@@ -21,4 +21,8 @@ public class StorageViewModel
     public string? Theme { get; set; }
 
     public string? Layout { get; set; }
+
+    public double? Width { get; set; }
+
+    public double? Height { get; set; }
 }
