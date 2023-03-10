@@ -220,7 +220,11 @@ public class ChatViewModel : ObservableObject
                 continue;
             }
 
-            chatMessages.Add(new ChatMessage {Role = message.Role, Content = message.Message});
+            chatMessages.Add(new ChatMessage
+            {
+                Role = message.Role, 
+                Content = message.Message
+            });
         }
 
         return chatMessages.ToArray();
