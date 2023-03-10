@@ -15,6 +15,8 @@
         SystemDecorations="Full"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
+        Width="400"
+        Height="740"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <!-- TODO: -->
