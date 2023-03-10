@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -121,6 +122,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             {
                 Layouts = storage.Layouts;
                 CurrentLayout = storage.CurrentLayout;
+                SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
+                ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
             }
 
             if (storage.Layout is { })
