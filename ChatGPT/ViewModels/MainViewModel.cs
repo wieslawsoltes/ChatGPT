@@ -49,7 +49,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         Layout = "Mobile";
 
-        Width = 400;
+        Width = 450;
         Height = 740;
         
         NewPromptCallback();
