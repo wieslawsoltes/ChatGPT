@@ -203,23 +203,23 @@ public class ChatViewModel : ObservableObject
     {
         var chatMessages = new List<ChatMessage>();
 
-        chatMessages.Add(new ChatMessage
-        {
-            Role = "system",
-            Content = chatSettings.Directions
-        });
-
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
 
         for (var i = 0; i < messages.Count; i++)
         {
+            var message = messages[i];
+
             if (i == 0)
             {
+                chatMessages.Add(new ChatMessage
+                {
+                    Role = message.Role,
+                    Content = chatSettings.Directions
+                });
+
                 continue;
             }
 
-            var message = messages[i];
-  
             chatMessages.Add(new ChatMessage {Role = message.Role, Content = message.Message});
         }
 
