@@ -75,12 +75,12 @@ public partial class MainViewModel
         switch (Layout)
         {
             case "Mobile":
-                Layout = "Desktop";
                 CurrentLayout = ColumnLayout;
+                Layout = "Desktop";
                 break;
             case "Desktop":
-                Layout = "Mobile";
                 CurrentLayout = SingleLayout;
+                Layout = "Mobile";
                 break;
         }
     }
