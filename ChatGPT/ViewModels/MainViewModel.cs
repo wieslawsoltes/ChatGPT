@@ -138,6 +138,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                 CurrentPrompt = storage.CurrentPrompt;
             }
 
+            // TODO:
+            /*
             if (storage.Layouts is { })
             {
                 Layouts = storage.Layouts;
@@ -149,13 +151,16 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             if (storage.Layout is { })
             {
                 Layout = storage.Layout;
-            }
+            }            
+            */
 
             if (storage.Theme is { })
             {
                 Theme = storage.Theme;
             }
 
+            // TODO:
+            /*
             if (storage.Width is { })
             {
                 Width = storage.Width.Value;
@@ -165,6 +170,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             {
                 Height = storage.Height.Value;
             }
+            */
         }
     }
 
