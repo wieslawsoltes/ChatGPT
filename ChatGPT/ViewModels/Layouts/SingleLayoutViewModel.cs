@@ -19,7 +19,7 @@ public partial class SingleLayoutViewModel : LayoutViewModel
         ShowMenu = false;
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("showMenu")]
     public bool ShowMenu
     {
         get => _showMenu;
