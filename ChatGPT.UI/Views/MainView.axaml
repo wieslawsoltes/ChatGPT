@@ -28,37 +28,22 @@
               <vmc:ChatMessageViewModel IsSent="False" IsAwaiting="False" IsError="False" CanRemove="True">
                 <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
-                <vmc:ChatMessageViewModel.Result>
-                  <vmc:ChatMessageViewModel />
-                </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
                 <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
-                <vmc:ChatMessageViewModel.Result>
-                  <x:Null />
-                </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="True" IsError="False" CanRemove="True">
                 <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
-                <vmc:ChatMessageViewModel.Result>
-                  <x:Null />
-                </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
                 <vmc:ChatMessageViewModel.Role>assistant</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is message</vmc:ChatMessageViewModel.Message>
-                <vmc:ChatMessageViewModel.Result>
-                  <vmc:ChatMessageViewModel />
-                </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
               <vmc:ChatMessageViewModel IsSent="True" IsAwaiting="False" IsError="False" CanRemove="True">
                 <vmc:ChatMessageViewModel.Role>user</vmc:ChatMessageViewModel.Role>
                 <vmc:ChatMessageViewModel.Message>This is prompt</vmc:ChatMessageViewModel.Message>
-                <vmc:ChatMessageViewModel.Result>
-                  <x:Null />
-                </vmc:ChatMessageViewModel.Result>
               </vmc:ChatMessageViewModel>
             </objectModel:ObservableCollection>
           </vmc:ChatViewModel.Messages>
