@@ -211,10 +211,17 @@ public class ChatViewModel : ObservableObject
 
             if (i == 0)
             {
+                var content = chatSettings.Directions;
+
+                if (message.Message != Defaults.WelcomeMessage)
+                {
+                    content = message.Message;
+                }
+
                 chatMessages.Add(new ChatMessage
                 {
                     Role = message.Role,
-                    Content = chatSettings.Directions
+                    Content = content
                 });
 
                 continue;

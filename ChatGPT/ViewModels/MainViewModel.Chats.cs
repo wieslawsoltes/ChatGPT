@@ -238,12 +238,19 @@ public partial class MainViewModel
 
             if (i == 0)
             {
-                if (chat.Settings?.Directions is { } directions)
+                var content = chat.Settings?.Directions;
+
+                if (message.Message != Defaults.WelcomeMessage)
+                {
+                    content = message.Message;
+                }
+
+                if (content is { })
                 {
                     await writer.WriteLineAsync($"{message.Role}:");
                     await writer.WriteLineAsync("");
 
-                    await writer.WriteLineAsync(directions);
+                    await writer.WriteLineAsync(content);
                     await writer.WriteLineAsync("");
                 }
 
