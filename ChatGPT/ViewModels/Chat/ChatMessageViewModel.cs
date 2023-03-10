@@ -8,7 +8,7 @@ namespace ChatGPT.ViewModels.Chat;
 
 public class ChatMessageViewModel : ObservableObject
 {
-    private string? _prompt;
+    private string? _role;
     private string? _message;
     private string? _format;
     private bool _isSent;
@@ -16,7 +16,6 @@ public class ChatMessageViewModel : ObservableObject
     private bool _isError;
     private bool _canRemove;
     private bool _isEditing;
-    private ChatMessageViewModel? _result;
     private Func<ChatMessageViewModel, Task>? _send;
     private Func<ChatMessageViewModel, Task>? _copy;
     private Action<ChatMessageViewModel>? _remove;
@@ -32,11 +31,11 @@ public class ChatMessageViewModel : ObservableObject
         RemoveCommand = new RelayCommand(RemoveAction);
     }
 
-    [JsonPropertyName("prompt")]
-    public string? Prompt
+    [JsonPropertyName("role")]
+    public string? Role
     {
-        get => _prompt;
-        set => SetProperty(ref _prompt, value);
+        get => _role;
+        set => SetProperty(ref _role, value);
     }
 
     [JsonPropertyName("message")]
@@ -88,13 +87,6 @@ public class ChatMessageViewModel : ObservableObject
         set => SetProperty(ref _isEditing, value);
     }
 
-    [JsonPropertyName("result")]
-    public ChatMessageViewModel? Result
-    {
-        get => _result;
-        set => SetProperty(ref _result, value);
-    }
-
     [JsonIgnore]
     public IAsyncRelayCommand SendCommand { get; }
 
@@ -112,7 +104,11 @@ public class ChatMessageViewModel : ObservableObject
         if (_send is { })
         {
             IsEditing = false;
-            await _send(this);
+
+            if (!IsSent)
+            {
+                await _send(this);
+            }
         }
     }
 
@@ -142,9 +138,6 @@ public class ChatMessageViewModel : ObservableObject
     {
         if (!IsEditing && IsSent)
         {
-            Prompt = Message;
-            Message = null;
-            IsSent = false;
             IsEditing = true;
         }
     }
@@ -153,9 +146,6 @@ public class ChatMessageViewModel : ObservableObject
     {
         if (IsEditing)
         {
-            Message = Prompt;
-            Prompt = null;
-            IsSent = true;
             IsEditing = false;
         }
     }
@@ -165,7 +155,7 @@ public class ChatMessageViewModel : ObservableObject
         if (!IsSent)
         {
             // TODO: Use caret position to insert new line.
-            Prompt += Environment.NewLine;
+            Message += Environment.NewLine;
         }
     }
 

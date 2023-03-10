@@ -155,15 +155,27 @@ public partial class MainViewModel
 
         var welcomeItem = new ChatMessageViewModel
         {
-            Prompt = "",
+            Role = "system",
             Message = "Hi! I'm Clippy, your Windows Assistant. Would you like to get some assistance?",
             Format = Defaults.TextMessageFormat,
-            IsSent = false,
+            IsSent = true,
             CanRemove = false
         };
         chat.SetMessageActions(welcomeItem);
         chat.Messages.Add(welcomeItem);
-        chat.CurrentMessage = welcomeItem;
+
+        var promptItem = new ChatMessageViewModel
+        {
+            Role = "user",
+            Message = "",
+            Format = Defaults.TextMessageFormat,
+            IsSent = false,
+            CanRemove = false
+        };
+        chat.SetMessageActions(promptItem);
+        chat.Messages.Add(promptItem);
+
+        chat.CurrentMessage = promptItem;
 
         Chats.Add(chat);
         CurrentChat = chat;
@@ -222,7 +234,7 @@ public partial class MainViewModel
     {
         if (chat.Settings?.Directions is { } directions)
         {
-            await writer.WriteLineAsync("SYSTEM:");
+            await writer.WriteLineAsync("system:");
             await writer.WriteLineAsync("");
 
             await writer.WriteLineAsync(directions);
@@ -238,25 +250,13 @@ public partial class MainViewModel
                 continue;
             }
 
-            if (message.Result is { })
+            if (!string.IsNullOrEmpty(message.Message))
             {
-                if (!string.IsNullOrEmpty(message.Message))
-                {
-                    await writer.WriteLineAsync("USER:");
-                    await writer.WriteLineAsync("");
+                await writer.WriteLineAsync($"{message.Role}:");
+                await writer.WriteLineAsync("");
 
-                    await writer.WriteLineAsync(message.Message);
-                    await writer.WriteLineAsync("");
-                }
-
-                if (!string.IsNullOrEmpty(message.Result.Message))
-                {
-                    await writer.WriteLineAsync("ASSISTANT:");
-                    await writer.WriteLineAsync("");
-
-                    await writer.WriteLineAsync(message.Result.Message);
-                    await writer.WriteLineAsync("");
-                }
+                await writer.WriteLineAsync(message.Message);
+                await writer.WriteLineAsync("");
             }
         }
     }

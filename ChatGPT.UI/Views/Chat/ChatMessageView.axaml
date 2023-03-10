@@ -14,15 +14,12 @@
              Focusable="True">
   <Design.DataContext>
     <vm:ChatMessageViewModel>
-      <vm:ChatMessageViewModel.Prompt>This is prompt</vm:ChatMessageViewModel.Prompt>
+      <vm:ChatMessageViewModel.Role>user</vm:ChatMessageViewModel.Role>
       <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
       <vm:ChatMessageViewModel.IsSent>True</vm:ChatMessageViewModel.IsSent>
       <vm:ChatMessageViewModel.IsAwaiting>False</vm:ChatMessageViewModel.IsAwaiting>
       <vm:ChatMessageViewModel.IsError>False</vm:ChatMessageViewModel.IsError>
       <vm:ChatMessageViewModel.CanRemove>True</vm:ChatMessageViewModel.CanRemove>
-      <vm:ChatMessageViewModel.Result>
-        <vm:ChatMessageViewModel />
-      </vm:ChatMessageViewModel.Result>
     </vm:ChatMessageViewModel>
   </Design.DataContext>
   <UserControl.KeyBindings>
@@ -51,6 +48,12 @@
                         Content="{Binding}"
                         Margin="16,4,16,4"
                         Name="ContentControl">
+          <ContentControl.IsVisible>
+            <MultiBinding Converter="{x:Static BoolConverters.And}">
+              <Binding Path="IsSent" />
+              <Binding Path="IsEditing" Converter="{x:Static BoolConverters.Not}"/>
+            </MultiBinding>
+          </ContentControl.IsVisible>
           <ContentControl.ContentTemplate>
             <dt:DataTemplateSelector DataContext="{Binding #ContentControl.Content}"
                                      Selector="{Binding Format}"
@@ -106,6 +109,7 @@
           </ContentControl.ContentTemplate>
         </ContentControl>
         <chat:ChatMessagePromptView Grid.Row="1" 
+                                    IsVisible="{Binding !IsAwaiting}"
                                     Margin="8,0,8,0"/>
         <ProgressBar Grid.Row="1" 
                      Margin="16,0,16,16"
