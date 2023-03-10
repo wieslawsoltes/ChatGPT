@@ -37,12 +37,12 @@
 
       <SplitView.Pane>
         <Panel>
-          <settings:SettingsView  Margin="16" 
-                                  IsVisible="{Binding SingleLayout.ShowSettings}" />
-          <history:HistoryView  Margin="16" 
-                                IsVisible="{Binding SingleLayout.ShowChats}" />
-          <prompts:PromptsView  Margin="16" 
-                                IsVisible="{Binding SingleLayout.ShowPrompts}" />
+          <settings:SettingsView Margin="16" 
+                                 IsVisible="{Binding SingleLayout.ShowSettings}" />
+          <history:HistoryView Margin="16" 
+                               IsVisible="{Binding SingleLayout.ShowChats}" />
+          <prompts:PromptsView Margin="16" 
+                               IsVisible="{Binding SingleLayout.ShowPrompts}" />
         </Panel>
       </SplitView.Pane>
 
