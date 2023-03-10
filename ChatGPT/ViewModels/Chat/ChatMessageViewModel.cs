@@ -29,6 +29,8 @@ public class ChatMessageViewModel : ObservableObject
         CopyCommand = new RelayCommand(CopyAction);
 
         RemoveCommand = new RelayCommand(RemoveAction);
+
+        SetRoleCommand = new RelayCommand<string>(SetRoleAction);
     }
 
     [JsonPropertyName("role")]
@@ -99,6 +101,9 @@ public class ChatMessageViewModel : ObservableObject
     [JsonIgnore]
     public IRelayCommand RemoveCommand { get; }
 
+    [JsonIgnore]
+    public IRelayCommand SetRoleCommand { get; }
+
     private async Task SendAction()
     {
         if (_send is { })
@@ -167,6 +172,14 @@ public class ChatMessageViewModel : ObservableObject
     private void RemoveAction()
     {
         _remove?.Invoke(this);
+    }
+
+    private void SetRoleAction(string? role)
+    {
+        if (Role is { })
+        {
+            Role = role;
+        }
     }
 
     public void SetSendAction(Func<ChatMessageViewModel, Task>? send)
