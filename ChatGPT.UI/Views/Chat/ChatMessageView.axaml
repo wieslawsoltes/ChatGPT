@@ -85,6 +85,7 @@
                                      TemplateSuffix="DataTemplate"
                                      x:DataType="vm:ChatMessageViewModel">
               <dt:DataTemplateSelector.Resources>
+                <!-- Text -->
                 <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="TextDataTemplate">
                   <SelectableTextBlock Text="{Binding Message}" 
                                        HorizontalAlignment="Stretch" 
@@ -102,6 +103,7 @@
                     </SelectableTextBlock.Styles>
                   </SelectableTextBlock>
                 </DataTemplate>
+                <!-- Markdown -->
                 <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="MarkdownDataTemplate">
                   <md:MarkdownScrollViewer Markdown="{Binding Message}" 
                                            HorizontalAlignment="Stretch" 
@@ -117,6 +119,7 @@
                     </md:MarkdownScrollViewer.Styles>
                   </md:MarkdownScrollViewer>
                 </DataTemplate>
+                <!-- Html -->
                 <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="HtmlDataTemplate">
                   <html:HtmlPanel Text="{Binding Message}" 
                                   HorizontalAlignment="Stretch" 
