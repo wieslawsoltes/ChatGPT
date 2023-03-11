@@ -125,7 +125,7 @@
                                   IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   Classes.error="{Binding IsError}" >
-                    <!-- TODO: -->
+                    <!-- TODO: Error style. -->
                   </html:HtmlPanel>
                 </DataTemplate>
               </dt:DataTemplateSelector.Resources>
