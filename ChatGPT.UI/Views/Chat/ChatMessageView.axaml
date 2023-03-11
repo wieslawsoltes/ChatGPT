@@ -9,6 +9,7 @@
              xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
              xmlns:dt="clr-namespace:ChatGPT.DataTemplates"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
+             xmlns:core="clr-namespace:ChatGPT;assembly=ChatGPT"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
              x:Class="ChatGPT.Views.Chat.ChatMessageView"
              x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel"
@@ -49,9 +50,28 @@
                 Foreground="{DynamicResource SettingsIconBrush}" />
       <Button.Flyout>
         <MenuFlyout Placement="BottomEdgeAlignedLeft">
-          <MenuItem Header="System" Command="{Binding SetRoleCommand}" CommandParameter="system" />
-          <MenuItem Header="User" Command="{Binding SetRoleCommand}" CommandParameter="user" />
-          <MenuItem Header="Assistant" Command="{Binding SetRoleCommand}" CommandParameter="assistant" />
+          <MenuItem Header="Role">
+            <MenuItem Header="System" 
+                      Command="{Binding SetRoleCommand}" 
+                      CommandParameter="system" />
+            <MenuItem Header="User" 
+                      Command="{Binding SetRoleCommand}" 
+                      CommandParameter="user" />
+            <MenuItem Header="Assistant" 
+                      Command="{Binding SetRoleCommand}" 
+                      CommandParameter="assistant" />
+          </MenuItem>
+          <MenuItem Header="Format">
+            <MenuItem Header="{x:Static core:Defaults.TextMessageFormat}" 
+                      Command="{Binding SetFormatCommand}" 
+                      CommandParameter="{x:Static core:Defaults.TextMessageFormat}" />
+            <MenuItem Header="{x:Static core:Defaults.MarkdownMessageFormat}" 
+                      Command="{Binding SetFormatCommand}" 
+                      CommandParameter="{x:Static core:Defaults.MarkdownMessageFormat}" />
+            <MenuItem Header="{x:Static core:Defaults.HtmlMessageTextFormat}" 
+                      Command="{Binding SetFormatCommand}" 
+                      CommandParameter="{x:Static core:Defaults.HtmlMessageTextFormat}" />
+          </MenuItem>
         </MenuFlyout>
       </Button.Flyout>
     </Button>
