@@ -176,7 +176,7 @@ public class ChatMessageViewModel : ObservableObject
 
     private void SetRoleAction(string? role)
     {
-        if (Role is { })
+        if (role is { })
         {
             Role = role;
         }
