@@ -10,6 +10,7 @@
              xmlns:dt="clr-namespace:ChatGPT.DataTemplates"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
              xmlns:core="clr-namespace:ChatGPT;assembly=ChatGPT"
+             xmlns:controls="clr-namespace:ChatGPT.Controls"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
              x:Class="ChatGPT.Views.Chat.ChatMessageView"
              x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel"
@@ -87,18 +88,19 @@
             MinHeight="78">
       <Grid RowDefinitions="*,Auto"
             Margin="0,8,0,12">
-        <ContentControl Grid.Column="0"
-                        Grid.Row="0"
-                        Content="{Binding}"
-                        Margin="16,4,16,4"
-                        Name="ContentControl">
-          <ContentControl.IsVisible>
+        <controls:InvalidateContentControl Grid.Column="0"
+                                           Grid.Row="0"
+                                           Content="{Binding}"
+                                           Margin="16,4,16,4"
+                                           Name="ContentControl"
+                                           InvalidateTrigger="{Binding Format}">
+          <controls:InvalidateContentControl.IsVisible>
             <MultiBinding Converter="{x:Static BoolConverters.And}">
               <Binding Path="IsSent" />
               <Binding Path="IsEditing" Converter="{x:Static BoolConverters.Not}"/>
             </MultiBinding>
-          </ContentControl.IsVisible>
-          <ContentControl.ContentTemplate>
+          </controls:InvalidateContentControl.IsVisible>
+          <controls:InvalidateContentControl.ContentTemplate>
             <dt:DataTemplateSelector DataContext="{Binding #ContentControl.Content}"
                                      Selector="{Binding Format}"
                                      DefaultSelector="Text"
@@ -153,8 +155,8 @@
                 </DataTemplate>
               </dt:DataTemplateSelector.Resources>
             </dt:DataTemplateSelector>
-          </ContentControl.ContentTemplate>
-        </ContentControl>
+          </controls:InvalidateContentControl.ContentTemplate>
+        </controls:InvalidateContentControl>
         <chat:ChatMessagePromptView Grid.Row="1" 
                                     IsVisible="{Binding !IsAwaiting}"
                                     Margin="8,0,8,0"/>
