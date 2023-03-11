@@ -33,7 +33,9 @@
                 CommandParameter="NewLine"
                 Gesture="Alt+Enter"/>
   </UserControl.KeyBindings>
-  <DockPanel Background="Transparent">
+  <DockPanel Background="Transparent"
+             VerticalAlignment="Top"
+             MinHeight="78">
     <Button Name="RoleButton"
             ToolTip.Tip="Role"
             VerticalAlignment="Top"
@@ -83,15 +85,11 @@
             BorderThickness="1"
             BorderBrush="{DynamicResource MessageBorderBrush}"
             CornerRadius="8"
-            VerticalAlignment="Center"
-            Margin="4,4,0,4"
-            MinHeight="78">
-      <Grid RowDefinitions="*,Auto"
-            Margin="0,8,0,12">
-        <controls:InvalidateContentControl Grid.Column="0"
-                                           Grid.Row="0"
-                                           Content="{Binding}"
-                                           Margin="16,4,16,4"
+            Margin="4,4,0,4">
+      <Panel VerticalAlignment="Center">
+        <!-- Message -->
+        <controls:InvalidateContentControl Content="{Binding}"
+                                           VerticalAlignment="Center"
                                            Name="ContentControl"
                                            InvalidateTrigger="{Binding Format}">
           <controls:InvalidateContentControl.IsVisible>
@@ -112,7 +110,8 @@
                   <SelectableTextBlock Text="{Binding Message}" 
                                        HorizontalAlignment="Stretch" 
                                        VerticalAlignment="Center"
-                                       Padding="4,12,4,12" 
+                                       Padding="0,0,0,0" 
+                                       Margin="16,16,16,16"
                                        FontSize="{DynamicResource MessageFontSize}"
                                        TextWrapping="Wrap"
                                        Background="Transparent"
@@ -130,6 +129,7 @@
                   <md:MarkdownScrollViewer Markdown="{Binding Message}" 
                                            HorizontalAlignment="Stretch" 
                                            VerticalAlignment="Center"
+                                           Margin="16,16,16,16"
                                            TextElement.FontSize="{DynamicResource MessageFontSize}"
                                            IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -146,6 +146,7 @@
                   <html:HtmlPanel Text="{Binding Message}" 
                                   HorizontalAlignment="Stretch" 
                                   VerticalAlignment="Center"
+                                  Margin="16,16,16,16"
                                   TextElement.FontSize="{DynamicResource MessageFontSize}"
                                   IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -157,14 +158,15 @@
             </dt:DataTemplateSelector>
           </controls:InvalidateContentControl.ContentTemplate>
         </controls:InvalidateContentControl>
-        <chat:ChatMessagePromptView Grid.Row="1" 
-                                    IsVisible="{Binding !IsAwaiting}"
-                                    Margin="8,0,8,0"/>
-        <ProgressBar Grid.Row="1" 
-                     Margin="16,0,16,16"
+        <!-- Prompt -->
+        <chat:ChatMessagePromptView IsVisible="{Binding !IsAwaiting}"
+                                    VerticalAlignment="Center"
+                                    Margin="8,16,8,16"/>
+        <!-- Progress -->
+        <ProgressBar Margin="16,16,16,16"
                      IsIndeterminate="{Binding IsAwaiting}"
                      IsVisible="{Binding IsAwaiting}"/>
-      </Grid>
+      </Panel>
     </Border>
   </DockPanel>
 </UserControl>
