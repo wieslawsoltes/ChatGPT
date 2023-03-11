@@ -31,6 +31,8 @@ public class ChatMessageViewModel : ObservableObject
         RemoveCommand = new RelayCommand(RemoveAction);
 
         SetRoleCommand = new RelayCommand<string>(SetRoleAction);
+
+        SetFormatCommand = new RelayCommand<string>(SetFormatAction);
     }
 
     [JsonPropertyName("role")]
@@ -103,6 +105,9 @@ public class ChatMessageViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand SetRoleCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand SetFormatCommand { get; }
 
     private async Task SendAction()
     {
@@ -179,6 +184,14 @@ public class ChatMessageViewModel : ObservableObject
         if (role is { })
         {
             Role = role;
+        }
+    }
+
+    private void SetFormatAction(string? format)
+    {
+        if (format is { })
+        {
+            Format = format;
         }
     }
 
