@@ -120,7 +120,7 @@ public partial class App : Application
                 .AddTransient<ChatSettingsViewModel>()
                 .AddTransient<ChatViewModel>()
                 .AddTransient<PromptViewModel>()
-                .AddTransient<StorageViewModel>()
+                .AddTransient<WorkspaceViewModel>()
                 .BuildServiceProvider());
     }
 

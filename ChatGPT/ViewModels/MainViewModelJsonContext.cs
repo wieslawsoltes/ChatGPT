@@ -22,7 +22,7 @@ namespace ChatGPT.ViewModels;
 [JsonSerializable(typeof(SingleLayoutViewModel))]
 [JsonSerializable(typeof(ColumnLayoutViewModel))]
 [JsonSerializable(typeof(ObservableCollection<LayoutViewModel>))]
-[JsonSerializable(typeof(StorageViewModel))]
+[JsonSerializable(typeof(WorkspaceViewModel))]
 public partial class MainViewModelJsonContext : JsonSerializerContext
 {
 }

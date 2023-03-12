@@ -31,9 +31,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
 
-    private double _width;
-    private double _height;
-
     public MainViewModel()
     {
         _chats = new ObservableCollection<ChatViewModel>();
@@ -101,25 +98,11 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
     }
 
-    [JsonPropertyName("width")]
-    public double Width
-    {
-        get => _width;
-        set => SetProperty(ref _width, value);
-    }
-
-    [JsonPropertyName("height")]
-    public double Height
-    {
-        get => _height;
-        set => SetProperty(ref _height, value);
-    }
-
     public async Task LoadSettings(Stream stream)
     {
         var storage = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.StorageViewModel);
+            s_serializerContext.WorkspaceViewModel);
         if (storage is { })
         {
             if (storage.Chats is { })
@@ -151,12 +134,12 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                 SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
                 ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
             }
+            */
 
             if (storage.Layout is { })
             {
                 Layout = storage.Layout;
             }            
-            */
 
             if (storage.Theme is { })
             {
@@ -180,7 +163,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public async Task SaveSettings(Stream stream)
     {
-        var storage = new StorageViewModel
+        var storage = new WorkspaceViewModel
         {
             Chats = Chats,
             CurrentChat = CurrentChat,
@@ -195,6 +178,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         };
         await JsonSerializer.SerializeAsync(
             stream, 
-            storage, s_serializerContext.StorageViewModel);
+            storage, s_serializerContext.WorkspaceViewModel);
     }
 }

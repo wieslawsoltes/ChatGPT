@@ -17,24 +17,36 @@ public partial class MainViewModel
     private LayoutViewModel? _currentLayout;
     private string? _theme;
     private string? _layout;
+    private double _width;
+    private double _height;
 
-    [JsonIgnore]
+    [JsonPropertyName("layouts")]
     public ObservableCollection<LayoutViewModel>? Layouts
     {
         get => _layouts;
         set => SetProperty(ref _layouts, value);
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("currentLayout")]
     public LayoutViewModel? CurrentLayout
     {
         get => _currentLayout;
         set => SetProperty(ref _currentLayout, value);
     }
 
-    public SingleLayoutViewModel? SingleLayout { get; private set; }
+    [JsonPropertyName("width")]
+    public double Width
+    {
+        get => _width;
+        set => SetProperty(ref _width, value);
+    }
 
-    public ColumnLayoutViewModel? ColumnLayout { get; private set; }
+    [JsonPropertyName("height")]
+    public double Height
+    {
+        get => _height;
+        set => SetProperty(ref _height, value);
+    }
 
     [JsonPropertyName("theme")]
     public string? Theme
@@ -49,6 +61,12 @@ public partial class MainViewModel
         get => _layout;
         set => SetProperty(ref _layout, value);
     }
+
+    [JsonIgnore]
+    public SingleLayoutViewModel? SingleLayout { get; private set; }
+
+    [JsonIgnore]
+    public ColumnLayoutViewModel? ColumnLayout { get; private set; }
 
     [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
