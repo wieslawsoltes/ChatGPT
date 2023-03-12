@@ -24,7 +24,12 @@ class Program
     }
 
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
+        => AppBuilder
+            .Configure<App>()
+            .AfterSetup(_ =>
+            {
+                App.ConfigureDefaultServices();
+            })
             .UsePlatformDetect()
             .LogToTrace();
 }

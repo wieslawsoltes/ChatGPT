@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  * Copyright (C) 2022-2023, Wiesław Šoltés. All rights reserved.
  */
+using Avalonia;
 using Avalonia.iOS;
 using Foundation;
 
@@ -13,4 +14,10 @@ namespace ChatGPT.UI.iOS;
 [Register("AppDelegate")]
 public class AppDelegate : AvaloniaAppDelegate<App>
 {
+    protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
+    {
+        App.ConfigureDefaultServices();
+
+        return base.CustomizeAppBuilder(builder);
+    }
 }

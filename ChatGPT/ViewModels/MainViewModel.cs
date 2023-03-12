@@ -9,10 +9,12 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ChatGPT.Model.Plugins;
+using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
@@ -100,14 +102,22 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public async Task LoadSettings(Stream stream)
     {
-        var storage = await JsonSerializer.DeserializeAsync(
-            stream, 
-            s_serializerContext.WorkspaceViewModel);
-        if (storage is { })
+        // TODO:
+        // var workspace = await JsonSerializer.DeserializeAsync(
+        //     stream, 
+        //     s_serializerContext.WorkspaceViewModel);
+        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        if (storage is null)
         {
-            if (storage.Chats is { })
+            return;
+        }
+        var workspace = await storage.LoadObject("Settings", s_serializerContext.WorkspaceViewModel);
+        if (workspace is { })
+        {
+            if (workspace.Chats is { })
             {
-                foreach (var chat in storage.Chats)
+                foreach (var chat in workspace.Chats)
                 {
                     foreach (var message in chat.Messages)
                     {
@@ -115,14 +125,14 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                     }
                 }
 
-                Chats = storage.Chats;
-                CurrentChat = storage.CurrentChat;
+                Chats = workspace.Chats;
+                CurrentChat = workspace.CurrentChat;
             }
 
-            if (storage.Prompts is { })
+            if (workspace.Prompts is { })
             {
-                Prompts = storage.Prompts;
-                CurrentPrompt = storage.CurrentPrompt;
+                Prompts = workspace.Prompts;
+                CurrentPrompt = workspace.CurrentPrompt;
             }
 
             // TODO:
@@ -136,14 +146,14 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             }
             */
 
-            if (storage.Layout is { })
+            if (workspace.Layout is { })
             {
-                Layout = storage.Layout;
+                Layout = workspace.Layout;
             }            
 
-            if (storage.Theme is { })
+            if (workspace.Theme is { })
             {
-                Theme = storage.Theme;
+                Theme = workspace.Theme;
             }
 
             // TODO:
@@ -163,7 +173,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public async Task SaveSettings(Stream stream)
     {
-        var storage = new WorkspaceViewModel
+        var workspace = new WorkspaceViewModel
         {
             Chats = Chats,
             CurrentChat = CurrentChat,
@@ -176,8 +186,15 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             Width = Width,
             Height = Height
         };
-        await JsonSerializer.SerializeAsync(
-            stream, 
-            storage, s_serializerContext.WorkspaceViewModel);
+        // TODO:
+        // await JsonSerializer.SerializeAsync(
+        //     stream, 
+        //     workspace, s_serializerContext.WorkspaceViewModel);
+        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        if (storage is { })
+        {
+            await storage.SaveObject(workspace, "Settings", s_serializerContext.WorkspaceViewModel);
+        }
     }
 }

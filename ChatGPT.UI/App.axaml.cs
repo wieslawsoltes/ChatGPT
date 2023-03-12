@@ -29,13 +29,32 @@ public partial class App : Application
 {
     private const string SettingsFolderName = "ChatGPT";
 
+    // TODO: Remove usage of SettingsFileName.
     private const string SettingsFileName = "settings.json";
 
     public App()
     {
-        ConfigureServices();  
+    }
 
-        Ioc.Default.GetService<IPluginsService>()?.DiscoverPlugins();
+    public static void ConfigureDefaultServices()
+    {
+        Ioc.Default.ConfigureServices(
+            new ServiceCollection()
+                // Services
+                .AddSingleton<IStorageFactory, IsolatedStorageFactory>()
+                .AddSingleton<IApplicationService, ApplicationService>()
+                .AddSingleton<IPluginsService, PluginsService>()
+                .AddSingleton<IChatService, ChatService>()
+                .AddSingleton<ICompletionsService, CompletionsService>()
+                .AddSingleton<MainViewModel>()
+                .AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>())
+                // ViewModels
+                .AddTransient<ChatMessageViewModel>()
+                .AddTransient<ChatSettingsViewModel>()
+                .AddTransient<ChatViewModel>()
+                .AddTransient<PromptViewModel>()
+                .AddTransient<WorkspaceViewModel>()
+                .BuildServiceProvider());
     }
 
     public override void Initialize()
@@ -45,6 +64,8 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
+        Ioc.Default.GetService<IPluginsService>()?.DiscoverPlugins();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow
@@ -104,26 +125,6 @@ public partial class App : Application
         }
     }
 
-    private void ConfigureServices()
-    {
-        Ioc.Default.ConfigureServices(
-            new ServiceCollection()
-                // Services
-                .AddSingleton<IApplicationService, ApplicationService>()
-                .AddSingleton<IPluginsService, PluginsService>()
-                .AddSingleton<IChatService, ChatService>()
-                .AddSingleton<ICompletionsService, CompletionsService>()
-                .AddSingleton<MainViewModel>()
-                .AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>())
-                // ViewModels
-                .AddTransient<ChatMessageViewModel>()
-                .AddTransient<ChatSettingsViewModel>()
-                .AddTransient<ChatViewModel>()
-                .AddTransient<PromptViewModel>()
-                .AddTransient<WorkspaceViewModel>()
-                .BuildServiceProvider());
-    }
-
     private async void DesktopOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
         try
@@ -151,6 +152,7 @@ public partial class App : Application
         if (File.Exists(appSettingPath))
         {
             await using var stream = File.OpenRead(appSettingPath);
+            // TODO: Remove usage of stream param.
             await mainViewModel.LoadSettings(stream);
         }
     }
@@ -170,6 +172,7 @@ public partial class App : Application
         }
         var appSettingPath = Path.Combine(appPath, SettingsFileName);
         await using var stream = File.Open(appSettingPath, FileMode.Create);
+        // TODO: Remove usage of stream param.
         await mainViewModel.SaveSettings(stream);
     }
 
