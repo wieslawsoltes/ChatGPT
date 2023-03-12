@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ * Copyright (C) 2022-2023, Wiesław Šoltés. All rights reserved.
+ */
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
