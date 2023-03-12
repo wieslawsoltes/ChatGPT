@@ -31,22 +31,29 @@ internal class Program
             .Configure<App>()
             .AfterSetup(_ =>
             {
-                Ioc.Default.ConfigureServices(
-                    new ServiceCollection()
-                        // Services
-                        .AddSingleton<IStorageFactory, BrowserStorageFactory>()
-                        .AddSingleton<IApplicationService, ApplicationService>()
-                        .AddSingleton<IPluginsService, PluginsService>()
-                        .AddSingleton<IChatService, ChatService>()
-                        .AddSingleton<ICompletionsService, CompletionsService>()
-                        .AddSingleton<MainViewModel>()
-                        .AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>())
-                        // ViewModels
-                        .AddTransient<ChatMessageViewModel>()
-                        .AddTransient<ChatSettingsViewModel>()
-                        .AddTransient<ChatViewModel>()
-                        .AddTransient<PromptViewModel>()
-                        .AddTransient<WorkspaceViewModel>()
-                        .BuildServiceProvider());
+                ConfigureDefaultServices();
             });
+
+    private static void ConfigureDefaultServices()
+    {
+        IServiceCollection serviceCollection = new ServiceCollection();
+
+        // Services
+        serviceCollection.AddSingleton<IStorageFactory, BrowserStorageFactory>();
+        serviceCollection.AddSingleton<IApplicationService, ApplicationService>();
+        serviceCollection.AddSingleton<IPluginsService, PluginsService>();
+        serviceCollection.AddSingleton<IChatService, ChatService>();
+        serviceCollection.AddSingleton<ICompletionsService, CompletionsService>();
+        serviceCollection.AddSingleton<MainViewModel>();
+        serviceCollection.AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>());
+
+        // ViewModels
+        serviceCollection.AddTransient<ChatMessageViewModel>();
+        serviceCollection.AddTransient<ChatSettingsViewModel>();
+        serviceCollection.AddTransient<ChatViewModel>();
+        serviceCollection.AddTransient<PromptViewModel>();
+        serviceCollection.AddTransient<WorkspaceViewModel>();
+
+        Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
+    }
 }
