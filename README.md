@@ -4,7 +4,7 @@ A ChatGPT C# client for graphical user interface.
 
 To make the app work, you need to set the [OpenAI API key](https://beta.openai.com/account/api-keys) as the `OPENAI_API_KEY` environment variable.
 
-![image](https://user-images.githubusercontent.com/2297442/222270289-5239fd4b-07a0-4712-b3cc-f8c6fe6bbbb5.png)
+![image](https://user-images.githubusercontent.com/2297442/224843834-a58190df-3bdb-4722-b737-94e7adc87805.png)
 
 # Shortcuts
 
