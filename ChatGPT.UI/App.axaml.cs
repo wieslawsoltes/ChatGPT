@@ -203,6 +203,7 @@ public partial class App : Application
                 {
                     mainWindow.SystemDecorations = SystemDecorations.None;
                     mainWindow.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+                    mainWindow.ExtendClientAreaToDecorationsHint = false;
                     mainWindow.TransparencyLevelHint = WindowTransparencyLevel.Transparent;
                     mainWindow.AcrylicBorder.IsVisible = false;
                 }
@@ -210,6 +211,7 @@ public partial class App : Application
                 {
                     mainWindow.SystemDecorations = SystemDecorations.Full;
                     mainWindow.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
+                    mainWindow.ExtendClientAreaToDecorationsHint = true;
                     mainWindow.TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
                     mainWindow.AcrylicBorder.IsVisible = true;
                 }
