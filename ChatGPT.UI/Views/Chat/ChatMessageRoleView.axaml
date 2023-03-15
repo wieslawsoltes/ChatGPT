@@ -48,7 +48,7 @@
         <MenuItem Header="Role">
           <MenuItem Header="System" 
                     Command="{Binding SetRoleCommand}" 
-                    CommandParameter="system" >
+                    CommandParameter="system">
             <MenuItem.Icon>
               <PathIcon Data="{DynamicResource SystemIcon}"
                         Width="24" 
@@ -58,7 +58,7 @@
           </MenuItem>
           <MenuItem Header="User" 
                     Command="{Binding SetRoleCommand}" 
-                    CommandParameter="user" >
+                    CommandParameter="user">
             <MenuItem.Icon>
               <PathIcon Data="{DynamicResource PersonIcon}"
                         Width="24" 
@@ -68,7 +68,7 @@
           </MenuItem>
           <MenuItem Header="Assistant" 
                     Command="{Binding SetRoleCommand}" 
-                    CommandParameter="assistant" >
+                    CommandParameter="assistant">
             <MenuItem.Icon>
               <PathIcon Data="{DynamicResource ChatIcon}"
                         Width="24" 
