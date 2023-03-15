@@ -112,70 +112,21 @@ public class ChatViewModel : ObservableObject
             return;
         }
 
-        var chatPrompt = CreateChatPrompt(Messages, Settings);
-
         IsEnabled = false;
+
+        var onlyAddMessage = false;
 
         try
         {
-            var resultMessage = new ChatMessageViewModel
-            {
-                Role = "assistant",
-                Message = "Sending...",
-                IsSent = false,
-                CanRemove = true,
-                Format = Defaults.TextMessageFormat
-            };
-            SetMessageActions(resultMessage);
-            Messages.Add(resultMessage);
-
-            CurrentMessage = resultMessage;
-
             sendMessage.CanRemove = true;
             sendMessage.IsSent = true;
 
-            resultMessage.IsAwaiting = true;
-
-            // Response
-
-            var chatServiceSettings = new ChatServiceSettings
+            if (!onlyAddMessage)
             {
-                Model = Settings.Model,
-                Messages = chatPrompt,
-                Suffix = null,
-                Temperature = Settings.Temperature,
-                MaxTokens = Settings.MaxTokens,
-                TopP = 1.0m,
-                Stop = null,
-            };
-            var responseStr = default(string);
-            var isResponseStrError = false;
-            var responseData = await GetResponseData(chatServiceSettings, Settings);
-            if (responseData is null)
-            {
-                responseStr = "Unknown error.";
-                isResponseStrError = true;
+                var chatPrompt = CreateChatPrompt(Messages, Settings);
+
+                await CreateResultMessage(chatPrompt);
             }
-            else if (responseData is ChatResponseError error)
-            {
-                var message = error.Error?.Message;
-                responseStr = message ?? "Unknown error.";
-                isResponseStrError = true;
-            }
-            else if (responseData is ChatResponseSuccess success)
-            {
-                var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
-                responseStr = message ?? "";
-                isResponseStrError = false;
-            }
-
-            // Update
-
-            resultMessage.Message = responseStr;
-            resultMessage.IsError = isResponseStrError;
-            resultMessage.Format = Settings.Format;
-            resultMessage.IsAwaiting = false;
-            resultMessage.IsSent = true;
 
             var nextMessage = new ChatMessageViewModel
             {
@@ -195,6 +146,71 @@ public class ChatViewModel : ObservableObject
         }
 
         IsEnabled = true;
+    }
+
+    private async Task CreateResultMessage(ChatMessage[] chatPrompt)
+    {
+        if (Settings is null)
+        {
+            return;
+        }
+
+        // Sending...
+        
+        var resultMessage = new ChatMessageViewModel
+        {
+            Role = "assistant",
+            Message = "Sending...",
+            IsSent = false,
+            CanRemove = true,
+            IsAwaiting = true,
+            Format = Defaults.TextMessageFormat
+        };
+        SetMessageActions(resultMessage);
+        Messages.Add(resultMessage);
+        CurrentMessage = resultMessage;
+
+        // Response
+
+        var chatServiceSettings = new ChatServiceSettings
+        {
+            Model = Settings.Model,
+            Messages = chatPrompt,
+            Suffix = null,
+            Temperature = Settings.Temperature,
+            MaxTokens = Settings.MaxTokens,
+            TopP = 1.0m,
+            Stop = null,
+        };
+        var responseStr = default(string);
+        var isResponseStrError = false;
+
+        var responseData = await GetResponseData(chatServiceSettings, Settings);
+        if (responseData is null)
+        {
+            responseStr = "Unknown error.";
+            isResponseStrError = true;
+        }
+        else if (responseData is ChatResponseError error)
+        {
+            var message = error.Error?.Message;
+            responseStr = message ?? "Unknown error.";
+            isResponseStrError = true;
+        }
+        else if (responseData is ChatResponseSuccess success)
+        {
+            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
+            responseStr = message ?? "";
+            isResponseStrError = false;
+        }
+
+        // Update
+
+        resultMessage.Message = responseStr;
+        resultMessage.IsError = isResponseStrError;
+        resultMessage.Format = Settings.Format;
+        resultMessage.IsAwaiting = false;
+        resultMessage.IsSent = true;
     }
 
     private static ChatMessage[] CreateChatPrompt(
