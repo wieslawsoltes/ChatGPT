@@ -16,12 +16,14 @@ public class ChatMessageViewModel : ObservableObject
     private bool _isError;
     private bool _canRemove;
     private bool _isEditing;
-    private Func<ChatMessageViewModel, Task>? _send;
+    private Func<ChatMessageViewModel, bool, Task>? _send;
     private Func<ChatMessageViewModel, Task>? _copy;
     private Action<ChatMessageViewModel>? _remove;
 
     public ChatMessageViewModel()
     {
+        AddCommand = new AsyncRelayCommand(async _ => await AddAction());
+
         SendCommand = new AsyncRelayCommand(async _ => await SendAction());
 
         EditCommand = new RelayCommand<string>(EditAction);
@@ -92,6 +94,9 @@ public class ChatMessageViewModel : ObservableObject
     }
 
     [JsonIgnore]
+    public IAsyncRelayCommand AddCommand { get; }
+
+    [JsonIgnore]
     public IAsyncRelayCommand SendCommand { get; }
 
     [JsonIgnore]
@@ -109,6 +114,19 @@ public class ChatMessageViewModel : ObservableObject
     [JsonIgnore]
     public IRelayCommand SetFormatCommand { get; }
 
+    private async Task AddAction()
+    {
+        if (_send is { })
+        {
+            IsEditing = false;
+
+            if (!IsSent)
+            {
+                await _send(this, true);
+            }
+        }
+    }
+
     private async Task SendAction()
     {
         if (_send is { })
@@ -117,7 +135,7 @@ public class ChatMessageViewModel : ObservableObject
 
             if (!IsSent)
             {
-                await _send(this);
+                await _send(this, false);
             }
         }
     }
@@ -195,7 +213,7 @@ public class ChatMessageViewModel : ObservableObject
         }
     }
 
-    public void SetSendAction(Func<ChatMessageViewModel, Task>? send)
+    public void SetSendAction(Func<ChatMessageViewModel, bool, Task>? send)
     {
         _send = send;
     }

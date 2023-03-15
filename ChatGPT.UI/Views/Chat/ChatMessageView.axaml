@@ -53,6 +53,9 @@
                 Foreground="{DynamicResource SettingsIconBrush}" />
       <Button.Flyout>
         <MenuFlyout Placement="BottomEdgeAlignedLeft">
+          <MenuItem Header="Add" 
+                    Command="{Binding AddCommand}" />
+          <Separator />
           <MenuItem Header="Role">
             <MenuItem Header="System" 
                       Command="{Binding SetRoleCommand}" 
@@ -64,6 +67,7 @@
                       Command="{Binding SetRoleCommand}" 
                       CommandParameter="assistant" />
           </MenuItem>
+          <Separator />
           <MenuItem Header="Format">
             <MenuItem Header="{x:Static core:Defaults.TextMessageFormat}" 
                       Command="{Binding SetFormatCommand}" 

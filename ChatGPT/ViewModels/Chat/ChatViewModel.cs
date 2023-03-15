@@ -100,7 +100,7 @@ public class ChatViewModel : ObservableObject
         }
     }
 
-    public async Task Send(ChatMessageViewModel sendMessage)
+    public async Task Send(ChatMessageViewModel sendMessage, bool onlyAddMessage)
     {
         if (Settings is null)
         {
@@ -113,8 +113,6 @@ public class ChatViewModel : ObservableObject
         }
 
         IsEnabled = false;
-
-        var onlyAddMessage = false;
 
         try
         {

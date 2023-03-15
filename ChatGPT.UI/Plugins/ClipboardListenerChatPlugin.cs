@@ -181,7 +181,7 @@ public class ClipboardListenerChatPlugin : IChatPlugin
             {
                 message.Role = "user";
                 message.Message = prompt;
-                await chat.Send(message);
+                await chat.Send(message, true);
             }
         }
     }
