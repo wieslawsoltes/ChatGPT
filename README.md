@@ -24,3 +24,7 @@ To make the app work, you need to set the [OpenAI API key](https://beta.openai.c
 
 - [Guide Chat completions](https://platform.openai.com/docs/guides/chat)
 - [API Reference](https://platform.openai.com/docs/api-reference/chat)
+
+# License
+
+[MIT](LICENSE)
