@@ -36,18 +36,46 @@
       <MenuFlyout Placement="BottomEdgeAlignedLeft">
         <MenuItem Header="Add" 
                   Command="{Binding AddCommand}"
-                  IsVisible="{Binding !IsSent}" />
+                  IsVisible="{Binding !IsSent}">
+          <MenuItem.Icon>
+            <PathIcon Data="{DynamicResource AddIcon}"
+                      Width="24" 
+                      Height="24"
+                      Foreground="{DynamicResource ActionIconBrush}"/>
+          </MenuItem.Icon>
+        </MenuItem>
         <Separator IsVisible="{Binding !IsSent}"/>
         <MenuItem Header="Role">
           <MenuItem Header="System" 
                     Command="{Binding SetRoleCommand}" 
-                    CommandParameter="system" />
+                    CommandParameter="system" >
+            <MenuItem.Icon>
+              <PathIcon Data="{DynamicResource SystemIcon}"
+                        Width="24" 
+                        Height="24"
+                        Foreground="{DynamicResource ActionIconBrush}"/>
+            </MenuItem.Icon>
+          </MenuItem>
           <MenuItem Header="User" 
                     Command="{Binding SetRoleCommand}" 
-                    CommandParameter="user" />
+                    CommandParameter="user" >
+            <MenuItem.Icon>
+              <PathIcon Data="{DynamicResource PersonIcon}"
+                        Width="24" 
+                        Height="24"
+                        Foreground="{DynamicResource ActionIconBrush}"/>
+            </MenuItem.Icon>
+          </MenuItem>
           <MenuItem Header="Assistant" 
                     Command="{Binding SetRoleCommand}" 
-                    CommandParameter="assistant" />
+                    CommandParameter="assistant" >
+            <MenuItem.Icon>
+              <PathIcon Data="{DynamicResource ChatIcon}"
+                        Width="24" 
+                        Height="24"
+                        Foreground="{DynamicResource ActionIconBrush}"/>
+            </MenuItem.Icon>
+          </MenuItem>
         </MenuItem>
         <Separator />
         <MenuItem Header="Format">
