@@ -45,7 +45,13 @@ public class DataTemplateSelector : StyledElement, IDataTemplate
         var suffix = TemplateSuffix;
         var key = $"{selector}{suffix}";
 
-        this.TryFindResource(key, out var resource);
+        this.TryFindResource(key, null, out var resource);
+
+        if (resource is null)
+        {
+            Application.Current?.TryFindResource(key, null, out resource);
+        }
+
         if (resource is DataTemplate dataTemplate)
         {
             return dataTemplate.Build(data);
