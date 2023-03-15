@@ -107,7 +107,7 @@ public class ChatViewModel : ObservableObject
             return;
         }
 
-        if (string.IsNullOrEmpty(sendMessage.Message))
+        if (string.IsNullOrEmpty(sendMessage.Message) && !onlyAddMessage)
         {
             return;
         }
