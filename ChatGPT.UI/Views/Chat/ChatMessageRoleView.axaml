@@ -35,8 +35,9 @@
     <Button.Flyout>
       <MenuFlyout Placement="BottomEdgeAlignedLeft">
         <MenuItem Header="Add" 
-                  Command="{Binding AddCommand}" />
-        <Separator />
+                  Command="{Binding AddCommand}"
+                  IsVisible="{Binding !IsSent}" />
+        <Separator IsVisible="{Binding !IsSent}"/>
         <MenuItem Header="Role">
           <MenuItem Header="System" 
                     Command="{Binding SetRoleCommand}" 
