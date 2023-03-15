@@ -33,52 +33,8 @@
   <DockPanel Background="Transparent"
              VerticalAlignment="Top"
              MinHeight="78">
-    <Button Name="RoleButton"
-            ToolTip.Tip="Role"
-            VerticalAlignment="Top"
-            BorderBrush="#00000000"
-            BorderThickness="2"
-            Background="#00FFFFFF"
-            CornerRadius="4"
-            Padding="12"
-            Margin="0,16,0,0"
-            DockPanel.Dock="Left">
-      <PathIcon Data="{Binding Role, Converter={x:Static converters:RoleIconConverter.Instance}}"
-                Width="24"
-                Height="24"
-                Opacity="0.5"
-                Foreground="{DynamicResource SettingsIconBrush}" />
-      <Button.Flyout>
-        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-          <MenuItem Header="Add" 
-                    Command="{Binding AddCommand}" />
-          <Separator />
-          <MenuItem Header="Role">
-            <MenuItem Header="System" 
-                      Command="{Binding SetRoleCommand}" 
-                      CommandParameter="system" />
-            <MenuItem Header="User" 
-                      Command="{Binding SetRoleCommand}" 
-                      CommandParameter="user" />
-            <MenuItem Header="Assistant" 
-                      Command="{Binding SetRoleCommand}" 
-                      CommandParameter="assistant" />
-          </MenuItem>
-          <Separator />
-          <MenuItem Header="Format">
-            <MenuItem Header="{x:Static core:Defaults.TextMessageFormat}" 
-                      Command="{Binding SetFormatCommand}" 
-                      CommandParameter="{x:Static core:Defaults.TextMessageFormat}" />
-            <MenuItem Header="{x:Static core:Defaults.MarkdownMessageFormat}" 
-                      Command="{Binding SetFormatCommand}" 
-                      CommandParameter="{x:Static core:Defaults.MarkdownMessageFormat}" />
-            <MenuItem Header="{x:Static core:Defaults.HtmlMessageTextFormat}" 
-                      Command="{Binding SetFormatCommand}" 
-                      CommandParameter="{x:Static core:Defaults.HtmlMessageTextFormat}" />
-          </MenuItem>
-        </MenuFlyout>
-      </Button.Flyout>
-    </Button>
+    <chat:ChatMessageRoleView Margin="0,16,0,0"
+                              DockPanel.Dock="Left" />
     <chat:ChatMessageActionsView Margin="4,4,0,4" 
                                  VerticalAlignment="Top"
                                  DockPanel.Dock="Right"/>

@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ChatGPT.Converters"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
+             xmlns:core="clr-namespace:ChatGPT;assembly=ChatGPT"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
+             x:Class="ChatGPT.Views.Chat.ChatMessageRoleView"
+             x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel"
+             Focusable="True">
+  <Design.DataContext>
+    <vm:ChatMessageViewModel>
+      <vm:ChatMessageViewModel.Role>user</vm:ChatMessageViewModel.Role>
+      <vm:ChatMessageViewModel.Message>This is message</vm:ChatMessageViewModel.Message>
+      <vm:ChatMessageViewModel.IsSent>True</vm:ChatMessageViewModel.IsSent>
+      <vm:ChatMessageViewModel.IsAwaiting>False</vm:ChatMessageViewModel.IsAwaiting>
+      <vm:ChatMessageViewModel.IsError>False</vm:ChatMessageViewModel.IsError>
+      <vm:ChatMessageViewModel.CanRemove>True</vm:ChatMessageViewModel.CanRemove>
+    </vm:ChatMessageViewModel>
+  </Design.DataContext>
+  <Button Name="RoleButton"
+          ToolTip.Tip="Role"
+          VerticalAlignment="Top"
+          BorderBrush="#00000000"
+          BorderThickness="2"
+          Background="#00FFFFFF"
+          CornerRadius="4"
+          Padding="12">
+    <PathIcon Data="{Binding Role, Converter={x:Static converters:RoleIconConverter.Instance}}"
+              Width="24"
+              Height="24"
+              Opacity="0.5"
+              Foreground="{DynamicResource SettingsIconBrush}" />
+    <Button.Flyout>
+      <MenuFlyout Placement="BottomEdgeAlignedLeft">
+        <MenuItem Header="Add" 
+                  Command="{Binding AddCommand}" />
+        <Separator />
+        <MenuItem Header="Role">
+          <MenuItem Header="System" 
+                    Command="{Binding SetRoleCommand}" 
+                    CommandParameter="system" />
+          <MenuItem Header="User" 
+                    Command="{Binding SetRoleCommand}" 
+                    CommandParameter="user" />
+          <MenuItem Header="Assistant" 
+                    Command="{Binding SetRoleCommand}" 
+                    CommandParameter="assistant" />
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="Format">
+          <MenuItem Header="{x:Static core:Defaults.TextMessageFormat}" 
+                    Command="{Binding SetFormatCommand}" 
+                    CommandParameter="{x:Static core:Defaults.TextMessageFormat}" />
+          <MenuItem Header="{x:Static core:Defaults.MarkdownMessageFormat}" 
+                    Command="{Binding SetFormatCommand}" 
+                    CommandParameter="{x:Static core:Defaults.MarkdownMessageFormat}" />
+          <MenuItem Header="{x:Static core:Defaults.HtmlMessageTextFormat}" 
+                    Command="{Binding SetFormatCommand}" 
+                    CommandParameter="{x:Static core:Defaults.HtmlMessageTextFormat}" />
+        </MenuItem>
+      </MenuFlyout>
+    </Button.Flyout>
+  </Button>
+</UserControl>
