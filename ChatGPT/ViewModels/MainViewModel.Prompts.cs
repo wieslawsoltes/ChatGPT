@@ -148,6 +148,16 @@ public partial class MainViewModel
         await Task.Yield();
     }
 
+    private void InitPromptCallback()
+    {
+        foreach (var prompt in s_defaultPrompts)
+        {
+            _prompts.Add(prompt);
+        }
+
+        CurrentPrompt = _prompts.FirstOrDefault();
+    }
+
     private void NewPromptCallback()
     {
         var prompt = new PromptViewModel
