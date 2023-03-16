@@ -22,7 +22,7 @@
       </vm:ChatViewModel.Messages>
     </vm:ChatViewModel>
   </Design.DataContext>
-  <!-- TODO:  IsEnabled="{Binding IsEnabled}" -->
+  <!-- TODO: IsEnabled="{Binding IsEnabled}" -->
   <ScrollViewer Name="ChatScrollViewer"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto">
