@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using AI;
 using AI.Model.Json.Chat;
@@ -83,7 +84,19 @@ public class ChatViewModel : ObservableObject
 
     public void Remove(ChatMessageViewModel message)
     {
-        if (message is { CanRemove: true, IsAwaiting: false })
+        if (message.IsAwaiting)
+        {
+            try
+            {
+                _cts?.Cancel();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+        }
+
+        if (message is { CanRemove: true })
         {
             Messages.Remove(message);
 
@@ -99,6 +112,8 @@ public class ChatViewModel : ObservableObject
             }
         }
     }
+
+    private CancellationTokenSource? _cts;
 
     public async Task Send(ChatMessageViewModel sendMessage, bool onlyAddMessage)
     {
@@ -119,24 +134,43 @@ public class ChatViewModel : ObservableObject
             sendMessage.CanRemove = true;
             sendMessage.IsSent = true;
 
+            var isCanceled = false;
+            
             if (!onlyAddMessage)
             {
                 var chatPrompt = CreateChatPrompt(Messages, Settings);
 
-                await CreateResultMessage(chatPrompt);
+                _cts = new CancellationTokenSource();
+
+                try
+                {
+                    await CreateResultMessage(chatPrompt, _cts.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    // ignored
+                }
+
+                isCanceled = _cts.IsCancellationRequested;
+
+                _cts.Dispose();
+                _cts = null;
             }
 
-            var nextMessage = new ChatMessageViewModel
+            if (!isCanceled)
             {
-                Role = "user",
-                Message = "",
-                IsSent = false,
-                CanRemove = true,
-                Format = Settings.Format
-            };
-            SetMessageActions(nextMessage);
-            Messages.Add(nextMessage);
-            CurrentMessage = nextMessage;
+                var nextMessage = new ChatMessageViewModel
+                {
+                    Role = "user",
+                    Message = "",
+                    IsSent = false,
+                    CanRemove = true,
+                    Format = Settings.Format
+                };
+                SetMessageActions(nextMessage);
+                Messages.Add(nextMessage);
+                CurrentMessage = nextMessage;
+            }
         }
         catch (Exception)
         {
@@ -146,7 +180,7 @@ public class ChatViewModel : ObservableObject
         IsEnabled = true;
     }
 
-    private async Task CreateResultMessage(ChatMessage[] chatPrompt)
+    private async Task CreateResultMessage(ChatMessage[] chatPrompt, CancellationToken token)
     {
         if (Settings is null)
         {
@@ -183,7 +217,7 @@ public class ChatViewModel : ObservableObject
         var responseStr = default(string);
         var isResponseStrError = false;
 
-        var responseData = await GetResponseData(chatServiceSettings, Settings);
+        var responseData = await GetResponseData(chatServiceSettings, Settings, token);
         if (responseData is null)
         {
             responseStr = "Unknown error.";
@@ -251,7 +285,7 @@ public class ChatViewModel : ObservableObject
         return chatMessages.ToArray();
     }
 
-    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings)
+    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -271,7 +305,7 @@ public class ChatViewModel : ObservableObject
         ChatResponse? responseData = null;
         try
         {
-            responseData = await chat.GetResponseDataAsync(chatServiceSettings);
+            responseData = await chat.GetResponseDataAsync(chatServiceSettings, token);
         }
         catch (Exception)
         {

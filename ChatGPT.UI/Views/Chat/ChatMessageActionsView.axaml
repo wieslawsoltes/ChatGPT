@@ -76,7 +76,7 @@
             MinWidth="24">
       <Button.IsVisible>
         <MultiBinding Converter="{x:Static BoolConverters.And}">
-          <Binding Path="IsAwaiting" Converter="{x:Static BoolConverters.Not}" />
+          <!--<Binding Path="IsAwaiting" Converter="{x:Static BoolConverters.Not}" />-->
           <Binding Path="CanRemove" />
         </MultiBinding>
       </Button.IsVisible>

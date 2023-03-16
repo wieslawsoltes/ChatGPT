@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using AI.Model.Json.Chat;
 using AI.Model.Services;
@@ -43,7 +44,7 @@ public class ChatService : IChatService
         return JsonSerializer.Serialize(requestBody, s_serializerContext.ChatRequestBody);
     }
 
-    private static async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+    private static async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
 
@@ -58,10 +59,10 @@ public class ChatService : IChatService
         var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
 
         // Send the API request and get the response
-        var response = await s_client.PostAsync(apiUrl, content);
+        var response = await s_client.PostAsync(apiUrl, content, token);
 
         // Deserialize the response
-        var responseBody = await response.Content.ReadAsStringAsync();
+        var responseBody = await response.Content.ReadAsStringAsync(token);
 
         switch (response.StatusCode)
         {
@@ -82,7 +83,7 @@ public class ChatService : IChatService
         return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseSuccess);
     }
 
-    public async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings)
+    public async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings, CancellationToken token)
     {
         // Set up the API URL and API key
         var apiUrl = "https://api.openai.com/v1/chat/completions";
@@ -96,6 +97,6 @@ public class ChatService : IChatService
         var requestBodyJson = GetRequestBodyJson(settings);
 
         // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
+        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
     }
 }
