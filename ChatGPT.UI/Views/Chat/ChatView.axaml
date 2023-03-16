@@ -22,10 +22,14 @@
       </vm:ChatViewModel.Messages>
     </vm:ChatViewModel>
   </Design.DataContext>
-  <ScrollViewer IsEnabled="{Binding IsEnabled}">
-    <SelectingItemsControl Items="{Binding Messages}"
+  <!-- TODO:  IsEnabled="{Binding IsEnabled}" -->
+  <ScrollViewer Name="ChatScrollViewer"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+    <SelectingItemsControl Name="MessagesItemsControl"
+                           Items="{Binding Messages}"
                            SelectedItem="{Binding CurrentMessage}"
-                           AutoScrollToSelectedItem="True">
+                           AutoScrollToSelectedItem="False">
       <SelectingItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
           <!-- TODO: -->
