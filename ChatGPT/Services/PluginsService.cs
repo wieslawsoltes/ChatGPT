@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
-using ChatGPT.Plugins;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatGPT.Services;
 
@@ -17,8 +18,12 @@ public class PluginsService : IPluginsService
 
     public void DiscoverPlugins()
     {
-        // TODO:
-        _plugins.Add(new ClipboardListenerChatPlugin());
+        var plugins = Ioc.Default.GetServices<IChatPlugin>();
+
+        foreach (var plugin in plugins)
+        {
+            _plugins.Add(plugin);
+        }
     }
 
     public void InitPlugins()
