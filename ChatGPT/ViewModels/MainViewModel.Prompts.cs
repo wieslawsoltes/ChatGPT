@@ -19,7 +19,7 @@ public partial class MainViewModel
     {
         new()
         {
-            Act = "Clippy",
+            Act = "Assistant",
             Prompt = Defaults.DefaultDirections
         },
         new()
