@@ -50,8 +50,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         Width = 450;
         Height = 740;
-        
-        NewPromptCallback();
+
+        InitPromptCallback();
 
         NewChatCallback();
 
