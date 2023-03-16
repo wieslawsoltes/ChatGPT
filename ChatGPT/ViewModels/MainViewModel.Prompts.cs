@@ -15,6 +15,30 @@ namespace ChatGPT.ViewModels;
 
 public partial class MainViewModel
 {
+    private static readonly PromptViewModel[] s_defaultPrompts =
+    {
+        new()
+        {
+            Act = "Clippy",
+            Prompt = Defaults.DefaultDirections
+        },
+        new()
+        {
+            Act = "English Translator and Improver",
+            Prompt = "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations."
+        },
+        new()
+        {
+            Act = "UX/UI Developer",
+            Prompt = "I want you to act as a UX/UI developer. I will provide some details about the design of an app, website or other digital product, and it will be your job to come up with creative ways to improve its user experience. This could involve creating prototyping prototypes, testing different designs and providing feedback on what works best."
+        },
+        new()
+        {
+            Act = "Tech Writer",
+            Prompt = "I want you to act as a tech writer. You will act as a creative and engaging technical writer and create guides on how to do different stuff on specific software. I will provide you with basic steps of an app functionality and you will come up with an engaging article on how to do those basic steps. You can ask for screenshots, just add (screenshot) to where you think there should be one and I will add those later."
+        },
+    };
+
     private ObservableCollection<PromptViewModel> _prompts;
     private PromptViewModel? _currentPrompt;
 
