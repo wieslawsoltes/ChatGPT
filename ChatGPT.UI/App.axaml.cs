@@ -11,6 +11,7 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
+using ChatGPT.Plugins;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
@@ -51,6 +52,10 @@ public partial class App : Application
         serviceCollection.AddTransient<ChatViewModel>();
         serviceCollection.AddTransient<PromptViewModel>();
         serviceCollection.AddTransient<WorkspaceViewModel>();
+
+        // Plugins
+        serviceCollection.AddTransient<IChatPlugin, ClipboardListenerChatPlugin>();
+        serviceCollection.AddTransient<IChatPlugin, DummyChatPlugin>();
 
         Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
     }
