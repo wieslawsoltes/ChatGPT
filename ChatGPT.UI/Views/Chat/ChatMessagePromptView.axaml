@@ -5,7 +5,8 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="78"
              x:Class="ChatGPT.Views.Chat.ChatMessagePromptView"
-             x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel">
+             x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel"
+             Name="PromptView">
   <Design.DataContext>
     <vm:ChatMessageViewModel>
       <vm:ChatMessageViewModel.Role>user</vm:ChatMessageViewModel.Role>
@@ -39,6 +40,10 @@
              Padding="8" 
              FontSize="{DynamicResource PromptFontSize}">
       <TextBox.KeyBindings>
+        <KeyBinding Command="{Binding #PromptView.InsertNewLine}" 
+                    Gesture="Alt+Enter" />
+        <KeyBinding Command="{Binding #PromptView.InsertNewLine}" 
+                    Gesture="Shift+Enter" />
         <KeyBinding Command="{Binding SendCommand}"
                     Gesture="Enter"/>
         <KeyBinding Command="{Binding EditCommand}"
