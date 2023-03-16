@@ -150,14 +150,7 @@ public partial class App : Application
         {
             return;
         }
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var appSettingPath = Path.Combine(appDataPath, SettingsFolderName, SettingsFileName);
-        if (File.Exists(appSettingPath))
-        {
-            await using var stream = File.OpenRead(appSettingPath);
-            // TODO: Remove usage of stream param.
-            await mainViewModel.LoadSettings(stream);
-        }
+        await mainViewModel.LoadSettings();
     }
 
     public async Task SaveSettings()
@@ -167,16 +160,8 @@ public partial class App : Application
         {
             return;
         }
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var appPath = Path.Combine(appDataPath, SettingsFolderName);
-        if (!Directory.Exists(appPath))
-        {
-            Directory.CreateDirectory(appPath);
-        }
-        var appSettingPath = Path.Combine(appPath, SettingsFileName);
-        await using var stream = File.Open(appSettingPath, FileMode.Create);
-        // TODO: Remove usage of stream param.
-        await mainViewModel.SaveSettings(stream);
+
+        await mainViewModel.SaveSettings();
     }
 
     public void SaveTheme()

@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -96,12 +95,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
     }
 
-    public async Task LoadSettings(Stream stream)
+    public async Task LoadSettings()
     {
-        // TODO:
-        // var workspace = await JsonSerializer.DeserializeAsync(
-        //     stream, 
-        //     s_serializerContext.WorkspaceViewModel);
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is null)
@@ -167,7 +162,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         }
     }
 
-    public async Task SaveSettings(Stream stream)
+    public async Task SaveSettings()
     {
         var workspace = new WorkspaceViewModel
         {
@@ -182,10 +177,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             Width = Width,
             Height = Height
         };
-        // TODO:
-        // await JsonSerializer.SerializeAsync(
-        //     stream, 
-        //     workspace, s_serializerContext.WorkspaceViewModel);
+
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
