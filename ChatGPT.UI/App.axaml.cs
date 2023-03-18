@@ -10,6 +10,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
 using ChatGPT.Plugins;
@@ -37,6 +38,8 @@ public partial class App : Application
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
+
+    private IDisposable? _settingsDisposable;
 
     public App()
     {
@@ -110,6 +113,16 @@ public partial class App : Application
             await InitSettings();
             SetTheme();
         }
+
+        /*
+        _settingsDisposable = DispatcherTimer.Run(
+            () =>
+            {
+                Task.Run(async () => await SaveSettings());
+                return true;
+            }, 
+            TimeSpan.FromSeconds(5));
+        */
 
         base.OnFrameworkInitializationCompleted();
     }
@@ -213,6 +226,8 @@ public partial class App : Application
     {
         try
         {
+            _settingsDisposable?.Dispose();
+            
             Ioc.Default.GetService<IPluginsService>()?.ShutdownPlugins();
 
             SaveTheme();
@@ -241,6 +256,8 @@ public partial class App : Application
         {
             return;
         }
+
+        Console.WriteLine("Saving settings.");
 
         await mainViewModel.SaveSettings();
     }
