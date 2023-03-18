@@ -1,0 +1,227 @@
+{
+  "mainAssemblyName": "ChatGPT.UI.Browser.dll",
+  "assemblyRootFolder": "managed",
+  "debugLevel": 0,
+  "assets": [
+    {
+      "behavior": "assembly",
+      "name": "AI.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Base.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Browser.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Controls.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Dialogs.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.HtmlRenderer.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Markup.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Markup.Xaml.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.OpenGL.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Skia.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Avalonia.Themes.Fluent.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "ChatGPT.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "ChatGPT.UI.Browser.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "ChatGPT.UI.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "ColorTextBlock.Avalonia.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "CommunityToolkit.Mvvm.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "HarfBuzzSharp.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Markdown.Avalonia.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Microsoft.Extensions.DependencyInjection.Abstractions.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Microsoft.Extensions.DependencyInjection.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Microsoft.VisualBasic.Core.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "SkiaSharp.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Collections.Concurrent.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Collections.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Collections.NonGeneric.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Collections.Specialized.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.ComponentModel.Annotations.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.ComponentModel.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.ComponentModel.EventBasedAsync.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.ComponentModel.Primitives.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.ComponentModel.TypeConverter.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Console.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Diagnostics.Process.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Linq.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Linq.Expressions.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Memory.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.Http.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.Primitives.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.Requests.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.Security.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.ServicePoint.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.WebClient.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.WebHeaderCollection.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.ObjectModel.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Private.CoreLib.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Private.Uri.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Runtime.InteropServices.JavaScript.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Text.Encodings.Web.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Text.Json.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Text.RegularExpressions.dll"
+    },
+    {
+      "virtualPath": "runtimeconfig.bin",
+      "behavior": "vfs",
+      "name": "supportFiles/0_runtimeconfig.bin"
+    },
+    {
+      "virtualPath": "/usr/share/zoneinfo/",
+      "behavior": "vfs",
+      "name": "dotnet.timezones.blat"
+    },
+    {
+      "behavior": "dotnetwasm",
+      "name": "dotnet.wasm"
+    }
+  ],
+  "remoteSources": [],
+  "pthreadPoolSize": 0
+}
