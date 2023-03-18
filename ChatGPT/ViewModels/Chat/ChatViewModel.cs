@@ -90,7 +90,7 @@ public class ChatViewModel : ObservableObject
             {
                 _cts?.Cancel();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
