@@ -39,7 +39,7 @@ public partial class App : Application
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
 
-    private IDisposable? _settingsDisposable;
+    // private IDisposable? _settingsDisposable;
 
     public App()
     {
@@ -226,7 +226,7 @@ public partial class App : Application
     {
         try
         {
-            _settingsDisposable?.Dispose();
+            // _settingsDisposable?.Dispose();
             
             Ioc.Default.GetService<IPluginsService>()?.ShutdownPlugins();
 
