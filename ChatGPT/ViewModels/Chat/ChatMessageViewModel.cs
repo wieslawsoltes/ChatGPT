@@ -1,7 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using ChatGPT.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels.Chat;
@@ -35,6 +40,10 @@ public class ChatMessageViewModel : ObservableObject
         SetRoleCommand = new RelayCommand<string>(SetRoleAction);
 
         SetFormatCommand = new RelayCommand<string>(SetFormatAction);
+
+        OpenCommand = new AsyncRelayCommand(async _ => await OpenAction());
+
+        SaveCommand = new AsyncRelayCommand(async _ => await SaveAction());
     }
 
     [JsonPropertyName("role")]
@@ -113,6 +122,12 @@ public class ChatMessageViewModel : ObservableObject
 
     [JsonIgnore]
     public IRelayCommand SetFormatCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand OpenCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand SaveCommand { get; }
 
     private async Task AddAction()
     {
@@ -211,6 +226,46 @@ public class ChatMessageViewModel : ObservableObject
         {
             Format = format;
         }
+    }
+
+    private async Task OpenAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            await app.OpenFile(
+                OpenCallbackAsync, 
+                new List<string>(new[] { "All" }), 
+                "Open");
+        }
+    }
+
+    private async Task SaveAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { } && Message is { })
+        {
+            await app.SaveFile(
+                SaveCallbackAsync, 
+                new List<string>(new[] { "Text", "All" }), 
+                "Save", 
+                "message",
+                "txt");
+        }
+    }
+
+    private async Task OpenCallbackAsync(Stream stream)
+    {
+        using var reader = new StreamReader(stream);
+        var message = await reader.ReadToEndAsync();
+        Message = message;
+    }
+
+    private async Task SaveCallbackAsync(Stream stream)
+    {
+        var message = Message;
+        await using var writer = new StreamWriter(stream);
+        await writer.WriteAsync(message);
     }
 
     public void SetSendAction(Func<ChatMessageViewModel, bool, Task>? send)
