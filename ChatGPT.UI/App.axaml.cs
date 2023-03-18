@@ -47,6 +47,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ChatViewModel>();
         serviceCollection.AddTransient<PromptViewModel>();
         serviceCollection.AddTransient<WorkspaceViewModel>();
+        serviceCollection.AddTransient<WindowLayoutViewModel>();
 
         // Plugins
         serviceCollection.AddTransient<IChatPlugin, ClipboardListenerChatPlugin>();
