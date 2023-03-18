@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -46,9 +46,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         CurrentLayout = SingleLayout;
 
         Layout = "Mobile";
-
-        Width = 450;
-        Height = 740;
 
         InitPromptCallback();
 
@@ -126,16 +123,13 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                 CurrentPrompt = workspace.CurrentPrompt;
             }
 
-            // TODO:
-            /*
-            if (storage.Layouts is { })
+            if (workspace.Layouts is { })
             {
-                Layouts = storage.Layouts;
-                CurrentLayout = storage.CurrentLayout;
+                Layouts = workspace.Layouts;
+                CurrentLayout = workspace.CurrentLayout;
                 SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
                 ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
             }
-            */
 
             if (workspace.Layout is { })
             {
@@ -146,19 +140,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             {
                 Theme = workspace.Theme;
             }
-
-            // TODO:
-            /*
-            if (storage.Width is { })
-            {
-                Width = storage.Width.Value;
-            }
-
-            if (storage.Height is { })
-            {
-                Height = storage.Height.Value;
-            }
-            */
         }
     }
 
@@ -174,8 +155,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             CurrentLayout = CurrentLayout,
             Theme = Theme,
             Layout = Layout,
-            Width = Width,
-            Height = Height
         };
 
         var factory = Ioc.Default.GetService<IStorageFactory>();
