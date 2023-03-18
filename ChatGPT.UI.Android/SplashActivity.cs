@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Avalonia;
 using Avalonia.Android;
@@ -23,23 +22,5 @@ public class SplashActivity : AvaloniaSplashActivity<App>
         App.ConfigureDefaultServices();
 
         return base.CustomizeAppBuilder(builder);
-    }
-
-    protected override async void OnDestroy()
-    {
-        base.OnDestroy();
-
-        if (Avalonia.Application.Current is App app)
-        {
-            try
-            {
-                app.SaveTheme();
-                await app.SaveSettings();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
-        }
     }
 }
