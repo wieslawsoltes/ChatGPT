@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -83,27 +85,130 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         SetPromptCommand = new AsyncRelayCommand(SetPromptAction);
 
+        // Workspace
+
+        LoadWorkspaceCommand = new AsyncRelayCommand(LoadWorkspaceAction);
+
+        SaveWorkspaceCommand = new AsyncRelayCommand(SaveWorkspaceAction);
+
+        ExportWorkspaceCommand = new AsyncRelayCommand(ExportWorkspaceAction);
+
         // Actions
     
         ExitCommand = new RelayCommand(ExitAction);
-
-        LoadSettingsCommand = new AsyncRelayCommand(LoadSettingsAction);
-
-        SaveSettingsCommand = new AsyncRelayCommand(SaveSettingsAction);
 
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
 
         ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
     }
 
-    private async Task LoadSettingsAction()
+    private async Task LoadWorkspaceAction()
     {
-        await LoadSettings();
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { })
+        {
+            await app.OpenFile(
+                LoadWorkspaceCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Open");
+        }
     }
 
-    private async Task SaveSettingsAction()
+    private async Task SaveWorkspaceAction()
     {
         await SaveSettings();
+    }
+
+    private async Task ExportWorkspaceAction()
+    {
+        var app = Ioc.Default.GetService<IApplicationService>();
+        if (app is { } && CurrentChat is { })
+        {
+            await app.SaveFile(
+                ExportWorkspaceCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Export", 
+                "workspace",
+                "json");
+        }
+    }
+
+    private async Task LoadWorkspaceCallbackAsync(Stream stream)
+    {
+        var workspace = await JsonSerializer.DeserializeAsync(
+            stream, 
+            s_serializerContext.WorkspaceViewModel);
+        if (workspace is { })
+        {
+            LoadWorkspace(workspace);
+        }
+    }
+
+    private async Task ExportWorkspaceCallbackAsync(Stream stream)
+    {
+        var workspace = CreateWorkspace();
+        await JsonSerializer.SerializeAsync(
+            stream, 
+            workspace, s_serializerContext.WorkspaceViewModel);
+    }
+
+    private WorkspaceViewModel CreateWorkspace()
+    {
+        var workspace = new WorkspaceViewModel
+        {
+            Chats = Chats,
+            CurrentChat = CurrentChat,
+            Prompts = Prompts,
+            CurrentPrompt = CurrentPrompt,
+            // Layouts = Layouts,
+            // CurrentLayout = CurrentLayout,
+            Theme = Theme,
+            Layout = Layout,
+        };
+        return workspace;
+    }
+
+    private void LoadWorkspace(WorkspaceViewModel workspace)
+    {
+        if (workspace.Chats is { })
+        {
+            foreach (var chat in workspace.Chats)
+            {
+                foreach (var message in chat.Messages)
+                {
+                    chat.SetMessageActions(message);
+                }
+            }
+
+            Chats = workspace.Chats;
+            CurrentChat = workspace.CurrentChat;
+        }
+
+        if (workspace.Prompts is { })
+        {
+            Prompts = workspace.Prompts;
+            CurrentPrompt = workspace.CurrentPrompt;
+        }
+
+        /*
+        if (workspace.Layouts is { })
+        {
+            Layouts = workspace.Layouts;
+            CurrentLayout = workspace.CurrentLayout;
+            SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
+            ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
+        }
+        */
+
+        if (workspace.Layout is { })
+        {
+            Layout = workspace.Layout;
+        }
+
+        if (workspace.Theme is { })
+        {
+            Theme = workspace.Theme;
+        }
     }
 
     public async Task LoadSettings()
@@ -117,62 +222,13 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         var workspace = await storage.LoadObject("Settings", s_serializerContext.WorkspaceViewModel);
         if (workspace is { })
         {
-            if (workspace.Chats is { })
-            {
-                foreach (var chat in workspace.Chats)
-                {
-                    foreach (var message in chat.Messages)
-                    {
-                        chat.SetMessageActions(message);
-                    }
-                }
-
-                Chats = workspace.Chats;
-                CurrentChat = workspace.CurrentChat;
-            }
-
-            if (workspace.Prompts is { })
-            {
-                Prompts = workspace.Prompts;
-                CurrentPrompt = workspace.CurrentPrompt;
-            }
-
-            /*
-            if (workspace.Layouts is { })
-            {
-                Layouts = workspace.Layouts;
-                CurrentLayout = workspace.CurrentLayout;
-                SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
-                ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
-            }
-            */
-
-            if (workspace.Layout is { })
-            {
-                Layout = workspace.Layout;
-            }            
-
-            if (workspace.Theme is { })
-            {
-                Theme = workspace.Theme;
-            }
+            LoadWorkspace(workspace);
         }
     }
 
     public async Task SaveSettings()
     {
-        var workspace = new WorkspaceViewModel
-        {
-            Chats = Chats,
-            CurrentChat = CurrentChat,
-            Prompts = Prompts,
-            CurrentPrompt = CurrentPrompt,
-            // Layouts = Layouts,
-            // CurrentLayout = CurrentLayout,
-            Theme = Theme,
-            Layout = Layout,
-        };
-
+        var workspace = CreateWorkspace();
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
