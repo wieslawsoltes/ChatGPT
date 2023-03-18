@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -27,6 +26,18 @@ namespace ChatGPT;
 
 public partial class App : Application
 {
+    private static readonly WindowLayoutViewModelJsonContext s_layoutSerializerContext = new(
+        new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            ReferenceHandler = ReferenceHandler.Preserve,
+            IncludeFields = false,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+        });
+
     public App()
     {
     }
@@ -70,12 +81,17 @@ public partial class App : Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            var mainWindow = new MainWindow
             {
                 DataContext = Ioc.Default.GetService<MainViewModel>()
             };
+            desktop.MainWindow = mainWindow;
 
+            mainWindow.Closing += MainWindowOnClosing;
+            
             desktop.Exit += DesktopOnExit;
+
+            await LoadWindowLayout(mainWindow);
 
             await InitSettings();
             SetTheme();
@@ -124,6 +140,72 @@ public partial class App : Application
                     RequestedThemeVariant = ThemeVariant.Dark;
                     break;
             }
+        }
+    }
+
+    public async Task LoadWindowLayout(Window window)
+    {
+        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
+        if (storage is null)
+        {
+            return;
+        }
+        var layout = await storage.LoadObject("WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
+        if (layout is { })
+        {
+            window.Position = new PixelPoint(layout.X, layout.Y);
+
+            window.Width = layout.Width;
+
+            window.Height = layout.Height;
+
+            if (layout.WindowState is { })
+            {
+                if (Enum.TryParse<WindowState>(layout.WindowState, out var windowState))
+                {
+                    window.WindowState = windowState;
+                }
+            }
+
+            if (layout.WindowStartupLocation is { })
+            {
+                if (Enum.TryParse<WindowState>(layout.WindowState, out var windowState))
+                {
+                    window.WindowState = windowState;
+                }
+            }
+
+            window.Topmost = layout.Topmost;
+        }
+    }
+
+    public async Task SaveWindowLayout(Window window)
+    {
+        var workspace = new WindowLayoutViewModel
+        {
+            X = window.Position.X,
+            Y = window.Position.Y,
+            Width = window.Width,
+            Height = window.Height,
+            WindowState = window.WindowState.ToString(),
+            WindowStartupLocation = WindowStartupLocation.Manual.ToString(),
+            Topmost = window.Topmost
+        };
+
+        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
+        if (storage is { })
+        {
+            await storage.SaveObject(workspace, "WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
+        }
+    }
+
+    private async void MainWindowOnClosing(object? sender, WindowClosingEventArgs e)
+    {
+        if (sender is Window window)
+        {
+            await SaveWindowLayout(window);
         }
     }
 
