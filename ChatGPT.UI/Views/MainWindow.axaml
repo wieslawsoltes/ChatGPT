@@ -21,10 +21,6 @@
         Topmost="True"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
-  <!-- TODO:
-  Width="{Binding Width, Mode=TwoWay, FallbackValue=450}"
-  Height="{Binding Height, Mode=TwoWay, FallbackValue=740}"
-  -->
   <Design.DataContext>
     <vm:MainViewModel />
   </Design.DataContext>
