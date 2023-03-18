@@ -24,11 +24,6 @@ namespace ChatGPT;
 
 public partial class App : Application
 {
-    private const string SettingsFolderName = "ChatGPT";
-
-    // TODO: Remove usage of SettingsFileName.
-    private const string SettingsFileName = "settings.json";
-
     public App()
     {
     }
