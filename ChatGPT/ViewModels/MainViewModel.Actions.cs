@@ -13,8 +13,6 @@ public partial class MainViewModel
     private LayoutViewModel? _currentLayout;
     private string? _theme;
     private string? _layout;
-    private double _width;
-    private double _height;
 
     [JsonPropertyName("layouts")]
     public ObservableCollection<LayoutViewModel>? Layouts
@@ -28,20 +26,6 @@ public partial class MainViewModel
     {
         get => _currentLayout;
         set => SetProperty(ref _currentLayout, value);
-    }
-
-    [JsonPropertyName("width")]
-    public double Width
-    {
-        get => _width;
-        set => SetProperty(ref _width, value);
-    }
-
-    [JsonPropertyName("height")]
-    public double Height
-    {
-        get => _height;
-        set => SetProperty(ref _height, value);
     }
 
     [JsonPropertyName("theme")]
