@@ -9,6 +9,7 @@ using ChatGPT.Services;
 using ChatGPT.UI.Browser.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
+using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,7 @@ internal class Program
         serviceCollection.AddTransient<ChatViewModel>();
         serviceCollection.AddTransient<PromptViewModel>();
         serviceCollection.AddTransient<WorkspaceViewModel>();
+        serviceCollection.AddTransient<WindowLayoutViewModel>();
 
         Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
     }
