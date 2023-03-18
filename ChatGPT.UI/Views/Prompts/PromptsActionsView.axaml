@@ -12,6 +12,7 @@
   </Design.DataContext>
   <DockPanel HorizontalAlignment="Stretch"
              LastChildFill="False">
+    <!-- Add -->
     <Button Command="{Binding AddPromptCommand}"
             ToolTip.Tip="Add"
             Background="#00FFFFFF" 
@@ -26,6 +27,7 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Delete -->
     <Button Command="{Binding DeletePromptCommand}"
             ToolTip.Tip="Delete"
             Background="#00FFFFFF" 
@@ -40,6 +42,7 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Open -->
     <Button Command="{Binding OpenPromptsCommand}"
             ToolTip.Tip="Open"
             Background="#00FFFFFF" 
@@ -54,6 +57,7 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Save -->
     <Button Command="{Binding SavePromptsCommand}"
             ToolTip.Tip="Save"
             Background="#00FFFFFF" 
@@ -68,6 +72,7 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Import -->
     <Button Command="{Binding ImportPromptsCommand}"
             ToolTip.Tip="Import"
             Background="#00FFFFFF" 
@@ -82,6 +87,7 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Copy -->
     <Button Command="{Binding CopyPromptCommand}"
             ToolTip.Tip="Copy"
             Background="#00FFFFFF" 
@@ -96,6 +102,7 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Set -->
     <Button Command="{Binding SetPromptCommand}"
             ToolTip.Tip="Set"
             Background="#00FFFFFF" 
