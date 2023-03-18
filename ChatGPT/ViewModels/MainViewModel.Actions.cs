@@ -52,10 +52,13 @@ public partial class MainViewModel
     public IRelayCommand ExitCommand { get; }
 
     [JsonIgnore]
-    public IAsyncRelayCommand LoadSettingsCommand { get; }
+    public IAsyncRelayCommand LoadWorkspaceCommand { get; }
 
     [JsonIgnore]
-    public IAsyncRelayCommand SaveSettingsCommand { get; }
+    public IAsyncRelayCommand SaveWorkspaceCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand ExportWorkspaceCommand { get; }
 
     [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
