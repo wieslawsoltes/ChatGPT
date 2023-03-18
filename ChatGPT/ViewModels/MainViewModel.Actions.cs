@@ -52,6 +52,12 @@ public partial class MainViewModel
     public IRelayCommand ExitCommand { get; }
 
     [JsonIgnore]
+    public IAsyncRelayCommand LoadSettingsCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand SaveSettingsCommand { get; }
+
+    [JsonIgnore]
     public IRelayCommand ChangeThemeCommand { get; }
 
     [JsonIgnore]
