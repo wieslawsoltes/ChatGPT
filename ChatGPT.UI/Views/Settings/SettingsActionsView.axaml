@@ -28,7 +28,7 @@
                 Foreground="{DynamicResource PowerIconBrush}"
                 Opacity="0.6"/>
     </Button>
-    <!-- Default -->
+    <!-- Defaults -->
     <Button Command="{Binding DefaultChatSettingsCommand}"
             ToolTip.Tip="Defaults"
             Background="#00FFFFFF" 
@@ -44,9 +44,41 @@
                 Foreground="{DynamicResource MessageActionBrush}"
                 Opacity="0.6"/>
     </Button>
+    <!-- Load -->
+    <Button Command="{Binding LoadWorkspaceCommand}"
+            ToolTip.Tip="Load Workspace"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource OpenIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource MessageActionBrush}"
+                Opacity="0.6"/>
+    </Button>
+    <!-- Export -->
+    <Button Command="{Binding ExportWorkspaceCommand}"
+            ToolTip.Tip="Export Workspace"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource ArrowDownloadIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource MessageActionBrush}"
+                Opacity="0.6"/>
+    </Button>
     <!-- Save -->
-    <Button Command="{Binding SaveSettingsCommand}"
-            ToolTip.Tip="Save Settings"
+    <Button Command="{Binding SaveWorkspaceCommand}"
+            ToolTip.Tip="Save Workspace"
             Background="#00FFFFFF" 
             BorderBrush="#00000000"
             BorderThickness="1"
