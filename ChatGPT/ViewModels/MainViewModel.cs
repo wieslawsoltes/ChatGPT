@@ -123,6 +123,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                 CurrentPrompt = workspace.CurrentPrompt;
             }
 
+            /*
             if (workspace.Layouts is { })
             {
                 Layouts = workspace.Layouts;
@@ -130,6 +131,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
                 SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
                 ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
             }
+            */
 
             if (workspace.Layout is { })
             {
@@ -151,8 +153,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             CurrentChat = CurrentChat,
             Prompts = Prompts,
             CurrentPrompt = CurrentPrompt,
-            Layouts = Layouts,
-            CurrentLayout = CurrentLayout,
+            // Layouts = Layouts,
+            // CurrentLayout = CurrentLayout,
             Theme = Theme,
             Layout = Layout,
         };
