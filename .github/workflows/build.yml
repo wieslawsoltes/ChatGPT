@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+    - release/*
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build_windows:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+    - name: Install workloads
+      run: dotnet workload install wasm-tools wasm-experimental android ios
+    - name: Build Release
+      run: dotnet build --configuration Release
+  build_linux:
+    name: Build Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+    - name: Install wasm-tools
+      run: dotnet workload install wasm-tools wasm-experimental android ios
+    - name: Build Release
+      run: dotnet build --configuration Release
+  build_macos:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+    - name: Install wasm-tools
+      run: dotnet workload install wasm-tools wasm-experimental android ios
+    - name: Build Release
+      run: dotnet build --configuration Release
