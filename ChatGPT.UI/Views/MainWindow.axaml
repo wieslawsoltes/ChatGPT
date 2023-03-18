@@ -13,10 +13,12 @@
         ExtendClientAreaChromeHints="PreferSystemChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
         SystemDecorations="Full"
-        WindowStartupLocation="CenterScreen"
-        Topmost="True"
+        Position="0,0"
         Width="450"
         Height="740"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <!-- TODO:
