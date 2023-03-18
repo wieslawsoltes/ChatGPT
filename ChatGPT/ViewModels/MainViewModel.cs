@@ -87,9 +87,23 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     
         ExitCommand = new RelayCommand(ExitAction);
 
+        LoadSettingsCommand = new AsyncRelayCommand(LoadSettingsAction);
+
+        SaveSettingsCommand = new AsyncRelayCommand(SaveSettingsAction);
+
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
 
         ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
+    }
+
+    private async Task LoadSettingsAction()
+    {
+        await LoadSettings();
+    }
+
+    private async Task SaveSettingsAction()
+    {
+        await SaveSettings();
     }
 
     public async Task LoadSettings()
