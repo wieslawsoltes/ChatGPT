@@ -34,6 +34,7 @@
               Foreground="{DynamicResource SettingsIconBrush}" />
     <Button.Flyout>
       <MenuFlyout Placement="BottomEdgeAlignedLeft">
+        <!-- Add -->
         <MenuItem Header="Add" 
                   Command="{Binding AddCommand}"
                   IsVisible="{Binding !IsSent}">
@@ -44,7 +45,9 @@
                       Foreground="{DynamicResource ActionIconBrush}"/>
           </MenuItem.Icon>
         </MenuItem>
+        <!-- Separator -->
         <Separator IsVisible="{Binding !IsSent}"/>
+        <!-- Role -->
         <MenuItem Header="Role">
           <MenuItem Header="System" 
                     Command="{Binding SetRoleCommand}" 
@@ -77,7 +80,9 @@
             </MenuItem.Icon>
           </MenuItem>
         </MenuItem>
+        <!-- Separator -->
         <Separator />
+        <!-- Format -->
         <MenuItem Header="Format">
           <MenuItem Header="{x:Static core:Defaults.TextMessageFormat}" 
                     Command="{Binding SetFormatCommand}" 
@@ -88,6 +93,30 @@
           <MenuItem Header="{x:Static core:Defaults.HtmlMessageTextFormat}" 
                     Command="{Binding SetFormatCommand}" 
                     CommandParameter="{x:Static core:Defaults.HtmlMessageTextFormat}" />
+        </MenuItem>
+        <!-- Separator -->
+        <Separator />
+        <!-- Open -->
+        <MenuItem Header="Open" 
+                  Command="{Binding OpenCommand}">
+          <MenuItem.Icon>
+            <PathIcon Data="{DynamicResource OpenIcon}"
+                      Width="24" 
+                      Height="24"
+                      Foreground="{DynamicResource ActionIconBrush}"/>
+          </MenuItem.Icon>
+        </MenuItem>
+        <!-- Separator -->
+        <Separator />
+        <!-- Save -->
+        <MenuItem Header="Save" 
+                  Command="{Binding SaveCommand}">
+          <MenuItem.Icon>
+            <PathIcon Data="{DynamicResource SaveIcon}"
+                      Width="24" 
+                      Height="24"
+                      Foreground="{DynamicResource ActionIconBrush}"/>
+          </MenuItem.Icon>
         </MenuItem>
       </MenuFlyout>
     </Button.Flyout>
