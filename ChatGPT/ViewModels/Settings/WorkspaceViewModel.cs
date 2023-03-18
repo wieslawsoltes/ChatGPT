@@ -16,8 +16,6 @@ public class WorkspaceViewModel : ObservableObject
     private LayoutViewModel? _currentLayout;
     private string? _theme;
     private string? _layout;
-    private double _width;
-    private double _height;
 
     [JsonPropertyName("chats")]
     public ObservableCollection<ChatViewModel>? Chats
@@ -73,19 +71,5 @@ public class WorkspaceViewModel : ObservableObject
     {
         get => _layout;
         set => SetProperty(ref _layout, value);
-    }
-
-    [JsonPropertyName("width")]
-    public double Width
-    {
-        get => _width;
-        set => SetProperty(ref _width, value);
-    }
-
-    [JsonPropertyName("height")]
-    public double Height
-    {
-        get => _height;
-        set => SetProperty(ref _height, value);
     }
 }
