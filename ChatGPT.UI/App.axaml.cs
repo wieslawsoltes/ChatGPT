@@ -17,6 +17,7 @@ using ChatGPT.Plugins;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
+using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using ChatGPT.Views;
 using CommunityToolkit.Mvvm.DependencyInjection;
