@@ -116,7 +116,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     private async Task SaveWorkspaceAction()
     {
-        await SaveSettings();
+        await SaveSettingsAsync();
     }
 
     private async Task ExportWorkspaceAction()
@@ -211,7 +211,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         }
     }
 
-    public async Task LoadSettings()
+    public async Task LoadSettingsAsync()
     {
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
@@ -219,21 +219,47 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         {
             return;
         }
-        var workspace = await storage.LoadObject("Settings", s_serializerContext.WorkspaceViewModel);
+        var workspace = await storage.LoadObjectAsync("Settings", s_serializerContext.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
         }
     }
 
-    public async Task SaveSettings()
+    public async Task SaveSettingsAsync()
     {
         var workspace = CreateWorkspace();
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {
-            await storage.SaveObject(workspace, "Settings", s_serializerContext.WorkspaceViewModel);
+            await storage.SaveObjectAsync(workspace, "Settings", s_serializerContext.WorkspaceViewModel);
+        }
+    }
+
+    public void LoadSettings()
+    {
+        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        if (storage is null)
+        {
+            return;
+        }
+        var workspace = storage.LoadObject("Settings", s_serializerContext.WorkspaceViewModel);
+        if (workspace is { })
+        {
+            LoadWorkspace(workspace);
+        }
+    }
+
+    public void SaveSettings()
+    {
+        var workspace = CreateWorkspace();
+        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        if (storage is { })
+        {
+            storage.SaveObject(workspace, "Settings", s_serializerContext.WorkspaceViewModel);
         }
     }
 }

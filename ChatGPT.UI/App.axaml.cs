@@ -164,7 +164,7 @@ public partial class App : Application
         {
             return;
         }
-        var layout = await storage.LoadObject("WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
+        var layout = await storage.LoadObjectAsync("WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
         if (layout is { })
         {
             window.Position = new PixelPoint(layout.X, layout.Y);
@@ -210,7 +210,7 @@ public partial class App : Application
         var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
         if (storage is { })
         {
-            await storage.SaveObject(workspace, "WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
+            await storage.SaveObjectAsync(workspace, "WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
         }
     }
 
@@ -246,7 +246,7 @@ public partial class App : Application
         {
             return;
         }
-        await mainViewModel.LoadSettings();
+        await mainViewModel.LoadSettingsAsync();
     }
 
     public async Task SaveSettings()
@@ -257,7 +257,7 @@ public partial class App : Application
             return;
         }
 
-        await mainViewModel.SaveSettings();
+        await mainViewModel.SaveSettingsAsync();
     }
 
     public void SaveTheme()

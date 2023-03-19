@@ -5,6 +5,8 @@ namespace ChatGPT.Model.Services;
 
 public interface IStorageService<T>
 {
-    Task SaveObject(T obj, string key, JsonTypeInfo<T> typeInfo);
-    Task<T?> LoadObject(string key, JsonTypeInfo<T> typeInfo);
+    Task SaveObjectAsync(T obj, string key, JsonTypeInfo<T> typeInfo);
+    Task<T?> LoadObjectAsync(string key, JsonTypeInfo<T> typeInfo);
+    void SaveObject(T obj, string key, JsonTypeInfo<T> typeInfo);
+    T? LoadObject(string key, JsonTypeInfo<T> typeInfo);
 }
