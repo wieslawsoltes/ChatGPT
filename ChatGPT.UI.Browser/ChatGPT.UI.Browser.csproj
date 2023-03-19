@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <MSBuildEnableWorkloadResolver>true</MSBuildEnableWorkloadResolver>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <WasmExtraFilesToDeploy Include="AppBundle\app.css" />
