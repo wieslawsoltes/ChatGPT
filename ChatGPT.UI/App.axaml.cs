@@ -131,7 +131,7 @@ public partial class App : Application
     {
         try
         {
-            await LoadSettings();
+            await LoadSettingsAsync();
         }
         catch (Exception e)
         {
@@ -231,7 +231,7 @@ public partial class App : Application
             Ioc.Default.GetService<IPluginsService>()?.ShutdownPlugins();
 
             SaveTheme();
-            await SaveSettings();
+            await SaveSettingsAsync();
         }
         catch (Exception exception)
         {
@@ -239,7 +239,7 @@ public partial class App : Application
         }
     }
 
-    public async Task LoadSettings()
+    public async Task LoadSettingsAsync()
     {
         var mainViewModel = Ioc.Default.GetService<MainViewModel>();
         if (mainViewModel is null)
@@ -249,7 +249,7 @@ public partial class App : Application
         await mainViewModel.LoadSettingsAsync();
     }
 
-    public async Task SaveSettings()
+    public async Task SaveSettingsAsync()
     {
         var mainViewModel = Ioc.Default.GetService<MainViewModel>();
         if (mainViewModel is null)
@@ -258,6 +258,27 @@ public partial class App : Application
         }
 
         await mainViewModel.SaveSettingsAsync();
+    }
+
+    public void LoadSettings()
+    {
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is null)
+        {
+            return;
+        }
+        mainViewModel.LoadSettings();
+    }
+
+    public void SaveSettings()
+    {
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is null)
+        {
+            return;
+        }
+
+        mainViewModel.SaveSettings();
     }
 
     public void SaveTheme()
