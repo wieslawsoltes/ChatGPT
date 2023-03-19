@@ -14,12 +14,14 @@ await registerAvaloniaModule(dotnetRuntime);
 const config = dotnetRuntime.getConfig();
 const exports = await dotnetRuntime.getAssemblyExports(config.mainAssemblyName);
 
+exports.Interop.SaveSettings();
+
 window.addEventListener('beforeunload',  (event) => {
-    event.preventDefault();
     console.log("[JS] Saving settings...");
     exports.Interop.SaveSettings();
     console.log("[JS] Saved settings.");
-    event.returnValue = false;
+    event.preventDefault();
+    event.returnValue = true;
 });
 
 const terminationEvent = 'onpagehide' in self ? 'pagehide' : 'unload';
