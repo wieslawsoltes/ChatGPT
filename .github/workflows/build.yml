@@ -53,8 +53,6 @@ jobs:
       run: dotnet workload install wasm-tools wasm-experimental android ios
     - name: Build ChatGPT.UI.Desktop
       run: dotnet build ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
-    - name: Build ChatGPT.UI.Android
-      run: dotnet build ChatGPT.UI.Android/ChatGPT.UI.Android.csproj --configuration Release
     - name: Build ChatGPT.UI.iOS
       run: dotnet build ChatGPT.UI.iOS/ChatGPT.UI.iOS.csproj --configuration Release
     - name: Build ChatGPT.UI.Browser
