@@ -12,9 +12,6 @@ public partial class ColumnLayoutViewModel : LayoutViewModel
     [JsonConstructor]
     public ColumnLayoutViewModel()
     {
-        Width = 1400;
-        Height = 830;
-
         ShowChats = true;
         ShowSettings = true;
         ShowPrompts = true;

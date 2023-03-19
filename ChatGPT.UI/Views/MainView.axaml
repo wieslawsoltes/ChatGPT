@@ -51,8 +51,6 @@
     </vm:MainViewModel>
   </Design.DataContext>
 
-  <controls:LayoutContainer Layout="{Binding Layout}"
-                            LayoutWidth="{Binding CurrentLayout.Width, FallbackValue=1400}"
-                            LayoutHeight="{Binding CurrentLayout.Height, FallbackValue=830}"/>
+  <controls:LayoutContainer Layout="{Binding Layout}" />
 
 </UserControl>

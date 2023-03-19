@@ -10,9 +10,6 @@ public partial class SingleLayoutViewModel : LayoutViewModel
     [JsonConstructor]
     public SingleLayoutViewModel()
     {
-        Width = 400;
-        Height = 740;
-
         ShowChats = false;
         ShowSettings = false;
         ShowPrompts = false;
