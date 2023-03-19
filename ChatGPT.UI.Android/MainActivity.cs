@@ -17,7 +17,7 @@ public class MainActivity : AvaloniaMainActivity
             try
             {
                 app.SaveTheme();
-                await app.SaveSettings();
+                await app.SaveSettingsAsync();
             }
             catch (Exception exception)
             {
