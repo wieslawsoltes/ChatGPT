@@ -8,12 +8,12 @@ namespace ChatGPT.UI.Browser.Services;
 internal static partial class Interop
 {
     [JSExport]
-    internal static async Task SaveSettings()
+    internal static void SaveSettings()
     {
         if (Application.Current is App app)
         {
             Console.WriteLine("[.NET] Saving settings...");
-            await app.SaveSettings();
+            app.SaveSettingsAsync();
             Console.WriteLine("[.NET] Saved settings.");
         }
     }
