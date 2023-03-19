@@ -14,7 +14,7 @@ await registerAvaloniaModule(dotnetRuntime);
 const config = dotnetRuntime.getConfig();
 const exports = await dotnetRuntime.getAssemblyExports(config.mainAssemblyName);
 
-exports.Interop.SaveSettings();
+exports.ChatGPT.UI.Browser.Services.Interop.SaveSettings();
 
 window.addEventListener('beforeunload',  (event) => {
     console.log("[JS] Saving settings...");
