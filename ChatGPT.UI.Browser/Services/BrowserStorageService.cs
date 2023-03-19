@@ -25,7 +25,7 @@ public partial class BrowserStorageService<T> : IStorageService<T>
         var stream = new MemoryStream();
         await JsonSerializer.SerializeAsync(stream, obj, typeInfo);
         stream.Position = 0;
-        var serializedObjJson = Encoding.Unicode.GetString(stream.ToArray());
+        var serializedObjJson = Encoding.UTF8.GetString(stream.ToArray());
         SetItem(Identifier + key, serializedObjJson);
     }
 
