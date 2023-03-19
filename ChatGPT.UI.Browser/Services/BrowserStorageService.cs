@@ -20,7 +20,7 @@ public partial class BrowserStorageService<T> : IStorageService<T>
 
     private static string Identifier { get; } = typeof(T).FullName?.Replace(".", string.Empty) ?? "default";
 
-    public async Task SaveObject(T obj, string key, JsonTypeInfo<T> typeInfo)
+    public async Task SaveObjectAsync(T obj, string key, JsonTypeInfo<T> typeInfo)
     {
         var stream = new MemoryStream();
         await JsonSerializer.SerializeAsync(stream, obj, typeInfo);
@@ -29,7 +29,7 @@ public partial class BrowserStorageService<T> : IStorageService<T>
         SetItem(Identifier + key, serializedObjJson);
     }
 
-    public async Task<T?> LoadObject(string key, JsonTypeInfo<T> typeInfo)
+    public async Task<T?> LoadObjectAsync(string key, JsonTypeInfo<T> typeInfo)
     {
         try
         {
@@ -38,6 +38,33 @@ public partial class BrowserStorageService<T> : IStorageService<T>
             if (string.IsNullOrEmpty(t)) return default;
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(t));
             var x = await JsonSerializer.DeserializeAsync(stream, typeInfo);
+            return x ?? default;
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e);
+        }
+
+        return default;
+    }
+    
+    public void SaveObject(T obj, string key, JsonTypeInfo<T> typeInfo)
+    {
+        var stream = new MemoryStream();
+        JsonSerializer.Serialize(stream, obj, typeInfo);
+        stream.Position = 0;
+        var serializedObjJson = Encoding.UTF8.GetString(stream.ToArray());
+        SetItem(Identifier + key, serializedObjJson);
+    }
+
+    public T? LoadObject(string key, JsonTypeInfo<T> typeInfo)
+    {
+        try
+        {
+            var t = GetItem(Identifier + key);
+            if (string.IsNullOrEmpty(t)) return default;
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(t));
+            var x = JsonSerializer.Deserialize(stream, typeInfo);
             return x ?? default;
         }
         catch (Exception e)
