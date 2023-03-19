@@ -257,8 +257,6 @@ public partial class App : Application
             return;
         }
 
-        Console.WriteLine("Saving settings.");
-
         await mainViewModel.SaveSettings();
     }
 
