@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -254,6 +255,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public void SaveSettings()
     {
+        Console.WriteLine("SaveSettings()");
         var workspace = CreateWorkspace();
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
