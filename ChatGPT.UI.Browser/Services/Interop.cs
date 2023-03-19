@@ -13,7 +13,7 @@ internal static partial class Interop
         if (Application.Current is App app)
         {
             Console.WriteLine("[.NET] Saving settings...");
-            app.SaveSettingsAsync();
+            app.SaveSettings();
             Console.WriteLine("[.NET] Saved settings.");
         }
     }
