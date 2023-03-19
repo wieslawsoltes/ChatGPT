@@ -260,6 +260,27 @@ public partial class App : Application
         await mainViewModel.SaveSettingsAsync();
     }
 
+    public void LoadSettings()
+    {
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is null)
+        {
+            return;
+        }
+        mainViewModel.LoadSettings();
+    }
+
+    public void SaveSettings()
+    {
+        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        if (mainViewModel is null)
+        {
+            return;
+        }
+
+        mainViewModel.SaveSettings();
+    }
+
     public void SaveTheme()
     {
         var theme = "Light";
