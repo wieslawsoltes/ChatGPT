@@ -13,31 +13,21 @@ await registerAvaloniaModule(dotnetRuntime);
 
 const config = dotnetRuntime.getConfig();
 const exports = await dotnetRuntime.getAssemblyExports(config.mainAssemblyName);
-/*
-window.onbeforeunload = async function(event) {
-    //event.preventDefault();
-    console.log("[JS] Saving settings...");
-    await exports.Interop.SaveSettings();
-    console.log("[JS] Saved settings.");
-    event.returnValue = false;
-}
-*/
 
-window.addEventListener('beforeunload', async (event) => {
+window.addEventListener('beforeunload',  (event) => {
     event.preventDefault();
     console.log("[JS] Saving settings...");
-    await exports.Interop.SaveSettings();
+    exports.Interop.SaveSettings();
     console.log("[JS] Saved settings.");
     event.returnValue = false;
 });
 
 const terminationEvent = 'onpagehide' in self ? 'pagehide' : 'unload';
 
-window.addEventListener(terminationEvent, async (event) => {
+window.addEventListener(terminationEvent,  (event) => {
     console.log("[JS] Saving settings...");
-    await exports.Interop.SaveSettings();
+    exports.Interop.SaveSettings();
     console.log("[JS] Saved settings.");
 });
-
 
 await dotnetRuntime.runMainAndExit(config.mainAssemblyName, [window.location.search]);
