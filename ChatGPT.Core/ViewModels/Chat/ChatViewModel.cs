@@ -204,48 +204,59 @@ public class ChatViewModel : ObservableObject
 
         // Response
 
-        var chatServiceSettings = new ChatServiceSettings
-        {
-            Model = Settings.Model,
-            Messages = chatPrompt,
-            Suffix = null,
-            Temperature = Settings.Temperature,
-            MaxTokens = Settings.MaxTokens,
-            TopP = 1.0m,
-            Stop = null,
-        };
-        var responseStr = default(string);
-        var isResponseStrError = false;
-
-        var responseData = await GetResponseData(chatServiceSettings, Settings, token);
-        if (responseData is null)
-        {
-            responseStr = "Unknown error.";
-            isResponseStrError = true;
-        }
-        else if (responseData is ChatResponseError error)
-        {
-            var message = error.Error?.Message;
-            responseStr = message ?? "Unknown error.";
-            isResponseStrError = true;
-        }
-        else if (responseData is ChatResponseSuccess success)
-        {
-            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
-            responseStr = message ?? "";
-            isResponseStrError = false;
-        }
+        var result = await Send(chatPrompt, Settings, token);
 
         // Update
 
-        resultMessage.Message = responseStr;
-        resultMessage.IsError = isResponseStrError;
+        resultMessage.Message = result.Message;
+        resultMessage.IsError = result.IsError;
         resultMessage.Format = Settings.Format;
         resultMessage.IsAwaiting = false;
         resultMessage.IsSent = true;
     }
 
-    private static ChatMessage[] CreateChatPrompt(
+    public static async Task<ChatResultViewModel> Send(ChatMessage[] chatPrompt, ChatSettingsViewModel settings, CancellationToken token)
+    {
+        var chatServiceSettings = new ChatServiceSettings
+        {
+            Model = settings.Model,
+            Messages = chatPrompt,
+            Suffix = null,
+            Temperature = settings.Temperature,
+            MaxTokens = settings.MaxTokens,
+            TopP = 1.0m,
+            Stop = null,
+        };
+
+        var result = new ChatResultViewModel()
+        {
+            Message = default(string),
+            IsError = false
+        };
+   
+        var responseData = await GetResponseData(chatServiceSettings, settings, token);
+        if (responseData is null)
+        {
+            result.Message = "Unknown error.";
+            result.IsError = true;
+        }
+        else if (responseData is ChatResponseError error)
+        {
+            var message = error.Error?.Message;
+            result.Message = message ?? "Unknown error.";
+            result.IsError = true;
+        }
+        else if (responseData is ChatResponseSuccess success)
+        {
+            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
+            result.Message = message ?? "";
+            result.IsError = false;
+        }
+
+        return result;
+    }
+
+    public static ChatMessage[] CreateChatPrompt(
         ObservableCollection<ChatMessageViewModel> messages, 
         ChatSettingsViewModel chatSettings)
     {
