@@ -20,20 +20,15 @@ if (args.Length == 1)
     directions = args[0];
 }
 
-var chatSettings = new ChatSettingsViewModel
-{
-    Temperature = 0.7m,
-    MaxTokens = 2000,
-    Model = "gpt-3.5-turbo",
-    ApiKey = null,
-    Directions = directions,
-    Format = "Text",
-};
-
 var chat = new ChatViewModel
 {
-    Name = "REPL",
-    Settings = chatSettings
+    Settings = new ChatSettingsViewModel
+    {
+        Temperature = 0.7m,
+        MaxTokens = 2000,
+        Model = "gpt-3.5-turbo",
+        Directions = directions
+    }
 };
 
 chat.Messages.Add(new ChatMessageViewModel
