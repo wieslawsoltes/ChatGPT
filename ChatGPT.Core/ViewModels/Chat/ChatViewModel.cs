@@ -21,6 +21,7 @@ public class ChatViewModel : ObservableObject
     private ObservableCollection<ChatMessageViewModel> _messages;
     private ChatMessageViewModel? _currentMessage;
     private bool _isEnabled;
+    private CancellationTokenSource? _cts;
 
     public ChatViewModel()
     {
@@ -112,8 +113,6 @@ public class ChatViewModel : ObservableObject
             }
         }
     }
-
-    private CancellationTokenSource? _cts;
 
     public async Task Send(ChatMessageViewModel sendMessage, bool onlyAddMessage)
     {
@@ -215,47 +214,6 @@ public class ChatViewModel : ObservableObject
         resultMessage.IsSent = true;
     }
 
-    public static async Task<ChatResultViewModel> Send(ChatMessage[] chatPrompt, ChatSettingsViewModel settings, CancellationToken token)
-    {
-        var chatServiceSettings = new ChatServiceSettings
-        {
-            Model = settings.Model,
-            Messages = chatPrompt,
-            Suffix = null,
-            Temperature = settings.Temperature,
-            MaxTokens = settings.MaxTokens,
-            TopP = 1.0m,
-            Stop = null,
-        };
-
-        var result = new ChatResultViewModel()
-        {
-            Message = default(string),
-            IsError = false
-        };
-   
-        var responseData = await GetResponseData(chatServiceSettings, settings, token);
-        if (responseData is null)
-        {
-            result.Message = "Unknown error.";
-            result.IsError = true;
-        }
-        else if (responseData is ChatResponseError error)
-        {
-            var message = error.Error?.Message;
-            result.Message = message ?? "Unknown error.";
-            result.IsError = true;
-        }
-        else if (responseData is ChatResponseSuccess success)
-        {
-            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
-            result.Message = message ?? "";
-            result.IsError = false;
-        }
-
-        return result;
-    }
-
     public static ChatMessage[] CreateChatPrompt(
         ObservableCollection<ChatMessageViewModel> messages, 
         ChatSettingsViewModel chatSettings)
@@ -296,7 +254,7 @@ public class ChatViewModel : ObservableObject
         return chatMessages.ToArray();
     }
 
-    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
+    public static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -329,5 +287,46 @@ public class ChatViewModel : ObservableObject
         }
 
         return responseData;
+    }
+
+    public static async Task<ChatResultViewModel> Send(ChatMessage[] chatPrompt, ChatSettingsViewModel settings, CancellationToken token)
+    {
+        var chatServiceSettings = new ChatServiceSettings
+        {
+            Model = settings.Model,
+            Messages = chatPrompt,
+            Suffix = null,
+            Temperature = settings.Temperature,
+            MaxTokens = settings.MaxTokens,
+            TopP = 1.0m,
+            Stop = null,
+        };
+
+        var result = new ChatResultViewModel
+        {
+            Message = default,
+            IsError = false
+        };
+   
+        var responseData = await GetResponseData(chatServiceSettings, settings, token);
+        if (responseData is null)
+        {
+            result.Message = "Unknown error.";
+            result.IsError = true;
+        }
+        else if (responseData is ChatResponseError error)
+        {
+            var message = error.Error?.Message;
+            result.Message = message ?? "Unknown error.";
+            result.IsError = true;
+        }
+        else if (responseData is ChatResponseSuccess success)
+        {
+            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
+            result.Message = message ?? "";
+            result.IsError = false;
+        }
+
+        return result;
     }
 }
