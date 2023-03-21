@@ -31,12 +31,7 @@ var chat = new ChatViewModel
     }
 };
 
-chat.Messages.Add(new ChatMessageViewModel
-{
-    Role = "system",
-    Message = directions,
-    Format = chatSettings.Format,
-});
+chat.AddSystemMessage(directions);
 
 while (true)
 {
@@ -50,23 +45,13 @@ while (true)
 
     try
     {
-        chat.Messages.Add(new ChatMessageViewModel
-        {
-            Role = "user",
-            Message = input,
-            Format = chatSettings.Format
-        });
+        chat.AddUserMessage(input);
 
-        var cts = new CancellationTokenSource();
         var messages = chat.CreateChatMessages();
+        using var cts = new CancellationTokenSource();
         var result = await chat.Send(messages, cts.Token);
 
-        chat.Messages.Add(new ChatMessageViewModel
-        {
-            Role = "assistant",
-            Message = result?.Message,
-            Format = chatSettings.Format
-        });
+        chat.AddAssistantMessage(result?.Message);
 
         Console.WriteLine(result?.Message);
     }
