@@ -350,4 +350,31 @@ public class ChatViewModel : ObservableObject
 
         return result;
     }
+
+    public void AddSystemMessage(string? message)
+    {
+        Messages.Add(new ChatMessageViewModel
+        {
+            Role = "system",
+            Message = message
+        });
+    }
+
+    public void AddUserMessage(string? message)
+    {
+        Messages.Add(new ChatMessageViewModel
+        {
+            Role = "user",
+            Message = message
+        });
+    }
+
+    public void AddAssistantMessage(string? message)
+    {
+        Messages.Add(new ChatMessageViewModel
+        {
+            Role = "assistant",
+            Message = message
+        });
+    }
 }
