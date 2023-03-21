@@ -33,6 +33,12 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 2. Run `dotnet workload install ios android wasm-tools` command
 3. `dotnet publish -c Release` command inside project directory (mobile/desktop) or `dotnet run` for desktop to just run
 
+# NuGet
+
+[ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
+[ChatGPT.Core](https://www.nuget.org/packages/ChatGPT.Core) - An OpenAI client core library for .NET.
+[ChatGPT.UI](https://www.nuget.org/packages/ChatGPT.UI) - An OpenAI client user interface library for .NET.
+
 # Docs
 
 - [Guide Chat completions](https://platform.openai.com/docs/guides/chat)
