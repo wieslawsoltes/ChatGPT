@@ -27,18 +27,6 @@ namespace ChatGPT;
 
 public partial class App : Application
 {
-    private static readonly WindowLayoutViewModelJsonContext s_layoutSerializerContext = new(
-        new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            ReferenceHandler = ReferenceHandler.Preserve,
-            IncludeFields = false,
-            IgnoreReadOnlyFields = true,
-            IgnoreReadOnlyProperties = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
-        });
-
     // private IDisposable? _settingsDisposable;
 
     public App()
@@ -164,7 +152,9 @@ public partial class App : Application
         {
             return;
         }
-        var layout = await storage.LoadObjectAsync("WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
+        var layout = await storage.LoadObjectAsync(
+            "WindowLayout", 
+            WindowLayoutViewModelJsonContext.s_instance.WindowLayoutViewModel);
         if (layout is { })
         {
             window.Position = new PixelPoint(layout.X, layout.Y);
@@ -210,7 +200,10 @@ public partial class App : Application
         var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
         if (storage is { })
         {
-            await storage.SaveObjectAsync(workspace, "WindowLayout", s_layoutSerializerContext.WindowLayoutViewModel);
+            await storage.SaveObjectAsync(
+                workspace, 
+                "WindowLayout", 
+                WindowLayoutViewModelJsonContext.s_instance.WindowLayoutViewModel);
         }
     }
 
