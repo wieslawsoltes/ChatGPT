@@ -89,11 +89,9 @@ void ConfigureServices()
 {
     IServiceCollection serviceCollection = new ServiceCollection();
 
-    // Services
     serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
     serviceCollection.AddSingleton<IChatService, ChatService>();
 
-    // ViewModels
     serviceCollection.AddTransient<ChatMessageViewModel>();
     serviceCollection.AddTransient<ChatSettingsViewModel>();
     serviceCollection.AddTransient<ChatResultViewModel>();
