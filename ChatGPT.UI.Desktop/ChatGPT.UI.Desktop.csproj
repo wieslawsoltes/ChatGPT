@@ -12,6 +12,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationIcon>Assets\clipart855284.ico</ApplicationIcon>
     <RootNamespace>ChatGPT</RootNamespace>
+    <IsPackable>False</IsPackable>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
