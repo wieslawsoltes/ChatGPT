@@ -194,7 +194,7 @@ public partial class MainViewModel
     {
         var chat = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.ChatViewModel);
+            MainViewModelJsonContext.s_instance.ChatViewModel);
         if (chat is { })
         {
             foreach (var message in chat.Messages)
@@ -216,7 +216,8 @@ public partial class MainViewModel
 
         await JsonSerializer.SerializeAsync(
             stream, 
-            CurrentChat, s_serializerContext.ChatViewModel);
+            CurrentChat, 
+            MainViewModelJsonContext.s_instance.ChatViewModel);
     }
 
     private async Task ExportChatCallbackAsync(Stream stream)

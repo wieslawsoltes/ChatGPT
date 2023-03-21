@@ -18,18 +18,6 @@ namespace ChatGPT.ViewModels;
 
 public partial class MainViewModel : ObservableObject, IPluginContext
 {
-    private static readonly MainViewModelJsonContext s_serializerContext = new(
-        new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            ReferenceHandler = ReferenceHandler.Preserve,
-            IncludeFields = false,
-            IgnoreReadOnlyFields = true,
-            IgnoreReadOnlyProperties = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
-        });
-
     public MainViewModel()
     {
         _chats = new ObservableCollection<ChatViewModel>();
@@ -137,7 +125,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     {
         var workspace = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.WorkspaceViewModel);
+            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
@@ -149,7 +137,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         var workspace = CreateWorkspace();
         await JsonSerializer.SerializeAsync(
             stream, 
-            workspace, s_serializerContext.WorkspaceViewModel);
+            workspace, 
+            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
     }
 
     private WorkspaceViewModel CreateWorkspace()
@@ -219,7 +208,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         {
             return;
         }
-        var workspace = await storage.LoadObjectAsync("Settings", s_serializerContext.WorkspaceViewModel);
+        var workspace = await storage.LoadObjectAsync(
+            "Settings",
+            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
@@ -233,7 +224,10 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {
-            await storage.SaveObjectAsync(workspace, "Settings", s_serializerContext.WorkspaceViewModel);
+            await storage.SaveObjectAsync(
+                workspace, 
+                "Settings", 
+                MainViewModelJsonContext.s_instance.WorkspaceViewModel);
         }
     }
 
@@ -245,7 +239,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         {
             return;
         }
-        var workspace = storage.LoadObject("Settings", s_serializerContext.WorkspaceViewModel);
+        var workspace = storage.LoadObject(
+            "Settings", 
+            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
@@ -259,7 +255,10 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {
-            storage.SaveObject(workspace, "Settings", s_serializerContext.WorkspaceViewModel);
+            storage.SaveObject(
+                workspace, 
+                "Settings", 
+                MainViewModelJsonContext.s_instance.WorkspaceViewModel);
         }
     }
 }

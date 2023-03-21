@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
@@ -21,4 +22,16 @@ namespace ChatGPT.ViewModels;
 [JsonSerializable(typeof(WorkspaceViewModel))]
 public partial class MainViewModelJsonContext : JsonSerializerContext
 {
+    public static readonly MainViewModelJsonContext s_instance = new(
+        new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            ReferenceHandler = ReferenceHandler.Preserve,
+            IncludeFields = false,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+        });
+
 }

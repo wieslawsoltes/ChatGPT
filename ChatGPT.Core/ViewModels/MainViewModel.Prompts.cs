@@ -183,7 +183,7 @@ public partial class MainViewModel
     {
         var prompts = await JsonSerializer.DeserializeAsync(
             stream, 
-            s_serializerContext.ObservableCollectionPromptViewModel);
+            MainViewModelJsonContext.s_instance.ObservableCollectionPromptViewModel);
         if (prompts is { })
         {
             foreach (var prompt in prompts)
@@ -197,7 +197,8 @@ public partial class MainViewModel
     {
         await JsonSerializer.SerializeAsync(
             stream, 
-            Prompts, s_serializerContext.ObservableCollectionPromptViewModel);
+            Prompts,
+            MainViewModelJsonContext.s_instance.ObservableCollectionPromptViewModel);
     }
 
     private async Task ImportPromptsCallbackAsync(Stream stream)
