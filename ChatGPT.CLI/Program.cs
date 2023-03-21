@@ -11,7 +11,8 @@ ConfigureServices();
 
 var directions = 
 """
-You are a helpful assistant named Clippy. Write answers in plain text, do not use markdown.
+You are a helpful assistant named Clippy.
+Write answers in plain text, do not use markdown.
 """;
 
 if (args.Length == 1)
