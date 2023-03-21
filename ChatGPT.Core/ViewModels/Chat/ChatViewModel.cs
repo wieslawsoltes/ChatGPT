@@ -114,16 +114,18 @@ public class ChatViewModel : ObservableObject
         }
     }
 
-    public async Task Send(ChatMessageViewModel sendMessage, bool onlyAddMessage)
+    public async Task<bool> Send(ChatMessageViewModel sendMessage, bool onlyAddMessage = false)
     {
+        var isError = true;
+
         if (Settings is null)
         {
-            return;
+            return isError;
         }
 
         if (string.IsNullOrEmpty(sendMessage.Message) && !onlyAddMessage)
         {
-            return;
+            return isError;
         }
 
         IsEnabled = false;
@@ -143,11 +145,12 @@ public class ChatViewModel : ObservableObject
 
                 try
                 {
-                    await CreateResultMessage(chatPrompt, _cts.Token);
+                    var result = await CreateResultMessage(chatPrompt, _cts.Token);
+                    isError = result == null || result.IsError;
                 }
                 catch (OperationCanceledException)
                 {
-                    // ignored
+                    isError = true;
                 }
 
                 isCanceled = _cts.IsCancellationRequested;
@@ -169,21 +172,29 @@ public class ChatViewModel : ObservableObject
                 SetMessageActions(nextMessage);
                 Messages.Add(nextMessage);
                 CurrentMessage = nextMessage;
+
+                isError = false;
+            }
+            else
+            {
+                isError = true;
             }
         }
         catch (Exception)
         {
-            // ignored
+            isError = true;
         }
 
         IsEnabled = true;
+
+        return isError;
     }
 
-    private async Task CreateResultMessage(ChatMessage[] chatPrompt, CancellationToken token)
+    private async Task<ChatResultViewModel?> CreateResultMessage(ChatMessage[] chatPrompt, CancellationToken token)
     {
         if (Settings is null)
         {
-            return;
+            return null;
         }
 
         // Sending...
@@ -212,6 +223,8 @@ public class ChatViewModel : ObservableObject
         resultMessage.Format = Settings.Format;
         resultMessage.IsAwaiting = false;
         resultMessage.IsSent = true;
+
+        return result;
     }
 
     public static ChatMessage[] CreateChatPrompt(
