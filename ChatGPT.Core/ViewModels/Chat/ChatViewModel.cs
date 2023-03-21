@@ -139,7 +139,7 @@ public class ChatViewModel : ObservableObject
             
             if (!onlyAddMessage)
             {
-                var chatPrompt = CreateChatPrompt(Messages, Settings);
+                var chatPrompt = CreateChatMessages();
 
                 _cts = new CancellationTokenSource();
 
@@ -175,10 +175,6 @@ public class ChatViewModel : ObservableObject
 
                 isError = false;
             }
-            else
-            {
-                isError = true;
-            }
         }
         catch (Exception)
         {
@@ -190,7 +186,7 @@ public class ChatViewModel : ObservableObject
         return isError;
     }
 
-    private async Task<ChatResultViewModel?> CreateResultMessage(ChatMessage[] chatPrompt, CancellationToken token)
+    private async Task<ChatResultViewModel?> CreateResultMessage(ChatMessage[] messages, CancellationToken token)
     {
         if (Settings is null)
         {
@@ -214,12 +210,21 @@ public class ChatViewModel : ObservableObject
 
         // Response
 
-        var result = await Send(chatPrompt, Settings, token);
+        var result = await Send(messages, token);
 
         // Update
 
-        resultMessage.Message = result.Message;
-        resultMessage.IsError = result.IsError;
+        if (result is null)
+        {
+            resultMessage.Message = "Unknown error.";
+            resultMessage.IsError = true;
+        }
+        else
+        {
+            resultMessage.Message = result.Message;
+            resultMessage.IsError = result.IsError;
+        }
+
         resultMessage.Format = Settings.Format;
         resultMessage.IsAwaiting = false;
         resultMessage.IsSent = true;
@@ -227,21 +232,19 @@ public class ChatViewModel : ObservableObject
         return result;
     }
 
-    public static ChatMessage[] CreateChatPrompt(
-        ObservableCollection<ChatMessageViewModel> messages, 
-        ChatSettingsViewModel chatSettings)
+    public ChatMessage[] CreateChatMessages()
     {
         var chatMessages = new List<ChatMessage>();
 
         // TODO: Ensure that chat prompt does not exceed maximum token limit.
 
-        for (var i = 0; i < messages.Count; i++)
+        for (var i = 0; i < Messages.Count; i++)
         {
-            var message = messages[i];
+            var message = Messages[i];
 
             if (i == 0)
             {
-                var content = chatSettings.Directions;
+                var content = Settings?.Directions ?? "";
 
                 if (message.Message != Defaults.WelcomeMessage)
                 {
@@ -267,7 +270,7 @@ public class ChatViewModel : ObservableObject
         return chatMessages.ToArray();
     }
 
-    public static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
+    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -302,15 +305,20 @@ public class ChatViewModel : ObservableObject
         return responseData;
     }
 
-    public static async Task<ChatResultViewModel> Send(ChatMessage[] chatPrompt, ChatSettingsViewModel settings, CancellationToken token)
+    public async Task<ChatResultViewModel?> Send(ChatMessage[] messages, CancellationToken token)
     {
+        if (Settings is null)
+        {
+            return default;
+        }
+
         var chatServiceSettings = new ChatServiceSettings
         {
-            Model = settings.Model,
-            Messages = chatPrompt,
+            Model = Settings.Model,
+            Messages = messages,
             Suffix = null,
-            Temperature = settings.Temperature,
-            MaxTokens = settings.MaxTokens,
+            Temperature = Settings.Temperature,
+            MaxTokens = Settings.MaxTokens,
             TopP = 1.0m,
             Stop = null,
         };
@@ -321,7 +329,7 @@ public class ChatViewModel : ObservableObject
             IsError = false
         };
    
-        var responseData = await GetResponseData(chatServiceSettings, settings, token);
+        var responseData = await GetResponseData(chatServiceSettings, Settings, token);
         if (responseData is null)
         {
             result.Message = "Unknown error.";

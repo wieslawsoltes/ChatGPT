@@ -67,17 +67,17 @@ while (true)
         });
 
         var cts = new CancellationTokenSource();
-        var chatPrompt = ChatViewModel.CreateChatPrompt(chat.Messages, chat.Settings);
-        var result = await ChatViewModel.Send(chatPrompt, chat.Settings, cts.Token);
+        var messages = chat.CreateChatMessages();
+        var result = await chat.Send(messages, cts.Token);
 
         chat.Messages.Add(new ChatMessageViewModel
         {
             Role = "assistant",
-            Message = result.Message,
+            Message = result?.Message,
             Format = chatSettings.Format
         });
 
-        Console.WriteLine(result.Message);
+        Console.WriteLine(result?.Message);
     }
     catch (Exception ex)
     {
