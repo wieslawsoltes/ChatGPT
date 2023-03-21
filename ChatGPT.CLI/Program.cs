@@ -49,7 +49,7 @@ while (true)
         chat.AddUserMessage(input);
 
         using var cts = new CancellationTokenSource();
-        var result = await chat.Send(chat.CreateChatMessages(), cts.Token);
+        var result = await chat.SendAsync(chat.CreateChatMessages(), cts.Token);
 
         chat.AddAssistantMessage(result?.Message);
 

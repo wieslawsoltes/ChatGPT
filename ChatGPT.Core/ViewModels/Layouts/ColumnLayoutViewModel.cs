@@ -42,7 +42,7 @@ public partial class ColumnLayoutViewModel : LayoutViewModel
         set => SetProperty(ref _promptsWidth, value);
     }
 
-    public override async Task Back()
+    public override async Task BackAsync()
     {
         // TODO:
         await Task.Yield();

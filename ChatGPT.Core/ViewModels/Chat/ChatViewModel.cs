@@ -66,19 +66,19 @@ public class ChatViewModel : ObservableObject
 
     public void SetMessageActions(ChatMessageViewModel message)
     {
-        message.SetSendAction(Send);
-        message.SetCopyAction(Copy);
+        message.SetSendAction(SendAsync);
+        message.SetCopyAction(CopyAsync);
         message.SetRemoveAction(Remove);
     }
 
-    public async Task Copy(ChatMessageViewModel message)
+    public async Task CopyAsync(ChatMessageViewModel message)
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
             if (message.Message is { } text)
             {
-                await app.SetClipboardText(text);
+                await app.SetClipboardTextAsync(text);
             }
         }
     }
@@ -114,7 +114,7 @@ public class ChatViewModel : ObservableObject
         }
     }
 
-    public async Task<bool> Send(ChatMessageViewModel sendMessage, bool onlyAddMessage = false)
+    public async Task<bool> SendAsync(ChatMessageViewModel sendMessage, bool onlyAddMessage = false)
     {
         var isError = true;
 
@@ -145,7 +145,7 @@ public class ChatViewModel : ObservableObject
 
                 try
                 {
-                    var result = await CreateResultMessage(chatPrompt, _cts.Token);
+                    var result = await CreateResultMessageAsync(chatPrompt, _cts.Token);
                     isError = result == null || result.IsError;
                 }
                 catch (OperationCanceledException)
@@ -186,7 +186,7 @@ public class ChatViewModel : ObservableObject
         return isError;
     }
 
-    private async Task<ChatResultViewModel?> CreateResultMessage(ChatMessage[] messages, CancellationToken token)
+    private async Task<ChatResultViewModel?> CreateResultMessageAsync(ChatMessage[] messages, CancellationToken token)
     {
         if (Settings is null)
         {
@@ -210,7 +210,7 @@ public class ChatViewModel : ObservableObject
 
         // Response
 
-        var result = await Send(messages, token);
+        var result = await SendAsync(messages, token);
 
         // Update
 
@@ -270,7 +270,7 @@ public class ChatViewModel : ObservableObject
         return chatMessages.ToArray();
     }
 
-    private static async Task<ChatResponse?> GetResponseData(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
+    private static async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
     {
         var chat = Ioc.Default.GetService<IChatService>();
         if (chat is null)
@@ -305,7 +305,7 @@ public class ChatViewModel : ObservableObject
         return responseData;
     }
 
-    public async Task<ChatResultViewModel?> Send(ChatMessage[] messages, CancellationToken token)
+    public async Task<ChatResultViewModel?> SendAsync(ChatMessage[] messages, CancellationToken token)
     {
         if (Settings is null)
         {
@@ -329,7 +329,7 @@ public class ChatViewModel : ObservableObject
             IsError = false
         };
    
-        var responseData = await GetResponseData(chatServiceSettings, Settings, token);
+        var responseData = await GetResponseDataAsync(chatServiceSettings, Settings, token);
         if (responseData is null)
         {
             result.Message = "Unknown error.";

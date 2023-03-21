@@ -22,28 +22,28 @@ public class ClipboardListenerChatPlugin : IChatPlugin
 
     public string Name => "Clipboard Listener";
 
-    public async Task Start()
+    public async Task StartAsync()
     {
         Run();
 
         await Task.Yield();
     }
 
-    public async Task Stop()
+    public async Task StopAsync()
     {
         Cancel();
 
         await Task.Yield();
     }
 
-    public async Task Initialize(IPluginContext context)
+    public async Task InitializeAsync(IPluginContext context)
     {
         _context = context;
 
         await Task.Yield();
     }
 
-    public async Task Shutdown()
+    public async Task ShutdownAsync()
     {
         Cancel();
 
@@ -181,7 +181,7 @@ public class ClipboardListenerChatPlugin : IChatPlugin
             {
                 message.Role = "user";
                 message.Message = prompt;
-                await chat.Send(message, true);
+                await chat.SendAsync(message, true);
             }
         }
     }

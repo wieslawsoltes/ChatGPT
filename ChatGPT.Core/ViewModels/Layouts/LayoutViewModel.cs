@@ -54,7 +54,7 @@ public abstract partial class LayoutViewModel : ObservableObject
     [JsonIgnore]
     public IRelayCommand ShowPromptsCommand { get; }
 
-    public abstract Task Back();
+    public abstract Task BackAsync();
 
     protected abstract void ShowSettingsAction();
 

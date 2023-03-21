@@ -7,9 +7,9 @@ namespace ChatGPT.Model.Services;
 
 public interface IApplicationService
 {
-    Task OpenFile(Func<Stream, Task> callback, List<string> fileTypes, string title);
-    Task SaveFile(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension);
+    Task OpenFileAsync(Func<Stream, Task> callback, List<string> fileTypes, string title);
+    Task SaveFileAsync(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension);
     void ToggleTheme();
-    Task SetClipboardText(string text);
+    Task SetClipboardTextAsync(string text);
     void Exit();
 }

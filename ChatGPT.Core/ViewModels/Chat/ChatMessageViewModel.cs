@@ -27,9 +27,9 @@ public class ChatMessageViewModel : ObservableObject
 
     public ChatMessageViewModel()
     {
-        AddCommand = new AsyncRelayCommand(async _ => await AddAction());
+        AddCommand = new AsyncRelayCommand(async _ => await AddActionAsync());
 
-        SendCommand = new AsyncRelayCommand(async _ => await SendAction());
+        SendCommand = new AsyncRelayCommand(async _ => await SendActionAsync());
 
         EditCommand = new RelayCommand<string>(EditAction);
 
@@ -41,9 +41,9 @@ public class ChatMessageViewModel : ObservableObject
 
         SetFormatCommand = new RelayCommand<string>(SetFormatAction);
 
-        OpenCommand = new AsyncRelayCommand(async _ => await OpenAction());
+        OpenCommand = new AsyncRelayCommand(async _ => await OpenActionAsync());
 
-        SaveCommand = new AsyncRelayCommand(async _ => await SaveAction());
+        SaveCommand = new AsyncRelayCommand(async _ => await SaveActionAsync());
     }
 
     [JsonPropertyName("role")]
@@ -129,7 +129,7 @@ public class ChatMessageViewModel : ObservableObject
     [JsonIgnore]
     public IAsyncRelayCommand SaveCommand { get; }
 
-    private async Task AddAction()
+    private async Task AddActionAsync()
     {
         if (_send is { })
         {
@@ -142,7 +142,7 @@ public class ChatMessageViewModel : ObservableObject
         }
     }
 
-    private async Task SendAction()
+    private async Task SendActionAsync()
     {
         if (_send is { })
         {
@@ -228,24 +228,24 @@ public class ChatMessageViewModel : ObservableObject
         }
     }
 
-    private async Task OpenAction()
+    private async Task OpenActionAsync()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
-            await app.OpenFile(
+            await app.OpenFileAsync(
                 OpenCallbackAsync, 
                 new List<string>(new[] { "All" }), 
                 "Open");
         }
     }
 
-    private async Task SaveAction()
+    private async Task SaveActionAsync()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && Message is { })
         {
-            await app.SaveFile(
+            await app.SaveFileAsync(
                 SaveCallbackAsync, 
                 new List<string>(new[] { "Text", "All" }), 
                 "Save", 

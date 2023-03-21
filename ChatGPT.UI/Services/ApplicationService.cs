@@ -83,7 +83,7 @@ public class ApplicationService : IApplicationService
         return fileTypeFilters;
     }
 
-    public async Task OpenFile(Func<Stream, Task> callback, List<string> fileTypes, string title)
+    public async Task OpenFileAsync(Func<Stream, Task> callback, List<string> fileTypes, string title)
     {
         var storageProvider = GetStorageProvider();
         if (storageProvider is null)
@@ -113,7 +113,7 @@ public class ApplicationService : IApplicationService
         }
     }
 
-    public async Task SaveFile(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension)
+    public async Task SaveFileAsync(Func<Stream, Task> callback, List<string> fileTypes, string title, string fileName, string defaultExtension)
     {
         var storageProvider = GetStorageProvider();
         if (storageProvider is null)
@@ -155,7 +155,7 @@ public class ApplicationService : IApplicationService
         }
     }
 
-    public async Task SetClipboardText(string text)
+    public async Task SetClipboardTextAsync(string text)
     {
         try
         {

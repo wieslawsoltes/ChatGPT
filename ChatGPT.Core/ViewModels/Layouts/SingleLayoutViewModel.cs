@@ -23,7 +23,7 @@ public partial class SingleLayoutViewModel : LayoutViewModel
         set => SetProperty(ref _showMenu, value);
     }
 
-    public override async Task Back()
+    public override async Task BackAsync()
     {
         HideMenusAction();
         await Task.Yield();

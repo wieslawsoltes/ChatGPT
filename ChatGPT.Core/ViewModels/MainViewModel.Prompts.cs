@@ -94,7 +94,7 @@ public partial class MainViewModel
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
-            await app.OpenFile(
+            await app.OpenFileAsync(
                 OpenPromptsCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Open");
@@ -106,7 +106,7 @@ public partial class MainViewModel
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
-            await app.SaveFile(
+            await app.SaveFileAsync(
                 SavePromptsCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Save", 
@@ -120,7 +120,7 @@ public partial class MainViewModel
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
-            await app.OpenFile(
+            await app.OpenFileAsync(
                 ImportPromptsCallbackAsync, 
                 new List<string>(new[] { "Csv", "All" }), 
                 "Import");
@@ -132,7 +132,7 @@ public partial class MainViewModel
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && CurrentPrompt?.Prompt is { })
         {
-            await app.SetClipboardText(CurrentPrompt.Prompt);
+            await app.SetClipboardTextAsync(CurrentPrompt.Prompt);
         }
     }
 
@@ -142,7 +142,7 @@ public partial class MainViewModel
 
         if (CurrentLayout is { })
         {
-            await CurrentLayout.Back();
+            await CurrentLayout.BackAsync();
         }
 
         await Task.Yield();

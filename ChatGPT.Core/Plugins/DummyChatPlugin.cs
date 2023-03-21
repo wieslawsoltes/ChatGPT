@@ -9,22 +9,22 @@ public class DummyChatPlugin : IChatPlugin
 
     public string Name => "Dummy";
 
-    public async Task Start()
+    public async Task StartAsync()
     {
         await Task.Yield();
     }
 
-    public async Task Stop()
+    public async Task StopAsync()
     {
         await Task.Yield();
     }
 
-    public async Task Initialize(IPluginContext context)
+    public async Task InitializeAsync(IPluginContext context)
     {
         await Task.Yield();
     }
 
-    public async Task Shutdown()
+    public async Task ShutdownAsync()
     {
         await Task.Yield();
     }

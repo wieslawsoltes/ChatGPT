@@ -6,8 +6,8 @@ public interface IChatPlugin
 {
     string Id { get; }
     string Name { get; }
-    Task Start();
-    Task Stop();
-    Task Initialize(IPluginContext context);
-    Task Shutdown();
+    Task StartAsync();
+    Task StopAsync();
+    Task InitializeAsync(IPluginContext context);
+    Task ShutdownAsync();
 }

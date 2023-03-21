@@ -83,9 +83,9 @@ public partial class App : Application
             
             desktop.Exit += DesktopOnExit;
 
-            await LoadWindowLayout(mainWindow);
+            await LoadWindowLayoutAsync(mainWindow);
 
-            await InitSettings();
+            await InitSettingsAsync();
             SetTheme();
 
             // TODO: Enable plugins.
@@ -99,7 +99,7 @@ public partial class App : Application
                 DataContext = Ioc.Default.GetService<MainViewModel>()
             };
 
-            await InitSettings();
+            await InitSettingsAsync();
             SetTheme();
         }
 
@@ -116,7 +116,7 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private async Task InitSettings()
+    private async Task InitSettingsAsync()
     {
         try
         {
@@ -145,7 +145,7 @@ public partial class App : Application
         }
     }
 
-    public async Task LoadWindowLayout(Window window)
+    public async Task LoadWindowLayoutAsync(Window window)
     {
         var factory = Ioc.Default.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
@@ -184,7 +184,7 @@ public partial class App : Application
         }
     }
 
-    public async Task SaveWindowLayout(Window window)
+    public async Task SaveWindowLayoutAsync(Window window)
     {
         var workspace = new WindowLayoutViewModel
         {
@@ -212,7 +212,7 @@ public partial class App : Application
     {
         if (sender is Window window)
         {
-            await SaveWindowLayout(window);
+            await SaveWindowLayoutAsync(window);
         }
     }
 

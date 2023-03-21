@@ -30,7 +30,7 @@ public class PluginsService : IPluginsService
     {
         foreach (var plugin in _plugins)
         {
-            plugin.Initialize(_pluginContext);
+            plugin.InitializeAsync(_pluginContext);
         }
     }
 
@@ -38,7 +38,7 @@ public class PluginsService : IPluginsService
     {
         foreach (var plugin in _plugins)
         {
-            plugin.Start();
+            plugin.StartAsync();
         }
     }
 
@@ -46,7 +46,7 @@ public class PluginsService : IPluginsService
     {
         foreach (var plugin in _plugins)
         {
-            plugin.Shutdown();
+            plugin.ShutdownAsync();
         }
     }
 }

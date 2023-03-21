@@ -43,17 +43,17 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         // Chats
         
-        AddChatCommand = new AsyncRelayCommand(AddChatAction);
+        AddChatCommand = new AsyncRelayCommand(AddChatActionAsync);
 
-        DeleteChatCommand = new AsyncRelayCommand(DeleteChatAction);
+        DeleteChatCommand = new AsyncRelayCommand(DeleteChatActionAsync);
 
-        OpenChatCommand = new AsyncRelayCommand(OpenChatAction);
+        OpenChatCommand = new AsyncRelayCommand(OpenChatActionAsync);
 
-        SaveChatCommand = new AsyncRelayCommand(SaveChatAction);
+        SaveChatCommand = new AsyncRelayCommand(SaveChatActionAsync);
 
-        ExportChatCommand = new AsyncRelayCommand(ExportChatAction);
+        ExportChatCommand = new AsyncRelayCommand(ExportChatActionAsync);
 
-        CopyChatCommand = new AsyncRelayCommand(CopyChatAction);
+        CopyChatCommand = new AsyncRelayCommand(CopyChatActionAsync);
 
         DefaultChatSettingsCommand = new RelayCommand(DefaultChatSettingsAction);
 
@@ -95,7 +95,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
-            await app.OpenFile(
+            await app.OpenFileAsync(
                 LoadWorkspaceCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Open");
@@ -112,7 +112,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
-            await app.SaveFile(
+            await app.SaveFileAsync(
                 ExportWorkspaceCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Export", 

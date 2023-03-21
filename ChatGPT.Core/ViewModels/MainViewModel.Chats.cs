@@ -69,36 +69,36 @@ public partial class MainViewModel
         };
     }
 
-    private async Task AddChatAction()
+    private async Task AddChatActionAsync()
     {
         NewChatCallback();
         await Task.Yield();
     }
 
-    private async Task DeleteChatAction()
+    private async Task DeleteChatActionAsync()
     {
         DeleteChatCallback();
         await Task.Yield();
     }
 
-    private async Task OpenChatAction()
+    private async Task OpenChatActionAsync()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { })
         {
-            await app.OpenFile(
+            await app.OpenFileAsync(
                 OpenChatCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Open");
         }
     }
 
-    private async Task SaveChatAction()
+    private async Task SaveChatActionAsync()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
-            await app.SaveFile(
+            await app.SaveFileAsync(
                 SaveChatCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Save", 
@@ -107,12 +107,12 @@ public partial class MainViewModel
         }
     }
 
-    private async Task ExportChatAction()
+    private async Task ExportChatActionAsync()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
-            await app.SaveFile(
+            await app.SaveFileAsync(
                 ExportChatCallbackAsync, 
                 new List<string>(new[] { "Text", "All" }), 
                 "Export", 
@@ -121,7 +121,7 @@ public partial class MainViewModel
         }
     }
 
-    private async Task CopyChatAction()
+    private async Task CopyChatActionAsync()
     {
         var app = Ioc.Default.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
@@ -129,7 +129,7 @@ public partial class MainViewModel
             var sb = new StringBuilder();
             await using var writer = new StringWriter(sb);
             await ExportChatAsync(CurrentChat, writer);
-            await app.SetClipboardText(sb.ToString());
+            await app.SetClipboardTextAsync(sb.ToString());
         }
     }
 
