@@ -35,9 +35,9 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 
 # NuGet
 
-[ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
-[ChatGPT.Core](https://www.nuget.org/packages/ChatGPT.Core) - An OpenAI client core library for .NET.
-[ChatGPT.UI](https://www.nuget.org/packages/ChatGPT.UI) - An OpenAI client user interface library for .NET.
+- [ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
+- [ChatGPT.Core](https://www.nuget.org/packages/ChatGPT.Core) - An OpenAI client core library for .NET.
+- [ChatGPT.UI](https://www.nuget.org/packages/ChatGPT.UI) - An OpenAI client user interface library for .NET.
 
 # Docs
 
