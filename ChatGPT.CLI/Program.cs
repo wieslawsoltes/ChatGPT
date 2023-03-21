@@ -41,13 +41,8 @@ chat.Messages.Add(new ChatMessageViewModel
 while (true)
 {
     Console.Write("> ");
+
     var input = Console.ReadLine();
-
-    if (input == null)
-    {
-        break;
-    }
-
     if (string.IsNullOrWhiteSpace(input) || input == Environment.NewLine)
     {
         continue;
