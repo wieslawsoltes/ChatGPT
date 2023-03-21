@@ -3,7 +3,7 @@
                     xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
                     xmlns:html="clr-namespace:TheArtOfDev.HtmlRenderer.Avalonia;assembly=Avalonia.HtmlRenderer"
                     xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
-                    xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT">
+                    xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core">
 
   <!-- Text -->
 

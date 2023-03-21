@@ -3,12 +3,12 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <IsPackable>True</IsPackable>
+    <RootNamespace>AI</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AI\AI.csproj" />
-  </ItemGroup>
+  <PropertyGroup>
+    <PackageId>ChatGPT</PackageId>
+    <Description>An OpenAI api library for .NET.</Description>
+    <PackageTags>openai;api;json;services;chat;completions</PackageTags>
+  </PropertyGroup>
 </Project>

@@ -6,6 +6,11 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <RootNamespace>ChatGPT</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>ChatGPT.UI</PackageId>
+    <Description>An OpenAI client library for .NET.</Description>
+    <PackageTags>openai;api;json;services;chat;completions;avalonia;avaloniaui</PackageTags>
+  </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
@@ -18,6 +23,6 @@
     <PackageReference Include="Avalonia.HtmlRenderer" Version="$(AvaloniaHtmlRendererVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatGPT\ChatGPT.csproj" />
+    <ProjectReference Include="..\ChatGPT.Core\ChatGPT.Core.csproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>True</IsPackable>
+    <RootNamespace>ChatGPT</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>ChatGPT.Core</PackageId>
+    <Description>An OpenAI client library for .NET.</Description>
+    <PackageTags>openai;api;json;services;chat;completions</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChatGPT\ChatGPT.csproj" />
+  </ItemGroup>
+</Project>
