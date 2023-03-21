@@ -58,6 +58,9 @@ public partial class MainViewModel
         return new ChatSettingsViewModel
         {
             Temperature = Defaults.DefaultTemperature,
+            TopP = Defaults.DefaultTopP,
+            PresencePenalty = Defaults.DefaultPresencePenalty,
+            FrequencyPenalty = Defaults.DefaultFrequencyPenalty,
             MaxTokens = Defaults.DefaultMaxTokens,
             Model = Defaults.DefaultModel,
             ApiKey = null,

@@ -6,6 +6,12 @@ public static class Defaults
 
     public const decimal DefaultTemperature = 0.7m;
 
+    public const decimal DefaultTopP = 1m;
+
+    public const decimal DefaultPresencePenalty = 0m;
+
+    public const decimal DefaultFrequencyPenalty = 0m;
+
     public const int DefaultMaxTokens = 256;
 
     public const string DefaultModel = "gpt-3.5-turbo";

@@ -35,8 +35,8 @@ public class ChatService : IChatService
             N = 1,
             Stream = false,
             Stop = settings.Stop,
-            FrequencyPenalty = 0.0m,
-            PresencePenalty = 0.0m,
+            FrequencyPenalty = settings.FrequencyPenalty,
+            PresencePenalty = settings.PresencePenalty,
             User = null
         };
 

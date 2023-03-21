@@ -10,6 +10,9 @@
   <Design.DataContext>
     <vm:ChatSettingsViewModel>
       <vm:ChatSettingsViewModel.Temperature>0.6</vm:ChatSettingsViewModel.Temperature>
+      <vm:ChatSettingsViewModel.TopP>1</vm:ChatSettingsViewModel.TopP>
+      <vm:ChatSettingsViewModel.FrequencyPenalty>0</vm:ChatSettingsViewModel.FrequencyPenalty>
+      <vm:ChatSettingsViewModel.PresencePenalty>0</vm:ChatSettingsViewModel.PresencePenalty>
       <vm:ChatSettingsViewModel.MaxTokens>100</vm:ChatSettingsViewModel.MaxTokens>
       <vm:ChatSettingsViewModel.ApiKey><x:Null/></vm:ChatSettingsViewModel.ApiKey>
     </vm:ChatSettingsViewModel>

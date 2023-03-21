@@ -6,6 +6,9 @@ namespace ChatGPT.ViewModels.Chat;
 public partial class ChatSettingsViewModel : ObservableObject
 {
     private decimal _temperature;
+    private decimal _topP;
+    private decimal _presencePenalty;
+    private decimal _frequencyPenalty;
     private int _maxTokens;
     private string? _apiKey;
     private string? _model;
@@ -17,6 +20,27 @@ public partial class ChatSettingsViewModel : ObservableObject
     {
         get => _temperature;
         set => SetProperty(ref _temperature, value);
+    }
+
+    [JsonPropertyName("top_p")]
+    public decimal TopP
+    {
+        get => _topP;
+        set => SetProperty(ref _topP, value);
+    }
+
+    [JsonPropertyName("presence_penalty")]
+    public decimal PresencePenalty
+    {
+        get => _presencePenalty;
+        set => SetProperty(ref _presencePenalty, value);
+    }
+
+    [JsonPropertyName("frequency_penalty")]
+    public decimal FrequencyPenalty
+    {
+        get => _frequencyPenalty;
+        set => SetProperty(ref _frequencyPenalty, value);
     }
 
     [JsonPropertyName("maxTokens")]
@@ -59,6 +83,9 @@ public partial class ChatSettingsViewModel : ObservableObject
         return new ChatSettingsViewModel
         {
             Temperature = _temperature,
+            TopP = _topP,
+            PresencePenalty = _presencePenalty,
+            FrequencyPenalty = _frequencyPenalty,
             MaxTokens = _maxTokens,
             ApiKey = _apiKey,
             Model = _model,

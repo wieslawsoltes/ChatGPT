@@ -10,5 +10,7 @@ public class ChatServiceSettings
     public decimal Temperature { get; set; }
     public int MaxTokens { get; set; }
     public decimal TopP { get; set; }
+    public decimal PresencePenalty { get; set; }
+    public decimal FrequencyPenalty { get; set; }
     public string? Stop { get; set; }
 }
