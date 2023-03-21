@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>ChatGPT.UI</PackageId>
-    <Description>An OpenAI client library for .NET.</Description>
+    <Description>An OpenAI client user interface library for .NET.</Description>
     <PackageTags>openai;api;json;services;chat;completions;avalonia;avaloniaui</PackageTags>
   </PropertyGroup>
   <ItemGroup>
