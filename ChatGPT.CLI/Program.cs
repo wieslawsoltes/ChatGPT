@@ -1,6 +1,5 @@
 ﻿using AI.Model.Services;
 using AI.Services;
-using ChatGPT;
 using ChatGPT.Model.Services;
 using ChatGPT.Services;
 using ChatGPT.ViewModels.Chat;
