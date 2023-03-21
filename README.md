@@ -20,7 +20,7 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 - Enter - Send prompt.
 - Escape - Cancel edit.
 - F2 - Edit prompt.
-- Alt+Enter - Insert new line.
+- Shift+Enter, Alt+Enter - Insert new line.
 
 # Build
 
