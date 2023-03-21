@@ -47,6 +47,7 @@ internal class Program
         // ViewModels
         serviceCollection.AddTransient<ChatMessageViewModel>();
         serviceCollection.AddTransient<ChatSettingsViewModel>();
+        serviceCollection.AddTransient<ChatResultViewModel>();
         serviceCollection.AddTransient<ChatViewModel>();
         serviceCollection.AddTransient<PromptViewModel>();
         serviceCollection.AddTransient<WorkspaceViewModel>();
