@@ -22,6 +22,12 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 - F2 - Edit prompt.
 - Alt+Enter - Insert new line.
 
+# Build
+
+1. Install [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+2. Run `dotnet workload install ios android wasm-tools` command
+3. `dotnet publish -c Release` command inside project directory (mobile/desktop) or `dotnet run` for desktop to just run
+
 # Docs
 
 - [Guide Chat completions](https://platform.openai.com/docs/guides/chat)
