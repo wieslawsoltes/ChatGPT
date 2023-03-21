@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>ChatGPT.Core</PackageId>
-    <Description>An OpenAI client library for .NET.</Description>
+    <Description>An OpenAI client core library for .NET.</Description>
     <PackageTags>openai;api;json;services;chat;completions</PackageTags>
   </PropertyGroup>
   <ItemGroup>
