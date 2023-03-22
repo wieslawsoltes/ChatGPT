@@ -33,6 +33,14 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 2. Run `dotnet workload install ios android wasm-tools` command
 3. `dotnet publish -c Release` command inside project directory (mobile/desktop) or `dotnet run` for desktop to just run
 
+### Dependencies
+
+- [Avalonia](https://github.com/AvaloniaUI/Avalonia)
+- [Markdown.Avalonia](https://github.com/whistyun/Markdown.Avalonia)
+- [Avalonia.HtmlRenderer](https://github.com/AvaloniaUI/Avalonia.HtmlRenderer)
+- [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
+- [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/)
+
 # NuGet
 
 - [ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
