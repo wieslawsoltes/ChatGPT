@@ -11,6 +11,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
+#if DEBUG
+        this.AttachDevTools();
+#endif
+  
         KeyBindings.Add(new KeyBinding
         {
             Gesture = new KeyGesture(Key.A, KeyModifiers.Control | KeyModifiers.Shift),
