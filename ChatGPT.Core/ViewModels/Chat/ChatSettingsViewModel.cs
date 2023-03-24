@@ -15,6 +15,16 @@ public partial class ChatSettingsViewModel : ObservableObject
     private string? _directions;
     private string? _format;
 
+    [JsonConstructor]
+    public ChatSettingsViewModel()
+    {
+        _temperature = 0.7m;
+        _topP = 1m;
+        _presencePenalty = 0m;
+        _frequencyPenalty = 0m;
+        _maxTokens = 256;
+    }
+
     [JsonPropertyName("temperature")]
     public decimal Temperature
     {
