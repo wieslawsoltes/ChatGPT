@@ -59,7 +59,7 @@ public partial class App : Application
         serviceCollection.AddTransient<IChatPlugin, ClipboardListenerChatPlugin>();
         serviceCollection.AddTransient<IChatPlugin, DummyChatPlugin>();
 
-        Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
+        Defaults.Locator.ConfigureServices(serviceCollection.BuildServiceProvider());
     }
 
     public override void Initialize()
@@ -69,13 +69,13 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
-        Ioc.Default.GetService<IPluginsService>()?.DiscoverPlugins();
+        Defaults.Locator.GetService<IPluginsService>()?.DiscoverPlugins();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindow = new MainWindow
             {
-                DataContext = Ioc.Default.GetService<MainViewModel>()
+                DataContext = Defaults.Locator.GetService<MainViewModel>()
             };
             desktop.MainWindow = mainWindow;
 
@@ -89,14 +89,14 @@ public partial class App : Application
             SetTheme();
 
             // TODO: Enable plugins.
-            Ioc.Default.GetService<IPluginsService>()?.InitPlugins();
-            // Ioc.Default.GetService<IPluginsService>()?.StartPlugins();
+            Defaults.Locator.GetService<IPluginsService>()?.InitPlugins();
+            // Defaults.Locator.GetService<IPluginsService>()?.StartPlugins();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
             single.MainView = new MainView
             {
-                DataContext = Ioc.Default.GetService<MainViewModel>()
+                DataContext = Defaults.Locator.GetService<MainViewModel>()
             };
 
             await InitSettingsAsync();
@@ -130,7 +130,7 @@ public partial class App : Application
 
     private void SetTheme()
     {
-        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
         if (mainViewModel?.Theme is { } theme)
         {
             switch (theme)
@@ -147,7 +147,7 @@ public partial class App : Application
 
     public async Task LoadWindowLayoutAsync(Window window)
     {
-        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var factory = Defaults.Locator.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
         if (storage is null)
         {
@@ -197,7 +197,7 @@ public partial class App : Application
             Topmost = window.Topmost
         };
 
-        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var factory = Defaults.Locator.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
         if (storage is { })
         {
@@ -222,7 +222,7 @@ public partial class App : Application
         {
             // _settingsDisposable?.Dispose();
             
-            Ioc.Default.GetService<IPluginsService>()?.ShutdownPlugins();
+            Defaults.Locator.GetService<IPluginsService>()?.ShutdownPlugins();
 
             SaveTheme();
             await SaveSettingsAsync();
@@ -235,7 +235,7 @@ public partial class App : Application
 
     public async Task LoadSettingsAsync()
     {
-        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
         if (mainViewModel is null)
         {
             return;
@@ -245,7 +245,7 @@ public partial class App : Application
 
     public async Task SaveSettingsAsync()
     {
-        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
         if (mainViewModel is null)
         {
             return;
@@ -256,7 +256,7 @@ public partial class App : Application
 
     public void LoadSettings()
     {
-        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
         if (mainViewModel is null)
         {
             return;
@@ -266,7 +266,7 @@ public partial class App : Application
 
     public void SaveSettings()
     {
-        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
         if (mainViewModel is null)
         {
             return;
@@ -283,7 +283,7 @@ public partial class App : Application
             theme = "Dark";
         }
 
-        var mainViewModel = Ioc.Default.GetService<MainViewModel>();
+        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
         if (mainViewModel is { })
         {
             mainViewModel.Theme = theme;
@@ -355,7 +355,7 @@ public partial class App : Application
 
     private void Quit_OnClick(object? sender, EventArgs e)
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             app.Exit();

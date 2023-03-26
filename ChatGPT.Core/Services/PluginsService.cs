@@ -18,7 +18,7 @@ public class PluginsService : IPluginsService
 
     public void DiscoverPlugins()
     {
-        var plugins = Ioc.Default.GetServices<IChatPlugin>();
+        var plugins = Defaults.Locator.GetServices<IChatPlugin>();
 
         foreach (var plugin in plugins)
         {

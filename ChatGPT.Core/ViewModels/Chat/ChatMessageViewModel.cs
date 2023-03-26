@@ -230,7 +230,7 @@ public class ChatMessageViewModel : ObservableObject
 
     private async Task OpenActionAsync()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             await app.OpenFileAsync(
@@ -242,7 +242,7 @@ public class ChatMessageViewModel : ObservableObject
 
     private async Task SaveActionAsync()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && Message is { })
         {
             await app.SaveFileAsync(

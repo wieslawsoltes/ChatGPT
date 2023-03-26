@@ -92,7 +92,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     private async Task LoadWorkspaceAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             await app.OpenFileAsync(
@@ -109,7 +109,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     private async Task ExportWorkspaceAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
             await app.SaveFileAsync(
@@ -202,7 +202,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public async Task LoadSettingsAsync()
     {
-        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var factory = Defaults.Locator.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is null)
         {
@@ -220,7 +220,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     public async Task SaveSettingsAsync()
     {
         var workspace = CreateWorkspace();
-        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var factory = Defaults.Locator.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {
@@ -233,7 +233,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public void LoadSettings()
     {
-        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var factory = Defaults.Locator.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is null)
         {
@@ -251,7 +251,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     public void SaveSettings()
     {
         var workspace = CreateWorkspace();
-        var factory = Ioc.Default.GetService<IStorageFactory>();
+        var factory = Defaults.Locator.GetService<IStorageFactory>();
         var storage = factory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {

@@ -83,7 +83,7 @@ public partial class MainViewModel
 
     private async Task OpenChatActionAsync()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             await app.OpenFileAsync(
@@ -95,7 +95,7 @@ public partial class MainViewModel
 
     private async Task SaveChatActionAsync()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
             await app.SaveFileAsync(
@@ -109,7 +109,7 @@ public partial class MainViewModel
 
     private async Task ExportChatActionAsync()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
             await app.SaveFileAsync(
@@ -123,7 +123,7 @@ public partial class MainViewModel
 
     private async Task CopyChatActionAsync()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
             var sb = new StringBuilder();

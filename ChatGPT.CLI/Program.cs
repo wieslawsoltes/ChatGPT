@@ -1,13 +1,7 @@
-﻿using AI.Model.Services;
-using AI.Services;
-using ChatGPT.Model.Services;
-using ChatGPT.Services;
+﻿using ChatGPT;
 using ChatGPT.ViewModels.Chat;
-using ChatGPT.ViewModels.Settings;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
 
-ConfigureServices();
+Defaults.ConfigureDefaultServices();
 
 var directions = 
 """
@@ -59,20 +53,4 @@ while (true)
     {
         Console.WriteLine("Error: " + ex.Message);
     }
-}
-
-void ConfigureServices()
-{
-    IServiceCollection serviceCollection = new ServiceCollection();
-
-    serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
-    serviceCollection.AddSingleton<IChatService, ChatService>();
-
-    serviceCollection.AddTransient<ChatMessageViewModel>();
-    serviceCollection.AddTransient<ChatSettingsViewModel>();
-    serviceCollection.AddTransient<ChatResultViewModel>();
-    serviceCollection.AddTransient<ChatViewModel>();
-    serviceCollection.AddTransient<PromptViewModel>();
-
-    Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
 }

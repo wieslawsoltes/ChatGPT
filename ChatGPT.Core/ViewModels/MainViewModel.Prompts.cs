@@ -91,7 +91,7 @@ public partial class MainViewModel
 
     private async Task OpenPromptsAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             await app.OpenFileAsync(
@@ -103,7 +103,7 @@ public partial class MainViewModel
 
     private async Task SavePromptsAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && CurrentChat is { })
         {
             await app.SaveFileAsync(
@@ -117,7 +117,7 @@ public partial class MainViewModel
 
     private async Task ImportPromptsAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             await app.OpenFileAsync(
@@ -129,7 +129,7 @@ public partial class MainViewModel
 
     private async Task CopyPromptAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { } && CurrentPrompt?.Prompt is { })
         {
             await app.SetClipboardTextAsync(CurrentPrompt.Prompt);

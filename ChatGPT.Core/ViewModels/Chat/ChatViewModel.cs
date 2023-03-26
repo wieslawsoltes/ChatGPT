@@ -73,7 +73,7 @@ public class ChatViewModel : ObservableObject
 
     public async Task CopyAsync(ChatMessageViewModel message)
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             if (message.Message is { } text)
@@ -272,7 +272,7 @@ public class ChatViewModel : ObservableObject
 
     private static async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings chatServiceSettings, ChatSettingsViewModel chatSettings, CancellationToken token)
     {
-        var chat = Ioc.Default.GetService<IChatService>();
+        var chat = Defaults.Locator.GetService<IChatService>();
         if (chat is null)
         {
             return null;

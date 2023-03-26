@@ -68,13 +68,13 @@ public partial class MainViewModel
 
     private void ExitAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         app?.Exit();
     }
 
     private void ChangeThemeAction()
     {
-        var app = Ioc.Default.GetService<IApplicationService>();
+        var app = Defaults.Locator.GetService<IApplicationService>();
         if (app is { })
         {
             app.ToggleTheme();

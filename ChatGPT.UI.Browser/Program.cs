@@ -53,6 +53,6 @@ internal class Program
         serviceCollection.AddTransient<WorkspaceViewModel>();
         serviceCollection.AddTransient<WindowLayoutViewModel>();
 
-        Ioc.Default.ConfigureServices(serviceCollection.BuildServiceProvider());
+        Defaults.Locator.ConfigureServices(serviceCollection.BuildServiceProvider());
     }
 }
