@@ -37,6 +37,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         Layout = "Mobile";
 
+        Topmost = true;
+
         InitPromptCallback();
 
         NewChatCallback();
@@ -88,6 +90,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         ChangeThemeCommand = new RelayCommand(ChangeThemeAction);
 
         ChangeDesktopMobileCommand = new RelayCommand(ChangeDesktopMobileAction);
+
+        ChangeTopmostCommand = new RelayCommand(ChangeTopmostAction);
     }
 
     private async Task LoadWorkspaceAction()
@@ -153,6 +157,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             CurrentLayout = CurrentLayout,
             Theme = Theme,
             Layout = Layout,
+            Topmost = Topmost,
         };
         return workspace;
     }
@@ -206,6 +211,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         {
             Theme = workspace.Theme;
         }
+
+        Topmost = workspace.Topmost;
     }
 
     public async Task LoadSettingsAsync()

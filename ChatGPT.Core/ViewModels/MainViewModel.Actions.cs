@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Layouts;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
@@ -13,6 +12,7 @@ public partial class MainViewModel
     private LayoutViewModel? _currentLayout;
     private string? _theme;
     private string? _layout;
+    private bool _topmost;
 
     [JsonPropertyName("layouts")]
     public ObservableCollection<LayoutViewModel>? Layouts
@@ -42,6 +42,13 @@ public partial class MainViewModel
         set => SetProperty(ref _layout, value);
     }
 
+    [JsonPropertyName("topmost")]
+    public bool Topmost
+    {
+        get => _topmost;
+        set => SetProperty(ref _topmost, value);
+    }
+
     [JsonIgnore]
     public SingleLayoutViewModel? SingleLayout { get; private set; }
 
@@ -65,6 +72,9 @@ public partial class MainViewModel
 
     [JsonIgnore]
     public IRelayCommand ChangeDesktopMobileCommand { get; }
+
+    [JsonIgnore]
+    public IRelayCommand ChangeTopmostCommand { get; }
 
     private void ExitAction()
     {
@@ -93,6 +103,16 @@ public partial class MainViewModel
                 CurrentLayout = SingleLayout;
                 Layout = "Mobile";
                 break;
+        }
+    }
+
+    private void ChangeTopmostAction()
+    {
+        var app = Defaults.Locator.GetService<IApplicationService>();
+        if (app is { })
+        {
+            Topmost = !Topmost;
+            app.ToggleTopmost();
         }
     }
 }

@@ -16,6 +16,7 @@ public class WorkspaceViewModel : ObservableObject
     private LayoutViewModel? _currentLayout;
     private string? _theme;
     private string? _layout;
+    private bool _topmost;
 
     [JsonPropertyName("chats")]
     public ObservableCollection<ChatViewModel>? Chats
@@ -71,5 +72,12 @@ public class WorkspaceViewModel : ObservableObject
     {
         get => _layout;
         set => SetProperty(ref _layout, value);
+    }
+
+    [JsonPropertyName("topmost")]
+    public bool Topmost
+    {
+        get => _topmost;
+        set => SetProperty(ref _topmost, value);
     }
 }

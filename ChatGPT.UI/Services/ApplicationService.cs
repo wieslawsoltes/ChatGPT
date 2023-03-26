@@ -155,6 +155,14 @@ public class ApplicationService : IApplicationService
         }
     }
 
+    public void ToggleTopmost()
+    {
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: { } window })
+        {
+            window.Topmost = !window.Topmost;
+        }
+    }
+
     public async Task SetClipboardTextAsync(string text)
     {
         try
