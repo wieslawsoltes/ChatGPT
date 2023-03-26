@@ -192,6 +192,16 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         if (workspace.Layout is { })
         {
             Layout = workspace.Layout;
+
+            switch (Layout)
+            {
+                case "Mobile":
+                    CurrentLayout = SingleLayout;
+                    break;
+                case "Desktop":
+                    CurrentLayout = ColumnLayout;
+                    break;
+            }
         }
 
         if (workspace.Theme is { })
