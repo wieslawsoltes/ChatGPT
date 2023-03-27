@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.UI.iOS", "ChatGPT.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.UI.Browser", "ChatGPT.UI.Browser\ChatGPT.UI.Browser.csproj", "{C484BEA9-F1E2-4135-89EA-5871E7F89CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.CLI", "ChatGPT.CLI\ChatGPT.CLI.csproj", "{AC2B2748-09FD-401F-A167-8DC3D06A52AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT.CLI.REPL", "ChatGPT.CLI.REPL\ChatGPT.CLI.REPL.csproj", "{AC2B2748-09FD-401F-A167-8DC3D06A52AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <TrimMode>full</TrimMode>
     <IsPackable>False</IsPackable>
+    <RootNamespace>ChatGPT.CLI</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <PublishAot>True</PublishAot>
