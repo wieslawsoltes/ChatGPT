@@ -18,8 +18,6 @@ var chat = new ChatViewModel
 {
     Settings = new ChatSettingsViewModel
     {
-        Temperature = 0.7m,
-        TopP = 1m,
         MaxTokens = 2000,
         Model = "gpt-3.5-turbo",
         Directions = directions
