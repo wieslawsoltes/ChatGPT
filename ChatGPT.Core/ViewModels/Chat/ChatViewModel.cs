@@ -409,4 +409,36 @@ public class ChatViewModel : ObservableObject
         });
         return this;
     }
+
+    private ObservableCollection<ChatMessageViewModel> CopyMessages(out ChatMessageViewModel? currentMessage)
+    {
+        var messages = new ObservableCollection<ChatMessageViewModel>();
+
+        currentMessage = null;
+
+        foreach (var message in _messages)
+        {
+            var messageCopy = message.Copy();
+
+            messages.Add(messageCopy);
+
+            if (message == _currentMessage)
+            {
+                currentMessage = messageCopy;
+            }
+        }
+
+        return messages;
+    }
+
+    public ChatViewModel Copy()
+    {
+        return new ChatViewModel
+        {
+            Name = _name,
+            Settings = _settings?.Copy(),
+            Messages = CopyMessages(out var currentMessage),
+            CurrentMessage = currentMessage
+        };
+    }
 }
