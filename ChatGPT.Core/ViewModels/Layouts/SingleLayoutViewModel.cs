@@ -81,4 +81,15 @@ public partial class SingleLayoutViewModel : LayoutViewModel
         ShowPrompts = false;
         ShowMenu = false;
     }
+
+    public override LayoutViewModel Copy()
+    {
+        return new SingleLayoutViewModel()
+        {
+            ShowChats = ShowChats,
+            ShowSettings = ShowSettings,
+            ShowPrompts = ShowPrompts,
+            ShowMenu = _showMenu
+        };
+    }
 }

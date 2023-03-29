@@ -62,4 +62,17 @@ public partial class ColumnLayoutViewModel : LayoutViewModel
     {
         ShowPrompts = !ShowPrompts;
     }
+
+    public override LayoutViewModel Copy()
+    {
+        return new ColumnLayoutViewModel()
+        {
+            ShowChats = ShowChats,
+            ShowSettings = ShowSettings,
+            ShowPrompts = ShowPrompts,
+            SettingsWidth = _settingsWidth,
+            ChatsWidth = _chatsWidth,
+            PromptsWidth = _promptsWidth
+        };
+    }
 }

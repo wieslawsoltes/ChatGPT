@@ -61,4 +61,6 @@ public abstract partial class LayoutViewModel : ObservableObject
     protected abstract void ShowChatsAction();
 
     protected abstract void ShowPromptsAction();
+
+    public abstract LayoutViewModel Copy();
 }
