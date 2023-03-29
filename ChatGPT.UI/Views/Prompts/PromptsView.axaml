@@ -5,12 +5,19 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT.Core"
              xmlns:vms="clr-namespace:ChatGPT.ViewModels.Settings;assembly=ChatGPT.Core"
              xmlns:promtps="clr-namespace:ChatGPT.Views.Prompts"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="650"
              x:Class="ChatGPT.Views.Prompts.PromptsView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
-      <!-- TODO: -->
+      <vm:MainViewModel.Prompts>
+        <objectModel:ObservableCollection x:TypeArguments="vms:PromptViewModel">
+          <vms:PromptViewModel Act="Act 1" Prompt="Prompt 1" />
+          <vms:PromptViewModel Act="Act 2" Prompt="Prompt 2" />
+          <vms:PromptViewModel Act="Act 3" Prompt="Prompt 3" />
+        </objectModel:ObservableCollection>
+      </vm:MainViewModel.Prompts>
     </vm:MainViewModel>
   </Design.DataContext>
   <DockPanel VerticalAlignment="Stretch">
