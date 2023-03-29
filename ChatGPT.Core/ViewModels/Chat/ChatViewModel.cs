@@ -30,6 +30,34 @@ public class ChatViewModel : ObservableObject
         _isEnabled = true;
     }
 
+    public ChatViewModel(ChatSettingsViewModel settings) : this()
+    {
+        _settings = settings;
+    }
+
+    public ChatViewModel(
+        string directions = "You are a helpful assistant.", 
+        decimal temperature = 0.7m,
+        decimal topP = 1m,
+        decimal presencePenalty = 0m,
+        decimal frequencyPenalty = 0m,
+        int maxTokens = 2000, 
+        string? apiKey = null,
+        string model = "gpt-3.5-turbo") : this()
+    {
+        _settings = new ChatSettingsViewModel
+        {
+            Temperature = temperature,
+            TopP = topP,
+            PresencePenalty = presencePenalty,
+            FrequencyPenalty = frequencyPenalty,
+            MaxTokens = maxTokens,
+            ApiKey = apiKey,
+            Model = model,
+            Directions = directions
+        };
+    }
+    
     [JsonPropertyName("name")]
     public string? Name
     {
