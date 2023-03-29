@@ -22,7 +22,10 @@ public partial class ChatSettingsViewModel : ObservableObject
         _topP = 1m;
         _presencePenalty = 0m;
         _frequencyPenalty = 0m;
-        _maxTokens = 256;
+        _maxTokens = 2000;
+        _apiKey = null;
+        _model = "gpt-3.5-turbo";
+        _directions = "You are a helpful assistant.";
     }
 
     [JsonPropertyName("temperature")]
