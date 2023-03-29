@@ -55,9 +55,7 @@
                     TextElement.FontSize="{DynamicResource MessageFontSize}"
                     IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Classes.error="{Binding IsError}" >
-      <!-- TODO: Error style. -->
-    </html:HtmlPanel>
+                    Classes.error="{Binding IsError}" />
   </DataTemplate>
 
 </ResourceDictionary>
