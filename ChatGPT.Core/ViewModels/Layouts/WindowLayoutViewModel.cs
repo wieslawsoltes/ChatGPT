@@ -66,4 +66,18 @@ public partial class WindowLayoutViewModel : ObservableObject
         get => _topmost;
         set => SetProperty(ref _topmost, value);
     }
+    
+    public WindowLayoutViewModel Copy()
+    {
+        return new WindowLayoutViewModel
+        {
+            X = _x,
+            Y = _y,
+            Width = _width,
+            Height = _height,
+            WindowState = _windowState,
+            WindowStartupLocation = _windowStartupLocation,
+            Topmost = _topmost,
+        };
+    }
 }
