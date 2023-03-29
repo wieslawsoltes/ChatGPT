@@ -15,7 +15,7 @@ internal class CliSettings
     public decimal TopP { get; set; } = 1m;
     public decimal PresencePenalty { get; set; } = 0m;
     public decimal FrequencyPenalty { get; set; } = 0m;
-    public int MaxTokens { get; set; } = 2000;
+    public int MaxTokens { get; set; } = 3500;
     public string? ApiKey { get; set; } = null;
     public string? Model { get; set; } = "gpt-3.5-turbo";
     public string? Directions { get; set; } = "You are a helpful assistant.";
