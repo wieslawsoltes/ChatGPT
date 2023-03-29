@@ -9,7 +9,7 @@
   <PropertyGroup>
     <PackageId>ChatGPT.UI</PackageId>
     <Description>An OpenAI client user interface library for .NET.</Description>
-    <PackageTags>openai;api;json;services;chat;completions;avalonia;avaloniaui</PackageTags>
+    <PackageTags>openai;api;json;services;chat;chatgpt;completions;avalonia;avaloniaui</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
