@@ -112,7 +112,6 @@ public partial class MainViewModel
         if (app is { })
         {
             Topmost = !Topmost;
-            app.ToggleTopmost();
         }
     }
 }
