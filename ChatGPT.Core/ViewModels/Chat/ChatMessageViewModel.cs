@@ -290,4 +290,25 @@ public class ChatMessageViewModel : ObservableObject
     {
         _remove = remove;
     }
+
+    public ChatMessageViewModel Copy()
+    {
+        var message = new ChatMessageViewModel
+        {
+            Role = _role,
+            Message = _message,
+            Format = _format,
+            IsSent = _isSent,
+            IsAwaiting = _isAwaiting,
+            IsError = _isError,
+            CanRemove = _canRemove,
+            IsEditing = _isEditing
+        };
+
+        message.SetSendAction(_send);
+        message.SetCopyAction(_copy);
+        message.SetRemoveAction(_remove);
+
+        return message;
+    }
 }
