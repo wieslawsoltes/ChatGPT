@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
@@ -11,7 +10,6 @@ using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;

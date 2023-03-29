@@ -1,6 +1,4 @@
 using System;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AI.Model.Services;
 using AI.Services;
@@ -10,7 +8,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Styling;
-using Avalonia.Threading;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
 using ChatGPT.Plugins;
@@ -20,7 +17,6 @@ using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using ChatGPT.Views;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatGPT;

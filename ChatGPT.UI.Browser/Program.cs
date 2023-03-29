@@ -11,7 +11,6 @@ using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly:SupportedOSPlatform("browser")]

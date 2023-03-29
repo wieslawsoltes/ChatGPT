@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatGPT.Services;
