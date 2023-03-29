@@ -85,7 +85,7 @@ dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expe
 
 C# to F#
 ```
-dotnet run -- -d ./ -e fs -p *.cs --directions ""You are C# to F# b convertion expert. Convert input code from C# to F#. Write only code."
+dotnet run -- -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
 ```
 
 # NuGet
