@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT.Core"
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
+             xmlns:vml="clr-namespace:ChatGPT.ViewModels.Layouts;assembly=ChatGPT.Core"
              xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
              xmlns:views="clr-namespace:ChatGPT.Views"
              xmlns:settings="clr-namespace:ChatGPT.Views.Settings"
@@ -14,7 +15,14 @@
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
-      <!-- TODO: -->
+      <vm:MainViewModel.SingleLayout>
+        <vml:SingleLayoutViewModel>
+          <vml:SingleLayoutViewModel.ShowChats>True</vml:SingleLayoutViewModel.ShowChats>
+          <vml:SingleLayoutViewModel.ShowSettings>True</vml:SingleLayoutViewModel.ShowSettings>
+          <vml:SingleLayoutViewModel.ShowPrompts>True</vml:SingleLayoutViewModel.ShowPrompts>
+          <vml:SingleLayoutViewModel.ShowMenu>False</vml:SingleLayoutViewModel.ShowMenu>
+        </vml:SingleLayoutViewModel>
+      </vm:MainViewModel.SingleLayout>
     </vm:MainViewModel>
   </Design.DataContext>
 
