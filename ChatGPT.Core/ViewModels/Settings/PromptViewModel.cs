@@ -21,4 +21,13 @@ public class PromptViewModel : ObservableObject
         get => _prompt;
         set => SetProperty(ref _prompt, value);
     }
+
+    public PromptViewModel Copy()
+    {
+        return new PromptViewModel
+        {
+            Act = _act,
+            Prompt = _prompt
+        };
+    }
 }
