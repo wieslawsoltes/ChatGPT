@@ -9,6 +9,6 @@
   <PropertyGroup>
     <PackageId>ChatGPT</PackageId>
     <Description>An OpenAI api library for .NET.</Description>
-    <PackageTags>openai;api;json;services;chat;completions</PackageTags>
+    <PackageTags>openai;api;json;services;chat;chatgpt;completions</PackageTags>
   </PropertyGroup>
 </Project>
