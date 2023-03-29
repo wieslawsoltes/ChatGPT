@@ -14,8 +14,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>ChatGPT.CLI</PackageId>
-    <Description>An OpenAI chat tool for .NET.</Description>
-    <PackageTags>openai;api;json;services;chat;completions</PackageTags>
+    <Description>An .NET ChatGPT tool.</Description>
+    <PackageTags>openai;api;json;services;chat;chatgpt;completions</PackageTags>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <PublishAot>False</PublishAot>
