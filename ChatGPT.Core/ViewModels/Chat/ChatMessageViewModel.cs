@@ -25,6 +25,7 @@ public class ChatMessageViewModel : ObservableObject
     private Func<ChatMessageViewModel, Task>? _copy;
     private Action<ChatMessageViewModel>? _remove;
 
+    [JsonConstructor]
     public ChatMessageViewModel()
     {
         AddCommand = new AsyncRelayCommand(async _ => await AddActionAsync());
