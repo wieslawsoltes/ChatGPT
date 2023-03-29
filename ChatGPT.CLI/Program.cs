@@ -1,6 +1,9 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Invocation;
+using ChatGPT;
 using ChatGPT.CLI;
+
+Defaults.ConfigureDefaultServices();
 
 await CreateRootCommand().InvokeAsync(args);
 
@@ -123,7 +126,7 @@ RootCommand CreateRootCommand()
         Argument = new Argument<bool>()
     };
 
-    var rootCommand = new RootCommand { Description = "An .NET compression tool." };
+    var rootCommand = new RootCommand { Description = "An .NET ChatGPT tool." };
 
     rootCommand.AddOption(optionInputFiles);
     rootCommand.AddOption(optionInputDirectory);
