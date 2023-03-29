@@ -23,6 +23,7 @@ public class ChatViewModel : ObservableObject
     private bool _isEnabled;
     private CancellationTokenSource? _cts;
 
+    [JsonConstructor]
     public ChatViewModel()
     {
         _messages = new ObservableCollection<ChatMessageViewModel>();
