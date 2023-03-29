@@ -82,6 +82,21 @@ Options:
 
 ### Examples
 
+- Using .NET tool `chat` command:
+
+C# to VB
+```
+chat -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
+```
+
+C# to F#
+```
+chat -d ./ -e fs -p *.cs --directions "You are C# to F# b convertion expert. Convert input code from C# to F#. Write only code."
+
+```
+
+- Run from source
+
 C# to VB
 ```
 dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
