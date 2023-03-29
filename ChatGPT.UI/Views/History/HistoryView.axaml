@@ -5,12 +5,19 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT.Core"
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
              xmlns:history="clr-namespace:ChatGPT.Views.History"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="650"
              x:Class="ChatGPT.Views.History.HistoryView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
-      <!-- TODO: -->
+      <vm:MainViewModel.Chats>
+        <objectModel:ObservableCollection x:TypeArguments="vmc:ChatViewModel">
+          <vmc:ChatViewModel Name="Chat 1" />
+          <vmc:ChatViewModel Name="Chat 2" />
+          <vmc:ChatViewModel Name="Chat 3" />
+        </objectModel:ObservableCollection>
+      </vm:MainViewModel.Chats>
     </vm:MainViewModel>
   </Design.DataContext>
   <DockPanel VerticalAlignment="Stretch">
