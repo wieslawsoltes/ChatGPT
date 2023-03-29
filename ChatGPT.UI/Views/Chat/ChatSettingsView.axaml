@@ -3,19 +3,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
-             xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
+             xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="750"
              x:Class="ChatGPT.Views.Chat.ChatSettingsView"
-             x:CompileBindings="True" x:DataType="vm:ChatSettingsViewModel">
+             x:CompileBindings="True" x:DataType="vmc:ChatSettingsViewModel">
   <Design.DataContext>
-    <vm:ChatSettingsViewModel>
-      <vm:ChatSettingsViewModel.Temperature>0.6</vm:ChatSettingsViewModel.Temperature>
-      <vm:ChatSettingsViewModel.TopP>1</vm:ChatSettingsViewModel.TopP>
-      <vm:ChatSettingsViewModel.FrequencyPenalty>0</vm:ChatSettingsViewModel.FrequencyPenalty>
-      <vm:ChatSettingsViewModel.PresencePenalty>0</vm:ChatSettingsViewModel.PresencePenalty>
-      <vm:ChatSettingsViewModel.MaxTokens>100</vm:ChatSettingsViewModel.MaxTokens>
-      <vm:ChatSettingsViewModel.ApiKey><x:Null/></vm:ChatSettingsViewModel.ApiKey>
-    </vm:ChatSettingsViewModel>
+    <vmc:ChatSettingsViewModel>
+      <vmc:ChatSettingsViewModel.Temperature>0.6</vmc:ChatSettingsViewModel.Temperature>
+      <vmc:ChatSettingsViewModel.TopP>1</vmc:ChatSettingsViewModel.TopP>
+      <vmc:ChatSettingsViewModel.FrequencyPenalty>0</vmc:ChatSettingsViewModel.FrequencyPenalty>
+      <vmc:ChatSettingsViewModel.PresencePenalty>0</vmc:ChatSettingsViewModel.PresencePenalty>
+      <vmc:ChatSettingsViewModel.MaxTokens>100</vmc:ChatSettingsViewModel.MaxTokens>
+      <vmc:ChatSettingsViewModel.ApiKey><x:Null/></vmc:ChatSettingsViewModel.ApiKey>
+    </vmc:ChatSettingsViewModel>
   </Design.DataContext>
   <StackPanel Orientation="Vertical">
     <!-- Temperature -->
