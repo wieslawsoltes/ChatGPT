@@ -18,7 +18,7 @@
         Height="740"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        Topmost="True"
+        Topmost="{Binding Topmost}"
         x:Name="Main"
         x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
