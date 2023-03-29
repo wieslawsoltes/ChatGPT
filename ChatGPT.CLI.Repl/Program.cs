@@ -5,8 +5,9 @@ Defaults.ConfigureDefaultServices();
 
 var directions = 
 """
-You are a helpful assistant named Clippy.
-Write answers in plain text, do not use markdown.
+You are a helpful assistant.
+Write answers in plain text.
+Do not use markdown.
 """;
 
 if (args.Length == 1)
@@ -14,15 +15,13 @@ if (args.Length == 1)
     directions = args[0];
 }
 
-var chat = new ChatViewModel
+using var cts = new CancellationTokenSource();
+
+var chat = new ChatViewModel(new ChatSettingsViewModel
 {
-    Settings = new ChatSettingsViewModel
-    {
-        MaxTokens = 2000,
-        Model = "gpt-3.5-turbo",
-        Directions = directions
-    }
-};
+    MaxTokens = 2000,
+    Model = "gpt-3.5-turbo"
+});
 
 chat.AddSystemMessage(directions);
 
@@ -39,12 +38,8 @@ while (true)
     try
     {
         chat.AddUserMessage(input);
-
-        using var cts = new CancellationTokenSource();
         var result = await chat.SendAsync(chat.CreateChatMessages(), cts.Token);
-
         chat.AddAssistantMessage(result?.Message);
-
         Console.WriteLine(result?.Message);
     }
     catch (Exception ex)
