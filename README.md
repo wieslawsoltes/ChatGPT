@@ -76,6 +76,18 @@ Options:
 -?, -h, --help                             Show help and usage information
 ```
 
+### Examples
+
+C# to VB
+```
+dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
+```
+
+C# to F#
+```
+dotnet run -- -d ./ -e fs -p *.cs --directions ""You are C# to F# b convertion expert. Convert input code from C# to F#. Write only code."
+```
+
 # NuGet
 
 - [ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
