@@ -90,7 +90,7 @@ RootCommand CreateRootCommand()
         new[] { "--maxTokens" },
         "The maximum number of tokens to generate in the chat completion.")
     {
-        Argument = new Argument<int>(getDefaultValue: () => 3500)
+        Argument = new Argument<int>(getDefaultValue: () => 2000)
     };
     
     var optionApiKey = new Option(
