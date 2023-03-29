@@ -7,7 +7,7 @@ internal static class Chat
 {
     private static readonly Action<object>? s_log = Console.WriteLine;
 
-    private static async void RunJob(ChatJob job, CancellationToken token)
+    private static async Task RunJob(ChatJob job, CancellationToken token)
     {
         try
         {
@@ -33,7 +33,7 @@ internal static class Chat
         }
     }
 
-    public static void Run(CliSettings cliSettings)
+    public static async Task Run(CliSettings cliSettings)
     {
         var paths = GetPaths(cliSettings);
         if (paths == null || paths.Count == 0)
@@ -68,11 +68,14 @@ internal static class Chat
 
         var cts = new CancellationTokenSource();
 
-        Parallel.For(
-            0, 
-            jobs.Count, 
-            new ParallelOptions {MaxDegreeOfParallelism = cliSettings.Threads}, 
-            i => RunJob(jobs[i], cts.Token));
+        await Parallel.ForEachAsync(
+            jobs, 
+            new ParallelOptions
+            {
+                MaxDegreeOfParallelism = cliSettings.Threads, 
+                CancellationToken = cts.Token
+            }, 
+            async (job, token) => await RunJob(job, token));
 
         sw.Stop();
 
