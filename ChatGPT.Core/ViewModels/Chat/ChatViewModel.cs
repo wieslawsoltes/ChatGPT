@@ -57,7 +57,7 @@ public class ChatViewModel : ObservableObject
             Directions = directions
         };
     }
-    
+
     [JsonPropertyName("name")]
     public string? Name
     {
