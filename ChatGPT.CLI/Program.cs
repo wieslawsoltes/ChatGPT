@@ -90,7 +90,7 @@ RootCommand CreateRootCommand()
         new[] { "--maxTokens" },
         "The maximum number of tokens to generate in the chat completion.")
     {
-        Argument = new Argument<int>(getDefaultValue: () => 2000)
+        Argument = new Argument<int>(getDefaultValue: () => 3500)
     };
     
     var optionApiKey = new Option(
@@ -146,7 +146,7 @@ RootCommand CreateRootCommand()
     rootCommand.AddOption(optionThreads);
     rootCommand.AddOption(optionQuiet);
 
-    static void Execute(CliSettings settings) => Chat.Run(settings);
+    static async Task Execute(CliSettings settings) => await Chat.Run(settings);
 
     rootCommand.Handler = CommandHandler.Create(Execute);
 
