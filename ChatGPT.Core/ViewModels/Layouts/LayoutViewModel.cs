@@ -15,7 +15,7 @@ public abstract partial class LayoutViewModel : ObservableObject
     private bool _showPrompts;
 
     [JsonConstructor]
-    public LayoutViewModel()
+    protected LayoutViewModel()
     {
         ShowSettingsCommand = new RelayCommand(ShowSettingsAction);
 
