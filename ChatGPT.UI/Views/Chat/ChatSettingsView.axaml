@@ -41,7 +41,7 @@
                  FontSize="{DynamicResource SettingHeaderFontSize}" />
       <NumericUpDown Value="{Binding MaxTokens}" 
                      Minimum="0" 
-                     Maximum="4000" 
+                     Maximum="32000" 
                      Increment="100"
                      Margin="8,0,8,0" 
                      Padding="8" 
