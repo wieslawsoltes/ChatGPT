@@ -352,30 +352,33 @@ public class ChatViewModel : ObservableObject
         return result;
     }
 
-    public void AddSystemMessage(string? message)
+    public ChatViewModel AddSystemMessage(string? message)
     {
         Messages.Add(new ChatMessageViewModel
         {
             Role = "system",
             Message = message
         });
+        return this;
     }
 
-    public void AddUserMessage(string? message)
+    public ChatViewModel AddUserMessage(string? message)
     {
         Messages.Add(new ChatMessageViewModel
         {
             Role = "user",
             Message = message
         });
+        return this;
     }
 
-    public void AddAssistantMessage(string? message)
+    public ChatViewModel AddAssistantMessage(string? message)
     {
         Messages.Add(new ChatMessageViewModel
         {
             Role = "assistant",
             Message = message
         });
+        return this;
     }
 }
