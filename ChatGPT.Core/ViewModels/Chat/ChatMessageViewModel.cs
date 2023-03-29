@@ -47,6 +47,13 @@ public class ChatMessageViewModel : ObservableObject
         SaveCommand = new AsyncRelayCommand(async _ => await SaveActionAsync());
     }
 
+    public ChatMessageViewModel(string role, string message) 
+        : this()
+    {
+        _role = role;
+        _message = message;
+    }
+
     [JsonPropertyName("role")]
     public string? Role
     {
