@@ -91,7 +91,7 @@ chat -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Conve
 
 C# to F#
 ```
-chat -d ./ -e fs -p *.cs --directions "You are C# to F# b convertion expert. Convert input code from C# to F#. Write only code."
+chat -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
 
 ```
 
