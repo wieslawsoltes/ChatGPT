@@ -43,8 +43,14 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 
 # .NET tool
 
+Install:
 ```
 dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.7
+```
+
+Uninstall:
+```
+dotnet tool uninstall --global ChatGPT.CLI
 ```
 
 - [ChatGPT.CLI](https://www.nuget.org/packages/ChatGPT.CLI) - An .NET ChatGPT tool.
