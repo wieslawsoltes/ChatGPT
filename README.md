@@ -106,6 +106,11 @@ Refactor C# code
 chat -d ./ -e cs -p *.cs --directions "You are C# expert. Refactor C# code to use fluent api. Write only code."
 ```
 
+Write API documentation
+```bash
+chat -d ./ -e md -p *.cs --directions "You are a technical documentation writer. Write API documentation for C# code. If XML docs are missing write them."
+```
+
 - Run from source
 
 C# to VB
@@ -116,6 +121,11 @@ dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expe
 C# to F#
 ```bash
 dotnet run -- -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
+```
+
+Write API documentation
+```bash
+dotnet run -- -d ./ -e md -p *.cs --directions "You are a technical documentation writer. Write API documentation for C# code. If XML docs are missing write them."
 ```
 
 ### Settings file format
