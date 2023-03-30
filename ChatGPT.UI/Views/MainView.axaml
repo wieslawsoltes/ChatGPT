@@ -53,9 +53,9 @@
   </Design.DataContext>
 
   <Panel>
-    <layout:SingleLayoutView 
+    <layout:MobileLayoutView 
       IsVisible="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Mobile'}" />
-    <layout:ColumnLayoutView 
+    <layout:DesktopLayoutView 
       IsVisible="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Desktop'}" />
   </Panel>
 

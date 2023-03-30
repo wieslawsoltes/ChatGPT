@@ -13,7 +13,7 @@
              xmlns:controls="clr-namespace:ChatGPT.Controls"
              xmlns:converters="clr-namespace:ChatGPT.Converters"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
-             x:Class="ChatGPT.Views.Layouts.ColumnLayoutView"
+             x:Class="ChatGPT.Views.Layouts.DesktopLayoutView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>

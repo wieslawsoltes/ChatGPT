@@ -5,11 +5,11 @@ using Avalonia.VisualTree;
 
 namespace ChatGPT.Views.Layouts;
 
-public partial class SingleLayoutView : UserControl
+public partial class DesktopLayoutView : UserControl
 {
     private bool _draggingWindow;
 
-    public SingleLayoutView()
+    public DesktopLayoutView()
     {
         InitializeComponent();
 
