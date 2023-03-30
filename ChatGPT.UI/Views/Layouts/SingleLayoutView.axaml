@@ -38,18 +38,18 @@
                PanePlacement="Left"
                OpenPaneLength="{Binding #ChatSplitView.Bounds.Width}"
                CompactPaneLength="0"
-               IsPaneOpen="{Binding SingleLayout.ShowMenu, Mode=TwoWay}"
+               IsPaneOpen="{Binding SingleLayout.ShowMenu, Mode=TwoWay, FallbackValue=False}"
                DisplayMode="CompactOverlay"
                UseLightDismissOverlayMode="True">
 
       <SplitView.Pane>
         <Panel>
           <settings:SettingsView Margin="16" 
-                                 IsVisible="{Binding SingleLayout.ShowSettings}" />
+                                 IsVisible="{Binding SingleLayout.ShowSettings, FallbackValue=False}" />
           <history:HistoryView Margin="16" 
-                               IsVisible="{Binding SingleLayout.ShowChats}" />
+                               IsVisible="{Binding SingleLayout.ShowChats, FallbackValue=False}" />
           <prompts:PromptsView Margin="16" 
-                               IsVisible="{Binding SingleLayout.ShowPrompts}" />
+                               IsVisible="{Binding SingleLayout.ShowPrompts, FallbackValue=False}" />
         </Panel>
       </SplitView.Pane>
 
