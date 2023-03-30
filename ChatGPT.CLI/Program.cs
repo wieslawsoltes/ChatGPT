@@ -58,6 +58,13 @@ RootCommand CreateRootCommand()
         Argument = new Argument<string>(getDefaultValue: () => "txt")
     };
 
+    var settingsFileDirectory = new Option(
+        new[] { "--settingsFile", "-s" },
+        "The relative or absolute path to the settings file")
+    {
+        Argument = new Argument<FileInfo?>(getDefaultValue: () => null)
+    };
+
     var optionTemperature = new Option(
         new[] { "--temperature" },
         "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.")
@@ -135,6 +142,8 @@ RootCommand CreateRootCommand()
     rootCommand.AddOption(optionPattern);
     rootCommand.AddOption(optionRecursive);
     rootCommand.AddOption(optionFormat);
+
+    rootCommand.AddOption(settingsFileDirectory);
     rootCommand.AddOption(optionTemperature);
     rootCommand.AddOption(optionTopP);
     rootCommand.AddOption(optionPresencePenalty);
@@ -143,6 +152,7 @@ RootCommand CreateRootCommand()
     rootCommand.AddOption(optionApiKey);
     rootCommand.AddOption(optionModel);
     rootCommand.AddOption(optionDirections);
+
     rootCommand.AddOption(optionThreads);
     rootCommand.AddOption(optionQuiet);
 

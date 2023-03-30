@@ -44,12 +44,12 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 # .NET tool
 
 Install:
-```
+```bash
 dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.7
 ```
 
 Uninstall:
-```
+```bash
 dotnet tool uninstall --global ChatGPT.CLI
 ```
 
@@ -72,6 +72,7 @@ Options:
 -p, --pattern <pattern>                    The search string to match against the names of files in the input directory
 -r, --recursive                            Recurse into subdirectories of input directory search
 -e, --extension <extension>                The output file extension
+-s, --settingsFile <settingsfile>          The relative or absolute path to the settings file
 --temperature <temperature>                What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
 --topP <topp>                              An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
 --presencePenalty <presencepenalty>        Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
@@ -91,30 +92,45 @@ Options:
 - Using .NET tool `chat` command:
 
 C# to VB
-```
+```bash
 chat -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
 ```
 
 C# to F#
-```
+```bash
 chat -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
 ```
 
 Refactor C# code
-```
+```bash
 chat -d ./ -e cs -p *.cs --directions "You are C# expert. Refactor C# code to use fluent api. Write only code."
 ```
 
 - Run from source
 
 C# to VB
-```
+```bash
 dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
 ```
 
 C# to F#
-```
+```bash
 dotnet run -- -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
+```
+
+### Settings file format
+
+```json
+{
+    "temperature": 0.7,
+    "top_p": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "maxTokens": 2000,
+    "apiKey": "",
+    "model": "gpt-3.5-turbo",
+    "directions": "You are a helpful assistant."
+}
 ```
 
 # NuGet

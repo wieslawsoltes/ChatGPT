@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Text.Json;
+using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
 
 namespace ChatGPT.CLI;
@@ -120,7 +122,17 @@ internal static class Chat
     {
         var jobs = new List<ChatJob>();
 
-        var chatSettings = new ChatSettingsViewModel
+        var fileSettings = default(ChatSettingsViewModel);
+
+        if (cliSettings.SettingsFile is { })
+        {
+            using var stream = File.OpenRead(cliSettings.SettingsFile.FullName);
+            fileSettings = JsonSerializer.Deserialize(
+                stream,
+                MainViewModelJsonContext.s_instance.ChatSettingsViewModel);
+        }
+
+        var chatSettings = fileSettings ?? new ChatSettingsViewModel
         {
             Temperature = cliSettings.Temperature,
             TopP = cliSettings.TopP,

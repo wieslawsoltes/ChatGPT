@@ -11,6 +11,7 @@ internal class CliSettings
     public bool Recursive { get; set; } = true;
     public string Extension { get; set; } = "txt";
     // Chat settings
+    public FileInfo? SettingsFile { get; set; } = null;
     public decimal Temperature { get; set; } = 0.7m;
     public decimal TopP { get; set; } = 1m;
     public decimal PresencePenalty { get; set; } = 0m;
