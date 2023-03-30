@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="740"
+        x:Class="ChatGPT.MainWindow"
+        Title="Designer"
+        Width="1000"
+        Height="740"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen">
+
+  <DockPanel>
+
+    <DockPanel Margin="6"
+               HorizontalAlignment="Stretch"
+               DockPanel.Dock="Bottom">
+      <Button Name="SendButton"
+              Click="SendButton_OnClick"
+              Margin="6"
+              DockPanel.Dock="Right">
+        <PathIcon Width="24"
+                  Height="24"
+                  Data="M5.694 12 2.299 3.272c-.236-.607.356-1.188.942-.982l.093.04 18 9a.75.75 0 0 1 .097 1.283l-.097.058-18 9c-.583.291-1.217-.244-1.065-.847l.03-.096L5.694 12 2.299 3.272 5.694 12ZM4.402 4.54l2.61 6.71h6.627a.75.75 0 0 1 .743.648l.007.102a.75.75 0 0 1-.649.743l-.101.007H7.01l-2.609 6.71L19.322 12 4.401 4.54Z"/>
+      </Button>
+      <TextBox Name="PromptTextBox"
+               AcceptsReturn="True"
+               AcceptsTab="True"
+               VerticalContentAlignment="Center"
+               Margin="6" />
+    </DockPanel>
+
+    <Panel HorizontalAlignment="Stretch" 
+           VerticalAlignment="Stretch"
+           Margin="6">
+      <TabControl TabStripPlacement="Bottom">
+        <TabItem Header="Design">
+          <ContentControl Name="PreviewContentControl"
+                          Margin="6" />
+        </TabItem>
+        <TabItem Header="Xaml">
+          <TextBox Name="XamlTextBox"
+                   AcceptsReturn="True"
+                   AcceptsTab="True"
+                   VerticalContentAlignment="Top"
+                   Margin="6"
+                   IsReadOnly="True" />
+        </TabItem>
+      </TabControl>
+    </Panel>
+
+  </DockPanel>
+  
+</Window>
