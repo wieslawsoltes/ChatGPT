@@ -45,7 +45,7 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 
 Install:
 ```bash
-dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.7
+dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.8
 ```
 
 Uninstall:
