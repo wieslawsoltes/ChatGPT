@@ -93,12 +93,12 @@ Options:
 
 C# to VB
 ```bash
-chat -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
+chat -d ./ -e vb -p *.cs --directions "You are C# to VB conversion expert. Convert input code from C# to VB. Write only converted code."
 ```
 
 C# to F#
 ```bash
-chat -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
+chat -d ./ -e fs -p *.cs --directions "You are C# to F# conversion expert. Convert input code from C# to F#. Write only code."
 ```
 
 Refactor C# code
@@ -115,12 +115,12 @@ chat -d ./ -e md -p *.cs --directions "You are a technical documentation writer.
 
 C# to VB
 ```bash
-dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB convertion expert. Convert input code from C# to VB. Write only converted code."
+dotnet run -- -d ./ -e vb -p *.cs --directions "You are C# to VB conversion expert. Convert input code from C# to VB. Write only converted code."
 ```
 
 C# to F#
 ```bash
-dotnet run -- -d ./ -e fs -p *.cs --directions "You are C# to F# convertion expert. Convert input code from C# to F#. Write only code."
+dotnet run -- -d ./ -e fs -p *.cs --directions "You are C# to F# conversion expert. Convert input code from C# to F#. Write only code."
 ```
 
 Write API documentation
