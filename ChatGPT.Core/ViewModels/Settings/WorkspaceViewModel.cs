@@ -9,23 +9,15 @@ namespace ChatGPT.ViewModels.Settings;
 public class WorkspaceViewModel : ObservableObject
 {
     private string? _name;
-    private ObservableCollection<ChatViewModel> _chats;
+    private ObservableCollection<ChatViewModel>? _chats;
     private ChatViewModel? _currentChat;
-    private ObservableCollection<PromptViewModel> _prompts;
+    private ObservableCollection<PromptViewModel>? _prompts;
     private PromptViewModel? _currentPrompt;
-    private ObservableCollection<LayoutViewModel> _layouts;
+    private ObservableCollection<LayoutViewModel>? _layouts;
     private LayoutViewModel? _currentLayout;
     private string? _theme;
     private string? _layout;
     private bool _topmost;
-
-    [JsonConstructor]
-    public WorkspaceViewModel()
-    {
-        _chats = new ObservableCollection<ChatViewModel>();
-        _prompts = new ObservableCollection<PromptViewModel>();
-        _layouts = new ObservableCollection<LayoutViewModel>();
-    }
 
     [JsonPropertyName("name")]
     public string? Name
@@ -35,7 +27,7 @@ public class WorkspaceViewModel : ObservableObject
     }
 
     [JsonPropertyName("chats")]
-    public ObservableCollection<ChatViewModel> Chats
+    public ObservableCollection<ChatViewModel>?  Chats
     {
         get => _chats;
         set => SetProperty(ref _chats, value);
@@ -49,7 +41,7 @@ public class WorkspaceViewModel : ObservableObject
     }
     
     [JsonPropertyName("prompts")]
-    public ObservableCollection<PromptViewModel> Prompts
+    public ObservableCollection<PromptViewModel>? Prompts
     {
         get => _prompts;
         set => SetProperty(ref _prompts, value);
@@ -63,7 +55,7 @@ public class WorkspaceViewModel : ObservableObject
     }
 
     [JsonPropertyName("layouts")]
-    public ObservableCollection<LayoutViewModel> Layouts
+    public ObservableCollection<LayoutViewModel>? Layouts
     {
         get => _layouts;
         set => SetProperty(ref _layouts, value);
@@ -97,11 +89,16 @@ public class WorkspaceViewModel : ObservableObject
         set => SetProperty(ref _topmost, value);
     }
 
-    private ObservableCollection<ChatViewModel> CopyChats(out ChatViewModel? currentChat)
+    private ObservableCollection<ChatViewModel>? CopyChats(out ChatViewModel? currentChat)
     {
-        var chats = new ObservableCollection<ChatViewModel>();
-
         currentChat = null;
+
+        if (_chats is null)
+        {
+            return null;
+        }
+
+        var chats = new ObservableCollection<ChatViewModel>();
 
         foreach (var chat in _chats)
         {
@@ -118,11 +115,16 @@ public class WorkspaceViewModel : ObservableObject
         return chats;
     }
 
-    private ObservableCollection<PromptViewModel> CopyPrompts(out PromptViewModel? currentPrompt)
+    private ObservableCollection<PromptViewModel>? CopyPrompts(out PromptViewModel? currentPrompt)
     {
-        var prompts = new ObservableCollection<PromptViewModel>();
-
         currentPrompt = null;
+
+        if (_prompts is null)
+        {
+            return null;
+        }
+
+        var prompts = new ObservableCollection<PromptViewModel>();
 
         foreach (var prompt in _prompts)
         {
@@ -139,11 +141,16 @@ public class WorkspaceViewModel : ObservableObject
         return prompts;
     }
 
-    private ObservableCollection<LayoutViewModel> CopyLayouts(out LayoutViewModel? currentLayout)
+    private ObservableCollection<LayoutViewModel>? CopyLayouts(out LayoutViewModel? currentLayout)
     {
-        var layouts = new ObservableCollection<LayoutViewModel>();
-
         currentLayout = null;
+
+        if (_layouts is null)
+        {
+            return null;
+        }
+
+        var layouts = new ObservableCollection<LayoutViewModel>();
 
         foreach (var layout in _layouts)
         {
