@@ -16,7 +16,6 @@ public class WorkspaceViewModel : ObservableObject
     private ObservableCollection<LayoutViewModel>? _layouts;
     private LayoutViewModel? _currentLayout;
     private string? _theme;
-    private string? _layout;
     private bool _topmost;
 
     [JsonPropertyName("name")]
@@ -73,13 +72,6 @@ public class WorkspaceViewModel : ObservableObject
     {
         get => _theme;
         set => SetProperty(ref _theme, value);
-    }
-
-    [JsonPropertyName("layout")]
-    public string? Layout
-    {
-        get => _layout;
-        set => SetProperty(ref _layout, value);
     }
 
     [JsonPropertyName("topmost")]
@@ -179,7 +171,6 @@ public class WorkspaceViewModel : ObservableObject
             Layouts = CopyLayouts(out var currentLayout),
             CurrentLayout = currentLayout,
             Theme = _theme,
-            Layout = _layout,
             Topmost = _topmost,
         };
     }

@@ -5,7 +5,8 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT.Core"
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
-             xmlns:controls="clr-namespace:ChatGPT.Controls"
+             xmlns:converters="clr-namespace:ChatGPT.Converters"
+             xmlns:layout="clr-namespace:ChatGPT.Views.Layouts"
              FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="740"
              x:Class="ChatGPT.Views.MainView"
@@ -51,6 +52,11 @@
     </vm:MainViewModel>
   </Design.DataContext>
 
-  <controls:LayoutContainer Layout="{Binding Layout}" />
+  <Panel>
+    <layout:SingleLayoutView 
+      IsVisible="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Mobile'}" />
+    <layout:ColumnLayoutView 
+      IsVisible="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Desktop'}" />
+  </Panel>
 
 </UserControl>

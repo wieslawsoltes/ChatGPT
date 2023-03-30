@@ -3,13 +3,15 @@ using System.Threading.Tasks;
 
 namespace ChatGPT.ViewModels.Layouts;
 
-public partial class SingleLayoutViewModel : LayoutViewModel
+public partial class MobileLayoutViewModel : LayoutViewModel
 {
     private bool _showMenu;
 
     [JsonConstructor]
-    public SingleLayoutViewModel()
+    public MobileLayoutViewModel()
     {
+        Name = "Mobile";
+
         ShowChats = false;
         ShowSettings = false;
         ShowPrompts = false;
@@ -84,7 +86,7 @@ public partial class SingleLayoutViewModel : LayoutViewModel
 
     public override LayoutViewModel Copy()
     {
-        return new SingleLayoutViewModel()
+        return new MobileLayoutViewModel()
         {
             ShowChats = ShowChats,
             ShowSettings = ShowSettings,

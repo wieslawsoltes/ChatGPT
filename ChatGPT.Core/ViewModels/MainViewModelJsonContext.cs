@@ -16,8 +16,8 @@ namespace ChatGPT.ViewModels;
 [JsonSerializable(typeof(PromptViewModel))]
 [JsonSerializable(typeof(ObservableCollection<PromptViewModel>))]
 [JsonSerializable(typeof(LayoutViewModel))]
-[JsonSerializable(typeof(SingleLayoutViewModel))]
-[JsonSerializable(typeof(ColumnLayoutViewModel))]
+[JsonSerializable(typeof(MobileLayoutViewModel))]
+[JsonSerializable(typeof(DesktopLayoutViewModel))]
 [JsonSerializable(typeof(ObservableCollection<LayoutViewModel>))]
 [JsonSerializable(typeof(WorkspaceViewModel))]
 public partial class MainViewModelJsonContext : JsonSerializerContext

@@ -21,19 +21,17 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         _chats = new ObservableCollection<ChatViewModel>();
         _prompts = new ObservableCollection<PromptViewModel>();
 
-        SingleLayout = new SingleLayoutViewModel();
+        MobileLayout = new MobileLayoutViewModel();
 
-        ColumnLayout = new ColumnLayoutViewModel();
+        DesktopLayout = new DesktopLayoutViewModel();
 
         _layouts = new ObservableCollection<LayoutViewModel>
         {
-            SingleLayout,
-            ColumnLayout
+            MobileLayout,
+            DesktopLayout
         };
 
-        CurrentLayout = SingleLayout;
-
-        Layout = "Mobile";
+        CurrentLayout = MobileLayout;
 
         Topmost = true;
 
@@ -154,7 +152,6 @@ public partial class MainViewModel : ObservableObject, IPluginContext
             Layouts = Layouts,
             CurrentLayout = CurrentLayout,
             Theme = Theme,
-            Layout = Layout,
             Topmost = Topmost,
         };
         return workspace;
@@ -185,24 +182,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         if (workspace.Layouts is { })
         {
             Layouts = workspace.Layouts;
+            MobileLayout = Layouts.OfType<MobileLayoutViewModel>().FirstOrDefault();
+            DesktopLayout = Layouts.OfType<DesktopLayoutViewModel>().FirstOrDefault();
             CurrentLayout = workspace.CurrentLayout;
-            SingleLayout = Layouts.OfType<SingleLayoutViewModel>().FirstOrDefault();
-            ColumnLayout = Layouts.OfType<ColumnLayoutViewModel>().FirstOrDefault();
-        }
-
-        if (workspace.Layout is { })
-        {
-            Layout = workspace.Layout;
-
-            switch (Layout)
-            {
-                case "Mobile":
-                    CurrentLayout = SingleLayout;
-                    break;
-                case "Desktop":
-                    CurrentLayout = ColumnLayout;
-                    break;
-            }
         }
 
         if (workspace.Theme is { })

@@ -15,14 +15,14 @@
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
-      <vm:MainViewModel.SingleLayout>
-        <vml:SingleLayoutViewModel>
-          <vml:SingleLayoutViewModel.ShowChats>True</vml:SingleLayoutViewModel.ShowChats>
-          <vml:SingleLayoutViewModel.ShowSettings>True</vml:SingleLayoutViewModel.ShowSettings>
-          <vml:SingleLayoutViewModel.ShowPrompts>True</vml:SingleLayoutViewModel.ShowPrompts>
-          <vml:SingleLayoutViewModel.ShowMenu>False</vml:SingleLayoutViewModel.ShowMenu>
-        </vml:SingleLayoutViewModel>
-      </vm:MainViewModel.SingleLayout>
+      <vm:MainViewModel.MobileLayout>
+        <vml:MobileLayoutViewModel>
+          <vml:MobileLayoutViewModel.ShowChats>True</vml:MobileLayoutViewModel.ShowChats>
+          <vml:MobileLayoutViewModel.ShowSettings>True</vml:MobileLayoutViewModel.ShowSettings>
+          <vml:MobileLayoutViewModel.ShowPrompts>True</vml:MobileLayoutViewModel.ShowPrompts>
+          <vml:MobileLayoutViewModel.ShowMenu>False</vml:MobileLayoutViewModel.ShowMenu>
+        </vml:MobileLayoutViewModel>
+      </vm:MainViewModel.MobileLayout>
     </vm:MainViewModel>
   </Design.DataContext>
 
@@ -38,22 +38,22 @@
                PanePlacement="Left"
                OpenPaneLength="{Binding #ChatSplitView.Bounds.Width}"
                CompactPaneLength="0"
-               IsPaneOpen="{Binding SingleLayout.ShowMenu, Mode=TwoWay, FallbackValue=False}"
+               IsPaneOpen="{Binding MobileLayout.ShowMenu, Mode=TwoWay, FallbackValue=False}"
                DisplayMode="CompactOverlay"
                UseLightDismissOverlayMode="True">
 
       <SplitView.Pane>
         <Panel>
           <settings:SettingsView Margin="16" 
-                                 IsVisible="{Binding SingleLayout.ShowSettings, FallbackValue=False}" />
+                                 IsVisible="{Binding MobileLayout.ShowSettings, FallbackValue=False}" />
           <history:HistoryView Margin="16" 
-                               IsVisible="{Binding SingleLayout.ShowChats, FallbackValue=False}" />
+                               IsVisible="{Binding MobileLayout.ShowChats, FallbackValue=False}" />
           <prompts:PromptsView Margin="16" 
-                               IsVisible="{Binding SingleLayout.ShowPrompts, FallbackValue=False}" />
+                               IsVisible="{Binding MobileLayout.ShowPrompts, FallbackValue=False}" />
         </Panel>
       </SplitView.Pane>
 
-      <Panel IsVisible="{Binding !SingleLayout.ShowMenu}">
+      <Panel IsVisible="{Binding !MobileLayout.ShowMenu}">
         <ContentControl Content="{Binding CurrentChat}"
                         VerticalAlignment="Top">
           <ContentControl.ContentTemplate>

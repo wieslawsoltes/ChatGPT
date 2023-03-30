@@ -10,8 +10,9 @@ public partial class MainViewModel
 {
     private ObservableCollection<LayoutViewModel>? _layouts;
     private LayoutViewModel? _currentLayout;
+    private MobileLayoutViewModel? _mobileLayout;
+    private DesktopLayoutViewModel? _desktopLayout;
     private string? _theme;
-    private string? _layout;
     private bool _topmost;
 
     [JsonPropertyName("layouts")]
@@ -28,18 +29,25 @@ public partial class MainViewModel
         set => SetProperty(ref _currentLayout, value);
     }
 
+    [JsonPropertyName("mobileLayout")]
+    public MobileLayoutViewModel? MobileLayout
+    {
+        get => _mobileLayout;
+        set => SetProperty(ref _mobileLayout, value);
+    }
+
+    [JsonPropertyName("desktopLayout")]
+    public DesktopLayoutViewModel? DesktopLayout
+    {
+        get => _desktopLayout;
+        set => SetProperty(ref _desktopLayout, value);
+    }
+
     [JsonPropertyName("theme")]
     public string? Theme
     {
         get => _theme;
         set => SetProperty(ref _theme, value);
-    }
-
-    [JsonPropertyName("layout")]
-    public string? Layout
-    {
-        get => _layout;
-        set => SetProperty(ref _layout, value);
     }
 
     [JsonPropertyName("topmost")]
@@ -48,12 +56,6 @@ public partial class MainViewModel
         get => _topmost;
         set => SetProperty(ref _topmost, value);
     }
-
-    [JsonIgnore]
-    public SingleLayoutViewModel? SingleLayout { get; private set; }
-
-    [JsonIgnore]
-    public ColumnLayoutViewModel? ColumnLayout { get; private set; }
 
     [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
@@ -93,17 +95,12 @@ public partial class MainViewModel
 
     private void ChangeDesktopMobileAction()
     {
-        switch (Layout)
+        CurrentLayout = CurrentLayout switch
         {
-            case "Mobile":
-                CurrentLayout = ColumnLayout;
-                Layout = "Desktop";
-                break;
-            case "Desktop":
-                CurrentLayout = SingleLayout;
-                Layout = "Mobile";
-                break;
-        }
+            MobileLayoutViewModel => DesktopLayout,
+            DesktopLayoutViewModel => MobileLayout,
+            _ => CurrentLayout
+        };
     }
 
     private void ChangeTopmostAction()

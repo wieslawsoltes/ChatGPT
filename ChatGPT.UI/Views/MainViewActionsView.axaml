@@ -69,7 +69,7 @@
             CornerRadius="4"
             Padding="12"
             Margin="0,16,0,0">
-      <PathIcon Data="{Binding Layout, Converter={x:Static converters:LayoutIconConverter.Instance}}"
+      <PathIcon Data="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutIconConverter.Instance}}"
                 Width="24"
                 Height="24"
                 Opacity="0.5"

@@ -17,16 +17,16 @@
              x:CompileBindings="True" x:DataType="vm:MainViewModel">
   <Design.DataContext>
     <vm:MainViewModel>
-      <vm:MainViewModel.ColumnLayout>
-        <vml:ColumnLayoutViewModel>
-          <vml:ColumnLayoutViewModel.ShowChats>True</vml:ColumnLayoutViewModel.ShowChats>
-          <vml:ColumnLayoutViewModel.ShowSettings>True</vml:ColumnLayoutViewModel.ShowSettings>
-          <vml:ColumnLayoutViewModel.ShowPrompts>True</vml:ColumnLayoutViewModel.ShowPrompts>
-          <vml:ColumnLayoutViewModel.SettingsWidth>250</vml:ColumnLayoutViewModel.SettingsWidth>
-          <vml:ColumnLayoutViewModel.ChatsWidth>290</vml:ColumnLayoutViewModel.ChatsWidth>
-          <vml:ColumnLayoutViewModel.PromptsWidth>290</vml:ColumnLayoutViewModel.PromptsWidth>
-        </vml:ColumnLayoutViewModel>
-      </vm:MainViewModel.ColumnLayout>
+      <vm:MainViewModel.DesktopLayout>
+        <vml:DesktopLayoutViewModel>
+          <vml:DesktopLayoutViewModel.ShowChats>True</vml:DesktopLayoutViewModel.ShowChats>
+          <vml:DesktopLayoutViewModel.ShowSettings>True</vml:DesktopLayoutViewModel.ShowSettings>
+          <vml:DesktopLayoutViewModel.ShowPrompts>True</vml:DesktopLayoutViewModel.ShowPrompts>
+          <vml:DesktopLayoutViewModel.SettingsWidth>250</vml:DesktopLayoutViewModel.SettingsWidth>
+          <vml:DesktopLayoutViewModel.ChatsWidth>290</vml:DesktopLayoutViewModel.ChatsWidth>
+          <vml:DesktopLayoutViewModel.PromptsWidth>290</vml:DesktopLayoutViewModel.PromptsWidth>
+        </vml:DesktopLayoutViewModel>
+      </vm:MainViewModel.DesktopLayout>
     </vm:MainViewModel>
   </Design.DataContext>
 
@@ -42,20 +42,20 @@
       <Grid Name="WorkspaceGrid">
 
         <Grid.ColumnDefinitions>
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.ChatsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ColumnLayout.ShowChats}"/>
+          <controls:CustomColumnDefinition BindWidth="{Binding DesktopLayout.ChatsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding DesktopLayout.ShowChats}"/>
           <ColumnDefinition Width="8" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.SettingsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ColumnLayout.ShowSettings}"/>
+          <controls:CustomColumnDefinition BindWidth="{Binding DesktopLayout.SettingsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding DesktopLayout.ShowSettings}"/>
           <ColumnDefinition Width="8" />
-          <controls:CustomColumnDefinition BindWidth="{Binding ColumnLayout.PromptsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
-                                           IsVisible="{Binding ColumnLayout.ShowPrompts}"/>
+          <controls:CustomColumnDefinition BindWidth="{Binding DesktopLayout.PromptsWidth, Mode=TwoWay, Converter={x:Static converters:GridLengthConverter.Instance}}"
+                                           IsVisible="{Binding DesktopLayout.ShowPrompts}"/>
         </Grid.ColumnDefinitions>
 
         <history:HistoryView Name="History" 
-                             IsVisible="{Binding ColumnLayout.ShowChats}"
+                             IsVisible="{Binding DesktopLayout.ShowChats}"
                              Grid.Column="0" />
 
         <GridSplitter Name="HistorySplitter" 
@@ -81,12 +81,12 @@
                       Grid.Column="3" />
 
         <settings:SettingsView Name="Settings"
-                               IsVisible="{Binding ColumnLayout.ShowSettings}" 
+                               IsVisible="{Binding DesktopLayout.ShowSettings}" 
                                Grid.Column="4"  />
 
         <prompts:PromptsView Name="Prompts"
                              Grid.Column="6"
-                             IsVisible="{Binding ColumnLayout.ShowPrompts}" />
+                             IsVisible="{Binding DesktopLayout.ShowPrompts}" />
 
       </Grid>
 

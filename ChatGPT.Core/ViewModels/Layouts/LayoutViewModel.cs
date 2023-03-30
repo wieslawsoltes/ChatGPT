@@ -6,10 +6,11 @@ using CommunityToolkit.Mvvm.Input;
 namespace ChatGPT.ViewModels.Layouts;
 
 [JsonPolymorphic]
-[JsonDerivedType(typeof(SingleLayoutViewModel), typeDiscriminator: "single")]
-[JsonDerivedType(typeof(ColumnLayoutViewModel), typeDiscriminator: "column")]
+[JsonDerivedType(typeof(MobileLayoutViewModel), typeDiscriminator: "mobile")]
+[JsonDerivedType(typeof(DesktopLayoutViewModel), typeDiscriminator: "desktop")]
 public abstract partial class LayoutViewModel : ObservableObject
 {
+    private string? _name;
     private bool _showSettings;
     private bool _showChats;
     private bool _showPrompts;
@@ -22,6 +23,13 @@ public abstract partial class LayoutViewModel : ObservableObject
         ShowChatsCommand = new RelayCommand(ShowChatsAction);
 
         ShowPromptsCommand = new RelayCommand(ShowPromptsAction);
+    }
+
+    [JsonPropertyName("name")]
+    public string? Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value);
     }
 
     [JsonPropertyName("showSettings")]
