@@ -67,7 +67,7 @@ public class CompletionsService : ICompletionsService
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
-            case HttpStatusCode.TooManyRequests:
+            //case HttpStatusCode.TooManyRequests:
             case HttpStatusCode.InternalServerError:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);

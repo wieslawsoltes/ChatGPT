@@ -18,7 +18,8 @@ public class IsolatedStorageService<T> : IStorageService<T>
         var store = IsolatedStorageFile.GetStore(
             IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, 
             null, null);
-        await using var isoStream = new IsolatedStorageFileStream(Identifier + key, FileMode.Create, store);
+        //await using var isoStream = new IsolatedStorageFileStream(Identifier + key, FileMode.Create, store);
+        using var isoStream = new IsolatedStorageFileStream(Identifier + key, FileMode.Create, store);
         await JsonSerializer.SerializeAsync(isoStream, obj, typeInfo);
     }
 
@@ -29,7 +30,8 @@ public class IsolatedStorageService<T> : IStorageService<T>
             var store = IsolatedStorageFile.GetStore(
                 IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, 
                 null, null);
-            await using var isoStream = new IsolatedStorageFileStream(Identifier + key, FileMode.Open, store);
+            //await using var isoStream = new IsolatedStorageFileStream(Identifier + key, FileMode.Open, store);
+            using var isoStream = new IsolatedStorageFileStream(Identifier + key, FileMode.Open, store);
             var storedObj = await JsonSerializer.DeserializeAsync(isoStream, typeInfo);
             return storedObj ?? default;
         }

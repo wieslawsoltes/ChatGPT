@@ -103,7 +103,8 @@ public class ApplicationService : IApplicationService
         {
             try
             {
-                await using var stream = await file.OpenReadAsync();
+                //await using var stream = await file.OpenReadAsync();
+                using var stream = await file.OpenReadAsync();
                 await callback(stream);
             }
             catch (Exception e)
@@ -134,7 +135,8 @@ public class ApplicationService : IApplicationService
         {
             try
             {
-                await using var stream = await file.OpenWriteAsync();
+                //await using var stream = await file.OpenWriteAsync();
+                using var stream = await file.OpenWriteAsync();
                 await callback(stream);
             }
             catch (Exception e)

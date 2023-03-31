@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net462</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <TrimMode>full</TrimMode>
-    <IsPackable>False</IsPackable>
-    <RootNamespace>ChatGPT.CLI</RootNamespace>
+    <RootNamespace>ChatGptCom</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <PublishAot>True</PublishAot>
-    <TrimmerSingleWarn>false</TrimmerSingleWarn>
+  <PropertyGroup>
+    <ComVisible>true</ComVisible>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\ChatGPT.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatGPT.Core\ChatGPT.Core.csproj" />

@@ -126,7 +126,8 @@ public partial class MainViewModel
         if (app is { } && CurrentChat is { })
         {
             var sb = new StringBuilder();
-            await using var writer = new StringWriter(sb);
+            //await using var writer = new StringWriter(sb);
+            using var writer = new StringWriter(sb);
             await ExportChatAsync(CurrentChat, writer);
             await app.SetClipboardTextAsync(sb.ToString());
         }
@@ -229,7 +230,8 @@ public partial class MainViewModel
             return;
         }
 
-        await using var writer = new StreamWriter(stream);
+        //await using var writer = new StreamWriter(stream);
+        using var writer = new StreamWriter(stream);
         await ExportChatAsync(CurrentChat, writer);
     }
 

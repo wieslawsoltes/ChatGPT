@@ -13,14 +13,21 @@ namespace AI.Services;
 
 public class ChatService : IChatService
 {
-    private static readonly HttpClient s_client = new();
+    private static readonly HttpClient s_client;
 
-    private static readonly ChatJsonContext s_serializerContext = new(
-        new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            IgnoreReadOnlyProperties = true
-        });
+    private static readonly ChatJsonContext s_serializerContext;
+
+    static ChatService()
+    {
+        s_client = new();
+
+        s_serializerContext = new(
+            new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                IgnoreReadOnlyProperties = true
+            });
+    }
 
     private static string GetRequestBodyJson(ChatServiceSettings settings)
     {
@@ -62,12 +69,13 @@ public class ChatService : IChatService
         var response = await s_client.PostAsync(apiUrl, content, token);
 
         // Deserialize the response
-        var responseBody = await response.Content.ReadAsStringAsync(token);
+        // var responseBody = await response.Content.ReadAsStringAsync(token);
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
-            case HttpStatusCode.TooManyRequests:
+            // case HttpStatusCode.TooManyRequests:
             case HttpStatusCode.InternalServerError:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);
