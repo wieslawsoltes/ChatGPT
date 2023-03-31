@@ -47,13 +47,24 @@ public class ChatService : IChatService
     private static async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
-
-        // Set the API key in the request headers
-        if (s_client.DefaultRequestHeaders.Contains("Authorization"))
+        if (apiUrl.Contains("openai.azure.com"))
         {
-            s_client.DefaultRequestHeaders.Remove("Authorization");
+            // Set the API key in the request headers for Azure OpenAI service
+            if (s_client.DefaultRequestHeaders.Contains("api-key"))
+            {
+                s_client.DefaultRequestHeaders.Remove("api-key");
+            }
+            s_client.DefaultRequestHeaders.Add("api-key", $"{apiKey}");
         }
-        s_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+        else
+        {
+            // Set the API key in the request headers
+            if (s_client.DefaultRequestHeaders.Contains("Authorization"))
+            {
+                s_client.DefaultRequestHeaders.Remove("Authorization");
+            }
+            s_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+        }
 
         // Create a new StringContent object with the JSON payload and the correct content type
         var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
@@ -86,7 +97,7 @@ public class ChatService : IChatService
     public async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings, CancellationToken token)
     {
         // Set up the API URL and API key
-        var apiUrl = "https://api.openai.com/v1/chat/completions";
+        var apiUrl = GetApiUrl();
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         if (apiKey is null)
         {
@@ -98,5 +109,11 @@ public class ChatService : IChatService
 
         // Send the API request and get the response data
         return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
+    }
+    
+    private string GetApiUrl()
+    {
+        var url = Environment.GetEnvironmentVariable(Constants.ChatApiEndpoint);
+        return url ?? "https://api.openai.com/v1/chat/completions";
     }
 }
