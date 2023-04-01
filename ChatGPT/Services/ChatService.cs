@@ -74,6 +74,8 @@ public class ChatService : IChatService
 #else
         var responseBody = await response.Content.ReadAsStringAsync(token);
 #endif
+        // Console.WriteLine($"Status code: {response.StatusCode}");
+        // Console.WriteLine($"Response body:{Environment.NewLine}{responseBody}");
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
