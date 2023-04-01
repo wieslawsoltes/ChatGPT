@@ -13,14 +13,21 @@ namespace AI.Services;
 
 public class CompletionsService : ICompletionsService
 {
-    private static readonly HttpClient s_client = new();
+    private static readonly HttpClient s_client;
 
-    private static readonly CompletionsJsonContext s_serializerContext = new(
-        new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            IgnoreReadOnlyProperties = true
-        });
+    private static readonly CompletionsJsonContext s_serializerContext;
+
+    static CompletionsService()
+    {
+        s_client = new();
+
+        s_serializerContext = new(
+            new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                IgnoreReadOnlyProperties = true
+            });
+    }
 
     private static string GetRequestBodyJson(CompletionsServiceSettings settings)
     {
