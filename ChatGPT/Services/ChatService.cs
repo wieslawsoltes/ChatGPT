@@ -84,6 +84,7 @@ public class ChatService : IChatService
 #endif
             case HttpStatusCode.InternalServerError:
             case HttpStatusCode.NotFound:
+            case HttpStatusCode.BadRequest:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);
             }
