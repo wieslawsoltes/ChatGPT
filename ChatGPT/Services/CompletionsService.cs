@@ -85,6 +85,7 @@ public class CompletionsService : ICompletionsService
 #endif
             case HttpStatusCode.NotFound:
             case HttpStatusCode.InternalServerError:
+            case HttpStatusCode.BadRequest:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);
             }
