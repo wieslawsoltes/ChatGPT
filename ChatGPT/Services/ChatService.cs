@@ -81,6 +81,7 @@ public class ChatService : IChatService
             case HttpStatusCode.TooManyRequests:
 #endif
             case HttpStatusCode.InternalServerError:
+            case HttpStatusCode.NotFound:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);
             }
