@@ -126,7 +126,11 @@ public partial class MainViewModel
         if (app is { } && CurrentChat is { })
         {
             var sb = new StringBuilder();
+#if NETFRAMEWORK
+            using var writer = new StringWriter(sb);
+#else
             await using var writer = new StringWriter(sb);
+#endif
             await ExportChatAsync(CurrentChat, writer);
             await app.SetClipboardTextAsync(sb.ToString());
         }
@@ -228,8 +232,11 @@ public partial class MainViewModel
         {
             return;
         }
-
+#if NETFRAMEWORK
+        using var writer = new StreamWriter(stream);
+#else
         await using var writer = new StreamWriter(stream);
+#endif
         await ExportChatAsync(CurrentChat, writer);
     }
 

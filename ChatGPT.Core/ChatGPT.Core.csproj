@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net7.0;net462</TargetFrameworks>
     <Nullable>enable</Nullable>
     <IsPackable>True</IsPackable>
     <RootNamespace>ChatGPT</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\ChatGPT.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>ChatGPT.Core</PackageId>
@@ -14,6 +18,10 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="$(CommunityToolkitMvvmVersion)" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsDependencyInjectionVersion)" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatGPT\ChatGPT.csproj" />

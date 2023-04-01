@@ -13,14 +13,21 @@ namespace AI.Services;
 
 public class ChatService : IChatService
 {
-    private static readonly HttpClient s_client = new();
+    private static readonly HttpClient s_client;
 
-    private static readonly ChatJsonContext s_serializerContext = new(
-        new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            IgnoreReadOnlyProperties = true
-        });
+    private static readonly ChatJsonContext s_serializerContext;
+
+    static ChatService()
+    {
+        s_client = new();
+
+        s_serializerContext = new(
+            new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                IgnoreReadOnlyProperties = true
+            });
+    }
 
     private static string GetRequestBodyJson(ChatServiceSettings settings)
     {
@@ -62,13 +69,22 @@ public class ChatService : IChatService
         var response = await s_client.PostAsync(apiUrl, content, token);
 
         // Deserialize the response
+#if NETFRAMEWORK
+        var responseBody = await response.Content.ReadAsStringAsync();
+#else
         var responseBody = await response.Content.ReadAsStringAsync(token);
-
+#endif
+        // Console.WriteLine($"Status code: {response.StatusCode}");
+        // Console.WriteLine($"Response body:{Environment.NewLine}{responseBody}");
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
+#if !NETFRAMEWORK
             case HttpStatusCode.TooManyRequests:
+#endif
             case HttpStatusCode.InternalServerError:
+            case HttpStatusCode.NotFound:
+            case HttpStatusCode.BadRequest:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);
             }

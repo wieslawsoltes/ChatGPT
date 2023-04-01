@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ChatGptCom</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ComVisible>true</ComVisible>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\ChatGPT.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChatGPT.Core\ChatGPT.Core.csproj" />
+  </ItemGroup>
+</Project>

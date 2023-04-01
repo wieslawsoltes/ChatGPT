@@ -143,6 +143,47 @@ dotnet run -- -d ./ -e md -p *.cs --directions "You are a technical documentatio
 }
 ```
 
+# COM
+
+In the build release directory `ChatGPT\ChatGptCom\bin\Release\net462\` run following command to register `ChatGptCom.dll`.
+
+32-bit
+```
+c:\Windows\Microsoft.NET\Framework\v4.0.30319\regasmm.exe /codebase /tlb ChatGptCom.dll
+```
+
+64-bit
+```
+c:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /codebase /tlb ChatGptCom.dll
+```
+
+### Microsoft Work 2010
+
+Add `ChatGPT\ChatGptCom\bin\Release\net462\ChatGptCom.tlb` to `References`.
+
+```vba
+Sub ChatGpt()
+
+    Dim myObj As ChatGptCom.Chat
+    Set myObj = New ChatGptCom.Chat
+
+    MsgBox myObj.Send("You are a professional translato to English.", "Cześć, witamy z Office VBA")
+
+End Sub
+```
+
+```vba
+Sub GetEnvironmentVariable()
+    Dim envVarName As String
+    Dim envVarValue As String
+
+    envVarName = "OPENAI_API_KEY"
+    envVarValue = Environ(envVarName)
+
+    MsgBox "The value of the " & envVarName & " environment variable is:" & vbCrLf & envVarValue
+End Sub
+```
+
 # NuGet
 
 - [ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.

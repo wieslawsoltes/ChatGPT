@@ -270,7 +270,11 @@ public class ChatMessageViewModel : ObservableObject
     private async Task SaveCallbackAsync(Stream stream)
     {
         var message = Message;
+#if NETFRAMEWORK
+        using var writer = new StreamWriter(stream);
+#else
         await using var writer = new StreamWriter(stream);
+#endif
         await writer.WriteAsync(message);
     }
 

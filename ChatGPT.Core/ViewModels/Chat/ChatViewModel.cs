@@ -244,7 +244,7 @@ public class ChatViewModel : ObservableObject
 
         if (result is null)
         {
-            resultMessage.Message = "Unknown error.";
+            resultMessage.Message = "Send result is empty.";
             resultMessage.IsError = true;
         }
         else
@@ -303,7 +303,13 @@ public class ChatViewModel : ObservableObject
         var chat = Defaults.Locator.GetService<IChatService>();
         if (chat is null)
         {
-            return null;
+            return new ChatResponseError()
+            {
+                Error = new ChatError
+                {
+                    Message = "Cant locate chat service."
+                }
+            };
         }
 
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
@@ -320,9 +326,15 @@ public class ChatViewModel : ObservableObject
         {
             responseData = await chat.GetResponseDataAsync(chatServiceSettings, token);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            // ignored
+            responseData = new ChatResponseError()
+            {
+                Error = new ChatError
+                {
+                    Message = $"{e}"
+                }
+            };
         }
 
         if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
@@ -360,13 +372,13 @@ public class ChatViewModel : ObservableObject
         var responseData = await GetResponseDataAsync(chatServiceSettings, Settings, token);
         if (responseData is null)
         {
-            result.Message = "Unknown error.";
+            result.Message = "Response data is empty.";
             result.IsError = true;
         }
         else if (responseData is ChatResponseError error)
         {
             var message = error.Error?.Message;
-            result.Message = message ?? "Unknown error.";
+            result.Message = message ?? "Response error.";
             result.IsError = true;
         }
         else if (responseData is ChatResponseSuccess success)
