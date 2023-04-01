@@ -81,6 +81,7 @@ public class CompletionsService : ICompletionsService
 #if !NETFRAMEWORK
             case HttpStatusCode.TooManyRequests:
 #endif
+            case HttpStatusCode.NotFound:
             case HttpStatusCode.InternalServerError:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);
