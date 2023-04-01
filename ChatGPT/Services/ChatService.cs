@@ -69,13 +69,17 @@ public class ChatService : IChatService
         var response = await s_client.PostAsync(apiUrl, content, token);
 
         // Deserialize the response
-        // var responseBody = await response.Content.ReadAsStringAsync(token);
+#if NETFRAMEWORK
         var responseBody = await response.Content.ReadAsStringAsync();
-
+#else
+        var responseBody = await response.Content.ReadAsStringAsync(token);
+#endif
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
-            // case HttpStatusCode.TooManyRequests:
+#if !NETFRAMEWORK
+            case HttpStatusCode.TooManyRequests:
+#endif
             case HttpStatusCode.InternalServerError:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);

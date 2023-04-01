@@ -103,8 +103,11 @@ public class ApplicationService : IApplicationService
         {
             try
             {
-                //await using var stream = await file.OpenReadAsync();
+#if NETFRAMEWORK
                 using var stream = await file.OpenReadAsync();
+#else
+                await using var stream = await file.OpenReadAsync();
+#endif
                 await callback(stream);
             }
             catch (Exception e)
@@ -135,8 +138,11 @@ public class ApplicationService : IApplicationService
         {
             try
             {
-                //await using var stream = await file.OpenWriteAsync();
+#if NETFRAMEWORK
                 using var stream = await file.OpenWriteAsync();
+#else
+                await using var stream = await file.OpenWriteAsync();
+#endif
                 await callback(stream);
             }
             catch (Exception e)

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using AI.Model.Json.Completions;
 using AI.Model.Services;
@@ -44,7 +45,7 @@ public class CompletionsService : ICompletionsService
         return JsonSerializer.Serialize(requestBody, s_serializerContext.CompletionsRequestBody);
     }
 
-    private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson)
+    private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
 
@@ -62,12 +63,17 @@ public class CompletionsService : ICompletionsService
         var response = await s_client.PostAsync(apiUrl, content);
 
         // Deserialize the response
+#if NETFRAMEWORK
         var responseBody = await response.Content.ReadAsStringAsync();
-
+#else
+        var responseBody = await response.Content.ReadAsStringAsync(token);
+#endif
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
-            //case HttpStatusCode.TooManyRequests:
+#if !NETFRAMEWORK
+            case HttpStatusCode.TooManyRequests:
+#endif
             case HttpStatusCode.InternalServerError:
             {
                 return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);
@@ -83,7 +89,7 @@ public class CompletionsService : ICompletionsService
         return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseSuccess);
     }
 
-    public async Task<CompletionsResponse?> GetResponseDataAsync(CompletionsServiceSettings settings)
+    public async Task<CompletionsResponse?> GetResponseDataAsync(CompletionsServiceSettings settings, CancellationToken token)
     {
         // Set up the API URL and API key
         var apiUrl = "https://api.openai.com/v1/completions";
@@ -97,6 +103,6 @@ public class CompletionsService : ICompletionsService
         var requestBodyJson = GetRequestBodyJson(settings);
 
         // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson);
+        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
     }
 }
