@@ -2,8 +2,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AI.Model.Json.Completions;
@@ -14,22 +12,20 @@ namespace AI.Services;
 public class CompletionsService : ICompletionsService
 {
     private static readonly HttpClient s_client;
-
-    private static readonly CompletionsJsonContext s_serializerContext;
+    private string _apiUrl = "https://api.openai.com/v1/completions";
+    private readonly IChatSerializer _serializer;
 
     static CompletionsService()
     {
         s_client = new();
-
-        s_serializerContext = new(
-            new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                IgnoreReadOnlyProperties = true
-            });
     }
 
-    private static string GetRequestBodyJson(CompletionsServiceSettings settings)
+    public CompletionsService(IChatSerializer serializer)
+    {
+        _serializer = serializer;
+    }
+
+    private string GetRequestBodyJson(CompletionsServiceSettings settings)
     {
         // Set up the request body
         var requestBody = new CompletionsRequestBody
@@ -49,10 +45,10 @@ public class CompletionsService : ICompletionsService
         };
 
         // Serialize the request body to JSON using the JsonSerializer.
-        return JsonSerializer.Serialize(requestBody, s_serializerContext.CompletionsRequestBody);
+        return _serializer.Serialize(requestBody);
     }
 
-    private static async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
+    private async Task<CompletionsResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
 
@@ -67,7 +63,7 @@ public class CompletionsService : ICompletionsService
         var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
 
         // Send the API request and get the response
-        var response = await s_client.PostAsync(apiUrl, content);
+        var response = await s_client.PostAsync(apiUrl, content, token);
 
         // Deserialize the response
 #if NETFRAMEWORK
@@ -87,7 +83,7 @@ public class CompletionsService : ICompletionsService
             case HttpStatusCode.InternalServerError:
             case HttpStatusCode.BadRequest:
             {
-                return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseError);
+                return _serializer.Deserialize<CompletionsResponseError>(responseBody);
             }
         }
 
@@ -97,13 +93,17 @@ public class CompletionsService : ICompletionsService
         }
 
         // Return the response data
-        return JsonSerializer.Deserialize(responseBody, s_serializerContext.CompletionsResponseSuccess);
+        return _serializer.Deserialize<CompletionsResponseSuccess>(responseBody);
+    }
+
+    public void SetApiUrl(string apiUrl)
+    {
+        _apiUrl = apiUrl;
     }
 
     public async Task<CompletionsResponse?> GetResponseDataAsync(CompletionsServiceSettings settings, CancellationToken token)
     {
         // Set up the API URL and API key
-        var apiUrl = "https://api.openai.com/v1/completions";
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         if (apiKey is null)
         {
@@ -114,6 +114,6 @@ public class CompletionsService : ICompletionsService
         var requestBodyJson = GetRequestBodyJson(settings);
 
         // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
+        return await SendApiRequestAsync(_apiUrl, apiKey, requestBodyJson, token);
     }
 }

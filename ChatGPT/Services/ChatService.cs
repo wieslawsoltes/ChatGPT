@@ -11,8 +11,9 @@ namespace AI.Services;
 
 public class ChatService : IChatService
 {
-    private readonly IChatSerializer _serializer;
     private static readonly HttpClient s_client;
+    private string _apiUrl = "https://api.openai.com/v1/chat/completions";
+    private readonly IChatSerializer _serializer;
 
     static ChatService()
     {
@@ -94,10 +95,14 @@ public class ChatService : IChatService
         return _serializer.Deserialize<ChatResponseSuccess>(responseBody);
     }
 
+    public void SetApiUrl(string apiUrl)
+    {
+        _apiUrl = apiUrl;
+    }
+
     public async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings, CancellationToken token)
     {
         // Set up the API URL and API key
-        var apiUrl = "https://api.openai.com/v1/chat/completions";
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         if (apiKey is null)
         {
@@ -108,6 +113,6 @@ public class ChatService : IChatService
         var requestBodyJson = GetRequestBodyJson(settings);
 
         // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
+        return await SendApiRequestAsync(_apiUrl, apiKey, requestBodyJson, token);
     }
 }
