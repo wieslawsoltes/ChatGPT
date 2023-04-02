@@ -159,20 +159,40 @@ c:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /codebase /tlb ChatGp
 
 ### Microsoft Work 2010
 
-Add `ChatGPT\ChatGptCom\bin\Release\net462\ChatGptCom.tlb` to `References`.
+Add `ChatGPT\ChatGptCom\bin\Release\net462\ChatGptCom.tlb` to `References` using `Tools > References...` menu in `Microsoft Visual Basic for Applications`.
 
 ```vba
+Option Explicit
+
+
+Private WithEvents m_eventSource As Chat
+
+
+Sub Chat_Initialize()
+    Set m_eventSource = New ChatGptCom.Chat
+End Sub
+
+
+Sub Chat_Send()
+    m_eventSource.SendAsync "You are a professional translato to English.", "Cześć, witamy z Office VBA"
+End Sub
+
+
+Sub m_eventSource_OnSendCompleted()
+    MsgBox m_eventSource.Result
+End Sub
+
+
 Sub ChatGpt()
 
     Dim myObj As ChatGptCom.Chat
     Set myObj = New ChatGptCom.Chat
 
-    MsgBox myObj.Send("You are a professional translato to English.", "Cześć, witamy z Office VBA")
+    myObj.SendAsync "You are a professional translato to English.", "Cześć, witamy z Office VBA"
 
 End Sub
-```
 
-```vba
+
 Sub GetEnvironmentVariable()
     Dim envVarName As String
     Dim envVarValue As String
