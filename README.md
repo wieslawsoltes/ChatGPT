@@ -164,42 +164,48 @@ Add `ChatGPT\ChatGptCom\bin\Release\net462\ChatGptCom.tlb` to `References` using
 ```vba
 Option Explicit
 
+Private WithEvents m_translateSource As Chat
+Private WithEvents m_demoSource As Chat
+Dim OriginalSelection As Range
 
-Private WithEvents m_eventSource As Chat
+Sub TranslateSelection()
+    Set OriginalSelection = Selection.Range
+    Dim ProcessedText As String
+    ProcessedText = OriginalSelection.Text
+    m_translateSource.SendAsync "You are a professional translator to English. I will provide text and you will translate it to English.", ProcessedText
+End Sub
 
+Sub Translate_Initialize()
+    Set m_translateSource = New ChatGptCom.Chat
+End Sub
+
+Sub m_translateSource_OnSendCompleted()
+    OriginalSelection.Text = m_translateSource.Result
+End Sub
 
 Sub Chat_Initialize()
-    Set m_eventSource = New ChatGptCom.Chat
+    Set m_demoSource = New ChatGptCom.Chat
 End Sub
-
 
 Sub Chat_Send()
-    m_eventSource.SendAsync "You are a professional translato to English.", "Cześć, witamy z Office VBA"
+    m_demoSource.SendAsync "You are a professional translator to English.", "To jest rewolucja szutcznej inteligencji! VBA na zawsze!"
 End Sub
 
-
-Sub m_eventSource_OnSendCompleted()
-    MsgBox m_eventSource.Result
+Sub m_demoSource_OnSendCompleted()
+    MsgBox m_demoSource.Result
 End Sub
-
 
 Sub ChatGpt()
-
     Dim myObj As ChatGptCom.Chat
     Set myObj = New ChatGptCom.Chat
-
     myObj.SendAsync "You are a professional translato to English.", "Cześć, witamy z Office VBA"
-
 End Sub
-
 
 Sub GetEnvironmentVariable()
     Dim envVarName As String
     Dim envVarValue As String
-
     envVarName = "OPENAI_API_KEY"
     envVarValue = Environ(envVarName)
-
     MsgBox "The value of the " & envVarName & " environment variable is:" & vbCrLf & envVarValue
 End Sub
 ```
