@@ -197,6 +197,10 @@
     },
     {
       "behavior": "assembly",
+      "name": "System.Runtime.Serialization.Primitives.dll"
+    },
+    {
+      "behavior": "assembly",
       "name": "System.Text.Encodings.Web.dll"
     },
     {
