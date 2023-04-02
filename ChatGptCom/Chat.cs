@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using AI.Model.Services;
+using AI.Services;
 using ChatGPT;
 using ChatGPT.Model.Services;
 using ChatGPT.Services;
@@ -48,6 +49,7 @@ public class Chat : IChat
         IServiceCollection serviceCollection = new ServiceCollection();
 
         serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
+        serviceCollection.AddSingleton<IChatSerializer, NewtonsoftChatSerializer>();
         serviceCollection.AddSingleton<IChatService, ChatService>();
 
         serviceCollection.AddTransient<ChatMessageViewModel>();

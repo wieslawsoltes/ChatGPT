@@ -2,8 +2,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AI.Model.Json.Chat;
@@ -13,23 +11,20 @@ namespace AI.Services;
 
 public class ChatService : IChatService
 {
+    private readonly IChatSerializer _serializer;
     private static readonly HttpClient s_client;
-
-    private static readonly ChatJsonContext s_serializerContext;
 
     static ChatService()
     {
         s_client = new();
-
-        s_serializerContext = new(
-            new JsonSerializerOptions
-            {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                IgnoreReadOnlyProperties = true
-            });
     }
 
-    private static string GetRequestBodyJson(ChatServiceSettings settings)
+    public ChatService(IChatSerializer serializer)
+    {
+        _serializer = serializer;
+    }
+
+    private string GetRequestBodyJson(ChatServiceSettings settings)
     {
         // Set up the request body
         var requestBody = new ChatRequestBody
@@ -48,10 +43,10 @@ public class ChatService : IChatService
         };
 
         // Serialize the request body to JSON using the JsonSerializer.
-        return JsonSerializer.Serialize(requestBody, s_serializerContext.ChatRequestBody);
+        return _serializer.Serialize(requestBody);
     }
 
-    private static async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
+    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
 
@@ -86,7 +81,7 @@ public class ChatService : IChatService
             case HttpStatusCode.NotFound:
             case HttpStatusCode.BadRequest:
             {
-                return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseError);
+                return _serializer.Deserialize<ChatResponseError>(responseBody);
             }
         }
 
@@ -96,7 +91,7 @@ public class ChatService : IChatService
         }
 
         // Return the response data
-        return JsonSerializer.Deserialize(responseBody, s_serializerContext.ChatResponseSuccess);
+        return _serializer.Deserialize<ChatResponseSuccess>(responseBody);
     }
 
     public async Task<ChatResponse?> GetResponseDataAsync(ChatServiceSettings settings, CancellationToken token)

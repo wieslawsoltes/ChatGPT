@@ -42,6 +42,7 @@ public static class Defaults
     {
         IServiceCollection serviceCollection = new ServiceCollection();
 
+        serviceCollection.AddSingleton<IChatSerializer, SystemTextJsonChatSerializer>();
         serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
         serviceCollection.AddSingleton<IChatService, ChatService>();
 

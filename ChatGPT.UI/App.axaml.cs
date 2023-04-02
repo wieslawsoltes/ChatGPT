@@ -37,6 +37,7 @@ public partial class App : Application
         serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
         serviceCollection.AddSingleton<IApplicationService, ApplicationService>();
         serviceCollection.AddSingleton<IPluginsService, PluginsService>();
+        serviceCollection.AddSingleton<IChatSerializer, SystemTextJsonChatSerializer>();
         serviceCollection.AddSingleton<IChatService, ChatService>();
         serviceCollection.AddSingleton<ICompletionsService, CompletionsService>();
         serviceCollection.AddSingleton<MainViewModel>();
