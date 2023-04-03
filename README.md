@@ -236,6 +236,32 @@ Sub m_chatSource_OnSendCompleted()
 End Sub
 ```
 
+Chat form:
+```vba
+Option Explicit
+
+Private WithEvents m_chatSource As Chat
+
+Private Sub UserForm_Initialize()
+    Set m_chatSource = New ChatGptCom.Chat
+    m_chatSource.Create "You are a helpful assistant", 2000, "gpt-3.5-turbo"
+End Sub
+
+Private Sub SendButton_Click()
+    Dim MessageText As String
+    MessageText = MessageTextBox.Text
+    ChatTextBox.Text = ChatTextBox.Text & vbCrLf & MessageText
+    MessageTextBox.Text = ""
+    m_chatSource.MessageAsync MessageText, "user", True
+End Sub
+
+Sub m_chatSource_OnSendCompleted()
+    Dim MessageText As String
+    MessageText = m_chatSource.Result
+    ChatTextBox.Text = ChatTextBox.Text & vbCrLf & MessageText
+End Sub
+```
+
 # NuGet
 
 - [ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
