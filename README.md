@@ -215,6 +215,8 @@ End Sub
 - [ChatGPT](https://www.nuget.org/packages/ChatGPT) - An OpenAI api library for .NET.
 - [ChatGPT.Core](https://www.nuget.org/packages/ChatGPT.Core) - An OpenAI client core library for .NET.
 - [ChatGPT.UI](https://www.nuget.org/packages/ChatGPT.UI) - An OpenAI client user interface library for .NET.
+- [ChatGPT.CLI](https://www.nuget.org/packages/ChatGPT.CLI) - An .NET ChatGPT tool.
+- [ChatGptCom](https://www.nuget.org/packages/ChatGptCom) - An OpenAI api library for .NET COM interop.
 
 # Docs
 
