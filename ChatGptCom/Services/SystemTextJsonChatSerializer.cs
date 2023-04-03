@@ -1,7 +1,7 @@
 using AI.Model.Services;
 using Newtonsoft.Json;
 
-namespace ChatGptCom;
+namespace ChatGptCom.Services;
 
 public class NewtonsoftChatSerializer : IChatSerializer
 {

@@ -6,6 +6,7 @@ using ChatGPT.Model.Services;
 using ChatGPT.Services;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Settings;
+using ChatGptCom.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatGptCom;
