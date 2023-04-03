@@ -12,33 +12,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ChatGptCom;
 
 [ComVisible(true)]
-[Guid("8403C952-E751-4DE1-BD91-F35DEE19206E")]
-[InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
-public interface IChatEvents
-{
-    [DispId(1)]
-    void OnSendCompleted();
-}
-
-[ComVisible(true)]
-[Guid("BDAC53A6-3896-4A4B-A33B-98F44D667F62")]
-[InterfaceType(ComInterfaceType.InterfaceIsIDispatch)]
-public interface IChat
-{
-    [DispId(1)]
-    Task SendAsync(string directions, string message);
-
-    [DispId(2)]
-    string? Result { get; set; }
-}
-
-[ComVisible(true)]
 [Guid("B95D2D28-7BF7-458F-86BE-4B797FB70DBA")]
 [ClassInterface(ClassInterfaceType.None)]
 [ComSourceInterfaces(typeof(IChatEvents))]
 [ProgId("ChatGptCom.Chat")]
 public class Chat : IChat
 {
+    private ChatViewModel? _chat;
+
     public delegate void SendCompletedDelegate();
 
     public event SendCompletedDelegate? OnSendCompleted;
@@ -64,7 +45,64 @@ public class Chat : IChat
         Defaults.Locator.ConfigureServices(serviceProvider);
     }
 
-    public async Task SendAsync(string directions, string message)
+    public void Create(string? directions, int maxTokens = 2000, string model = "gpt-3.5-turbo")
+    {
+        _chat = new ChatViewModel(new ChatSettingsViewModel
+        {
+            MaxTokens = maxTokens,
+            Model = model
+        });
+
+        if (directions is { })
+        {
+            _chat.AddSystemMessage(directions);
+        }
+    }
+
+    public async Task MessageAsync(string message, string role = "user", bool send = true)
+    {
+        if (_chat is null)
+        {
+            return;
+        }
+
+        try
+        {
+            switch (role)
+            {
+                case "system":
+                    _chat.AddSystemMessage(message);
+                    break;
+                case "user":
+                    _chat.AddUserMessage(message);
+                    break;
+                case "assistant":
+                    _chat.AddAssistantMessage(message);
+                    break;
+            }
+
+            if (send)
+            {
+                using var cts = new CancellationTokenSource();
+                var chatResult = await _chat.SendAsync(_chat.CreateChatMessages(), cts.Token);
+                var result = chatResult?.Message;
+                if (result is { })
+                {
+                    _chat.AddAssistantMessage(result);
+                    Result = result;
+                    OnSendCompleted?.Invoke();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Result = $"{e.Message}{Environment.NewLine}{e.StackTrace}";
+            OnSendCompleted?.Invoke();
+            Console.WriteLine(e);
+        }
+    }
+
+    public async Task AskAsync(string directions, string message)
     {
         try
         {

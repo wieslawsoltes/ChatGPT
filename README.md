@@ -45,7 +45,7 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 
 Install:
 ```bash
-dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.8
+dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.9
 ```
 
 Uninstall:
@@ -172,7 +172,7 @@ Sub TranslateSelection()
     Set OriginalSelection = Selection.Range
     Dim ProcessedText As String
     ProcessedText = OriginalSelection.Text
-    m_translateSource.SendAsync "You are a professional translator to English. I will provide text and you will translate it to English.", ProcessedText
+    m_translateSource.AskAsync "You are a professional translator to English. I will provide text and you will translate it to English.", ProcessedText
 End Sub
 
 Sub Translate_Initialize()
@@ -188,7 +188,7 @@ Sub Chat_Initialize()
 End Sub
 
 Sub Chat_Send()
-    m_demoSource.SendAsync "You are a professional translator to English.", "To jest rewolucja szutcznej inteligencji! VBA na zawsze!"
+    m_demoSource.AskAsync "You are a professional translator to English.", "To jest rewolucja szutcznej inteligencji! VBA na zawsze!"
 End Sub
 
 Sub m_demoSource_OnSendCompleted()
@@ -198,7 +198,7 @@ End Sub
 Sub ChatGpt()
     Dim myObj As ChatGptCom.Chat
     Set myObj = New ChatGptCom.Chat
-    myObj.SendAsync "You are a professional translato to English.", "Cześć, witamy z Office VBA"
+    myObj.AskAsync "You are a professional translato to English.", "Cześć, witamy z Office VBA"
 End Sub
 
 Sub GetEnvironmentVariable()
