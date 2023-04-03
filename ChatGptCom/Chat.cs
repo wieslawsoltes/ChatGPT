@@ -45,6 +45,19 @@ public class Chat : IChat
         Defaults.Locator.ConfigureServices(serviceProvider);
     }
 
+    private async Task Send(ChatViewModel chat)
+    {
+        using var cts = new CancellationTokenSource();
+        var chatResult = await chat.SendAsync(chat.CreateChatMessages(), cts.Token);
+        var result = chatResult?.Message;
+        if (result is { })
+        {
+            chat.AddAssistantMessage(result);
+            Result = result;
+            OnSendCompleted?.Invoke();
+        }
+    }
+
     public void Create(string? directions, int maxTokens = 2000, string model = "gpt-3.5-turbo")
     {
         _chat = new ChatViewModel(new ChatSettingsViewModel
@@ -79,19 +92,13 @@ public class Chat : IChat
                 case "assistant":
                     _chat.AddAssistantMessage(message);
                     break;
+                default:
+                    throw new ArgumentException($"Invalid {nameof(role)}.");
             }
 
             if (send)
             {
-                using var cts = new CancellationTokenSource();
-                var chatResult = await _chat.SendAsync(_chat.CreateChatMessages(), cts.Token);
-                var result = chatResult?.Message;
-                if (result is { })
-                {
-                    _chat.AddAssistantMessage(result);
-                    Result = result;
-                    OnSendCompleted?.Invoke();
-                }
+                await Send(_chat);
             }
         }
         catch (Exception e)
@@ -106,17 +113,10 @@ public class Chat : IChat
     {
         try
         {
-            using var cts = new CancellationTokenSource();
             var chat = new ChatViewModel(directions);
             chat.AddSystemMessage(directions);
             chat.AddUserMessage(message);
-            var chatResult = await chat.SendAsync(chat.CreateChatMessages(), cts.Token);
-            var result = chatResult?.Message;
-            if(result is { })
-            {
-                Result = result;
-                OnSendCompleted?.Invoke();
-            }
+            await Send(chat);
         }
         catch (Exception e)
         {
