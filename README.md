@@ -27,6 +27,10 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 - F2 - Edit prompt.
 - Shift+Enter, Alt+Enter - Insert new line.
 
+# ChatGPT web version backup
+
+You can import web version chats backup created using [this script](https://github.com/abacaj/chatgpt-backup).
+
 # Build
 
 1. Install [.NET 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
