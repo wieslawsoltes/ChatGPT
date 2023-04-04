@@ -33,5 +33,4 @@ public partial class MainViewModelJsonContext : JsonSerializerContext
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         });
-
 }
