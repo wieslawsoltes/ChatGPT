@@ -27,9 +27,9 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 - F2 - Edit prompt.
 - Shift+Enter, Alt+Enter - Insert new line.
 
-# ChatGPT web version backup
+# OpenAI ChatGPT web version import
 
-You can import web version chats backup created using [this script](https://github.com/abacaj/chatgpt-backup).
+You can import [OpenAI ChatGPT web version](https://chat.openai.com/chat) chats backup created using [this script](https://github.com/abacaj/chatgpt-backup).
 
 # Build
 
