@@ -102,5 +102,20 @@
                 Height="24"
                 Foreground="{DynamicResource ActionIconBrush}"/>
     </Button>
+    <!-- Import -->
+    <Button Command="{Binding ImportGtpChatsCommand}"
+            ToolTip.Tip="Import ChatGPT chats"
+            Background="#00FFFFFF" 
+            BorderBrush="#00000000"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,0" 
+            Padding="8"
+            DockPanel.Dock="Left">
+      <PathIcon Data="{DynamicResource ArrowUploadIcon}"
+                Width="24" 
+                Height="24"
+                Foreground="{DynamicResource ActionIconBrush}"/>
+    </Button>
   </DockPanel>
 </UserControl>

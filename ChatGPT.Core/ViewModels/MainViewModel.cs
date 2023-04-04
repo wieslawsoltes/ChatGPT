@@ -55,6 +55,8 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
         DefaultChatSettingsCommand = new RelayCommand(DefaultChatSettingsAction);
 
+        ImportGtpChatsCommand = new AsyncRelayCommand(ImportGptChatsActionAsync);
+
         // Prompts
 
         AddPromptCommand = new AsyncRelayCommand(AddPromptAction);

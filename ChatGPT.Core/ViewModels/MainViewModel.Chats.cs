@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using AI.Model.Json.ChatGPT;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Chat;
 using CommunityToolkit.Mvvm.Input;
@@ -51,6 +52,9 @@ public partial class MainViewModel
 
     [JsonIgnore]
     public IRelayCommand DefaultChatSettingsCommand { get; }
+
+    [JsonIgnore]
+    public IAsyncRelayCommand ImportGtpChatsCommand { get; }
 
     private ChatSettingsViewModel CreateDefaultChatSettings()
     {
@@ -151,6 +155,18 @@ public partial class MainViewModel
         }
     }
 
+    private async Task ImportGptChatsActionAsync()
+    {
+        var app = Defaults.Locator.GetService<IApplicationService>();
+        if (app is { })
+        {
+            await app.OpenFileAsync(
+                ImportGptChatsCallbackAsync, 
+                new List<string>(new[] { "Json", "All" }), 
+                "Import");
+        }
+    }
+    
     private void NewChatCallback()
     {
         var chat = new ChatViewModel
@@ -238,6 +254,17 @@ public partial class MainViewModel
         await using var writer = new StreamWriter(stream);
 #endif
         await ExportChatAsync(CurrentChat, writer);
+    }
+
+    private async Task ImportGptChatsCallbackAsync(Stream stream)
+    {
+        var gptChats = await JsonSerializer.DeserializeAsync(
+            stream, 
+            ChatGptJsonContext.s_instance.ChatGptArray);
+        if (gptChats is { })
+        {
+            await Task.Run(() => ImportChats(gptChats));
+        }
     }
 
     private async Task ExportChatAsync(ChatViewModel chat, TextWriter writer)
