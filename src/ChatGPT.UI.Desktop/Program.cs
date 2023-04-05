@@ -24,7 +24,7 @@ class Program
             .Configure<App>()
             .AfterSetup(_ =>
             {
-                App.ConfigureDefaultServices();
+                App.ConfigureDesktopServices();
             })
             .UsePlatformDetect()
             .LogToTrace();

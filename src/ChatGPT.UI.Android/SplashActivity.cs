@@ -19,7 +19,7 @@ public class SplashActivity : AvaloniaSplashActivity<App>
 
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
-        App.ConfigureDefaultServices();
+        App.ConfigureMobileServices();
 
         return base.CustomizeAppBuilder(builder);
     }

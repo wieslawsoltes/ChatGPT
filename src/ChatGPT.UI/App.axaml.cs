@@ -29,7 +29,37 @@ public partial class App : Application
     {
     }
 
-    public static void ConfigureDefaultServices()
+    public static void ConfigureDesktopServices()
+    {
+        IServiceCollection serviceCollection = new ServiceCollection();
+
+        // Services
+        serviceCollection.AddSingleton<IStorageFactory, ApplicationDataStorageFactory>();
+        serviceCollection.AddSingleton<IApplicationService, ApplicationService>();
+        serviceCollection.AddSingleton<IPluginsService, PluginsService>();
+        serviceCollection.AddSingleton<IChatSerializer, SystemTextJsonChatSerializer>();
+        serviceCollection.AddSingleton<IChatService, ChatService>();
+        serviceCollection.AddSingleton<ICompletionsService, CompletionsService>();
+        serviceCollection.AddSingleton<MainViewModel>();
+        serviceCollection.AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>());
+
+        // ViewModels
+        serviceCollection.AddTransient<ChatMessageViewModel>();
+        serviceCollection.AddTransient<ChatSettingsViewModel>();
+        serviceCollection.AddTransient<ChatResultViewModel>();
+        serviceCollection.AddTransient<ChatViewModel>();
+        serviceCollection.AddTransient<PromptViewModel>();
+        serviceCollection.AddTransient<WorkspaceViewModel>();
+        serviceCollection.AddTransient<WindowLayoutViewModel>();
+
+        // Plugins
+        serviceCollection.AddTransient<IChatPlugin, ClipboardListenerChatPlugin>();
+        serviceCollection.AddTransient<IChatPlugin, DummyChatPlugin>();
+
+        Defaults.Locator.ConfigureServices(serviceCollection.BuildServiceProvider());
+    }
+
+    public static void ConfigureMobileServices()
     {
         IServiceCollection serviceCollection = new ServiceCollection();
 
