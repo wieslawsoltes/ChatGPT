@@ -213,7 +213,7 @@ public partial class App : Application
         }
     }
 
-    private async void DesktopOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+    private void DesktopOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
         try
         {
@@ -222,7 +222,7 @@ public partial class App : Application
             Defaults.Locator.GetService<IPluginsService>()?.ShutdownPlugins();
 
             SaveTheme();
-            await SaveSettingsAsync();
+            SaveSettings();
         }
         catch (Exception exception)
         {
