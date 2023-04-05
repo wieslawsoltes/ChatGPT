@@ -82,15 +82,15 @@ jobs:
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'ubuntu.14.04-x64'
 
-  - template: Publish-Bash.yml@templates
-    parameters:
-        name: 'Publish_Ubuntu_arm64'
-        vmImage: 'ubuntu-20.04'
-        BuildConfiguration: ${{ variables.BuildConfiguration }}
-        Workloads: ${{ variables.Workloads }}
-        PublishFramework: ${{ variables.PublishFramework }}
-        PublishProject: ${{ variables.PublishProject }}
-        PublishRuntime: 'ubuntu.16.04-arm64'
+# - template: Publish-Bash.yml@templates
+#   parameters:
+#       name: 'Publish_Ubuntu_arm64'
+#       vmImage: 'ubuntu-20.04'
+#       BuildConfiguration: ${{ variables.BuildConfiguration }}
+#       Workloads: ${{ variables.Workloads }}
+#       PublishFramework: ${{ variables.PublishFramework }}
+#       PublishProject: ${{ variables.PublishProject }}
+#       PublishRuntime: 'ubuntu.16.04-arm64'
 
   - template: Publish-Bash.yml@templates
     parameters:
@@ -102,15 +102,15 @@ jobs:
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'debian.8-x64'
 
-  - template: Publish-Bash.yml@templates
-    parameters:
-        name: 'Publish_Debian_arm64'
-        vmImage: 'ubuntu-20.04'
-        BuildConfiguration: ${{ variables.BuildConfiguration }}
-        Workloads: ${{ variables.Workloads }}
-        PublishFramework: ${{ variables.PublishFramework }}
-        PublishProject: ${{ variables.PublishProject }}
-        PublishRuntime: 'debian.8-arm64'
+# - template: Publish-Bash.yml@templates
+#   parameters:
+#       name: 'Publish_Debian_arm64'
+#       vmImage: 'ubuntu-20.04'
+#       BuildConfiguration: ${{ variables.BuildConfiguration }}
+#       Workloads: ${{ variables.Workloads }}
+#       PublishFramework: ${{ variables.PublishFramework }}
+#       PublishProject: ${{ variables.PublishProject }}
+#       PublishRuntime: 'debian.8-arm64'
 
   - template: Publish-Bash.yml@templates
     parameters:
@@ -122,15 +122,15 @@ jobs:
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'osx.10.12-x64'
 
-  - template: Publish-Bash.yml@templates
-    parameters:
-        name: 'Publish_macOS_arm64'
-        vmImage: 'macOS-12'
-        BuildConfiguration: ${{ variables.BuildConfiguration }}
-        Workloads: ${{ variables.Workloads }} ios
-        PublishFramework: ${{ variables.PublishFramework }}
-        PublishProject: ${{ variables.PublishProject }}
-        PublishRuntime: 'osx.11.0-arm64'
+# - template: Publish-Bash.yml@templates
+#   parameters:
+#       name: 'Publish_macOS_arm64'
+#       vmImage: 'macOS-12'
+#       BuildConfiguration: ${{ variables.BuildConfiguration }}
+#       Workloads: ${{ variables.Workloads }} ios
+#       PublishFramework: ${{ variables.PublishFramework }}
+#       PublishProject: ${{ variables.PublishProject }}
+#       PublishRuntime: 'osx.11.0-arm64'
 
   - template: Publish-Bash.yml@templates
     parameters:
