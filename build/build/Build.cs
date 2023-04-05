@@ -56,9 +56,10 @@ class Build : NukeBuild
     {
         if (OperatingSystem.IsLinux())
         {
-            var iosProjects = Solution.Projects.Where(x => x.Name.Contains("iOS"));
+            var iosProjects = Solution.GetProjects("*.iOS");
             foreach (var project in iosProjects)
             {
+                Console.WriteLine($"Removed project: {project.Name}");
                 Solution.RemoveProject(project);
             }
             Solution.Save();
