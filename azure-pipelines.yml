@@ -91,3 +91,13 @@ jobs:
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'osx.10.12-x64'
+
+  - template: Publish-Bash.yml@templates
+    parameters:
+        name: 'Publish_macOS'
+        vmImage: 'macOS-12'
+        BuildConfiguration: ${{ variables.BuildConfiguration }}
+        Workloads: ${{ variables.Workloads }} ios
+        PublishFramework: ${{ variables.PublishFramework }}
+        PublishProject: ${{ variables.PublishProject }}
+        PublishRuntime: 'osx.11.0-arm64'
