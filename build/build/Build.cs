@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
@@ -46,6 +48,21 @@ class Build : NukeBuild
     {
         Configuration = Configuration ?? "Release";
         VersionSuffix = VersionSuffix ?? "";
+
+        InitializeLinuxBuild();
+    }
+
+    private void InitializeLinuxBuild()
+    {
+        if (OperatingSystem.IsLinux())
+        {
+            var iosProjects = Solution.Projects.Where(x => x.Name.Contains("iOS"));
+            foreach (var project in iosProjects)
+            {
+                Solution.RemoveProject(project);
+            }
+            Solution.Save();
+        }
     }
 
     private void DeleteDirectories(IReadOnlyCollection<string> directories)
