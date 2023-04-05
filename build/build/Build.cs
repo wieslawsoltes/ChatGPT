@@ -115,7 +115,7 @@ class Build : NukeBuild
         });
 
     Target Pack => _ => _
-        .DependsOn(Restore)
+        .DependsOn(Compile)
         .Executes(() =>
         {
             DotNetPack(s => s
