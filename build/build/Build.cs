@@ -115,7 +115,7 @@ class Build : NukeBuild
         });
 
     Target Pack => _ => _
-        .DependsOn(Test)
+        .DependsOn(Restore)
         .Executes(() =>
         {
             DotNetPack(s => s
@@ -128,7 +128,7 @@ class Build : NukeBuild
         });
 
     Target Publish => _ => _
-        .DependsOn(Test)
+        .DependsOn(Restore)
         .Requires(() => PublishRuntime)
         .Requires(() => PublishFramework)
         .Requires(() => PublishProject)
