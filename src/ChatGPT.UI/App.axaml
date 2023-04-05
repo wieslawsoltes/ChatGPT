@@ -9,7 +9,6 @@
         <MergeResourceInclude Source="/Themes/Themes.axaml" />
         <MergeResourceInclude Source="/Themes/Icons.axaml" />
         <MergeResourceInclude Source="/Themes/SelectingItemsControl.axaml" />
-        <MergeResourceInclude Source="/Themes/MessageTemplates.axaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

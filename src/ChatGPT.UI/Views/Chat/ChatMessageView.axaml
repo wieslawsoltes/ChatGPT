@@ -3,11 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:chat="clr-namespace:ChatGPT.Views.Chat"
-             xmlns:converters="clr-namespace:ChatGPT.Converters"
              xmlns:dt="clr-namespace:ChatGPT.DataTemplates"
              xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
-             xmlns:core="clr-namespace:ChatGPT;assembly=ChatGPT.Core"
              xmlns:controls="clr-namespace:ChatGPT.Controls"
+             xmlns:messages="clr-namespace:ChatGPT.Views.Chat.Messages"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="150"
              x:Class="ChatGPT.Views.Chat.ChatMessageView"
              x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel"
@@ -62,7 +61,18 @@
                                      TemplateSuffix="DataTemplate"
                                      x:DataType="vm:ChatMessageViewModel">
               <dt:DataTemplateSelector.Resources>
-                <!-- Not used. -->
+                <!-- Text -->
+                <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="TextDataTemplate">
+                  <messages:ChatTextMessageView />
+                </DataTemplate>
+                <!-- Markdown -->
+                <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="MarkdownDataTemplate">
+                  <messages:ChatMarkdownMessageView />
+                </DataTemplate>
+                <!-- Html -->
+                <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="HtmlDataTemplate">
+                  <messages:ChatHtmlMessageView />
+                </DataTemplate>
               </dt:DataTemplateSelector.Resources>
             </dt:DataTemplateSelector>
           </controls:InvalidateContentControl.ContentTemplate>

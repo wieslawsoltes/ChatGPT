@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ChatGPT.Views.Chat.Messages.ChatTextMessageView"
+             x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel">
+  <SelectableTextBlock Text="{Binding Message}" 
+                       HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Center"
+                       Padding="0,0,0,0" 
+                       Margin="16,16,16,16"
+                       FontSize="{DynamicResource MessageFontSize}"
+                       TextWrapping="Wrap"
+                       Background="Transparent"
+                       IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                       Classes.error="{Binding IsError}">
+    <SelectableTextBlock.Styles>
+      <Style Selector="SelectableTextBlock.error">
+        <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
+      </Style>
+    </SelectableTextBlock.Styles>
+  </SelectableTextBlock>
+</UserControl>
