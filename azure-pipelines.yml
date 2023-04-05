@@ -22,7 +22,7 @@ jobs:
       name: 'Test_Windows'
       vmImage: 'windows-2022'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
-      Workloads: ${{ variables.Workloads }}
+      Workloads: ${{ variables.Workloads }} ios
 
   - template: Test-Bash.yml@templates
     parameters:
@@ -36,28 +36,28 @@ jobs:
       name: 'Test_macOS'
       vmImage: 'macOS-11'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
-      Workloads: ${{ variables.Workloads }}
+      Workloads: ${{ variables.Workloads }} ios
 
   - template: Pack-MyGet.yml@templates
     parameters:
       name: 'Pack_MyGet'
       vmImage: 'windows-2022'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
-      Workloads: ${{ variables.Workloads }}
+      Workloads: ${{ variables.Workloads }} ios
 
   - template: Pack-NuGet.yml@templates
     parameters:
       name: 'Pack_NuGet'
       vmImage: 'windows-2022'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
-      Workloads: ${{ variables.Workloads }}
+      Workloads: ${{ variables.Workloads }} ios
 
   - template: Publish-PowerShell.yml@templates
     parameters:
       name: 'Publish_Windows'
       vmImage: 'windows-2022'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
-      Workloads: ${{ variables.Workloads }}
+      Workloads: ${{ variables.Workloads }} ios
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'win7-x64'
@@ -87,7 +87,7 @@ jobs:
       name: 'Publish_macOS'
       vmImage: 'macOS-11'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
-      Workloads: ${{ variables.Workloads }}
+      Workloads: ${{ variables.Workloads }} ios
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'osx.10.12-x64'
