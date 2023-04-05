@@ -20,13 +20,13 @@ jobs:
     - name: Install workloads
       run: dotnet workload install wasm-tools wasm-experimental android ios
     - name: Build ChatGPT.UI.Desktop
-      run: dotnet build ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
     - name: Build ChatGPT.UI.Android
-      run: dotnet build ChatGPT.UI.Android/ChatGPT.UI.Android.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Android/ChatGPT.UI.Android.csproj --configuration Release
     - name: Build ChatGPT.UI.iOS
-      run: dotnet build ChatGPT.UI.iOS/ChatGPT.UI.iOS.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.iOS/ChatGPT.UI.iOS.csproj --configuration Release
     - name: Build ChatGPT.UI.Browser
-      run: dotnet build ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
   build_linux:
     name: Build Ubuntu
     runs-on: ubuntu-latest
@@ -34,14 +34,14 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-    - name: Install wasm-tools
+    - name: Install workloads
       run: dotnet workload install wasm-tools wasm-experimental android
     - name: Build ChatGPT.UI.Desktop
-      run: dotnet build ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
     - name: Build ChatGPT.UI.Android
-      run: dotnet build ChatGPT.UI.Android/ChatGPT.UI.Android.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Android/ChatGPT.UI.Android.csproj --configuration Release
     - name: Build ChatGPT.UI.Browser
-      run: dotnet build ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
   build_macos:
     name: Build macOS
     runs-on: macos-latest
@@ -52,8 +52,8 @@ jobs:
     - name: Install workloads
       run: dotnet workload install wasm-tools wasm-experimental android ios
     - name: Build ChatGPT.UI.Desktop
-      run: dotnet build ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
     - name: Build ChatGPT.UI.iOS
-      run: dotnet build ChatGPT.UI.iOS/ChatGPT.UI.iOS.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.iOS/ChatGPT.UI.iOS.csproj --configuration Release
     - name: Build ChatGPT.UI.Browser
-      run: dotnet build ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
+      run: dotnet build src/ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
