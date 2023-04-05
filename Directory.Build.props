@@ -20,5 +20,8 @@
     <MarkdownAvaloniaVersion>11.0.0-a9</MarkdownAvaloniaVersion>
     <AvaloniaHtmlRendererVersion>11.0.0-preview5</AvaloniaHtmlRendererVersion>
     <SystemCommandLineVersion>2.0.0-beta1.20104.2</SystemCommandLineVersion>
+    <XUnitVersion>2.4.1</XUnitVersion>
+    <XUnitAbstractionsVersion>2.0.3</XUnitAbstractionsVersion>
+    <MicrosoftNETTestSdkVersion>16.2.0</MicrosoftNETTestSdkVersion>
   </PropertyGroup>
 </Project>

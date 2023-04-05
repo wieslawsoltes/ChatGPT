@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+    <IsPackable>False</IsPackable>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ChatGPT.UnitTests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.abstractions" Version="$(XUnitAbstractionsVersion)" />
+    <PackageReference Include="xunit.assert" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.core" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.extensibility.core" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.extensibility.execution" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.runner.console" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitVersion)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdkVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ChatGPT\ChatGPT.csproj" />
+  </ItemGroup>
+</Project>
