@@ -21,10 +21,9 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <PublishAot>True</PublishAot>
     <TrimmerSingleWarn>false</TrimmerSingleWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugSymbols>False</DebugSymbols>
     <DebugType>None</DebugType>
+    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
