@@ -14,6 +14,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <AvaloniaVersion>11.0.0-preview5</AvaloniaVersion>
+    <DockVersion>11.0.0-preview5</DockVersion>
+    <NodeEditorVersion>11.0.0-preview5</NodeEditorVersion>
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
     <XamlNameReferenceGeneratorVersion>1.6.1</XamlNameReferenceGeneratorVersion>
