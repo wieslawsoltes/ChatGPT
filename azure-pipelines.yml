@@ -131,3 +131,13 @@ jobs:
         PublishFramework: ${{ variables.PublishFramework }}
         PublishProject: ${{ variables.PublishProject }}
         PublishRuntime: 'osx.11.0-arm64'
+
+  - template: Publish-Bash.yml@templates
+    parameters:
+        name: 'Publish_Android'
+        vmImage: 'macOS-12'
+        BuildConfiguration: ${{ variables.BuildConfiguration }}
+        Workloads: ${{ variables.Workloads }} ios
+        PublishFramework: 'net7.0-android'
+        PublishProject: 'ChatGPT.UI.Android'
+        PublishRuntime: ''
