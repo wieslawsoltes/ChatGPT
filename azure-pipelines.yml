@@ -54,7 +54,7 @@ jobs:
 
   - template: Publish-PowerShell.yml@templates
     parameters:
-      name: 'Publish_Windows'
+      name: 'Publish_Windows_x64'
       vmImage: 'windows-2022'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }} ios
@@ -62,9 +62,19 @@ jobs:
       PublishProject: ${{ variables.PublishProject }}
       PublishRuntime: 'win7-x64'
 
+  - template: Publish-PowerShell.yml@templates
+    parameters:
+        name: 'Publish_Windows_arm64'
+        vmImage: 'windows-2022'
+        BuildConfiguration: ${{ variables.BuildConfiguration }}
+        Workloads: ${{ variables.Workloads }} ios
+        PublishFramework: ${{ variables.PublishFramework }}
+        PublishProject: ${{ variables.PublishProject }}
+        PublishRuntime: 'win10-arm64'
+
   - template: Publish-Bash.yml@templates
     parameters:
-      name: 'Publish_Ubuntu'
+      name: 'Publish_Ubuntu_x64'
       vmImage: 'ubuntu-20.04'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }}
@@ -74,7 +84,17 @@ jobs:
 
   - template: Publish-Bash.yml@templates
     parameters:
-      name: 'Publish_Debian'
+        name: 'Publish_Ubuntu_arm64'
+        vmImage: 'ubuntu-20.04'
+        BuildConfiguration: ${{ variables.BuildConfiguration }}
+        Workloads: ${{ variables.Workloads }}
+        PublishFramework: ${{ variables.PublishFramework }}
+        PublishProject: ${{ variables.PublishProject }}
+        PublishRuntime: 'ubuntu.16.04-arm64'
+
+  - template: Publish-Bash.yml@templates
+    parameters:
+      name: 'Publish_Debian_x64'
       vmImage: 'ubuntu-20.04'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }}
@@ -84,7 +104,17 @@ jobs:
 
   - template: Publish-Bash.yml@templates
     parameters:
-      name: 'Publish_macOS'
+        name: 'Publish_Debian_arm64'
+        vmImage: 'ubuntu-20.04'
+        BuildConfiguration: ${{ variables.BuildConfiguration }}
+        Workloads: ${{ variables.Workloads }}
+        PublishFramework: ${{ variables.PublishFramework }}
+        PublishProject: ${{ variables.PublishProject }}
+        PublishRuntime: 'debian.8-arm64'
+
+  - template: Publish-Bash.yml@templates
+    parameters:
+      name: 'Publish_macOS_x64'
       vmImage: 'macOS-12'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }} ios
@@ -94,7 +124,7 @@ jobs:
 
   - template: Publish-Bash.yml@templates
     parameters:
-        name: 'Publish_macOS'
+        name: 'Publish_macOS_arm64'
         vmImage: 'macOS-12'
         BuildConfiguration: ${{ variables.BuildConfiguration }}
         Workloads: ${{ variables.Workloads }} ios
