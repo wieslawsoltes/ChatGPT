@@ -95,7 +95,7 @@
     </StackPanel>
     <!-- Directions -->
     <StackPanel Orientation="Vertical">
-      <TextBlock Text="Directions:" 
+      <TextBlock Text="Prompt:" 
                  Margin="8,2,8,2" 
                  Padding="0,4,0,4" 
                  FontSize="{DynamicResource SettingHeaderFontSize}" />

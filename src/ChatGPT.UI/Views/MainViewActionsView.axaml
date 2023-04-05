@@ -45,7 +45,7 @@
     </Button>
     <Button Name="PromptsButton"
             Command="{Binding CurrentLayout.ShowPromptsCommand}"
-            ToolTip.Tip="Directions"
+            ToolTip.Tip="Prompts"
             VerticalAlignment="Bottom"
             BorderBrush="#00000000"
             BorderThickness="2"
