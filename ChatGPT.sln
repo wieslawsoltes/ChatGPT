@@ -8,6 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{62EB4E5F
 		global.json = global.json
 		Directory.Build.props = Directory.Build.props
 		ChatGPT.snk = ChatGPT.snk
+		build.cmd = build.cmd
+		build.ps1 = build.ps1
+		build.sh = build.sh
+		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0CAF70C8-9597-40F7-B7BA-A387AFBB7B61}"
