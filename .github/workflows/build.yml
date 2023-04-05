@@ -11,7 +11,7 @@ on:
 
 jobs:
   build_windows:
-    name: Build Windows
+    name: Build Windows Desktop
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
@@ -59,7 +59,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-    - name: Install workloads
     - name: Build ChatGPT.UI.Desktop
       run: dotnet build src/ChatGPT.UI.Desktop/ChatGPT.UI.Desktop.csproj --configuration Release
   build_linux_android:
@@ -115,4 +114,3 @@ jobs:
       run: dotnet workload install wasm-tools wasm-experimental
     - name: Build ChatGPT.UI.Browser
       run: dotnet build src/ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj --configuration Release
-
