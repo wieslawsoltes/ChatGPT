@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>preview.10</VersionSuffix>
+    <VersionSuffix>preview.11</VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
     <Copyright>Copyright © Wiesław Šoltés 2023</Copyright>
