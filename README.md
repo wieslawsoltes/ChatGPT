@@ -1,5 +1,6 @@
 # ChatGPT
 
+[![Build Status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/wieslawsoltes.ChatGPT?repoName=wieslawsoltes%2FChatGPT&branchName=main)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=109&repoName=wieslawsoltes%2FChatGPT&branchName=main)
 [![CI](https://github.com/wieslawsoltes/ChatGPT/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/wieslawsoltes/ChatGPT/actions/workflows/build.yml)
 
 [![NuGet](https://img.shields.io/nuget/v/ChatGPT.svg)](https://www.nuget.org/packages/ChatGPT)
