@@ -3,6 +3,10 @@
 [![Build Status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/wieslawsoltes.ChatGPT?repoName=wieslawsoltes%2FChatGPT&branchName=main)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=109&repoName=wieslawsoltes%2FChatGPT&branchName=main)
 [![CI](https://github.com/wieslawsoltes/ChatGPT/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/wieslawsoltes/ChatGPT/actions/workflows/build.yml)
 
+[![GitHub release](https://img.shields.io/github/release/wieslawsoltes/ChatGPT.svg)](https://github.com/wieslawsoltes/ChatGPT/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/wieslawsoltes/ChatGPT/total.svg)](https://github.com/wieslawsoltes/ChatGPT/releases)
+[![Github Releases](https://img.shields.io/github/downloads/wieslawsoltes/ChatGPT/latest/total.svg)](https://github.com/wieslawsoltes/ChatGPT/releases)
+
 [![NuGet](https://img.shields.io/nuget/v/ChatGPT.svg)](https://www.nuget.org/packages/ChatGPT)
 [![NuGet](https://img.shields.io/nuget/dt/ChatGPT.svg)](https://www.nuget.org/packages/ChatGPT)
 
