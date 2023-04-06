@@ -137,7 +137,7 @@ jobs:
         name: 'Publish_Bash_Android'
         vmImage: 'macOS-12'
         BuildConfiguration: ${{ variables.BuildConfiguration }}
-        Workloads: ${{ variables.Workloads }}
+        Workloads: ${{ variables.Workloads }} ios
         PublishFramework: 'net7.0-android'
         PublishProject: 'ChatGPT.UI.Android'
         PublishRuntime: ''
