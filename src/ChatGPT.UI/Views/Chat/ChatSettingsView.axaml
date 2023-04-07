@@ -147,13 +147,13 @@
                 FontSize="{DynamicResource SettingContentFontSize}"
                 HorizontalAlignment="Stretch"
                 ToolTip.Tip="Format used to display new messages." >
-        <ComboBox.Items>
+        <ComboBox.ItemsSource>
           <generic:List x:TypeArguments="x:String">
             <x:String>Text</x:String>
             <x:String>Markdown</x:String>
             <x:String>Html</x:String>
           </generic:List>
-        </ComboBox.Items>
+        </ComboBox.ItemsSource>
       </ComboBox>
     </StackPanel>
   </StackPanel>
