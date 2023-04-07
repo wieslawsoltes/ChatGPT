@@ -31,7 +31,7 @@ using var cts = new CancellationTokenSource();
 
 var chat = new ChatViewModel(new ChatSettingsViewModel
 {
-    MaxTokens = 2000,
+    MaxTokens = 4000,
     Model = "gpt-4"
 });
 
