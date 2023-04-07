@@ -67,11 +67,15 @@
                 </DataTemplate>
                 <!-- Markdown -->
                 <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="MarkdownDataTemplate">
-                  <messages:ChatMarkdownMessageView />
+                  <!-- TODO: -->
+                  <!-- <messages:ChatMarkdownMessageView /> -->
+                  <messages:ChatTextMessageView />
                 </DataTemplate>
                 <!-- Html -->
                 <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="HtmlDataTemplate">
-                  <messages:ChatHtmlMessageView />
+                  <!-- TODO: -->
+                  <!-- <messages:ChatHtmlMessageView /> -->
+                  <messages:ChatTextMessageView />
                 </DataTemplate>
               </dt:DataTemplateSelector.Resources>
             </dt:DataTemplateSelector>

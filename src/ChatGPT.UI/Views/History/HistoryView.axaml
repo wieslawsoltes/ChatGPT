@@ -35,7 +35,7 @@
                Padding="8" 
                FontSize="{DynamicResource SettingContentFontSize}"/>
     </StackPanel>
-    <ListBox Items="{Binding Chats}"
+    <ListBox ItemsSource="{Binding Chats}"
              SelectedItem="{Binding CurrentChat}"
              SelectionMode="Single"
              AutoScrollToSelectedItem="True">

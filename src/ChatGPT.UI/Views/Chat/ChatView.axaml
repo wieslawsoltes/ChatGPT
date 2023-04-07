@@ -26,7 +26,7 @@
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto">
     <SelectingItemsControl Name="MessagesItemsControl"
-                           Items="{Binding Messages}"
+                           ItemsSource="{Binding Messages}"
                            SelectedItem="{Binding CurrentMessage}"
                            AutoScrollToSelectedItem="False">
       <SelectingItemsControl.ItemsPanel>

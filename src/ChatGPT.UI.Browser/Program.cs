@@ -1,4 +1,5 @@
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using AI.Model.Services;
 using AI.Services;
 using Avalonia;
@@ -19,8 +20,8 @@ namespace ChatGPT.UI.Browser;
 
 internal class Program
 {
-    private static void Main(string[] args) 
-        => BuildAvaloniaApp().SetupBrowserApp("out");
+    private static async Task Main(string[] args) 
+        => await BuildAvaloniaApp().StartBrowserAppAsync("out");
 
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder

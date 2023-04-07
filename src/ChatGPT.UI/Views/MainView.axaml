@@ -7,7 +7,7 @@
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              xmlns:converters="clr-namespace:ChatGPT.Converters"
              xmlns:layout="clr-namespace:ChatGPT.Views.Layouts"
-             FontFamily="avares://Avalonia.Themes.Fluent/Assets#Inter"
+             FontFamily="avares://Avalonia.Fonts.Inter/Assets#Inter"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="740"
              x:Class="ChatGPT.Views.MainView"
              x:CompileBindings="True" x:DataType="vm:MainViewModel">

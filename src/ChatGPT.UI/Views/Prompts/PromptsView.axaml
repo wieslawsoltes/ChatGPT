@@ -48,7 +48,7 @@
                Padding="8" 
                FontSize="{DynamicResource SettingContentFontSize}"/>
     </StackPanel>
-    <ListBox Items="{Binding Prompts}"
+    <ListBox ItemsSource="{Binding Prompts}"
              SelectedItem="{Binding CurrentPrompt}"
              SelectionMode="Single"
              AutoScrollToSelectedItem="True">
