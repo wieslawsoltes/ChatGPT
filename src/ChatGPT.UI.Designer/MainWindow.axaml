@@ -8,7 +8,8 @@
         Width="1000"
         Height="740"
         WindowState="Normal"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        FontFamily="avares://Avalonia.Fonts.Inter/Assets#Inter">
 
   <DockPanel>
 
