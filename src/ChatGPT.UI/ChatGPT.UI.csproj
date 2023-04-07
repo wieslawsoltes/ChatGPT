@@ -5,8 +5,6 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <RootNamespace>ChatGPT</RootNamespace>
-    <!-- TODO: -->
-    <IsPackable>False</IsPackable>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>ChatGPT.UI</PackageId>
