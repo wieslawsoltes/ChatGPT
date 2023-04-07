@@ -54,7 +54,13 @@ public class DataTemplateSelector : StyledElement, IDataTemplate
 
         if (resource is DataTemplate dataTemplate)
         {
-            return dataTemplate.Build(data);
+            var control = dataTemplate.Build(data);
+            if (control is { })
+            {
+                return control;
+            }
+
+            return new TextBlock { Text = "Failed to build control: " + data };
         }
 
         return new TextBlock { Text = "Data template not found: " + selector };
