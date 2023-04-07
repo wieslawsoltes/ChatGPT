@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>ChatGPT</string>
 	<key>CFBundleIdentifier</key>
-	<string>ChatGPT.UI.iOS</string>
+	<string>ChatGPT</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
