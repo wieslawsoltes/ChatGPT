@@ -69,11 +69,20 @@
             CornerRadius="4"
             Padding="12"
             Margin="0,16,0,0">
-      <PathIcon Data="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutIconConverter.Instance}}"
-                Width="24"
-                Height="24"
-                Opacity="0.5"
-                Foreground="{DynamicResource SettingsIconBrush}" />
+      <Panel>
+        <PathIcon Data="{DynamicResource ViewDesktopIcon}"
+                  IsVisible="{Binding CurrentLayout, Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Desktop'}"
+                  Width="24"
+                  Height="24"
+                  Opacity="0.5"
+                  Foreground="{DynamicResource SettingsIconBrush}" />
+        <PathIcon Data="{DynamicResource ViewDesktopMobileIcon}"
+                  IsVisible="{Binding CurrentLayout, Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Mobile'}"
+                  Width="24"
+                  Height="24"
+                  Opacity="0.5"
+                  Foreground="{DynamicResource SettingsIconBrush}" />
+      </Panel>
     </Button>
     <Button Name="TopmostOnOffButton"
             Command="{Binding ChangeTopmostCommand}"
@@ -86,11 +95,20 @@
             Padding="12"
             Margin="0,16,0,0"
             IsVisible="{OnFormFactor Desktop=True, Mobile=False}">
-      <PathIcon Data="{Binding Topmost, Converter={x:Static converters:TopmostIconConverter.Instance}}"
-                Width="24"
-                Height="24"
-                Opacity="0.5"
-                Foreground="{DynamicResource SettingsIconBrush}" />
+      <Panel>
+        <PathIcon Data="{DynamicResource PinIcon}"
+                  IsVisible="{Binding Topmost}"
+                  Width="24"
+                  Height="24"
+                  Opacity="0.5"
+                  Foreground="{DynamicResource SettingsIconBrush}" />
+        <PathIcon Data="{DynamicResource PinOffIcon}"
+                  IsVisible="{Binding !Topmost}"
+                  Width="24"
+                  Height="24"
+                  Opacity="0.5"
+                  Foreground="{DynamicResource SettingsIconBrush}" />
+      </Panel>
     </Button>
     <Button Name="ThemeButton"
             Command="{Binding ChangeThemeCommand}"

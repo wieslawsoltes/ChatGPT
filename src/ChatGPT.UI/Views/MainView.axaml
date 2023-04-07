@@ -54,9 +54,9 @@
 
   <Panel>
     <layout:MobileLayoutView 
-      IsVisible="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Mobile'}" />
+      IsVisible="{Binding CurrentLayout, Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Mobile'}" />
     <layout:DesktopLayoutView 
-      IsVisible="{Binding CurrentLayout.Name, FallbackValue='', Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Desktop'}" />
+      IsVisible="{Binding CurrentLayout, Converter={x:Static converters:LayoutVisibilityConverter.Instance}, ConverterParameter='Desktop'}" />
   </Panel>
 
 </UserControl>
