@@ -312,6 +312,7 @@ public class ChatViewModel : ObservableObject
             };
         }
 
+        ChatResponse? responseData;
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         var restoreApiKey = false;
 
@@ -320,8 +321,22 @@ public class ChatViewModel : ObservableObject
             Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, chatSettings.ApiKey);
             restoreApiKey = true;
         }
+        else
+        {
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                responseData = new ChatResponseError()
+                {
+                    Error = new ChatError
+                    {
+                        Message = "The OpenAI api key is not set."
+                    }
+                };
 
-        ChatResponse? responseData = null;
+                return responseData;
+            }
+        }
+
         try
         {
             responseData = await chat.GetResponseDataAsync(chatServiceSettings, token);
