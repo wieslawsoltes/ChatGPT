@@ -105,10 +105,6 @@ public partial class MainViewModel
 
     private void ChangeTopmostAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
-        {
-            Topmost = !Topmost;
-        }
+        Topmost = !Topmost;
     }
 }
