@@ -14,7 +14,8 @@ public class AppDelegate : AvaloniaAppDelegate<App>
     {
         App.ConfigureMobileServices();
 
-        builder.WithInterFont();
+        // TODO:
+        //builder.WithInterFont();
 
         return base.CustomizeAppBuilder(builder);
     }

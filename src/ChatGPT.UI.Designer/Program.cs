@@ -22,7 +22,8 @@ class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder
             .Configure<App>()
-            .WithInterFont()
+            // TODO:
+            //.WithInterFont()
             .UsePlatformDetect()
             .LogToTrace();
 }

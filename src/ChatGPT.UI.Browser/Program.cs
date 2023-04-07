@@ -26,7 +26,8 @@ internal class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder
             .Configure<App>()
-            .WithInterFont()
+            // TODO:
+            //.WithInterFont()
             .AfterSetup(_ =>
             {
                 ConfigureDefaultServices();
