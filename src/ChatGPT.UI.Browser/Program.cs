@@ -4,6 +4,7 @@ using AI.Model.Services;
 using AI.Services;
 using Avalonia;
 using Avalonia.Browser;
+using Avalonia.Fonts.Inter;
 using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
 using ChatGPT.Services;
@@ -26,8 +27,7 @@ internal class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder
             .Configure<App>()
-            // TODO:
-            //.WithInterFont()
+            .WithInterFont()
             .AfterSetup(_ =>
             {
                 ConfigureDefaultServices();

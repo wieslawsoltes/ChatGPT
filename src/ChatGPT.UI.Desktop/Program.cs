@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using System;
+using Avalonia.Fonts.Inter;
 
 namespace ChatGPT;
 
@@ -26,8 +27,7 @@ class Program
             {
                 App.ConfigureDesktopServices();
             })
-            // TODO:
-            //.WithInterFont()
+            .WithInterFont()
             .UsePlatformDetect()
             .LogToTrace();
 }

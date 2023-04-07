@@ -2,6 +2,7 @@
 using Android.Content;
 using Avalonia;
 using Avalonia.Android;
+using Avalonia.Fonts.Inter;
 using Application = Android.App.Application;
 
 namespace ChatGPT.UI.Android;
@@ -21,8 +22,7 @@ public class SplashActivity : AvaloniaSplashActivity<App>
     {
         App.ConfigureMobileServices();
 
-        // TODO:
-        //builder.WithInterFont();
+        builder.WithInterFont();
 
         return base.CustomizeAppBuilder(builder);
     }

@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Fonts.Inter;
 using Avalonia.iOS;
 using Foundation;
 
@@ -14,8 +15,7 @@ public class AppDelegate : AvaloniaAppDelegate<App>
     {
         App.ConfigureMobileServices();
 
-        // TODO:
-        //builder.WithInterFont();
+        builder.WithInterFont();
 
         return base.CustomizeAppBuilder(builder);
     }
