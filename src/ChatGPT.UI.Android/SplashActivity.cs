@@ -21,6 +21,8 @@ public class SplashActivity : AvaloniaSplashActivity<App>
     {
         App.ConfigureMobileServices();
 
+        builder.WithInterFont();
+
         return base.CustomizeAppBuilder(builder);
     }
 }

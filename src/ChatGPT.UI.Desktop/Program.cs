@@ -26,6 +26,7 @@ class Program
             {
                 App.ConfigureDesktopServices();
             })
+            .WithInterFont()
             .UsePlatformDetect()
             .LogToTrace();
 }
