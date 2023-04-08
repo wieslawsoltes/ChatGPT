@@ -30,5 +30,11 @@ public partial class ChatView : UserControl
                     _scrollToEnd = false;
                 }
             }));
+
+        this.GetObservable(BoundsProperty)
+            .Subscribe(new AnonymousObserver<Rect>(x =>
+            {
+                ChatScrollViewer.ScrollToEnd();
+            }));
     }
 }
