@@ -119,7 +119,7 @@
                Margin="8,4,8,4" 
                Padding="8" 
                FontSize="{DynamicResource SettingContentFontSize}"
-               ToolTip.Tip="" />
+               ToolTip.Tip="The ID of the model to use." />
     </StackPanel>
     <!-- ApiKey -->
     <StackPanel Orientation="Vertical">
