@@ -61,11 +61,19 @@
     },
     {
       "behavior": "assembly",
+      "name": "ColorTextBlock.Avalonia.dll"
+    },
+    {
+      "behavior": "assembly",
       "name": "CommunityToolkit.Mvvm.dll"
     },
     {
       "behavior": "assembly",
       "name": "HarfBuzzSharp.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "Markdown.Avalonia.dll"
     },
     {
       "behavior": "assembly",
@@ -118,6 +126,10 @@
     {
       "behavior": "assembly",
       "name": "System.Console.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Diagnostics.Process.dll"
     },
     {
       "behavior": "assembly",
