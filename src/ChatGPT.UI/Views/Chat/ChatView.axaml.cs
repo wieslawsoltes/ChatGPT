@@ -15,14 +15,14 @@ public partial class ChatView : UserControl
 
         MessagesItemsControl
             .GetObservable(SelectingItemsControl.SelectedItemProperty)
-            .Subscribe(new AnonymousObserver<object?>(x =>
+            .Subscribe(new AnonymousObserver<object?>(_ =>
             {
                 _scrollToEnd = true;
             }));
 
         ChatScrollViewer
             .GetObservable(ScrollViewer.ExtentProperty)
-            .Subscribe(new AnonymousObserver<Size>(x =>
+            .Subscribe(new AnonymousObserver<Size>(_ =>
             {
                 if (_scrollToEnd)
                 {
