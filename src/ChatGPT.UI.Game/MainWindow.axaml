@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        x:Class="ChatGPT.MainWindow"
+        Title="Game"
+        Width="400"
+        Height="400"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="avares://Avalonia.Fonts.Inter/Assets#Inter">
+  <Grid RowDefinitions="*,*">
+    <Border Grid.Row="0" 
+            Margin="12" 
+            CornerRadius="4"
+            BorderBrush="Transparent"
+            BorderThickness="1"
+            VerticalAlignment="Center">
+      <TextBlock Name="StoryTextBlock"
+                 HorizontalAlignment="Stretch"
+                 TextAlignment="Center"
+                 TextWrapping="Wrap" />
+    </Border>
+    <Grid Grid.Row="1" 
+          RowDefinitions="Auto,Auto,Auto"
+          VerticalAlignment="Top">
+      <Button Grid.Row="0" 
+              Name="Option1Button"
+              Click="Option1Button_OnClick"
+              CornerRadius="4"
+              Background="Transparent"
+              BorderBrush="Transparent"
+              BorderThickness="1"
+              HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Center"
+              Margin="12,12,12,12">
+        <TextBlock Name="Option1TextBlock"
+                   HorizontalAlignment="Stretch"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap" />
+      </Button>
+      <Button Grid.Row="1" 
+              Name="Option2Button"
+              Click="Option2Button_OnClick"
+              CornerRadius="4"
+              Background="Transparent"
+              BorderBrush="Transparent"
+              BorderThickness="1"
+              HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Center"
+              Margin="12,0,12,12">
+        <TextBlock Name="Option2TextBlock"
+                   HorizontalAlignment="Stretch"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap" />
+      </Button>
+      <Button Grid.Row="2" 
+              Name="Option3Button"
+              Click="Option3Button_OnClick"
+              CornerRadius="4"
+              Background="Transparent"
+              BorderBrush="Transparent"
+              BorderThickness="1"
+              HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Center"
+              Margin="12,0,12,12">
+        <TextBlock Name="Option3TextBlock"
+                   HorizontalAlignment="Stretch"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap" />
+      </Button>
+    </Grid>
+  </Grid>
+</Window>
