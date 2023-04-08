@@ -15,6 +15,12 @@
       <vmc:ChatSettingsViewModel.PresencePenalty>0</vmc:ChatSettingsViewModel.PresencePenalty>
       <vmc:ChatSettingsViewModel.MaxTokens>100</vmc:ChatSettingsViewModel.MaxTokens>
       <vmc:ChatSettingsViewModel.ApiKey><x:Null/></vmc:ChatSettingsViewModel.ApiKey>
+      <vmc:ChatSettingsViewModel.Directions>
+        The prompt can have multiple lines
+        and can be very long.
+      </vmc:ChatSettingsViewModel.Directions>
+      <vmc:ChatSettingsViewModel.Model>gpt3.5-turbo</vmc:ChatSettingsViewModel.Model>
+      <vmc:ChatSettingsViewModel.Format>Markdown</vmc:ChatSettingsViewModel.Format>
     </vmc:ChatSettingsViewModel>
   </Design.DataContext>
   <StackPanel Orientation="Vertical">
