@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.Content.PM;
+using Android.Views;
 using Avalonia.Android;
 
 namespace ChatGPT.UI.Android;
@@ -10,7 +11,8 @@ namespace ChatGPT.UI.Android;
     Theme = "@style/MyTheme.NoActionBar", 
     Icon = "@drawable/icon", 
     LaunchMode = LaunchMode.SingleInstance, 
-    ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
+    ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,
+    WindowSoftInputMode = SoftInput.AdjustResize)]
 public class MainActivity : AvaloniaMainActivity
 {
     protected override void OnDestroy()
