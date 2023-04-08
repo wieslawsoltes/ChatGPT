@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.OS;
 using Avalonia;
 using Avalonia.Android;
 using Avalonia.Fonts.Inter;
@@ -13,14 +14,6 @@ namespace ChatGPT.UI.Android;
     NoHistory = true)]
 public class SplashActivity : AvaloniaSplashActivity<App>
 {
-    protected override void OnResume()
-    {
-        base.OnResume();
-
-        StartActivity(new Intent(Application.Context, typeof(MainActivity)));
-        Finish();
-    }
-
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
         App.ConfigureMobileServices();
@@ -28,5 +21,19 @@ public class SplashActivity : AvaloniaSplashActivity<App>
         builder.WithInterFont();
 
         return base.CustomizeAppBuilder(builder);
+    }
+
+    protected override void OnCreate(Bundle? savedInstanceState)
+    {
+        base.OnCreate(savedInstanceState);
+    }
+
+    protected override void OnResume()
+    {
+        base.OnResume();
+
+        StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+
+        Finish();
     }
 }
