@@ -15,146 +15,175 @@
       <vmc:ChatSettingsViewModel.PresencePenalty>0</vmc:ChatSettingsViewModel.PresencePenalty>
       <vmc:ChatSettingsViewModel.MaxTokens>100</vmc:ChatSettingsViewModel.MaxTokens>
       <vmc:ChatSettingsViewModel.ApiKey><x:Null/></vmc:ChatSettingsViewModel.ApiKey>
+      <vmc:ChatSettingsViewModel.Directions>
+        The prompt can have multiple lines
+        and can be very long.
+      </vmc:ChatSettingsViewModel.Directions>
+      <vmc:ChatSettingsViewModel.Model>gpt3.5-turbo</vmc:ChatSettingsViewModel.Model>
+      <vmc:ChatSettingsViewModel.Format>Markdown</vmc:ChatSettingsViewModel.Format>
     </vmc:ChatSettingsViewModel>
   </Design.DataContext>
-  <StackPanel Orientation="Vertical">
-    <!-- Temperature -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Temperature:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <NumericUpDown Value="{Binding Temperature}" 
-                     Minimum="0" 
-                     Maximum="2" 
-                     Increment="0.1"
-                     Margin="8,0,8,0" 
-                     Padding="8" 
-                     FontSize="{DynamicResource SettingContentFontSize}"
-                     ToolTip.Tip="Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive." />
-    </StackPanel>
-    <!-- MaxTokens -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Max tokens:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <NumericUpDown Value="{Binding MaxTokens}" 
-                     Minimum="0" 
-                     Maximum="32000" 
-                     Increment="100"
-                     Margin="8,0,8,0" 
-                     Padding="8" 
-                     FontSize="{DynamicResource SettingContentFontSize}"
-                     ToolTip.Tip="The maximum number of tokens to generate. Requests can use up to 2,048 or 4,000 tokens shared between prompt and completion. The exact limit varies by model. (One token is roughly 4 characters for normal English text)" />
-    </StackPanel>
-    <!-- TopP -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Top P:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <NumericUpDown Value="{Binding TopP}" 
-                     Minimum="0" 
-                     Maximum="1" 
-                     Increment="0.01"
-                     Margin="8,0,8,0" 
-                     Padding="8" 
-                     FontSize="{DynamicResource SettingContentFontSize}"
-                     ToolTip.Tip="Controls diversity via nucleus sampling: 0.5 means half of all likelihood-weighted options are considered." />
-    </StackPanel>
-    <!-- FrequencyPenalty -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Frequency penalty:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <NumericUpDown Value="{Binding FrequencyPenalty}" 
-                     Minimum="0" 
-                     Maximum="2" 
-                     Increment="0.01"
-                     Margin="8,0,8,0" 
-                     Padding="8" 
-                     FontSize="{DynamicResource SettingContentFontSize}"
-                     ToolTip.Tip="How much to penalize new tokens based on their existing frequency in the text so far. Decreases the model's likelihood to repeat the same line verbatim." />
-    </StackPanel>
-    <!-- PresencePenalty -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Presence penalty:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <NumericUpDown Value="{Binding PresencePenalty}" 
-                     Minimum="0" 
-                     Maximum="2" 
-                     Increment="0.01"
-                     Margin="8,0,8,0" 
-                     Padding="8" 
-                     FontSize="{DynamicResource SettingContentFontSize}"
-                     ToolTip.Tip="How much to penalize new tokens based on whether they appear in the text so far. Increases the model's likelihood to talk about new topics." />
-    </StackPanel>
-    <!-- Directions -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Prompt:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding Directions}" 
-               Watermark="Chat prompt initial system directions"
-               TextWrapping="Wrap"
-               AcceptsReturn="True"
-               Margin="8,0,8,0" 
-               Padding="8" 
-               MaxHeight="188"
-               FontSize="{DynamicResource SettingContentFontSize}"
-               ToolTip.Tip="The system message (directions) helps set the behavior of the assistant. Typically, a conversation is formatted with a system message first, followed by alternating user and assistant messages." />
-    </StackPanel>
-    <!-- Model -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Model:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding Model}" 
-               Margin="8,4,8,4" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"
-               ToolTip.Tip="" />
-    </StackPanel>
-    <!-- ApiKey -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Api key:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <TextBox Text="{Binding ApiKey}" 
-               Watermark="Override OpenAI api key"
-               PasswordChar="*"
-               Margin="8,0,8,0" 
-               Padding="8" 
-               FontSize="{DynamicResource SettingContentFontSize}"
-               ToolTip.Tip="Override OpenAI api key. By default OPENAI_API_KEY environment variable is used."  />
-    </StackPanel>
-    <!-- Format -->
-    <StackPanel Orientation="Vertical">
-      <TextBlock Text="Format:" 
-                 Margin="8,2,8,2" 
-                 Padding="0,4,0,4" 
-                 FontSize="{DynamicResource SettingHeaderFontSize}" />
-      <ComboBox SelectedItem="{Binding Format}"
-                Margin="8,0,8,0" 
-                Padding="8" 
-                FontSize="{DynamicResource SettingContentFontSize}"
-                HorizontalAlignment="Stretch"
-                ToolTip.Tip="Format used to display new messages." >
-        <ComboBox.ItemsSource>
-          <generic:List x:TypeArguments="x:String">
-            <x:String>Text</x:String>
-            <x:String>Markdown</x:String>
-            <x:String>Html</x:String>
-          </generic:List>
-        </ComboBox.ItemsSource>
-      </ComboBox>
-    </StackPanel>
-  </StackPanel>
+  <ScrollViewer Name="SettingsScrollViewer"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+    <SelectingItemsControl Name="SettingsSelectingItemsControl">
+
+      <!-- Temperature -->
+      <StackPanel Name="TemperatureStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Temperature:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <NumericUpDown Value="{Binding Temperature}" 
+                       Minimum="0" 
+                       Maximum="2" 
+                       Increment="0.1"
+                       Margin="8,0,8,0" 
+                       Padding="8" 
+                       FontSize="{DynamicResource SettingContentFontSize}"
+                       ToolTip.Tip="Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive." />
+      </StackPanel>
+
+      <!-- MaxTokens -->
+      <StackPanel Name="MaxTokensStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Max tokens:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <NumericUpDown Value="{Binding MaxTokens}" 
+                       Minimum="0" 
+                       Maximum="32000" 
+                       Increment="100"
+                       Margin="8,0,8,0" 
+                       Padding="8" 
+                       FontSize="{DynamicResource SettingContentFontSize}"
+                       ToolTip.Tip="The maximum number of tokens to generate. Requests can use up to 2,048 or 4,000 tokens shared between prompt and completion. The exact limit varies by model. (One token is roughly 4 characters for normal English text)" />
+      </StackPanel>
+
+      <!-- TopP -->
+      <StackPanel Name="TopPStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Top P:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <NumericUpDown Value="{Binding TopP}" 
+                       Minimum="0" 
+                       Maximum="1" 
+                       Increment="0.01"
+                       Margin="8,0,8,0" 
+                       Padding="8" 
+                       FontSize="{DynamicResource SettingContentFontSize}"
+                       ToolTip.Tip="Controls diversity via nucleus sampling: 0.5 means half of all likelihood-weighted options are considered." />
+      </StackPanel>
+
+      <!-- FrequencyPenalty -->
+      <StackPanel Name="FrequencyPenaltyStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Frequency penalty:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <NumericUpDown Value="{Binding FrequencyPenalty}" 
+                       Minimum="0" 
+                       Maximum="2" 
+                       Increment="0.01"
+                       Margin="8,0,8,0" 
+                       Padding="8" 
+                       FontSize="{DynamicResource SettingContentFontSize}"
+                       ToolTip.Tip="How much to penalize new tokens based on their existing frequency in the text so far. Decreases the model's likelihood to repeat the same line verbatim." />
+      </StackPanel>
+
+      <!-- PresencePenalty -->
+      <StackPanel Name="PresencePenaltyStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Presence penalty:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <NumericUpDown Value="{Binding PresencePenalty}" 
+                       Minimum="0" 
+                       Maximum="2" 
+                       Increment="0.01"
+                       Margin="8,0,8,0" 
+                       Padding="8" 
+                       FontSize="{DynamicResource SettingContentFontSize}"
+                       ToolTip.Tip="How much to penalize new tokens based on whether they appear in the text so far. Increases the model's likelihood to talk about new topics." />
+      </StackPanel>
+
+      <!-- Model -->
+      <StackPanel Name="ModelStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Model:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <TextBox Text="{Binding Model}" 
+                 Margin="8,4,8,4" 
+                 Padding="8" 
+                 FontSize="{DynamicResource SettingContentFontSize}"
+                 ToolTip.Tip="The ID of the model to use." />
+      </StackPanel>
+
+      <!-- ApiKey -->
+      <StackPanel Name="ApiKeyStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Api key:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <TextBox Text="{Binding ApiKey}" 
+                 Watermark="Override OpenAI api key"
+                 PasswordChar="*"
+                 Margin="8,0,8,0" 
+                 Padding="8" 
+                 FontSize="{DynamicResource SettingContentFontSize}"
+                 ToolTip.Tip="Override OpenAI api key. By default OPENAI_API_KEY environment variable is used."  />
+      </StackPanel>
+
+      <!-- Format -->
+      <StackPanel Name="FormatStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Format:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <ComboBox SelectedItem="{Binding Format}"
+                  Margin="8,0,8,0" 
+                  Padding="8" 
+                  FontSize="{DynamicResource SettingContentFontSize}"
+                  HorizontalAlignment="Stretch"
+                  ToolTip.Tip="Format used to display new messages." >
+          <ComboBox.ItemsSource>
+            <generic:List x:TypeArguments="x:String">
+              <x:String>Text</x:String>
+              <x:String>Markdown</x:String>
+              <x:String>Html</x:String>
+            </generic:List>
+          </ComboBox.ItemsSource>
+        </ComboBox>
+      </StackPanel>
+
+      <!-- Directions -->
+      <StackPanel Name="DirectionsStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Prompt:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <TextBox Text="{Binding Directions}" 
+                 Watermark="Chat prompt initial system directions"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 Margin="8,0,8,0" 
+                 Padding="8" 
+                 MaxHeight="188"
+                 FontSize="{DynamicResource SettingContentFontSize}"
+                 ToolTip.Tip="The system message (directions) helps set the behavior of the assistant. Typically, a conversation is formatted with a system message first, followed by alternating user and assistant messages." />
+      </StackPanel>
+
+    </SelectingItemsControl>
+  </ScrollViewer>
 </UserControl>

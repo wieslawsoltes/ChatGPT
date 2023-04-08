@@ -22,7 +22,7 @@ public static class Defaults
 
     public const decimal DefaultFrequencyPenalty = 0m;
 
-    public const int DefaultMaxTokens = 256;
+    public const int DefaultMaxTokens = 2000;
 
     public const string DefaultModel = "gpt-3.5-turbo";
     

@@ -30,9 +30,6 @@
   <DockPanel VerticalAlignment="Stretch">
     <settings:SettingsActionsView DockPanel.Dock="Bottom" 
                                   Margin="0,16,0,0" />
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto">
-      <chat:ChatSettingsView DataContext="{Binding CurrentChat.Settings}" />
-    </ScrollViewer>
+    <chat:ChatSettingsView DataContext="{Binding CurrentChat.Settings}" />
   </DockPanel>
 </UserControl>

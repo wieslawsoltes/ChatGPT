@@ -1,11 +1,18 @@
 ﻿using System;
 using Android.App;
 using Android.Content.PM;
+using Android.Views;
 using Avalonia.Android;
 
 namespace ChatGPT.UI.Android;
 
-[Activity(Label = "ChatGPT", Theme = "@style/MyTheme.NoActionBar", Icon = "@drawable/icon", LaunchMode = LaunchMode.SingleInstance, ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
+[Activity(
+    Label = "ChatGPT", 
+    Theme = "@style/MyTheme.NoActionBar", 
+    Icon = "@drawable/icon", 
+    LaunchMode = LaunchMode.SingleInstance, 
+    ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,
+    WindowSoftInputMode = SoftInput.AdjustResize)]
 public class MainActivity : AvaloniaMainActivity
 {
     protected override void OnDestroy()

@@ -23,8 +23,8 @@
     <!--<PackageReference Include="Dock.Avalonia" Version="$(DockVersion)" />-->
     <!--<PackageReference Include="NodeEditorAvalonia" Version="$(NodeEditorVersion)" />-->
     <!--<PackageReference Include="NodeEditorAvalonia.Mvvm" Version="$(NodeEditorVersion)" />-->
+    <PackageReference Include="Markdown.Avalonia" Version="$(MarkdownAvaloniaVersion)" />
     <!-- TODO: -->
-    <!--<PackageReference Include="Markdown.Avalonia" Version="$(MarkdownAvaloniaVersion)" />-->
     <!--<PackageReference Include="Avalonia.HtmlRenderer" Version="$(AvaloniaHtmlRendererVersion)" />-->
   </ItemGroup>
   <ItemGroup>

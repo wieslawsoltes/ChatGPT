@@ -7,7 +7,10 @@ using Application = Android.App.Application;
 
 namespace ChatGPT.UI.Android;
 
-[Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
+[Activity(
+    Theme = "@style/MyTheme.Splash", 
+    MainLauncher = true, 
+    NoHistory = true)]
 public class SplashActivity : AvaloniaSplashActivity<App>
 {
     protected override void OnResume()

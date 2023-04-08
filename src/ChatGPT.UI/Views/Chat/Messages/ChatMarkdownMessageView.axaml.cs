@@ -1,5 +1,4 @@
-// TODO:
-/*using Avalonia.Controls;
+using Avalonia.Controls;
 
 namespace ChatGPT.Views.Chat.Messages;
 
@@ -9,4 +8,4 @@ public partial class ChatMarkdownMessageView : UserControl
     {
         InitializeComponent();
     }
-}*/
+}
