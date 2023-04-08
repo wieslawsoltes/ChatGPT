@@ -18,7 +18,7 @@ Assistant messages are as json:
     "story" : "The next part of the story",
     "option1" : "The option 1",
     "option2" : "The option 2",
-    "option3" : "The option 3",
+    "option3" : "The option 3"
 }
 """;
 
