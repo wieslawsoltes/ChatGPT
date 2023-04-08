@@ -32,7 +32,7 @@ public partial class ChatView : UserControl
             }));
 
         this.GetObservable(BoundsProperty)
-            .Subscribe(new AnonymousObserver<Rect>(x =>
+            .Subscribe(new AnonymousObserver<Rect>(_ =>
             {
                 ChatScrollViewer.ScrollToEnd();
             }));
