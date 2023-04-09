@@ -5,21 +5,9 @@ Defaults.ConfigureDefaultServices();
 
 var directions = 
 """
-Text based game in form of chat.
-
-The initial prompt creates random text game. 
-
-Player has always three options to choose.
-
-Never write that user has 3 options to choose. 
-
-Assistant messages are as json:
-{
-    "story" : "The next part of the story",
-    "option1" : "The option 1",
-    "option2" : "The option 2",
-    "option3" : "The option 3"
-}
+You are a helpful assistant.
+Write answers in plain text.
+Do not use markdown.
 """;
 
 if (args.Length == 1)
@@ -31,13 +19,11 @@ using var cts = new CancellationTokenSource();
 
 var chat = new ChatViewModel(new ChatSettingsViewModel
 {
-    MaxTokens = 4000,
-    Model = "gpt-4"
+    MaxTokens = 2000,
+    Model = "gpt-3.5-turbo"
 });
 
 chat.AddSystemMessage(directions);
-
-await SendAsync(chat, null, cts);
 
 while (true)
 {
@@ -49,17 +35,9 @@ while (true)
         continue;
     }
 
-    await SendAsync(chat, input, cts);
-}
-
-static async Task SendAsync(ChatViewModel chat, string? message, CancellationTokenSource cts)
-{
     try
     {
-        if (!string.IsNullOrEmpty(message))
-        {
-            chat.AddUserMessage(message);
-        }
+        chat.AddUserMessage(input);
         var result = await chat.SendAsync(chat.CreateChatMessages(), cts.Token);
         chat.AddAssistantMessage(result?.Message);
         Console.WriteLine(result?.Message);
