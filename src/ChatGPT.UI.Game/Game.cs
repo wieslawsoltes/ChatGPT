@@ -20,11 +20,11 @@ Text based game in form of chat.
 
 The initial prompt creates random text game. 
 
-The gere of game is random.
+The game genre is random.
 
 Player has always three options to choose.
 
-Never write that user has 3 options to choose. 
+Don't write that user has 3 options to choose. 
 
 Assistant messages are as json:
 {
