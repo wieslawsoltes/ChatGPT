@@ -21,13 +21,27 @@ public partial class MainWindow : Window
         _game.New();
 
         Loaded += async (_, _) => await Send(null);
+
         Option1Button.Click += async (_, _) => await Send("1");
+
         Option2Button.Click += async (_, _) => await Send("2");
+
         Option3Button.Click += async (_, _) => await Send("3");
+
         NewGameButton.Click += async (_, _) =>
         {
             _game.New();
             await Send(null);
+        };
+
+        LoadGameButton.Click += async (_, _) =>
+        {
+            // TODO:
+        };
+
+        SaveGameButton.Click += async (_, _) =>
+        {
+            // TODO:
         };
     }
 
@@ -37,6 +51,8 @@ public partial class MainWindow : Window
         Option2Button.IsEnabled = false;
         Option3Button.IsEnabled = false;
         NewGameButton.IsEnabled = false;
+        LoadGameButton.IsEnabled = false;
+        SaveGameButton.IsEnabled = false;
 
         var gameMessage = await _game.Send(input);
         if (gameMessage is { })
@@ -51,5 +67,7 @@ public partial class MainWindow : Window
         Option2Button.IsEnabled = true;
         Option3Button.IsEnabled = true;
         NewGameButton.IsEnabled = true;
+        LoadGameButton.IsEnabled = true;
+        SaveGameButton.IsEnabled = true;
     }
 }
