@@ -7,7 +7,7 @@
         Title="Game"
         Background="#303030"
         Width="500"
-        Height="500"
+        Height="600"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
         FontFamily="avares://Avalonia.Fonts.Inter/Assets#Inter">
@@ -39,19 +39,20 @@
       <Setter Property="TextWrapping" Value="Wrap" />
       <Setter Property="FontSize" Value="16" />
     </Style>
-    <Style Selector="Button.new">
+    <Style Selector="Button.action">
       <Setter Property="CornerRadius" Value="4" />
       <Setter Property="Background" Value="Transparent" />
       <Setter Property="BorderBrush" Value="Transparent" />
       <Setter Property="BorderThickness" Value="0" />
-      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
       <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
-    <Style Selector="TextBlock.new">
+    <Style Selector="TextBlock.action">
       <Setter Property="HorizontalAlignment" Value="Stretch" />
       <Setter Property="TextAlignment" Value="Center" />
       <Setter Property="TextWrapping" Value="Wrap" />
       <Setter Property="FontSize" Value="14" />
+      <Setter Property="Opacity" Value="0.6" />
     </Style>
   </Window.Styles>
   <Grid RowDefinitions="12,*,12,*,12,Auto,12" 
@@ -66,7 +67,7 @@
     </Border>
     <Grid Grid.Row="3" 
           Grid.Column="1"
-          RowDefinitions="Auto,Auto,Auto"
+          RowDefinitions="*,*,*"
           VerticalAlignment="Top"
           ShowGridLines="False">
       <Button Grid.Row="0" 
@@ -78,28 +79,48 @@
       </Button>
       <Button Grid.Row="1" 
               Name="Option2Button"
-              Margin="12,0,12,12"
+              Margin="12,12,12,12"
               Classes="option">
         <TextBlock Name="Option2TextBlock"
                    Classes="option" />
       </Button>
       <Button Grid.Row="2" 
               Name="Option3Button"
-              Margin="12,0,12,12"
+              Margin="12,12,12,12"
               Classes="option">
         <TextBlock Name="Option3TextBlock"
                    Classes="option" />
       </Button>
     </Grid>
-    <Button Grid.Row="5" 
-            Grid.Column="1"
-            Name="NewGameButton"
-            Margin="0"
-            Classes="new">
-      <TextBlock Name="NewGameTextBlock"
-                 Text="New Game"
-                 Classes="new" />
-    </Button>
+    <Grid Grid.Row="5" 
+          Grid.Column="1"
+          ColumnDefinitions="*,Auto,Auto,Auto,*"
+          ShowGridLines="False">
+      <Button Grid.Column="1"
+              Name="NewGameButton"
+              Margin="12,0,12,0"
+              Classes="action">
+        <TextBlock Name="NewGameTextBlock"
+                   Text="new"
+                   Classes="action" />
+      </Button>
+      <Button Grid.Column="2"
+              Name="LoadGameButton"
+              Margin="12,0,12,0"
+              Classes="action">
+        <TextBlock Name="LoadGameTextBlock"
+                   Text="load"
+                   Classes="action" />
+      </Button>
+      <Button Grid.Column="3"
+              Name="SaveGameButton"
+              Margin="12,0,12,0"
+              Classes="action">
+        <TextBlock Name="SaveGameTextBlock"
+                   Text="save"
+                   Classes="action" />
+      </Button>
+    </Grid>
     <!-- TODO: Add Load/Save game buttons -->
   </Grid>
 </Window>
