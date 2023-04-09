@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        x:Class="ChatGPT.MainWindow"
+        Title="Game"
+        Background="#303030"
+        Width="500"
+        Height="500"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="avares://Avalonia.Fonts.Inter/Assets#Inter">
+  <Window.Styles>
+    <Style Selector="Border.story">
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.story">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="TextAlignment" Value="Center" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="FontSize" Value="16" />
+    </Style>
+    <Style Selector="Button.option">
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.option">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="TextAlignment" Value="Center" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="FontSize" Value="16" />
+    </Style>
+    <Style Selector="Button.new">
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.new">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="TextAlignment" Value="Center" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="FontSize" Value="14" />
+    </Style>
+  </Window.Styles>
+  <Grid RowDefinitions="12,*,12,*,12,Auto,12" 
+        ColumnDefinitions="12,*,12"
+        ShowGridLines="False">
+    <Border Grid.Row="1" 
+            Grid.Column="1"
+            Margin="12" 
+            Classes="story">
+      <TextBlock Name="StoryTextBlock"
+                 Classes="option" />
+    </Border>
+    <Grid Grid.Row="3" 
+          Grid.Column="1"
+          RowDefinitions="Auto,Auto,Auto"
+          VerticalAlignment="Top"
+          ShowGridLines="False">
+      <Button Grid.Row="0" 
+              Name="Option1Button"
+              Margin="12,12,12,12"
+              Classes="option">
+        <TextBlock Name="Option1TextBlock"
+                   Classes="option" />
+      </Button>
+      <Button Grid.Row="1" 
+              Name="Option2Button"
+              Margin="12,0,12,12"
+              Classes="option">
+        <TextBlock Name="Option2TextBlock"
+                   Classes="option" />
+      </Button>
+      <Button Grid.Row="2" 
+              Name="Option3Button"
+              Margin="12,0,12,12"
+              Classes="option">
+        <TextBlock Name="Option3TextBlock"
+                   Classes="option" />
+      </Button>
+    </Grid>
+    <Button Grid.Row="5" 
+            Grid.Column="1"
+            Name="NewGameButton"
+            Margin="0"
+            Classes="new">
+      <TextBlock Name="NewGameTextBlock"
+                 Text="New Game"
+                 Classes="new" />
+    </Button>
+    <!-- TODO: Add Load/Save game buttons -->
+  </Grid>
+</Window>
