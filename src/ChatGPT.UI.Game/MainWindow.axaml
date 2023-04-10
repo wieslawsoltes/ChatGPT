@@ -33,7 +33,7 @@
       <Setter Property="HorizontalAlignment" Value="Stretch" />
       <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
-    <Style Selector="TextBlock.option">
+    <Style Selector="SelectableTextBlock.option">
       <Setter Property="HorizontalAlignment" Value="Stretch" />
       <Setter Property="TextAlignment" Value="Center" />
       <Setter Property="TextWrapping" Value="Wrap" />
@@ -62,8 +62,8 @@
             Grid.Column="1"
             Margin="12" 
             Classes="story">
-      <TextBlock Name="StoryTextBlock"
-                 Classes="option" />
+      <SelectableTextBlock Name="StoryTextBlock"
+                           Classes="option" />
     </Border>
     <Grid Grid.Row="3" 
           Grid.Column="1"
