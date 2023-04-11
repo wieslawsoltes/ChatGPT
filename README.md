@@ -98,26 +98,26 @@ Options:
 
 ### Examples
 
-- Using .NET tool `chat` command:
+- Using .NET tool `chatgpt` command:
 
 C# to VB
 ```bash
-chat -d ./ -e vb -p *.cs --directions "You are C# to VB conversion expert. Convert input code from C# to VB. Write only converted code."
+chatgpt -d ./ -e vb -p *.cs --directions "You are C# to VB conversion expert. Convert input code from C# to VB. Write only converted code."
 ```
 
 C# to F#
 ```bash
-chat -d ./ -e fs -p *.cs --directions "You are C# to F# conversion expert. Convert input code from C# to F#. Write only code."
+chatgpt -d ./ -e fs -p *.cs --directions "You are C# to F# conversion expert. Convert input code from C# to F#. Write only code."
 ```
 
 Refactor C# code
 ```bash
-chat -d ./ -e cs -p *.cs --directions "You are C# expert. Refactor C# code to use fluent api. Write only code."
+chatgpt -d ./ -e cs -p *.cs --directions "You are C# expert. Refactor C# code to use fluent api. Write only code."
 ```
 
 Write API documentation
 ```bash
-chat -d ./ -e md -p *.cs --directions "You are a technical documentation writer. Write API documentation for C# code. If XML docs are missing write them."
+chatgpt -d ./ -e md -p *.cs --directions "You are a technical documentation writer. Write API documentation for C# code. If XML docs are missing write them."
 ```
 
 - Run from source

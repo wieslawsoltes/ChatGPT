@@ -11,7 +11,7 @@
     <IsPackable>True</IsPackable>
     <IsTool>True</IsTool>
     <PackAsTool>True</PackAsTool>
-    <ToolCommandName>chat</ToolCommandName>
+    <ToolCommandName>chatgpt</ToolCommandName>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>ChatGPT.CLI</PackageId>
