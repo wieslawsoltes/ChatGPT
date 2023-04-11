@@ -38,10 +38,11 @@
                                  VerticalAlignment="Top"
                                  DockPanel.Dock="Right"/>
     <Border Background="{DynamicResource MessageBackgroundBrush}" 
-            BorderThickness="1"
+            BorderThickness="0"
             BorderBrush="{DynamicResource MessageBorderBrush}"
             CornerRadius="8"
-            Margin="4,4,0,4">
+            BoxShadow="2 2 2 1 #3F000000"
+            Margin="4,6,0,6">
       <Panel VerticalAlignment="Center">
         <!-- Message -->
         <controls:InvalidateContentControl Content="{Binding}"
