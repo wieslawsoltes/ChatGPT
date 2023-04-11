@@ -32,6 +32,13 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 - F2 - Edit prompt.
 - Shift+Enter, Alt+Enter - Insert new line.
 
+# Overriding OpenAI api url
+
+```C#
+var chat = Defaults.Locator.GetService<IChatService>();
+chat.SetApiUrl("you api url");
+```
+
 # OpenAI ChatGPT web version import
 
 You can import [OpenAI ChatGPT web version](https://chat.openai.com/chat) chats backup created using [this script](https://github.com/abacaj/chatgpt-backup).
