@@ -14,6 +14,6 @@
     <TrimmerSingleWarn>false</TrimmerSingleWarn>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatGPT.Core\ChatGPT.Core.csproj" />
+    <ProjectReference Include="..\..\src\ChatGPT.Core\ChatGPT.Core.csproj" />
   </ItemGroup>
 </Project>

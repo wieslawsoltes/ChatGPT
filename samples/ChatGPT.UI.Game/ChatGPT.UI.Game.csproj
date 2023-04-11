@@ -25,6 +25,6 @@
     <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvaloniaVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatGPT.Core\ChatGPT.Core.csproj" />
+    <ProjectReference Include="..\..\src\ChatGPT.Core\ChatGPT.Core.csproj" />
   </ItemGroup>
 </Project>
