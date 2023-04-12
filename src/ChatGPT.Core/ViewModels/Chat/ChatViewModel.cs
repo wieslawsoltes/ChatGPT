@@ -151,11 +151,6 @@ public class ChatViewModel : ObservableObject
             return isError;
         }
 
-        if (string.IsNullOrEmpty(sendMessage.Message) && !onlyAddMessage)
-        {
-            return isError;
-        }
-
         IsEnabled = false;
 
         try
@@ -288,11 +283,14 @@ public class ChatViewModel : ObservableObject
                 continue;
             }
 
-            chatMessages.Add(new ChatMessage
+            if (!string.IsNullOrEmpty(message.Message))
             {
-                Role = message.Role, 
-                Content = message.Message
-            });
+                chatMessages.Add(new ChatMessage
+                {
+                    Role = message.Role, 
+                    Content = message.Message
+                });
+            }
         }
 
         return chatMessages.ToArray();
