@@ -18,7 +18,7 @@ public partial class DesktopLayoutViewModel : LayoutViewModel
         ShowSettings = true;
         ShowPrompts = true;
 
-        _settingsWidth = "250";
+        _settingsWidth = "290";
         _chatsWidth = "290";
         _promptsWidth = "290";
     }
