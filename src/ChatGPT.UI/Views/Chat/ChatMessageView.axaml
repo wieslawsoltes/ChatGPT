@@ -40,7 +40,7 @@
     <Border Background="{DynamicResource MessageBackgroundBrush}" 
             BorderThickness="0"
             BorderBrush="{DynamicResource MessageBorderBrush}"
-            CornerRadius="8"
+            CornerRadius="8,8,8,0"
             BoxShadow="2 2 3 1 #1F000000"
             Margin="4,6,0,6">
       <Panel VerticalAlignment="Center">
