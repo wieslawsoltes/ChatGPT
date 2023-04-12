@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:ChatGPT.Views"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+             x:Class="ChatGPT.Views.HeaderView"
+             x:CompileBindings="True" x:DataType="views:HeaderView">
+  <Border Background="{DynamicResource HeaderBackgroundBrush}" 
+          BorderThickness="0"
+          BorderBrush="{DynamicResource HeaderBorderBrush}"
+          CornerRadius="0,0,0,0"
+          Padding="6"
+          DockPanel.Dock="Top">
+    <TextBlock Text="{Binding Header}"
+               Margin="8,2,8,2" 
+               Padding="0,0,0,0" 
+               FontSize="{DynamicResource HeaderFontSize}"  />
+  </Border>
+</UserControl>
