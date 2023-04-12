@@ -162,6 +162,11 @@ public class ChatViewModel : ObservableObject
             
             if (!onlyAddMessage)
             {
+                if (string.IsNullOrWhiteSpace(sendMessage.Message))
+                {
+                    Messages.Remove(sendMessage);
+                }
+                
                 var chatPrompt = CreateChatMessages();
 
                 _cts = new CancellationTokenSource();
