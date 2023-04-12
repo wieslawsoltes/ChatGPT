@@ -36,6 +36,7 @@
                Grid.ColumnSpan="2"
                Name="ChatSplitView"
                PanePlacement="Left"
+               PaneBackground="Transparent"
                OpenPaneLength="{Binding #ChatSplitView.Bounds.Width}"
                CompactPaneLength="0"
                IsPaneOpen="{Binding MobileLayout.ShowMenu, Mode=TwoWay, FallbackValue=False}"
@@ -44,11 +45,11 @@
 
       <SplitView.Pane>
         <Panel>
-          <settings:SettingsView Margin="16" 
+          <settings:SettingsView Margin="0" 
                                  IsVisible="{Binding MobileLayout.ShowSettings, FallbackValue=False}" />
-          <history:HistoryView Margin="16" 
+          <history:HistoryView Margin="0" 
                                IsVisible="{Binding MobileLayout.ShowChats, FallbackValue=False}" />
-          <prompts:PromptsView Margin="16" 
+          <prompts:PromptsView Margin="0" 
                                IsVisible="{Binding MobileLayout.ShowPrompts, FallbackValue=False}" />
         </Panel>
       </SplitView.Pane>
