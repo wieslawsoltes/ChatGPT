@@ -174,8 +174,9 @@ public class ApplicationService : IApplicationService
 
     private static IClipboard? GetClipboard()
     {
+#if true
         return Application.Current?.Clipboard;
-        /*
+#else
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: { } window })
         {
             return window.Clipboard;
@@ -191,7 +192,7 @@ public class ApplicationService : IApplicationService
         }
 
         return null;
-        */
+#endif
     }
 
     public async Task SetClipboardTextAsync(string text)
