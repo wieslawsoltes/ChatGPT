@@ -315,30 +315,47 @@ public class ChatViewModel : ObservableObject
             };
         }
 
-        ChatResponse? responseData;
-        var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
-        var restoreApiKey = false;
+        // API Key
 
-        if (!string.IsNullOrWhiteSpace(chatSettings.ApiKey))
+        var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
+        var restoreApiKey = !string.IsNullOrWhiteSpace(chatSettings.ApiKey);
+
+        if (string.IsNullOrWhiteSpace(chatSettings.ApiKey) && string.IsNullOrEmpty(apiKey))
+        {
+            return new ChatResponseError
+            {
+                Error = new ChatError {Message = "The OpenAI api key is not set."}
+            };
+        }
+
+        // API Model
+
+        var apiModel = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiModel);
+        var restoreApiModel = !string.IsNullOrWhiteSpace(chatSettings.Model);
+
+        if (string.IsNullOrWhiteSpace(chatSettings.Model) && string.IsNullOrEmpty(apiModel))
+        {
+            return new ChatResponseError
+            {
+                Error = new ChatError {Message = "The OpenAI api model is not set."}
+            };
+        }
+
+        // Settings
+        
+        if (restoreApiKey)
         {
             Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, chatSettings.ApiKey);
-            restoreApiKey = true;
         }
-        else
-        {
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                responseData = new ChatResponseError()
-                {
-                    Error = new ChatError
-                    {
-                        Message = "The OpenAI api key is not set."
-                    }
-                };
 
-                return responseData;
-            }
+        if (restoreApiModel)
+        {
+            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, chatSettings.Model);
         }
+
+        // Get
+
+        ChatResponse? responseData;
 
         try
         {
@@ -358,6 +375,11 @@ public class ChatViewModel : ObservableObject
         if (restoreApiKey && !string.IsNullOrWhiteSpace(apiKey))
         {
             Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, apiKey);
+        }
+
+        if (restoreApiModel && !string.IsNullOrWhiteSpace(apiModel))
+        {
+            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiModel, apiModel);
         }
 
         return responseData;
