@@ -28,7 +28,7 @@ public class CompletionsService : ICompletionsService
     private string GetRequestBodyJson(CompletionsServiceSettings settings)
     {
         var model = settings.Model;
-        if (model is null)
+        if (string.IsNullOrWhiteSpace(model))
         {
             model = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiModel);
         }
