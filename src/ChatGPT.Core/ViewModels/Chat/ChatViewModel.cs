@@ -306,7 +306,7 @@ public class ChatViewModel : ObservableObject
         var chat = Defaults.Locator.GetService<IChatService>();
         if (chat is null)
         {
-            return new ChatResponseError()
+            return new ChatResponseError
             {
                 Error = new ChatError
                 {
