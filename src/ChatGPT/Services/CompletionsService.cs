@@ -27,10 +27,16 @@ public class CompletionsService : ICompletionsService
 
     private string GetRequestBodyJson(CompletionsServiceSettings settings)
     {
+        var model = settings.Model;
+        if (model is null)
+        {
+            model = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiModel);
+        }
+
         // Set up the request body
         var requestBody = new CompletionsRequestBody
         {
-            Model = settings.Model,
+            Model = model,
             Prompt = settings.Prompt,
             Suffix = null,
             MaxTokens = settings.MaxTokens,
