@@ -350,7 +350,7 @@ public class ChatViewModel : ObservableObject
 
         if (restoreApiModel)
         {
-            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiKey, chatSettings.Model);
+            Environment.SetEnvironmentVariable(Constants.EnvironmentVariableApiModel, chatSettings.Model);
         }
 
         // Get
