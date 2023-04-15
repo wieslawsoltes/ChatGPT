@@ -27,10 +27,16 @@ public class ChatService : IChatService
 
     private string GetRequestBodyJson(ChatServiceSettings settings)
     {
+        var model = settings.Model;
+        if (model is null)
+        {
+            model = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiModel);
+        }
+
         // Set up the request body
         var requestBody = new ChatRequestBody
         {
-            Model = settings.Model,
+            Model = model,
             Messages = settings.Messages,
             MaxTokens = settings.MaxTokens,
             Temperature = settings.Temperature,
