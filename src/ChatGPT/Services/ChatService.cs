@@ -28,7 +28,7 @@ public class ChatService : IChatService
     private string GetRequestBodyJson(ChatServiceSettings settings)
     {
         var model = settings.Model;
-        if (model is null)
+        if (string.IsNullOrWhiteSpace(model))
         {
             model = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiModel);
         }
