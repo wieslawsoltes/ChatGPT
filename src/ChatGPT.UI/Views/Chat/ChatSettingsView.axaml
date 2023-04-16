@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
              xmlns:vmc="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="750"
              x:Class="ChatGPT.Views.Chat.ChatSettingsView"
              x:CompileBindings="True" x:DataType="vmc:ChatSettingsViewModel">
@@ -120,12 +121,19 @@
                    Margin="8,2,8,2" 
                    Padding="0,4,0,4" 
                    FontSize="{DynamicResource SettingHeaderFontSize}" />
-        <TextBox Text="{Binding Model}"  
-                 Watermark="Override OpenAI ID of the model to use"
-                 Margin="8,4,8,4" 
-                 Padding="8" 
-                 FontSize="{DynamicResource SettingContentFontSize}"
-                 ToolTip.Tip="Override OpenAI ID of the model to use. By default OPENAI_API_MODEL environment variable is used." />
+        <AutoCompleteBox Text="{Binding Model}"  
+                         Watermark="Override OpenAI ID of the model to use"
+                         Margin="8,4,8,4" 
+                         Padding="8" 
+                         FontSize="{DynamicResource SettingContentFontSize}"
+                         ToolTip.Tip="Override OpenAI ID of the model to use. By default OPENAI_API_MODEL environment variable is used.">
+          <AutoCompleteBox.Items>
+            <generic:List x:TypeArguments="system:String">
+              <x:String>gpt-3.5-turbo</x:String>
+              <x:String>gpt-4</x:String>
+            </generic:List>
+          </AutoCompleteBox.Items>
+        </AutoCompleteBox>
       </StackPanel>
 
       <!-- ApiKey -->
