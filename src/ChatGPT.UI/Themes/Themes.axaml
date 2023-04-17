@@ -6,6 +6,7 @@
       <SolidColorBrush x:Key='HeaderBorderBrush'>#40000000</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBackgroundBrush'>#C5FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBorderBrush'>#40000000</SolidColorBrush>
+      <BoxShadows x:Key="MessageBoxShadow">2 2 2 1 #2F000000</BoxShadows>
       <SolidColorBrush x:Key='MessageErrorBrush'>Red</SolidColorBrush>
       <SolidColorBrush x:Key='MessageActionBrush'>#80000000</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80FFFFFF</SolidColorBrush>
@@ -26,6 +27,7 @@
       <SolidColorBrush x:Key='HeaderBorderBrush'>#40FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBackgroundBrush'>#C5303030</SolidColorBrush>
       <SolidColorBrush x:Key='MessageBorderBrush'>#40FFFFFF</SolidColorBrush>
+      <BoxShadows x:Key="MessageBoxShadow">2 2 2 1 #3F000000</BoxShadows>
       <SolidColorBrush x:Key='MessageErrorBrush'>Yellow</SolidColorBrush>
       <SolidColorBrush x:Key='MessageActionBrush'>#80FFFFFF</SolidColorBrush>
       <SolidColorBrush x:Key='SendBackgroundBrush'>#80303030</SolidColorBrush>

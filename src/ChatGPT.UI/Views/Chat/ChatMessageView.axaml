@@ -41,7 +41,7 @@
             BorderThickness="0"
             BorderBrush="{DynamicResource MessageBorderBrush}"
             CornerRadius="8,8,8,0"
-            BoxShadow="2 2 2 1 #3F000000"
+            BoxShadow="{DynamicResource MessageBoxShadow}"
             Margin="4,6,0,6">
       <Panel VerticalAlignment="Center">
         <!-- Message -->
