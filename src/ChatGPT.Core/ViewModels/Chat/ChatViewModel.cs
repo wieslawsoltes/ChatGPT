@@ -138,6 +138,8 @@ public class ChatViewModel : ObservableObject
                 {
                     lastMessage.CanRemove = false;
                 }
+
+                CurrentMessage = lastMessage;
             }
         }
     }
