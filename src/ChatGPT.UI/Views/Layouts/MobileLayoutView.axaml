@@ -56,7 +56,7 @@
 
       <Panel IsVisible="{Binding !MobileLayout.ShowMenu}">
         <ContentControl Content="{Binding CurrentChat}"
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Stretch">
           <ContentControl.ContentTemplate>
             <DataTemplate DataType="vmc:ChatViewModel">
               <chat:ChatView />
