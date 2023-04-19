@@ -30,7 +30,7 @@
   </Design.DataContext>
   <DockPanel VerticalAlignment="Stretch">
     <views:HeaderView Header="Settings"
-                      Margin="6,6,6,0"
+                      Margin="6,6,6,6"
                       DockPanel.Dock="Top" />
     <settings:SettingsActionsView DockPanel.Dock="Bottom" 
                                   Margin="0,16,0,0" />
