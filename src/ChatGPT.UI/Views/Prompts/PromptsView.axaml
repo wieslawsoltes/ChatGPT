@@ -23,7 +23,7 @@
   </Design.DataContext>
   <DockPanel VerticalAlignment="Stretch">
     <views:HeaderView Header="Prompts"
-                      Margin="0,6,0,0"
+                      Margin="0,6,0,12"
                       DockPanel.Dock="Top" />
     <promtps:PromptsActionsView DockPanel.Dock="Bottom" 
                                 Margin="0,16,0,0"/>
