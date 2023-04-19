@@ -65,7 +65,7 @@
                       Grid.Column="1" />
 
         <ContentControl Content="{Binding CurrentChat}"
-                        VerticalAlignment="Top"
+                        VerticalAlignment="Stretch"
                         Grid.Column="2">
           <ContentControl.ContentTemplate>
             <DataTemplate DataType="vmc:ChatViewModel">
