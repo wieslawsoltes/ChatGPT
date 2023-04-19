@@ -20,27 +20,49 @@
           <vm:ChatMessageViewModel IsSent="True" IsError="True" Message="This is message" />
         </objectModel:ObservableCollection>
       </vm:ChatViewModel.Messages>
+      <vm:ChatViewModel.CurrentMessage>
+        <vm:ChatMessageViewModel IsSent="False" Message="This is prompt" />
+      </vm:ChatViewModel.CurrentMessage>
     </vm:ChatViewModel>
   </Design.DataContext>
-  <ScrollViewer Name="ChatScrollViewer"
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
-    <SelectingItemsControl Name="MessagesItemsControl"
-                           ItemsSource="{Binding Messages}"
-                           SelectedItem="{Binding CurrentMessage}"
-                           AutoScrollToSelectedItem="False">
-      <SelectingItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-          <!-- TODO: Use VirtualizingStackPanel instead of StackPanel -->
-          <!-- <VirtualizingStackPanel /> -->
-          <StackPanel />
-        </ItemsPanelTemplate>
-      </SelectingItemsControl.ItemsPanel>
-      <SelectingItemsControl.DataTemplates>
+  <UserControl.Styles>
+    <Style Selector="SelectingItemsControl.hideLastItem ContentPresenter:nth-last-child(1)">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </UserControl.Styles>
+  <Grid RowDefinitions="*,Auto">
+    <ScrollViewer Name="ChatScrollViewer"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.Row="0">
+      <SelectingItemsControl Name="MessagesItemsControl"
+                             ItemsSource="{Binding Messages}"
+                             SelectedItem="{Binding CurrentMessage}"
+                             AutoScrollToSelectedItem="False"
+                             Classes="hideLastItem">
+        <SelectingItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <!-- TODO: Use VirtualizingStackPanel instead of StackPanel -->
+            <!-- <VirtualizingStackPanel /> -->
+            <StackPanel/>
+          </ItemsPanelTemplate>
+        </SelectingItemsControl.ItemsPanel>
+        <SelectingItemsControl.DataTemplates>
+          <DataTemplate DataType="vm:ChatMessageViewModel">
+            <chat:ChatMessageView Margin="2,0,6,0" />
+          </DataTemplate>
+        </SelectingItemsControl.DataTemplates>
+      </SelectingItemsControl>
+    </ScrollViewer>
+
+    <ContentControl Content="{Binding CurrentMessage}"
+                    Grid.Row="1">
+      <ContentControl.DataTemplates>
         <DataTemplate DataType="vm:ChatMessageViewModel">
           <chat:ChatMessageView Margin="2,0,6,0" />
         </DataTemplate>
-      </SelectingItemsControl.DataTemplates>
-    </SelectingItemsControl>
-  </ScrollViewer>
+      </ContentControl.DataTemplates>
+    </ContentControl>
+
+  </Grid>
 </UserControl>
