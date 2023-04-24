@@ -61,7 +61,7 @@ You can import [OpenAI ChatGPT web version](https://chat.openai.com/chat) chats 
 
 Install:
 ```bash
-dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.9
+dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.17
 ```
 
 Uninstall:
