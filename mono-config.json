@@ -25,6 +25,10 @@
     },
     {
       "behavior": "assembly",
+      "name": "Avalonia.HtmlRenderer.dll"
+    },
+    {
+      "behavior": "assembly",
       "name": "Avalonia.Markup.dll"
     },
     {
@@ -117,6 +121,10 @@
     },
     {
       "behavior": "assembly",
+      "name": "System.ComponentModel.EventBasedAsync.dll"
+    },
+    {
+      "behavior": "assembly",
       "name": "System.ComponentModel.Primitives.dll"
     },
     {
@@ -154,6 +162,26 @@
     {
       "behavior": "assembly",
       "name": "System.Net.Primitives.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.Requests.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.Security.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.ServicePoint.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.WebClient.dll"
+    },
+    {
+      "behavior": "assembly",
+      "name": "System.Net.WebHeaderCollection.dll"
     },
     {
       "behavior": "assembly",
