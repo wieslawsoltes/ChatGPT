@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>preview.18</VersionSuffix>
+    <VersionSuffix>preview.19</VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
     <Copyright>Copyright © Wiesław Šoltés 2023</Copyright>
@@ -19,7 +19,7 @@
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
     <MarkdownAvaloniaVersion>11.0.0-b1</MarkdownAvaloniaVersion>
-    <AvaloniaHtmlRendererVersion>11.0.0-preview5</AvaloniaHtmlRendererVersion>
+    <AvaloniaHtmlRendererVersion>11.0.0-preview6</AvaloniaHtmlRendererVersion>
     <SystemCommandLineVersion>2.0.0-beta1.20104.2</SystemCommandLineVersion>
     <XUnitVersion>2.4.1</XUnitVersion>
     <XUnitAbstractionsVersion>2.0.3</XUnitAbstractionsVersion>

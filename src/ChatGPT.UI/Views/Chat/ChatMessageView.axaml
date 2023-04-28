@@ -72,9 +72,7 @@
                 </DataTemplate>
                 <!-- Html -->
                 <DataTemplate x:DataType="vm:ChatMessageViewModel" x:Key="HtmlDataTemplate">
-                  <!-- TODO: -->
-                  <!-- <messages:ChatHtmlMessageView /> -->
-                  <messages:ChatTextMessageView />
+                  <messages:ChatHtmlMessageView />
                 </DataTemplate>
               </dt:DataTemplateSelector.Resources>
             </dt:DataTemplateSelector>
