@@ -2,6 +2,7 @@ namespace AI.Model.Services;
 
 public class CompletionsServiceSettings
 {
+    public string? Url { get; set; }
     public string? Model { get; set; }
     public string? Prompt { get; set; }
     public string? Suffix { get; set; }

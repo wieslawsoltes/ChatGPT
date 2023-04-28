@@ -142,6 +142,7 @@ internal static class Chat
             ApiKey = cliSettings.ApiKey,
             Model = cliSettings.Model,
             Directions = cliSettings.Directions,
+            ApiUrl = cliSettings.ApiUrl,
         };
 
         for (var i = 0; i < paths.Count; i++)

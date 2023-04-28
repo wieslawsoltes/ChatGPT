@@ -12,7 +12,7 @@ namespace AI.Services;
 public class CompletionsService : ICompletionsService
 {
     private static readonly HttpClient s_client;
-    private string _apiUrl = "https://api.openai.com/v1/completions";
+    private static readonly string s_apiUrl = "https://api.openai.com/v1/completions";
     private readonly IChatSerializer _serializer;
 
     static CompletionsService()
@@ -102,11 +102,6 @@ public class CompletionsService : ICompletionsService
         return _serializer.Deserialize<CompletionsResponseSuccess>(responseBody);
     }
 
-    public void SetApiUrl(string apiUrl)
-    {
-        _apiUrl = apiUrl;
-    }
-
     public async Task<CompletionsResponse?> GetResponseDataAsync(CompletionsServiceSettings settings, CancellationToken token)
     {
         // Set up the API URL and API key
@@ -118,8 +113,25 @@ public class CompletionsService : ICompletionsService
 
         // Get the request body JSON
         var requestBodyJson = GetRequestBodyJson(settings);
+  
+        var apiUrl = s_apiUrl;
+        var envApiUrl = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiUrlCompletions);
+        if (!string.IsNullOrWhiteSpace(envApiUrl))
+        {
+            apiUrl = envApiUrl;
+        }
+
+        if (!string.IsNullOrWhiteSpace(settings.Url))
+        {
+            apiUrl = settings.Url;
+        }
+
+        if (apiUrl is null)
+        {
+            return null;
+        }
 
         // Send the API request and get the response data
-        return await SendApiRequestAsync(_apiUrl, apiKey, requestBodyJson, token);
+        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
     }
 }

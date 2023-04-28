@@ -14,6 +14,7 @@ public partial class ChatSettingsViewModel : ObservableObject
     private string? _model;
     private string? _directions;
     private string? _format;
+    private string? _apiUrl;
 
     [JsonConstructor]
     public ChatSettingsViewModel()
@@ -26,6 +27,7 @@ public partial class ChatSettingsViewModel : ObservableObject
         _apiKey = null;
         _model = "gpt-3.5-turbo";
         _directions = "You are a helpful assistant.";
+        _apiUrl = null;
     }
 
     [JsonPropertyName("temperature")]
@@ -91,6 +93,13 @@ public partial class ChatSettingsViewModel : ObservableObject
         set => SetProperty(ref _format, value);
     }
 
+    [JsonPropertyName("apiUrl")]
+    public string? ApiUrl
+    {
+        get => _apiUrl;
+        set => SetProperty(ref _apiUrl, value);
+    }
+
     public ChatSettingsViewModel Copy()
     {
         return new ChatSettingsViewModel
@@ -104,6 +113,7 @@ public partial class ChatSettingsViewModel : ObservableObject
             Model = _model,
             Directions = _directions,
             Format = _format,
+            ApiUrl = _apiUrl,
         };
     }
 }

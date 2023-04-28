@@ -106,7 +106,14 @@ RootCommand CreateRootCommand()
     {
         Argument = new Argument<string?>(getDefaultValue: () => null)
     };
-    
+
+    var optionApiUrl = new Option(
+        new[] { "--apiUrl" },
+        "Override OpenAI api url. By default OPENAI_API_URL_CHAT_COMPLETIONS environment variable is used.")
+    {
+        Argument = new Argument<string?>(getDefaultValue: () => null)
+    };
+
     var optionModel = new Option(
         new[] { "--model" },
         "ID of the model to use. See the model endpoint compatibility table for details on which models work with the Chat API.")
@@ -150,6 +157,7 @@ RootCommand CreateRootCommand()
     rootCommand.AddOption(optionFrequencyPenalty);
     rootCommand.AddOption(optionMaxTokens);
     rootCommand.AddOption(optionApiKey);
+    rootCommand.AddOption(optionApiUrl);
     rootCommand.AddOption(optionModel);
     rootCommand.AddOption(optionDirections);
 

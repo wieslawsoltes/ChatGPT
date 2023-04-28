@@ -20,6 +20,7 @@ internal class CliSettings
     public string? ApiKey { get; set; } = null;
     public string? Model { get; set; } = "gpt-3.5-turbo";
     public string? Directions { get; set; } = "You are a helpful assistant.";
+    public string? ApiUrl { get; set; } = null;
     // Job settings
     public int Threads { get; set; } = 1;
     public bool Quiet { get; set; } = false;
