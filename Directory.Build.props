@@ -18,7 +18,7 @@
     <NodeEditorVersion>11.0.0-preview8</NodeEditorVersion>
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <MarkdownAvaloniaVersion>11.0.0-c1</MarkdownAvaloniaVersion>
-    <AvaloniaHtmlRendererVersion>11.0.0-preview6</AvaloniaHtmlRendererVersion>
+    <AvaloniaHtmlRendererVersion>11.0.0-preview7</AvaloniaHtmlRendererVersion>
     <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
     <SystemCommandLineVersion>2.0.0-beta1.20104.2</SystemCommandLineVersion>
     <XUnitVersion>2.4.1</XUnitVersion>
