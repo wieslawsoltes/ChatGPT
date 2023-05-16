@@ -34,7 +34,7 @@ jobs:
   - template: Test-Bash.yml@templates
     parameters:
       name: 'Test_macOS'
-      vmImage: 'macOS-12'
+      vmImage: 'macOS-13'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }} ios
 
@@ -115,7 +115,7 @@ jobs:
   - template: Publish-Bash.yml@templates
     parameters:
       name: 'Publish_macOS_x64'
-      vmImage: 'macOS-12'
+      vmImage: 'macOS-13'
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }} ios
       PublishFramework: ${{ variables.PublishFramework }}
@@ -125,7 +125,7 @@ jobs:
 # - template: Publish-Bash.yml@templates
 #   parameters:
 #       name: 'Publish_macOS_arm64'
-#       vmImage: 'macOS-12'
+#       vmImage: 'macOS-13'
 #       BuildConfiguration: ${{ variables.BuildConfiguration }}
 #       Workloads: ${{ variables.Workloads }} ios
 #       PublishFramework: ${{ variables.PublishFramework }}
@@ -135,7 +135,7 @@ jobs:
   - template: Publish-Bash-Android.yml@templates
     parameters:
         name: 'Publish_Bash_Android'
-        vmImage: 'macOS-12'
+        vmImage: 'macOS-13'
         BuildConfiguration: ${{ variables.BuildConfiguration }}
         Workloads: ${{ variables.Workloads }} ios
         PublishFramework: 'net7.0-android'
