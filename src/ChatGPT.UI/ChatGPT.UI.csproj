@@ -24,8 +24,7 @@
     <!--<PackageReference Include="NodeEditorAvalonia" Version="$(NodeEditorVersion)" />-->
     <!--<PackageReference Include="NodeEditorAvalonia.Mvvm" Version="$(NodeEditorVersion)" />-->
     <PackageReference Include="Markdown.Avalonia" Version="$(MarkdownAvaloniaVersion)" />
-    <!-- TODO: -->
-    <!--<PackageReference Include="Avalonia.HtmlRenderer" Version="$(AvaloniaHtmlRendererVersion)" />-->
+    <PackageReference Include="Avalonia.HtmlRenderer" Version="$(AvaloniaHtmlRendererVersion)" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatGPT.Core\ChatGPT.Core.csproj" />

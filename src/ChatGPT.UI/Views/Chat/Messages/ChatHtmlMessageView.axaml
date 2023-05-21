@@ -1,5 +1,4 @@
-<!-- TODO: -->
-<!--<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,5 +15,4 @@
                   IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   Classes.error="{Binding IsError}" />
-</UserControl>-->
-<UserControl xmlns="https://github.com/avaloniaui" />
+</UserControl>

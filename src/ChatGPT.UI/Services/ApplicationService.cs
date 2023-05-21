@@ -174,7 +174,7 @@ public class ApplicationService : IApplicationService
 
     private static IClipboard? GetClipboard()
     {
-#if true
+#if false
         return Application.Current?.Clipboard;
 #else
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: { } window })

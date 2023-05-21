@@ -34,9 +34,8 @@ You can try client using browser version [here](https://wieslawsoltes.github.io/
 
 # Overriding OpenAI api url
 
-```C#
-var chat = Defaults.Locator.GetService<IChatService>();
-chat.SetApiUrl("you api url");
+```bash
+To override the OpenAI api url set `OPENAI_API_URL_CHAT_COMPLETIONS` environment variable or set API url directly in app settings.
 ```
 
 # OpenAI ChatGPT web version import
@@ -61,7 +60,7 @@ You can import [OpenAI ChatGPT web version](https://chat.openai.com/chat) chats 
 
 Install:
 ```bash
-dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.9
+dotnet tool install --global ChatGPT.CLI --version 1.0.0-preview.17
 ```
 
 Uninstall:
@@ -95,6 +94,7 @@ Options:
 --frequencyPenalty <frequencypenalty>      Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
 --maxTokens <maxtokens>                    The maximum number of tokens to generate in the chat completion.
 --apiKey <apikey>                          Override OpenAI api key. By default OPENAI_API_KEY environment variable is used.
+--apiUrl <apiUrl>                          Override OpenAI api url. By default OPENAI_API_URL_CHAT_COMPLETIONS environment variable is used.
 --model <model>                            ID of the model to use. See the model endpoint compatibility table for details on which models work with the Chat API.
 --directions <directions>                  The system message (directions) helps set the behavior of the assistant. Typically, a conversation is formatted with a system message first, followed by alternating user and assistant messages.
 -t, --threads <threads>                    The number of parallel job threads
@@ -155,7 +155,8 @@ dotnet run -- -d ./ -e md -p *.cs --directions "You are a technical documentatio
     "maxTokens": 2000,
     "apiKey": "",
     "model": "gpt-3.5-turbo",
-    "directions": "You are a helpful assistant."
+    "directions": "You are a helpful assistant.",
+    "apiUrl": ""
 }
 ```
 

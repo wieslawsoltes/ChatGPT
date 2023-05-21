@@ -403,6 +403,7 @@ public class ChatViewModel : ObservableObject
             MaxTokens = Settings.MaxTokens,
             TopP = 1.0m,
             Stop = null,
+            ApiUrl = Settings.ApiUrl,
         };
 
         var result = new ChatResultViewModel

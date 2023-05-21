@@ -127,12 +127,12 @@
                          Padding="8" 
                          FontSize="{DynamicResource SettingContentFontSize}"
                          ToolTip.Tip="Override OpenAI ID of the model to use. By default OPENAI_API_MODEL environment variable is used.">
-          <AutoCompleteBox.Items>
+          <AutoCompleteBox.ItemsSource>
             <generic:List x:TypeArguments="system:String">
               <x:String>gpt-3.5-turbo</x:String>
               <x:String>gpt-4</x:String>
             </generic:List>
-          </AutoCompleteBox.Items>
+          </AutoCompleteBox.ItemsSource>
         </AutoCompleteBox>
       </StackPanel>
 
@@ -150,6 +150,27 @@
                  Padding="8" 
                  FontSize="{DynamicResource SettingContentFontSize}"
                  ToolTip.Tip="Override OpenAI api key. By default OPENAI_API_KEY environment variable is used."  />
+      </StackPanel>
+
+      <!-- Url -->
+      <StackPanel Name="UrlStackPanel"
+                  Orientation="Vertical">
+        <TextBlock Text="Api url:" 
+                   Margin="8,2,8,2" 
+                   Padding="0,4,0,4" 
+                   FontSize="{DynamicResource SettingHeaderFontSize}" />
+        <AutoCompleteBox Text="{Binding ApiUrl}"  
+                         Watermark="Override OpenAI api url"
+                         Margin="8,4,8,4" 
+                         Padding="8" 
+                         FontSize="{DynamicResource SettingContentFontSize}"
+                         ToolTip.Tip="Override OpenAI api url to use. By default OPENAI_API_URL_CHAT_COMPLETIONS environment variable is used if not set default api url is used.">
+          <AutoCompleteBox.ItemsSource>
+            <generic:List x:TypeArguments="system:String">
+              <x:String>https://api.openai.com/v1/chat/completions</x:String>
+            </generic:List>
+          </AutoCompleteBox.ItemsSource>
+        </AutoCompleteBox>
       </StackPanel>
 
       <!-- Format -->
