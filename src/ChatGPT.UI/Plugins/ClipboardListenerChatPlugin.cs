@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Input.Platform;
+using Avalonia.Controls.ApplicationLifetimes;
 using ChatGPT.Model.Plugins;
 
 namespace ChatGPT.Plugins;
@@ -108,7 +108,9 @@ public class ClipboardListenerChatPlugin : IChatPlugin
 
         _sync = true;
 
-        if (AvaloniaLocator.Current.GetService<IClipboard>() is { } clipboard)
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime 
+            && lifetime.MainWindow is { } mainWindow
+            && mainWindow.Clipboard is { } clipboard)
         {
             var text = await clipboard.GetTextAsync();
             if (!string.IsNullOrEmpty(text) && _text != text)
