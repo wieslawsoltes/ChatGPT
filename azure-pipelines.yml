@@ -6,7 +6,7 @@ resources:
       endpoint: wieslawsoltes
       type: github
       name: wieslawsoltes/BuildTemplates
-      ref: refs/tags/v2.5.0
+      ref: refs/tags/v2.8.0
 
 variables:
   BuildConfiguration: 'Release'
@@ -31,7 +31,7 @@ jobs:
       BuildConfiguration: ${{ variables.BuildConfiguration }}
       Workloads: ${{ variables.Workloads }}
 
-  - template: Test-Bash.yml@templates
+  - template: Test-Bash-macOS.yml@templates
     parameters:
       name: 'Test_macOS'
       vmImage: 'macOS-13'
@@ -112,7 +112,7 @@ jobs:
 #       PublishProject: ${{ variables.PublishProject }}
 #       PublishRuntime: 'debian.8-arm64'
 
-  - template: Publish-Bash.yml@templates
+  - template: Publish-Bash-macOS.yml@templates
     parameters:
       name: 'Publish_macOS_x64'
       vmImage: 'macOS-13'
