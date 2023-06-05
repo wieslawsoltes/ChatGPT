@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AI.Model.Services;
 using AI.Services;
@@ -323,12 +324,12 @@ public partial class App : Application
         {
             if (desktop.MainWindow is MainWindow mainWindow)
             {
-                if (mainWindow.TransparencyLevelHint == WindowTransparencyLevel.AcrylicBlur)
+                if (mainWindow.TransparencyLevelHint.Contains(WindowTransparencyLevel.AcrylicBlur))
                 {
                     mainWindow.SystemDecorations = SystemDecorations.None;
                     mainWindow.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
                     mainWindow.ExtendClientAreaToDecorationsHint = false;
-                    mainWindow.TransparencyLevelHint = WindowTransparencyLevel.Transparent;
+                    mainWindow.TransparencyLevelHint = new [] { WindowTransparencyLevel.Transparent };
                     mainWindow.AcrylicBorder.IsVisible = false;
                 }
                 else
@@ -336,7 +337,7 @@ public partial class App : Application
                     mainWindow.SystemDecorations = SystemDecorations.Full;
                     mainWindow.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
                     mainWindow.ExtendClientAreaToDecorationsHint = true;
-                    mainWindow.TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+                    mainWindow.TransparencyLevelHint = new []{ WindowTransparencyLevel.AcrylicBlur };
                     mainWindow.AcrylicBorder.IsVisible = true;
                 }
             }

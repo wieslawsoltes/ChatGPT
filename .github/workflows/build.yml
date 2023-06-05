@@ -97,6 +97,8 @@ jobs:
     runs-on: macos-13
     steps:
     - uses: actions/checkout@v1
+    - name: Set XCode Version
+      run: sudo xcode-select -s /Applications/Xcode_14.3.app
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
     - name: Install workloads
