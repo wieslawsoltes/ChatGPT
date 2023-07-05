@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.Views;
+using Avalonia;
 using Avalonia.Android;
 
 namespace ChatGPT.UI.Android;
@@ -9,11 +10,12 @@ namespace ChatGPT.UI.Android;
 [Activity(
     Label = "ChatGPT", 
     Theme = "@style/MyTheme.Main", 
-    Icon = "@drawable/icon", 
+    Icon = "@drawable/icon",
+    MainLauncher = true,
     LaunchMode = LaunchMode.SingleTop, 
     ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode,
     WindowSoftInputMode = SoftInput.AdjustResize)]
-public class MainActivity : AvaloniaMainActivity
+public class MainActivity : AvaloniaMainActivity<App>
 {
     protected override void OnDestroy()
     {
@@ -31,5 +33,14 @@ public class MainActivity : AvaloniaMainActivity
         }
 
         base.OnDestroy();
+    }
+    
+    protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
+    {
+        App.ConfigureMobileServices();
+
+        builder.WithInterFont();
+
+        return base.CustomizeAppBuilder(builder);
     }
 }
