@@ -13,4 +13,12 @@ public class ChatMessage
     [DataMember(Name = "content")]
     [JsonPropertyName("content")]
     public string? Content { get; set; }
+
+    [DataMember(Name = "name")]
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    [DataMember(Name = "function_call")]
+    [JsonPropertyName("function_call")]
+    public ChatMessageFunctionCall? FunctionCall { get; set; }
 }

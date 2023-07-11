@@ -15,6 +15,16 @@ public class ChatRequestBody
     [JsonPropertyName("messages")]
     public ChatMessage[]? Messages { get; set; }
 
+    [DataMember(Name = "functions")]
+    [JsonPropertyName("functions")]
+    public ChatFunction[]? Functions { get; set; }
+
+    // string: "none", "auto"
+    // ChatFunctionCall: {"name":\ "my_function"}
+    [DataMember(Name = "function_call")]
+    [JsonPropertyName("function_call")]
+    public object? FunctionCall { get; set; }
+
     [DataMember(Name = "temperature")]
     [JsonPropertyName("temperature")]
     public decimal Temperature { get; set; } = 1;
