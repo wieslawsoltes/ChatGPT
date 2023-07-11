@@ -4,7 +4,7 @@
     "includedFrameworks": [
       {
         "name": "Microsoft.NETCore.App",
-        "version": "7.0.5"
+        "version": "7.0.8"
       }
     ],
     "wasmHostProperties": {
