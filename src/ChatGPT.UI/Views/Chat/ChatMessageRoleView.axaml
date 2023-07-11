@@ -79,6 +79,16 @@
                         Foreground="{DynamicResource ActionIconBrush}"/>
             </MenuItem.Icon>
           </MenuItem>
+          <MenuItem Header="Function" 
+                    Command="{Binding SetRoleCommand}" 
+                    CommandParameter="function">
+            <MenuItem.Icon>
+              <PathIcon Data="{DynamicResource CodeIcon}"
+                        Width="24" 
+                        Height="24"
+                        Foreground="{DynamicResource ActionIconBrush}"/>
+            </MenuItem.Icon>
+          </MenuItem>
         </MenuItem>
         <!-- Separator -->
         <Separator />
