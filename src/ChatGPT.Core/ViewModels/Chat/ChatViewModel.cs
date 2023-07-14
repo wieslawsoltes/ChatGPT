@@ -282,7 +282,9 @@ public class ChatViewModel : ObservableObject
                 chatMessages.Add(new ChatMessage
                 {
                     Role = message.Role,
-                    Content = content
+                    Content = content,
+                    Name = message.Name
+                    // TODO: FunctionCall
                 });
 
                 continue;
@@ -293,7 +295,9 @@ public class ChatViewModel : ObservableObject
                 chatMessages.Add(new ChatMessage
                 {
                     Role = message.Role, 
-                    Content = message.Message
+                    Content = message.Message,
+                    Name = message.Name,
+                    // TODO: FunctionCall
                 });
             }
         }
