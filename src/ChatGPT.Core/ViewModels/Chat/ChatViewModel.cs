@@ -398,6 +398,10 @@ public class ChatViewModel : ObservableObject
 
         var chatServiceSettings = new ChatServiceSettings
         {
+            // TODO: Functions
+            Functions = null,
+            // TODO: FunctionCall
+            FunctionCall = null,
             Model = Settings.Model,
             Messages = messages,
             Suffix = null,
