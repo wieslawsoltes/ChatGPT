@@ -13,6 +13,7 @@ public class ChatMessageViewModel : ObservableObject
 {
     private string? _role;
     private string? _message;
+    private string? _name;
     private string? _format;
     private bool _isSent;
     private bool _isAwaiting;
@@ -52,6 +53,17 @@ public class ChatMessageViewModel : ObservableObject
         _message = message;
     }
 
+    public ChatMessageViewModel(string role, string message, string name) 
+        : this()
+    {
+        _role = role;
+        _message = message;
+        _name = name;
+    }
+
+    /// <summary>
+    /// The role of the messages author. One of system, user, assistant, or function.
+    /// </summary>
     [JsonPropertyName("role")]
     public string? Role
     {
@@ -59,11 +71,24 @@ public class ChatMessageViewModel : ObservableObject
         set => SetProperty(ref _role, value);
     }
 
+    /// <summary>
+    /// The contents of the message. content is required for all messages, and may be null for assistant messages with function calls.
+    /// </summary>
     [JsonPropertyName("message")]
     public string? Message
     {
         get => _message;
         set => SetProperty(ref _message, value);
+    }
+
+    /// <summary>
+    /// The name of the author of this message. name is required if role is function, and it should be the name of the function whose response is in the content. May contain a-z, A-Z, 0-9, and underscores, with a maximum length of 64 characters.
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string? Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value);
     }
 
     [JsonPropertyName("format")]
@@ -299,6 +324,7 @@ public class ChatMessageViewModel : ObservableObject
         {
             Role = _role,
             Message = _message,
+            Name = _name,
             Format = _format,
             IsSent = _isSent,
             IsAwaiting = _isAwaiting,
