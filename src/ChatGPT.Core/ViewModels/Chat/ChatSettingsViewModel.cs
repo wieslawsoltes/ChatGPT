@@ -16,6 +16,10 @@ public partial class ChatSettingsViewModel : ObservableObject
     private string? _format;
     private string? _apiUrl;
 
+    // TODO: Add Functions property (or in Settings?).
+
+    // TODO: Add FunctionCall property (or in Settings?).
+
     [JsonConstructor]
     public ChatSettingsViewModel()
     {
