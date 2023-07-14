@@ -466,6 +466,17 @@ public class ChatViewModel : ObservableObject
         return this;
     }
 
+    public ChatViewModel AddFunctionMessage(string? message, string? name)
+    {
+        Messages.Add(new ChatMessageViewModel
+        {
+            Role = "function",
+            Message = message,
+            Name = name
+        });
+        return this;
+    }
+
     private ObservableCollection<ChatMessageViewModel> CopyMessages(out ChatMessageViewModel? currentMessage)
     {
         var messages = new ObservableCollection<ChatMessageViewModel>();
