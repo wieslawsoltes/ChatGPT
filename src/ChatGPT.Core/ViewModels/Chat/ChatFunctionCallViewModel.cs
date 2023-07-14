@@ -24,4 +24,12 @@ public class ChatFunctionCallViewModel : ObservableObject
         get => _name;
         set => SetProperty(ref _name, value);
     }
+
+    public ChatFunctionCallViewModel Copy()
+    {
+        return new ChatFunctionCallViewModel
+        {
+            Name = _name,
+        };
+    }
 }
