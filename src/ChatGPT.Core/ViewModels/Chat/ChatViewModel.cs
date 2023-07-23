@@ -432,7 +432,7 @@ public class ChatViewModel : ObservableObject
         {
             var choice = success.Choices?.FirstOrDefault();
             var message = choice?.Message?.Content?.Trim();
-            result.Message = message ?? "";
+            result.Message = message;
             result.IsError = false;
 
             if (choice is { } && choice.Message?.FunctionCall is { } functionCall)
