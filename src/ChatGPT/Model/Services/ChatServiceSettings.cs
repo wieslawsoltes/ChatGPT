@@ -16,4 +16,5 @@ public class ChatServiceSettings
     public decimal PresencePenalty { get; set; }
     public decimal FrequencyPenalty { get; set; }
     public string? Stop { get; set; }
+    public bool Debug { get; set; }
 }

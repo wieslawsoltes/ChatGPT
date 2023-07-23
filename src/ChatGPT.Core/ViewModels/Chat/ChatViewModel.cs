@@ -20,6 +20,7 @@ public class ChatViewModel : ObservableObject
     private ObservableCollection<ChatMessageViewModel> _messages;
     private ChatMessageViewModel? _currentMessage;
     private bool _isEnabled;
+    private bool _debug;
     private CancellationTokenSource? _cts;
 
     [JsonConstructor]
@@ -90,6 +91,13 @@ public class ChatViewModel : ObservableObject
     {
         get => _isEnabled;
         set => SetProperty(ref _isEnabled, value);
+    }
+
+    [JsonIgnore]
+    public bool Debug
+    {
+        get => _debug;
+        set => SetProperty(ref _debug, value);
     }
 
     public void SetMessageActions(ChatMessageViewModel message)
@@ -408,6 +416,7 @@ public class ChatViewModel : ObservableObject
             TopP = 1.0m,
             Stop = null,
             ApiUrl = Settings.ApiUrl,
+            Debug = Debug
         };
 
         var result = new ChatResultViewModel

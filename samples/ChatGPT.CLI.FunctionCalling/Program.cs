@@ -54,6 +54,9 @@ var chat = new ChatViewModel(new ChatSettingsViewModel
     // FunctionCall = new { name = "get_current_weather" }
 });
 
+// Enable to debug json requests and responses.
+// chat.Debug = true;
+
 chat.AddSystemMessage(directions);
 
 while (true)
