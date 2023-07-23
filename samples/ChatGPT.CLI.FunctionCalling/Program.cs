@@ -17,32 +17,7 @@ if (args.Length == 1)
 
 using var cts = new CancellationTokenSource();
 
-var functions = new[]
-{
-    new
-    {
-        name = "get_current_weather",
-        description = "Get the current weather in a given location",
-        parameters = new
-        {
-            type = "object",
-            properties = new
-            {
-                location = new
-                {
-                    type = "string",
-                    description = "The city and state, e.g. San Francisco, CA"
-                },
-                unit = new
-                {
-                    type = "string",
-                    @enum = new[] { "celsius", "fahrenheit" }
-                },
-            },
-            required = new[] { "location" }
-        },
-    }
-};
+var functions = GetFunctions();
 
 var chat = new ChatViewModel(new ChatSettingsViewModel
 {
@@ -51,7 +26,7 @@ var chat = new ChatViewModel(new ChatSettingsViewModel
     Functions = functions,
     FunctionCall = "auto"
     // Force function call by setting FunctionCall property.
-    // FunctionCall = new { name = "get_current_weather" }
+    // FunctionCall = new { name = "GetCurrentWeather" }
 });
 
 // Enable to debug json requests and responses.
@@ -83,11 +58,11 @@ while (true)
 
         if (result?.FunctionCall is { } functionCall)
         {
-            if (functionCall.Name == "get_current_weather" && functionCall.Arguments is { })
+            if (functionCall.Name == "GetCurrentWeather" && functionCall.Arguments is { })
             {
                 functionCall.Arguments.TryGetValue("location", out var location);
                 functionCall.Arguments.TryGetValue("unit", out var unit);
-                var functionCallResult = get_current_weather(location, unit ?? "celsius");
+                var functionCallResult = GetCurrentWeather(location, unit ?? "celsius");
                 chat.AddFunctionMessage(functionCallResult, functionCall.Name);
 
                 Console.WriteLine(functionCallResult);
@@ -100,8 +75,38 @@ while (true)
     }
 }
 
-string get_current_weather(string? location, string? unit)
+string GetCurrentWeather(string? location, string? unit)
 {
     Console.WriteLine($"Weather for {location} [{unit}].");
     return "Cloudy.";
+}
+
+object GetFunctions()
+{
+    return new[]
+    {
+        new
+        {
+            name = "GetCurrentWeather",
+            description = "Get the current weather in a given location",
+            parameters = new
+            {
+                type = "object",
+                properties = new
+                {
+                    location = new
+                    {
+                        type = "string",
+                        description = "The city and state, e.g. San Francisco, CA"
+                    },
+                    unit = new
+                    {
+                        type = "string",
+                        @enum = new[] {"celsius", "fahrenheit"}
+                    },
+                },
+                required = new[] {"location"}
+            },
+        }
+    };
 }
