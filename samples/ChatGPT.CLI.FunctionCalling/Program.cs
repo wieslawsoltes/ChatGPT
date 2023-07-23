@@ -102,5 +102,6 @@ while (true)
 
 string get_current_weather(string? location, string? unit)
 {
+    Console.WriteLine($"Weather for {location} [{unit}].");
     return "Cloudy.";
 }
