@@ -86,7 +86,7 @@ while (true)
             if (functionCall.Name == "get_current_weather" && functionCall.Arguments is { })
             {
                 functionCall.Arguments.TryGetValue("location", out var location);
-                functionCall.Arguments.TryGetValue("location", out var unit);
+                functionCall.Arguments.TryGetValue("unit", out var unit);
                 var functionCallResult = get_current_weather(location, unit ?? "celsius");
                 chat.AddFunctionMessage(functionCallResult, functionCall.Name);
 
