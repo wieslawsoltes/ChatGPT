@@ -8,6 +8,7 @@ var directions =
 You are a helpful assistant.
 Write answers in plain text.
 Do not use markdown.
+Only use the functions you have been provided with.
 """;
 
 if (args.Length == 1)
