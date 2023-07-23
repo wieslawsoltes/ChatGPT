@@ -398,12 +398,10 @@ public class ChatViewModel : ObservableObject
 
         var chatServiceSettings = new ChatServiceSettings
         {
-            // TODO: Functions
-            Functions = null,
-            // TODO: FunctionCall
-            FunctionCall = null,
             Model = Settings.Model,
             Messages = messages,
+            Functions = Settings.Functions,
+            FunctionCall = Settings.FunctionCall,
             Suffix = null,
             Temperature = Settings.Temperature,
             MaxTokens = Settings.MaxTokens,
@@ -432,9 +430,24 @@ public class ChatViewModel : ObservableObject
         }
         else if (responseData is ChatResponseSuccess success)
         {
-            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
+            var choice = success.Choices?.FirstOrDefault();
+            var message = choice?.Message?.Content?.Trim();
             result.Message = message ?? "";
             result.IsError = false;
+
+            if (choice is { } && choice.Message?.FunctionCall is { } functionCall)
+            {
+                var serializer = Defaults.Locator.GetService<IChatSerializer>();
+                var arguments = functionCall.Arguments is { }
+                    ? serializer?.Deserialize<Dictionary<string, string>>(functionCall.Arguments)
+                    : null;
+
+                result.FunctionCall = new ()
+                {
+                    Name = functionCall.Name,
+                    Arguments = arguments
+                };
+            }
         }
 
         return result;

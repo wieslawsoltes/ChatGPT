@@ -38,6 +38,8 @@ public class ChatService : IChatService
         {
             Model = model,
             Messages = settings.Messages,
+            Functions = settings.Functions,
+            FunctionCall = settings.FunctionCall,
             MaxTokens = settings.MaxTokens,
             Temperature = settings.Temperature,
             TopP = settings.TopP,

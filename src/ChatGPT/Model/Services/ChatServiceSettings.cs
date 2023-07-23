@@ -7,7 +7,7 @@ public class ChatServiceSettings
     public string? ApiUrl { get; set; }
     public string? Model { get; set; }
     public ChatMessage[]? Messages { get; set; }
-    public ChatFunction[]? Functions { get; set; }
+    public object? Functions { get; set; }
     public object? FunctionCall { get; set; }
     public string? Suffix { get; set; }
     public decimal Temperature { get; set; }

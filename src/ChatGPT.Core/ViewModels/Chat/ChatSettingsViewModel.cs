@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -6,8 +5,8 @@ namespace ChatGPT.ViewModels.Chat;
 
 public partial class ChatSettingsViewModel : ObservableObject
 {
-    private ChatFunctionViewModel[]? _functions;
-    private ChatFunctionCallViewModel? _functionCall;
+    private object? _functions;
+    private object? _functionCall;
     private decimal _temperature;
     private decimal _topP;
     private decimal _presencePenalty;
@@ -39,7 +38,7 @@ public partial class ChatSettingsViewModel : ObservableObject
     /// A list of functions the model may generate JSON inputs for.
     /// </summary>
     [JsonPropertyName("functions")]
-    public ChatFunctionViewModel[]? Functions
+    public object? Functions
     {
         get => _functions;
         set => SetProperty(ref _functions, value);
@@ -49,7 +48,7 @@ public partial class ChatSettingsViewModel : ObservableObject
     /// Controls how the model responds to function calls. "none" means the model does not call a function, and responds to the end-user. "auto" means the model can pick between an end-user or calling a function. Specifying a particular function via {"name":\ "my_function"} forces the model to call that function. "none" is the default when no functions are present. "auto" is the default if functions are present.
     /// </summary>
     [JsonPropertyName("function_call")]
-    public ChatFunctionCallViewModel?  FunctionCall
+    public object?  FunctionCall
     {
         get => _functionCall;
         set => SetProperty(ref _functionCall, value);
@@ -147,8 +146,12 @@ public partial class ChatSettingsViewModel : ObservableObject
     {
         return new ChatSettingsViewModel
         {
-            Functions = _functions?.Select(x => x.Copy()).ToArray(),
-            FunctionCall = _functionCall?.Copy(),
+            // TODO: Copy Functions object.
+            Functions = _functions,
+            // TODO: Copy FunctionCall object.
+            FunctionCall = _functionCall is ChatFunctionCallViewModel functionCall 
+                ? functionCall.Copy() 
+                : _functionCall,
             Temperature = _temperature,
             TopP = _topP,
             PresencePenalty = _presencePenalty,

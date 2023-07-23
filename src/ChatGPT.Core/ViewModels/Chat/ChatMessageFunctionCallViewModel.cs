@@ -8,14 +8,14 @@ namespace ChatGPT.ViewModels.Chat;
 public class ChatMessageFunctionCallViewModel : ObservableObject
 {
     private string? _name;
-    private Dictionary<string, object>? _arguments;
+    private Dictionary<string, string>? _arguments;
 
     [JsonConstructor]
     public ChatMessageFunctionCallViewModel()
     {
     }
 
-    public ChatMessageFunctionCallViewModel(string role, Dictionary<string, object> arguments) 
+    public ChatMessageFunctionCallViewModel(string role, Dictionary<string, string> arguments) 
         : this()
     {
         _name = role;
@@ -30,7 +30,7 @@ public class ChatMessageFunctionCallViewModel : ObservableObject
     }
 
     [JsonPropertyName("arguments")]
-    public Dictionary<string, object>? Arguments
+    public Dictionary<string, string>? Arguments
     {
         get => _arguments;
         set => SetProperty(ref _arguments, value);

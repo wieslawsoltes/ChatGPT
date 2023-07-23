@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace AI.Model.Json.Chat;
@@ -13,5 +12,5 @@ public class ChatMessageFunctionCall
 
     [DataMember(Name = "arguments")]
     [JsonPropertyName("arguments")]
-    public Dictionary<string, object>? Arguments { get; set; }
+    public string? Arguments { get; set; }
 }
