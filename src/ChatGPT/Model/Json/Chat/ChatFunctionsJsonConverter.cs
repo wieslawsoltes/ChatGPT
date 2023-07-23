@@ -19,7 +19,7 @@ internal class ChatFunctionsJsonConverter : JsonConverter<object>
         }
         else
         {
-            var json = JsonSerializer.Serialize(value);
+            var json = JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true });
             writer.WriteRawValue(json);
         }
     }
