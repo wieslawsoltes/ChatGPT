@@ -38,6 +38,8 @@ public class ChatService : IChatService
         {
             Model = model,
             Messages = settings.Messages,
+            Functions = settings.Functions,
+            FunctionCall = settings.FunctionCall,
             MaxTokens = settings.MaxTokens,
             Temperature = settings.Temperature,
             TopP = settings.TopP,
@@ -53,7 +55,7 @@ public class ChatService : IChatService
         return _serializer.Serialize(requestBody);
     }
 
-    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, CancellationToken token)
+    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, bool debug, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
 
@@ -66,6 +68,10 @@ public class ChatService : IChatService
 
         // Create a new StringContent object with the JSON payload and the correct content type
         var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
+        if (debug)
+        {
+            Console.WriteLine($"RequestBody:{Environment.NewLine}{requestBodyJson}");
+        }
 
         // Send the API request and get the response
         var response = await s_client.PostAsync(apiUrl, content, token);
@@ -76,8 +82,12 @@ public class ChatService : IChatService
 #else
         var responseBody = await response.Content.ReadAsStringAsync(token);
 #endif
-        // Console.WriteLine($"Status code: {response.StatusCode}");
-        // Console.WriteLine($"Response body:{Environment.NewLine}{responseBody}");
+        if (debug)
+        {
+            Console.WriteLine($"Status code: {response.StatusCode}");
+            Console.WriteLine($"Response body:{Environment.NewLine}{responseBody}");
+        }
+
         switch (response.StatusCode)
         {
             case HttpStatusCode.Unauthorized:
@@ -130,7 +140,9 @@ public class ChatService : IChatService
             return null;
         }
 
+        var debug = settings.Debug;
+
         // Send the API request and get the response data
-        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, token);
+        return await SendApiRequestAsync(apiUrl, apiKey, requestBodyJson, debug, token);
     }
 }

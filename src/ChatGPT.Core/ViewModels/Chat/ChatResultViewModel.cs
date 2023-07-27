@@ -7,6 +7,7 @@ public class ChatResultViewModel : ObservableObject
 {
     private string? _message;
     private bool _isError;
+    private ChatMessageFunctionCallViewModel? _functionCall;
 
     [JsonPropertyName("name")]
     public string? Message
@@ -20,5 +21,12 @@ public class ChatResultViewModel : ObservableObject
     {
         get => _isError;
         set => SetProperty(ref _isError, value);
+    }
+
+    [JsonPropertyName("function_call")]
+    public ChatMessageFunctionCallViewModel? FunctionCall
+    {
+        get => _functionCall;
+        set => SetProperty(ref _functionCall, value);
     }
 }

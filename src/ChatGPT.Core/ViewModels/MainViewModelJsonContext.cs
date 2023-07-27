@@ -9,6 +9,9 @@ namespace ChatGPT.ViewModels;
 
 [JsonSerializable(typeof(ChatMessageViewModel))]
 [JsonSerializable(typeof(ChatViewModel))]
+[JsonSerializable(typeof(ChatFunctionCallViewModel))]
+[JsonSerializable(typeof(ChatFunctionViewModel))]
+[JsonSerializable(typeof(ChatMessageFunctionCallViewModel))]
 [JsonSerializable(typeof(ObservableCollection<ChatViewModel>))]
 [JsonSerializable(typeof(ChatSettingsViewModel))]
 [JsonSerializable(typeof(ObservableCollection<ChatMessageViewModel>))]

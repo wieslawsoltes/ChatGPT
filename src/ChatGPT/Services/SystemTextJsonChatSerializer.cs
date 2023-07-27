@@ -16,7 +16,8 @@ public class SystemTextJsonChatSerializer : IChatSerializer
             new JsonSerializerOptions
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                IgnoreReadOnlyProperties = true
+                IgnoreReadOnlyProperties = true,
+                WriteIndented = true
             });
     }
 

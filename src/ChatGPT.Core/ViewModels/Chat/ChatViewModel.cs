@@ -20,6 +20,7 @@ public class ChatViewModel : ObservableObject
     private ObservableCollection<ChatMessageViewModel> _messages;
     private ChatMessageViewModel? _currentMessage;
     private bool _isEnabled;
+    private bool _debug;
     private CancellationTokenSource? _cts;
 
     [JsonConstructor]
@@ -90,6 +91,13 @@ public class ChatViewModel : ObservableObject
     {
         get => _isEnabled;
         set => SetProperty(ref _isEnabled, value);
+    }
+
+    [JsonIgnore]
+    public bool Debug
+    {
+        get => _debug;
+        set => SetProperty(ref _debug, value);
     }
 
     public void SetMessageActions(ChatMessageViewModel message)
@@ -282,7 +290,9 @@ public class ChatViewModel : ObservableObject
                 chatMessages.Add(new ChatMessage
                 {
                     Role = message.Role,
-                    Content = content
+                    Content = content,
+                    Name = message.Name
+                    // TODO: FunctionCall
                 });
 
                 continue;
@@ -293,7 +303,9 @@ public class ChatViewModel : ObservableObject
                 chatMessages.Add(new ChatMessage
                 {
                     Role = message.Role, 
-                    Content = message.Message
+                    Content = message.Message,
+                    Name = message.Name,
+                    // TODO: FunctionCall
                 });
             }
         }
@@ -396,12 +408,15 @@ public class ChatViewModel : ObservableObject
         {
             Model = Settings.Model,
             Messages = messages,
+            Functions = Settings.Functions,
+            FunctionCall = Settings.FunctionCall,
             Suffix = null,
             Temperature = Settings.Temperature,
             MaxTokens = Settings.MaxTokens,
             TopP = 1.0m,
             Stop = null,
             ApiUrl = Settings.ApiUrl,
+            Debug = Debug
         };
 
         var result = new ChatResultViewModel
@@ -424,9 +439,24 @@ public class ChatViewModel : ObservableObject
         }
         else if (responseData is ChatResponseSuccess success)
         {
-            var message = success.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
-            result.Message = message ?? "";
+            var choice = success.Choices?.FirstOrDefault();
+            var message = choice?.Message?.Content?.Trim();
+            result.Message = message;
             result.IsError = false;
+
+            if (choice is { } && choice.Message?.FunctionCall is { } functionCall)
+            {
+                var serializer = Defaults.Locator.GetService<IChatSerializer>();
+                var arguments = functionCall.Arguments is { }
+                    ? serializer?.Deserialize<Dictionary<string, string>>(functionCall.Arguments)
+                    : null;
+
+                result.FunctionCall = new ()
+                {
+                    Name = functionCall.Name,
+                    Arguments = arguments
+                };
+            }
         }
 
         return result;
@@ -458,6 +488,17 @@ public class ChatViewModel : ObservableObject
         {
             Role = "assistant",
             Message = message
+        });
+        return this;
+    }
+
+    public ChatViewModel AddFunctionMessage(string? message, string? name)
+    {
+        Messages.Add(new ChatMessageViewModel
+        {
+            Role = "function",
+            Message = message,
+            Name = name
         });
         return this;
     }
