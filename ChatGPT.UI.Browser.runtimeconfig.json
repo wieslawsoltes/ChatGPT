@@ -1,10 +1,10 @@
 {
   "runtimeOptions": {
-    "tfm": "net7.0",
+    "tfm": "net8.0",
     "includedFrameworks": [
       {
         "name": "Microsoft.NETCore.App",
-        "version": "7.0.9"
+        "version": "8.0.0"
       }
     ],
     "wasmHostProperties": {
@@ -21,22 +21,17 @@
     "configProperties": {
       "Microsoft.Extensions.DependencyInjection.VerifyOpenGenericServiceTrimmability": true,
       "System.ComponentModel.TypeConverter.EnableUnsafeBinaryFormatterInDesigntimeLicenseContextSerialization": false,
-      "System.Diagnostics.Debugger.IsSupported": false,
-      "System.Diagnostics.Tracing.EventSource.IsSupported": false,
-      "System.Globalization.Invariant": true,
-      "System.Globalization.PredefinedCulturesOnly": true,
-      "System.Net.Http.EnableActivityPropagation": false,
-      "System.Net.Http.UseNativeHttpHandler": true,
       "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
       "System.Resources.ResourceManager.AllowCustomResourceTypes": false,
-      "System.Resources.UseSystemResourceKeys": true,
       "System.Runtime.InteropServices.BuiltInComInterop.IsSupported": false,
       "System.Runtime.InteropServices.EnableConsumingManagedCodeFromNativeHosting": false,
       "System.Runtime.InteropServices.EnableCppCLIHostActivation": false,
+      "System.Runtime.InteropServices.Marshalling.EnableGeneratedComInterfaceComImportInterop": false,
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false,
       "System.StartupHookProvider.IsSupported": false,
-      "System.Threading.Thread.EnableAutoreleasePool": false,
-      "System.Text.Encoding.EnableUnsafeUTF7Encoding": false
+      "System.Text.Encoding.EnableUnsafeUTF7Encoding": false,
+      "System.Text.Json.JsonSerializer.IsReflectionEnabledByDefault": false,
+      "System.Threading.Thread.EnableAutoreleasePool": false
     }
   }
 }
