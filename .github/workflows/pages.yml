@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 env:
     PROJECT_PATH: src/ChatGPT.UI.Browser/ChatGPT.UI.Browser.csproj
-    OUTPUT_PATH: src/ChatGPT.UI.Browser/bin/Release/net7.0/browser-wasm/AppBundle
+    OUTPUT_PATH: src/ChatGPT.UI.Browser/bin/Release/net8.0/browser-wasm/AppBundle
 on:
   push:
     branches: [ main ]
