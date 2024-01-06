@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ChatGPT.UI.Browser.dll",
   "resources": {
-    "hash": "sha256-BD9KCnQwJrg8+7eKF4U3BtW0qrwd3FNNwUoo1OYz9eM=",
+    "hash": "sha256-HsPxcCF4ZU4kXPyxOGLYOWBTx222o+DqM72ga/o6Me4=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-sYAcJ9l3EebM/L1nBCXF2hA66VSVUBeG+a/EStt8vhg="
     },
@@ -32,10 +32,10 @@
       "Avalonia.OpenGL.wasm": "sha256-fH6Mg6VNGOwNbNLWxUYuh9Ff+nhAld229CW6tiqztTc=",
       "Avalonia.Skia.wasm": "sha256-t3ECixfgIsqkShmHXivak76tjCVfbEpdYNNjxCNb1rc=",
       "Avalonia.Themes.Fluent.wasm": "sha256-tdua+BO/ZQjg0KMyv+BuCvUcA0tjglQBJWoG/Qy9pNg=",
-      "ChatGPT.Core.wasm": "sha256-HWxfey9DjP6pBJv10oBXrmjfIyFRvfprMXDqYrPZVPM=",
-      "ChatGPT.wasm": "sha256-JBTC3xUftddNRBseSh6SD6YHKi4bnlrUfTAfz62oQoY=",
-      "ChatGPT.UI.Browser.wasm": "sha256-No2jaQXkvn+59QGobmqUUKRmkdZ4sWTyikcXp/LiHEY=",
-      "ChatGPT.UI.wasm": "sha256-mGRkEliy5CBFW1CMFVrzK0/QO94BYIvOdc060ddWQvY=",
+      "ChatGPT.Core.wasm": "sha256-FEuJx6XY1RRgc5FRc/RroNI1jP68aNg5UJzzhR1LilM=",
+      "ChatGPT.wasm": "sha256-r1uTOmnsiU+BW7w8fFhCdNt/1hATbc2xArGupSvakT4=",
+      "ChatGPT.UI.Browser.wasm": "sha256-LQh5c9SZS2icS2OXHARDE9uonE3wadOjOp/EDvklZLc=",
+      "ChatGPT.UI.wasm": "sha256-zJBAgLORhZBMmCj2tDmXA+VX38NQQ4DpSHZiPBJsLG0=",
       "ColorTextBlock.Avalonia.wasm": "sha256-q974oeBTUsPuS6vvC4eQGYIhMcjtgIM0DZXCa/WGiOI=",
       "CommunityToolkit.Mvvm.wasm": "sha256-NAbYYcARsgsB/PiaWiLrmkiv3HhTPlShdlxfSliZEUY=",
       "HarfBuzzSharp.wasm": "sha256-IaQ3IJpvMTmq2imuV4eIUBXkSgNdlGuaHik58F0KQTY=",
