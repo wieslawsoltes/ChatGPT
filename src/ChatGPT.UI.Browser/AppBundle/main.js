@@ -21,4 +21,4 @@ window.addEventListener(terminationEvent, (event) => {
     exports.ChatGPT.UI.Browser.Services.Interop.SaveSettings();
 });
 
-await dotnetRuntime.runMainAndExit(config.mainAssemblyName, [window.location.search]);
+await dotnetRuntime.runMain(config.mainAssemblyName, [window.location.search]);
