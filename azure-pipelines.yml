@@ -60,7 +60,7 @@ jobs:
       Workloads: ${{ variables.Workloads }} ios
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
-      PublishRuntime: 'win7-x64'
+      PublishRuntime: 'win-x64'
 
   - template: Publish-PowerShell.yml@templates
     parameters:
@@ -70,7 +70,7 @@ jobs:
         Workloads: ${{ variables.Workloads }} ios
         PublishFramework: ${{ variables.PublishFramework }}
         PublishProject: ${{ variables.PublishProject }}
-        PublishRuntime: 'win10-arm64'
+        PublishRuntime: 'win-arm64'
 
   - template: Publish-Bash.yml@templates
     parameters:
@@ -80,7 +80,7 @@ jobs:
       Workloads: ${{ variables.Workloads }}
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
-      PublishRuntime: 'ubuntu.14.04-x64'
+      PublishRuntime: 'ubuntu-x64'
 
 # - template: Publish-Bash.yml@templates
 #   parameters:
@@ -90,7 +90,7 @@ jobs:
 #       Workloads: ${{ variables.Workloads }}
 #       PublishFramework: ${{ variables.PublishFramework }}
 #       PublishProject: ${{ variables.PublishProject }}
-#       PublishRuntime: 'ubuntu.16.04-arm64'
+#       PublishRuntime: 'ubuntu-arm64'
 
   - template: Publish-Bash.yml@templates
     parameters:
@@ -100,7 +100,7 @@ jobs:
       Workloads: ${{ variables.Workloads }}
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
-      PublishRuntime: 'debian.8-x64'
+      PublishRuntime: 'debian-x64'
 
 # - template: Publish-Bash.yml@templates
 #   parameters:
@@ -110,7 +110,7 @@ jobs:
 #       Workloads: ${{ variables.Workloads }}
 #       PublishFramework: ${{ variables.PublishFramework }}
 #       PublishProject: ${{ variables.PublishProject }}
-#       PublishRuntime: 'debian.8-arm64'
+#       PublishRuntime: 'debian-arm64'
 
   - template: Publish-Bash-macOS.yml@templates
     parameters:
@@ -120,7 +120,7 @@ jobs:
       Workloads: ${{ variables.Workloads }} ios
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
-      PublishRuntime: 'osx.10.12-x64'
+      PublishRuntime: 'osx-x64'
 
 # - template: Publish-Bash.yml@templates
 #   parameters:
@@ -130,7 +130,7 @@ jobs:
 #       Workloads: ${{ variables.Workloads }} ios
 #       PublishFramework: ${{ variables.PublishFramework }}
 #       PublishProject: ${{ variables.PublishProject }}
-#       PublishRuntime: 'osx.11.0-arm64'
+#       PublishRuntime: 'osx-arm64'
 
   - template: Publish-Bash-Android.yml@templates
     parameters:
