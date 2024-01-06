@@ -80,7 +80,7 @@ jobs:
       Workloads: ${{ variables.Workloads }}
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
-      PublishRuntime: 'ubuntu-x64'
+      PublishRuntime: 'linux-x64'
 
 # - template: Publish-Bash.yml@templates
 #   parameters:
@@ -90,7 +90,7 @@ jobs:
 #       Workloads: ${{ variables.Workloads }}
 #       PublishFramework: ${{ variables.PublishFramework }}
 #       PublishProject: ${{ variables.PublishProject }}
-#       PublishRuntime: 'ubuntu-arm64'
+#       PublishRuntime: 'linux-arm64'
 
   - template: Publish-Bash.yml@templates
     parameters:
@@ -100,7 +100,7 @@ jobs:
       Workloads: ${{ variables.Workloads }}
       PublishFramework: ${{ variables.PublishFramework }}
       PublishProject: ${{ variables.PublishProject }}
-      PublishRuntime: 'debian-x64'
+      PublishRuntime: 'linux-x64'
 
 # - template: Publish-Bash.yml@templates
 #   parameters:
