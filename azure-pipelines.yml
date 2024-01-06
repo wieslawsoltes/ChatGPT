@@ -140,4 +140,4 @@ jobs:
         Workloads: ${{ variables.Workloads }} ios
         PublishFramework: 'net8.0-android'
         PublishProject: 'ChatGPT.UI.Android'
-        PublishRuntime: ''
+        PublishRuntime: 'android-arm64'
