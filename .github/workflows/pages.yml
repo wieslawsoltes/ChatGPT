@@ -20,7 +20,7 @@ jobs:
       run: dotnet workload install wasm-tools wasm-experimental
 
     - name: Install DotNetCompress
-      run: dotnet tool install --global DotNetCompress --version 2.0.0 --no-cache
+      run: dotnet tool install --global DotNetCompress --version 3.0.0 --no-cache
 
     - name: Publish .NET Project
       run: dotnet publish $PROJECT_PATH -c Release -o release --nologo
