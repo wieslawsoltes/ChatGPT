@@ -21,6 +21,7 @@ public class ChatViewModel : ObservableObject
     private ChatMessageViewModel? _currentMessage;
     private bool _isEnabled;
     private bool _debug;
+    private bool _requireApiKey;
     private CancellationTokenSource? _cts;
 
     [JsonConstructor]
@@ -28,6 +29,8 @@ public class ChatViewModel : ObservableObject
     {
         _messages = new ObservableCollection<ChatMessageViewModel>();
         _isEnabled = true;
+        _debug = false;
+        _requireApiKey = true;
     }
 
     public ChatViewModel(ChatSettingsViewModel settings) : this()
@@ -54,7 +57,7 @@ public class ChatViewModel : ObservableObject
             MaxTokens = maxTokens,
             ApiKey = apiKey,
             Model = model,
-            Directions = directions
+            Directions = directions,
         };
     }
 
@@ -93,11 +96,18 @@ public class ChatViewModel : ObservableObject
         set => SetProperty(ref _isEnabled, value);
     }
 
-    [JsonIgnore]
+    [JsonPropertyName("debug")]
     public bool Debug
     {
         get => _debug;
         set => SetProperty(ref _debug, value);
+    }
+
+    [JsonPropertyName("requireApiKey")]
+    public bool RequireApiKey
+    {
+        get => _requireApiKey;
+        set => SetProperty(ref _requireApiKey, value);
     }
 
     public void SetMessageActions(ChatMessageViewModel message)
@@ -332,12 +342,15 @@ public class ChatViewModel : ObservableObject
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
         var restoreApiKey = !string.IsNullOrWhiteSpace(chatSettings.ApiKey);
 
-        if (string.IsNullOrWhiteSpace(chatSettings.ApiKey) && string.IsNullOrEmpty(apiKey))
+        if (chatServiceSettings.RequireApiKey)
         {
-            return new ChatResponseError
+            if (string.IsNullOrWhiteSpace(chatSettings.ApiKey) && string.IsNullOrEmpty(apiKey))
             {
-                Error = new ChatError {Message = "The OpenAI api key is not set."}
-            };
+                return new ChatResponseError
+                {
+                    Error = new ChatError {Message = "The OpenAI api key is not set."}
+                };
+            }
         }
 
         // API Model
@@ -416,7 +429,8 @@ public class ChatViewModel : ObservableObject
             TopP = 1.0m,
             Stop = null,
             ApiUrl = Settings.ApiUrl,
-            Debug = Debug
+            Debug = Debug,
+            RequireApiKey = RequireApiKey,
         };
 
         var result = new ChatResultViewModel

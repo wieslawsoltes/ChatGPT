@@ -17,4 +17,5 @@ public class ChatServiceSettings
     public decimal FrequencyPenalty { get; set; }
     public string? Stop { get; set; }
     public bool Debug { get; set; }
+    public bool RequireApiKey { get; set; }
 }

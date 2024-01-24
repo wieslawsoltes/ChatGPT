@@ -55,7 +55,7 @@ public class ChatService : IChatService
         return _serializer.Serialize(requestBody);
     }
 
-    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string apiKey, string requestBodyJson, bool debug, CancellationToken token)
+    private async Task<ChatResponse?> SendApiRequestAsync(string apiUrl, string? apiKey, string requestBodyJson, bool debug, CancellationToken token)
     {
         // Create a new HttpClient for making the API request
 
@@ -64,7 +64,11 @@ public class ChatService : IChatService
         {
             s_client.DefaultRequestHeaders.Remove("Authorization");
         }
-        s_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+
+        if (apiKey is not null)
+        {
+            s_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+        }
 
         // Create a new StringContent object with the JSON payload and the correct content type
         var content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
@@ -115,7 +119,7 @@ public class ChatService : IChatService
     {
         // Set up the API URL and API key
         var apiKey = Environment.GetEnvironmentVariable(Constants.EnvironmentVariableApiKey);
-        if (apiKey is null)
+        if (apiKey is null && settings.RequireApiKey)
         {
             return null;
         }
