@@ -6,7 +6,7 @@ resources:
       endpoint: wieslawsoltes
       type: github
       name: wieslawsoltes/BuildTemplates
-      ref: refs/tags/v2.9.0
+      ref: refs/tags/v2.9.1
 
 variables:
   BuildConfiguration: 'Release'
