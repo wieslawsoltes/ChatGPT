@@ -4,7 +4,7 @@
     <VersionSuffix>preview.22</VersionSuffix>
     <Authors>Wiesław Šoltés</Authors>
     <Company>Wiesław Šoltés</Company>
-    <Copyright>Copyright © Wiesław Šoltés 2023</Copyright>
+    <Copyright>Copyright © Wiesław Šoltés 2024</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wieslawsoltes/ChatGPT</PackageProjectUrl>
   </PropertyGroup>
