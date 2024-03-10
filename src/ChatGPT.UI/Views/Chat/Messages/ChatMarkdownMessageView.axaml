@@ -5,21 +5,22 @@
              xmlns:vm="clr-namespace:ChatGPT.ViewModels.Chat;assembly=ChatGPT.Core"
              xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
              xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
+             xmlns:ai="clr-namespace:AI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ChatGPT.Views.Chat.Messages.ChatMarkdownMessageView"
              x:CompileBindings="True" x:DataType="vm:ChatMessageViewModel">
-  <md:MarkdownScrollViewer Markdown="{Binding Message}" 
-                           HorizontalAlignment="Stretch" 
-                           VerticalAlignment="Center"
-                           Margin="16,16,16,16"
-                           TextElement.FontSize="{DynamicResource MessageFontSize}"
-                           IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
-                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                           Classes.error="{Binding IsError}">
-    <md:MarkdownScrollViewer.Styles>
+  <ai:CustomMarkdownScrollViewer Markdown="{Binding Message}" 
+                                 HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Center"
+                                 Margin="16,16,16,16"
+                                 TextElement.FontSize="{DynamicResource MessageFontSize}"
+                                 IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 Classes.error="{Binding IsError}">
+    <ai:CustomMarkdownScrollViewer.Styles>
       <Style Selector="md|MarkdownScrollViewer.error ctxt|CTextBlock">
         <Setter Property="Foreground" Value="{DynamicResource MessageErrorBrush}" />
       </Style>
-    </md:MarkdownScrollViewer.Styles>
-  </md:MarkdownScrollViewer>
+    </ai:CustomMarkdownScrollViewer.Styles>
+  </ai:CustomMarkdownScrollViewer>
 </UserControl>
