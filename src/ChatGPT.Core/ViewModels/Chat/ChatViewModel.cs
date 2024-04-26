@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 using AI;
 using AI.Model.Json.Chat;
 using AI.Model.Services;
-using ChatGPT.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace ChatGPT.ViewModels.Chat;
 

@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using System;
-using Avalonia.Fonts.Inter;
 
 namespace ChatGPT;
 

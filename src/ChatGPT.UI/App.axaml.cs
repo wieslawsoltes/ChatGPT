@@ -15,7 +15,6 @@ using ChatGPT.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.Views;
-using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace ChatGPT;
 

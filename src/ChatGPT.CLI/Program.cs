@@ -1,6 +1,5 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Invocation;
-using ChatGPT;
 using ChatGPT.CLI;
 
 await CreateRootCommand().InvokeAsync(args);
