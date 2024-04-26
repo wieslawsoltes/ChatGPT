@@ -37,8 +37,6 @@ public class MainActivity : AvaloniaMainActivity<App>
     
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
-        App.ConfigureMobileServices();
-
         builder.WithInterFont();
 
         return base.CustomizeAppBuilder(builder);

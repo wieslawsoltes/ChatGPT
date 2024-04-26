@@ -1,5 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
+using AI.Model.Services;
+using AI.Services;
+using ChatGPT.Model.Services;
+using ChatGPT.Services;
 using ChatGPT.ViewModels;
 using ChatGPT.ViewModels.Chat;
 
@@ -8,6 +12,14 @@ namespace ChatGPT.CLI;
 internal static class Chat
 {
     private static readonly Action<object>? s_log = Console.WriteLine;
+    private static readonly IChatSerializer s_chatSerializer;
+    private static readonly IChatService s_chatService;
+
+    static Chat()
+    {
+        s_chatSerializer = new SystemTextJsonChatSerializer();
+        s_chatService = new ChatService(s_chatSerializer);
+    }
 
     private static async Task RunJob(ChatJob job, CancellationToken token)
     {
@@ -19,7 +31,7 @@ internal static class Chat
             }
 
             var input = await File.ReadAllTextAsync(job.InputPath, token);
-            var chat = new ChatViewModel(job.Settings);
+            var chat = new ChatViewModel(s_chatService, s_chatSerializer, job.Settings);
             chat.AddSystemMessage(job.Settings.Directions);
             chat.AddUserMessage(input);
             var result = await chat.SendAsync(chat.CreateChatMessages(), token);
@@ -129,7 +141,7 @@ internal static class Chat
             using var stream = File.OpenRead(cliSettings.SettingsFile.FullName);
             fileSettings = JsonSerializer.Deserialize(
                 stream,
-                MainViewModelJsonContext.s_instance.ChatSettingsViewModel);
+                CoreJsonContext.s_instance.ChatSettingsViewModel);
         }
 
         var chatSettings = fileSettings ?? new ChatSettingsViewModel

@@ -1,7 +1,8 @@
-﻿using ChatGPT;
+﻿using AI.Services;
 using ChatGPT.ViewModels.Chat;
 
-Defaults.ConfigureDefaultServices();
+var chatSerializer = new SystemTextJsonChatSerializer();
+var chatService = new ChatService(chatSerializer);
 
 using var cts = new CancellationTokenSource();
 var input1 = "Some random test string.";
@@ -17,7 +18,7 @@ if (input2 is not null)
 
 async Task<string?> SendAsync(string directions, string input, CancellationToken token)
 {
-    var chat = new ChatViewModel(directions);
+    var chat = new ChatViewModel(chatService, chatSerializer,directions);
     chat.AddSystemMessage(directions);
     chat.AddUserMessage(input);
     var result = await chat.SendAsync(chat.CreateChatMessages(), token);

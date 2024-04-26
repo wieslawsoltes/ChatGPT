@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT.Core"
+        xmlns:vm="clr-namespace:ChatGPT.ViewModels;assembly=ChatGPT.UI"
         xmlns:views="clr-namespace:ChatGPT.Views"
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="740"
         x:Class="ChatGPT.Views.MainWindow"

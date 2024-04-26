@@ -54,7 +54,6 @@ You can import [OpenAI ChatGPT web version](https://chat.openai.com/chat) chats 
 - [Markdown.Avalonia](https://github.com/whistyun/Markdown.Avalonia)
 - [Avalonia.HtmlRenderer](https://github.com/AvaloniaUI/Avalonia.HtmlRenderer)
 - [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
-- [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/)
 
 # .NET tool
 

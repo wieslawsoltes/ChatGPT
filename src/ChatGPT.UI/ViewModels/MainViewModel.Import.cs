@@ -7,8 +7,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AI.Model.Json.ChatGPT;
+using AI.Model.Services;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Chat;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
@@ -21,7 +23,7 @@ public partial class MainViewModel
 
         foreach (var gptChat in gptChats.Reverse())
         {
-            var chat = new ChatViewModel()
+            var chat = new ChatViewModel(_chatService, _chatSerializer)
             {
                 Name = gptChat.Title,
                 Settings = CreateDefaultChatSettings()

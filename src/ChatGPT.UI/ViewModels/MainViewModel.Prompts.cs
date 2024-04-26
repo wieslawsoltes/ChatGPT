@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Settings;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.VisualBasic.FileIO;
 
@@ -90,10 +91,9 @@ public partial class MainViewModel
 
     private async Task OpenPromptsAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            await app.OpenFileAsync(
+            await _applicationService.OpenFileAsync(
                 OpenPromptsCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Open");
@@ -102,10 +102,9 @@ public partial class MainViewModel
 
     private async Task SavePromptsAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { } && CurrentChat is { })
+        if (_applicationService is { } && CurrentChat is { })
         {
-            await app.SaveFileAsync(
+            await _applicationService.SaveFileAsync(
                 SavePromptsCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Save", 
@@ -116,10 +115,9 @@ public partial class MainViewModel
 
     private async Task ImportPromptsAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            await app.OpenFileAsync(
+            await _applicationService.OpenFileAsync(
                 ImportPromptsCallbackAsync, 
                 new List<string>(new[] { "Csv", "All" }), 
                 "Import");
@@ -128,10 +126,9 @@ public partial class MainViewModel
 
     private async Task CopyPromptAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { } && CurrentPrompt?.Prompt is { })
+        if (_applicationService is { } && CurrentPrompt?.Prompt is { })
         {
-            await app.SetClipboardTextAsync(CurrentPrompt.Prompt);
+            await _applicationService.SetClipboardTextAsync(CurrentPrompt.Prompt);
         }
     }
 
@@ -182,7 +179,7 @@ public partial class MainViewModel
     {
         var prompts = await JsonSerializer.DeserializeAsync(
             stream, 
-            MainViewModelJsonContext.s_instance.ObservableCollectionPromptViewModel);
+            CoreJsonContext.s_instance.ObservableCollectionPromptViewModel);
         if (prompts is { })
         {
             foreach (var prompt in prompts)
@@ -197,7 +194,7 @@ public partial class MainViewModel
         await JsonSerializer.SerializeAsync(
             stream, 
             Prompts,
-            MainViewModelJsonContext.s_instance.ObservableCollectionPromptViewModel);
+            CoreJsonContext.s_instance.ObservableCollectionPromptViewModel);
     }
 
     private async Task ImportPromptsCallbackAsync(Stream stream)

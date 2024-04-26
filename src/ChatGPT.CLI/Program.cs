@@ -3,8 +3,6 @@ using System.CommandLine.Invocation;
 using ChatGPT;
 using ChatGPT.CLI;
 
-Defaults.ConfigureDefaultServices();
-
 await CreateRootCommand().InvokeAsync(args);
 
 RootCommand CreateRootCommand()

@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Layouts;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
@@ -80,16 +81,14 @@ public partial class MainViewModel
 
     private void ExitAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        app?.Exit();
+        _applicationService?.Exit();
     }
 
     private void ChangeThemeAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            app.ToggleTheme();
+            _applicationService.ToggleTheme();
         }
     }
 

@@ -7,8 +7,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AI.Model.Json.ChatGPT;
+using AI.Model.Services;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Chat;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
@@ -86,10 +88,9 @@ public partial class MainViewModel
 
     private async Task OpenChatActionAsync()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            await app.OpenFileAsync(
+            await _applicationService.OpenFileAsync(
                 OpenChatCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Open");
@@ -98,10 +99,9 @@ public partial class MainViewModel
 
     private async Task SaveChatActionAsync()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { } && CurrentChat is { })
+        if (_applicationService is { } && CurrentChat is { })
         {
-            await app.SaveFileAsync(
+            await _applicationService.SaveFileAsync(
                 SaveChatCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Save", 
@@ -112,10 +112,9 @@ public partial class MainViewModel
 
     private async Task ExportChatActionAsync()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { } && CurrentChat is { })
+        if (_applicationService is { } && CurrentChat is { })
         {
-            await app.SaveFileAsync(
+            await _applicationService.SaveFileAsync(
                 ExportChatCallbackAsync, 
                 new List<string>(new[] { "Text", "All" }), 
                 "Export", 
@@ -126,8 +125,7 @@ public partial class MainViewModel
 
     private async Task CopyChatActionAsync()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { } && CurrentChat is { })
+        if (_applicationService is { } && CurrentChat is { })
         {
             var sb = new StringBuilder();
 #if NETFRAMEWORK
@@ -136,7 +134,7 @@ public partial class MainViewModel
             await using var writer = new StringWriter(sb);
 #endif
             await ExportChatAsync(CurrentChat, writer);
-            await app.SetClipboardTextAsync(sb.ToString());
+            await _applicationService.SetClipboardTextAsync(sb.ToString());
         }
     }
 
@@ -157,10 +155,9 @@ public partial class MainViewModel
 
     private async Task ImportGptChatsActionAsync()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            await app.OpenFileAsync(
+            await _applicationService.OpenFileAsync(
                 ImportGptChatsCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Import");
@@ -169,7 +166,7 @@ public partial class MainViewModel
     
     private void NewChatCallback()
     {
-        var chat = new ChatViewModel
+        var chat = new ChatViewModel(_chatService, _chatSerializer)
         {
             Name = "Chat",
             Settings = CurrentChat?.Settings?.Copy() ?? CreateDefaultChatSettings()
@@ -216,7 +213,7 @@ public partial class MainViewModel
     {
         var chat = await JsonSerializer.DeserializeAsync(
             stream, 
-            MainViewModelJsonContext.s_instance.ChatViewModel);
+            CoreJsonContext.s_instance.ChatViewModel);
         if (chat is { })
         {
             foreach (var message in chat.Messages)
@@ -239,7 +236,7 @@ public partial class MainViewModel
         await JsonSerializer.SerializeAsync(
             stream, 
             CurrentChat, 
-            MainViewModelJsonContext.s_instance.ChatViewModel);
+            CoreJsonContext.s_instance.ChatViewModel);
     }
 
     private async Task ExportChatCallbackAsync(Stream stream)

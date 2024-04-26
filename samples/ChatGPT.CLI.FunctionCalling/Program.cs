@@ -1,7 +1,8 @@
-﻿using ChatGPT;
+﻿using AI.Services;
 using ChatGPT.ViewModels.Chat;
 
-Defaults.ConfigureDefaultServices();
+var chatSerializer = new SystemTextJsonChatSerializer();
+var chatService = new ChatService(chatSerializer);
 
 var directions = 
 """
@@ -20,15 +21,18 @@ using var cts = new CancellationTokenSource();
 
 var functions = GetFunctions();
 
-var chat = new ChatViewModel(new ChatSettingsViewModel
-{
-    MaxTokens = 2000,
-    Model = "gpt-3.5-turbo-0613",
-    Functions = functions,
-    FunctionCall = "auto"
-    // Force function call by setting FunctionCall property.
-    // FunctionCall = new { name = "GetCurrentWeather" }
-});
+var chat = new ChatViewModel(
+    chatService, 
+    chatSerializer,
+    new ChatSettingsViewModel
+    {
+        MaxTokens = 2000,
+        Model = "gpt-3.5-turbo-0613",
+        Functions = functions,
+        FunctionCall = "auto"
+        // Force function call by setting FunctionCall property.
+        // FunctionCall = new { name = "GetCurrentWeather" }
+    });
 
 // Enable to debug json requests and responses.
 // chat.Debug = true;

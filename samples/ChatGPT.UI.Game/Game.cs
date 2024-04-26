@@ -2,6 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using AI.Services;
 using ChatGPT.ViewModels.Chat;
 
 namespace ChatGPT;
@@ -11,7 +12,15 @@ public class Game
     private string? _directions;
     private CancellationTokenSource? _cts;
     private ChatViewModel? _chat;
+    private readonly SystemTextJsonChatSerializer _chatSerializer;
+    private readonly ChatService _chatService;
 
+    public Game()
+    {
+        _chatSerializer = new SystemTextJsonChatSerializer();
+        _chatService = new ChatService(_chatSerializer);
+    }
+    
     public void New()
     {
         _directions =
@@ -35,17 +44,20 @@ Assistant messages are as json:
 }
 """;
 
-        _chat = new ChatViewModel(new ChatSettingsViewModel
-        {
-            Temperature = 0.7m,
-            TopP = 1m,
-            PresencePenalty = 0m,
-            FrequencyPenalty = 0m,
-            MaxTokens = 3000,
-            ApiKey = null,
-            // Model = "gpt-3.5-turbo",
-            Model = "gpt-4",
-        });
+        _chat = new ChatViewModel(
+            _chatService,
+            _chatSerializer,
+            new ChatSettingsViewModel
+            {
+                Temperature = 0.7m,
+                TopP = 1m,
+                PresencePenalty = 0m,
+                FrequencyPenalty = 0m,
+                MaxTokens = 3000,
+                ApiKey = null,
+                // Model = "gpt-3.5-turbo",
+                Model = "gpt-4",
+            });
 
         _chat.AddSystemMessage(_directions);
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using AI.Model.Services;
 using AI.Services;
@@ -9,85 +10,61 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Styling;
-using ChatGPT.Model.Plugins;
 using ChatGPT.Model.Services;
-using ChatGPT.Plugins;
 using ChatGPT.Services;
 using ChatGPT.ViewModels;
-using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
-using ChatGPT.ViewModels.Settings;
 using ChatGPT.Views;
-using Microsoft.Extensions.DependencyInjection;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace ChatGPT;
 
 public partial class App : Application
 {
     // private IDisposable? _settingsDisposable;
+    private readonly IChatSerializer _chatSerializer;
+    private readonly IChatService _chatService;
+    private readonly IStorageFactory _storageFactory;
+    private readonly IApplicationService _applicationService;
+    private readonly MainViewModel _mainViewModel;
 
     public App()
     {
-    }
+        _chatSerializer = new SystemTextJsonChatSerializer();
+        _chatService = new ChatService(_chatSerializer);
 
-    public static void ConfigureDesktopServices()
-    {
-        IServiceCollection serviceCollection = new ServiceCollection();
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            || RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+            || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            _storageFactory = new ApplicationDataStorageFactory();
+            _applicationService = new ApplicationService();
+        }
+        else if (IsOSPlatform("ANDROID")
+                 || IsOSPlatform("IOS"))
+        {
+            _storageFactory = new IsolatedStorageFactory();
+            _applicationService = new ApplicationService();
+        }
+        else if (IsOSPlatform("BROWSER"))
+        {
+            _storageFactory = new BrowserStorageFactory();
+            _applicationService = new ApplicationService(); 
+        }
+        else
+        {
+            _storageFactory = new IsolatedStorageFactory();
+            _applicationService = new ApplicationService();
+        }
 
-        // Services
-        serviceCollection.AddSingleton<IStorageFactory, ApplicationDataStorageFactory>();
-        serviceCollection.AddSingleton<IApplicationService, ApplicationService>();
-        serviceCollection.AddSingleton<IPluginsService, PluginsService>();
-        serviceCollection.AddSingleton<IChatSerializer, SystemTextJsonChatSerializer>();
-        serviceCollection.AddSingleton<IChatService, ChatService>();
-        serviceCollection.AddSingleton<ICompletionsService, CompletionsService>();
-        serviceCollection.AddSingleton<MainViewModel>();
-        serviceCollection.AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>());
-
-        // ViewModels
-        serviceCollection.AddTransient<ChatMessageViewModel>();
-        serviceCollection.AddTransient<ChatSettingsViewModel>();
-        serviceCollection.AddTransient<ChatResultViewModel>();
-        serviceCollection.AddTransient<ChatViewModel>();
-        serviceCollection.AddTransient<PromptViewModel>();
-        serviceCollection.AddTransient<WorkspaceViewModel>();
-        serviceCollection.AddTransient<WindowLayoutViewModel>();
-
-        // Plugins
-        serviceCollection.AddTransient<IChatPlugin, ClipboardListenerChatPlugin>();
-        serviceCollection.AddTransient<IChatPlugin, DummyChatPlugin>();
-
-        Defaults.Locator.ConfigureServices(serviceCollection.BuildServiceProvider());
-    }
-
-    public static void ConfigureMobileServices()
-    {
-        IServiceCollection serviceCollection = new ServiceCollection();
-
-        // Services
-        serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
-        serviceCollection.AddSingleton<IApplicationService, ApplicationService>();
-        serviceCollection.AddSingleton<IPluginsService, PluginsService>();
-        serviceCollection.AddSingleton<IChatSerializer, SystemTextJsonChatSerializer>();
-        serviceCollection.AddSingleton<IChatService, ChatService>();
-        serviceCollection.AddSingleton<ICompletionsService, CompletionsService>();
-        serviceCollection.AddSingleton<MainViewModel>();
-        serviceCollection.AddSingleton<IPluginContext>(x => x.GetRequiredService<MainViewModel>());
-
-        // ViewModels
-        serviceCollection.AddTransient<ChatMessageViewModel>();
-        serviceCollection.AddTransient<ChatSettingsViewModel>();
-        serviceCollection.AddTransient<ChatResultViewModel>();
-        serviceCollection.AddTransient<ChatViewModel>();
-        serviceCollection.AddTransient<PromptViewModel>();
-        serviceCollection.AddTransient<WorkspaceViewModel>();
-        serviceCollection.AddTransient<WindowLayoutViewModel>();
-
-        // Plugins
-        serviceCollection.AddTransient<IChatPlugin, ClipboardListenerChatPlugin>();
-        serviceCollection.AddTransient<IChatPlugin, DummyChatPlugin>();
-
-        Defaults.Locator.ConfigureServices(serviceCollection.BuildServiceProvider());
+        _mainViewModel = new MainViewModel(
+            _chatService,
+            _chatSerializer,
+            _applicationService,
+            _storageFactory);
+        
+        static bool IsOSPlatform(string platform) 
+            => RuntimeInformation.IsOSPlatform(OSPlatform.Create(platform));
     }
 
     public override void Initialize()
@@ -97,13 +74,11 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
-        Defaults.Locator.GetService<IPluginsService>()?.DiscoverPlugins();
-
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindow = new MainWindow
             {
-                DataContext = Defaults.Locator.GetService<MainViewModel>()
+                DataContext = _mainViewModel
             };
             desktop.MainWindow = mainWindow;
 
@@ -115,16 +90,12 @@ public partial class App : Application
 
             await InitSettingsAsync();
             SetTheme();
-
-            // TODO: Enable plugins.
-            Defaults.Locator.GetService<IPluginsService>()?.InitPlugins();
-            // Defaults.Locator.GetService<IPluginsService>()?.StartPlugins();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
             single.MainView = new MainView
             {
-                DataContext = Defaults.Locator.GetService<MainViewModel>()
+                DataContext = _mainViewModel
             };
 
             await InitSettingsAsync();
@@ -158,8 +129,7 @@ public partial class App : Application
 
     private void SetTheme()
     {
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        if (mainViewModel?.Theme is { } theme)
+        if (_mainViewModel?.Theme is { } theme)
         {
             switch (theme)
             {
@@ -175,8 +145,7 @@ public partial class App : Application
 
     public async Task LoadWindowLayoutAsync(Window window)
     {
-        var factory = Defaults.Locator.GetService<IStorageFactory>();
-        var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
+        var storage = _storageFactory?.CreateStorageService<WindowLayoutViewModel>();
         if (storage is null)
         {
             return;
@@ -225,8 +194,7 @@ public partial class App : Application
             Topmost = window.Topmost
         };
 
-        var factory = Defaults.Locator.GetService<IStorageFactory>();
-        var storage = factory?.CreateStorageService<WindowLayoutViewModel>();
+        var storage = _storageFactory?.CreateStorageService<WindowLayoutViewModel>();
         if (storage is { })
         {
             await storage.SaveObjectAsync(
@@ -249,8 +217,6 @@ public partial class App : Application
         try
         {
             // _settingsDisposable?.Dispose();
-            
-            Defaults.Locator.GetService<IPluginsService>()?.ShutdownPlugins();
 
             SaveTheme();
             SaveSettings();
@@ -263,44 +229,41 @@ public partial class App : Application
 
     public async Task LoadSettingsAsync()
     {
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        if (mainViewModel is null)
+        if (_mainViewModel is null)
         {
             return;
         }
-        await mainViewModel.LoadSettingsAsync();
+        await _mainViewModel.LoadSettingsAsync();
     }
 
     public async Task SaveSettingsAsync()
     {
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        if (mainViewModel is null)
+        if (_mainViewModel is null)
         {
             return;
         }
 
-        await mainViewModel.SaveSettingsAsync();
+        await _mainViewModel.SaveSettingsAsync();
     }
 
     public void LoadSettings()
     {
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        if (mainViewModel is null)
+        if (_mainViewModel is null)
         {
             return;
         }
-        mainViewModel.LoadSettings();
+
+        _mainViewModel.LoadSettings();
     }
 
     public void SaveSettings()
     {
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        if (mainViewModel is null)
+        if (_mainViewModel is null)
         {
             return;
         }
 
-        mainViewModel.SaveSettings();
+        _mainViewModel.SaveSettings();
     }
 
     public void SaveTheme()
@@ -311,10 +274,9 @@ public partial class App : Application
             theme = "Dark";
         }
 
-        var mainViewModel = Defaults.Locator.GetService<MainViewModel>();
-        if (mainViewModel is { })
+        if (_mainViewModel is { })
         {
-            mainViewModel.Theme = theme;
+            _mainViewModel.Theme = theme;
         }
     }
 
@@ -383,10 +345,9 @@ public partial class App : Application
 
     private void Quit_OnClick(object? sender, EventArgs e)
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            app.Exit();
+            _applicationService.Exit();
         }
     }
 }

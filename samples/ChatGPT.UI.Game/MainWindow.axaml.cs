@@ -15,8 +15,6 @@ public partial class MainWindow : Window
 #if DEBUG
         this.AttachDevTools();
 #endif
-        Defaults.ConfigureDefaultServices();
-
         _game = new Game();
         _game.New();
 

@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using AI.Services;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,13 +11,17 @@ namespace ChatGPT;
 
 public partial class MainWindow : Window
 {
+    private readonly SystemTextJsonChatSerializer _chatSerializer;
+    private readonly ChatService _chatService;
+
     public MainWindow()
     {
         InitializeComponent();
 #if DEBUG
         this.AttachDevTools();
 #endif
-        Defaults.ConfigureDefaultServices();
+        _chatSerializer = new SystemTextJsonChatSerializer();
+        _chatService = new ChatService(_chatSerializer);
     }
 
     private async void SendButton_OnClick(object? sender, RoutedEventArgs e)
@@ -53,7 +58,7 @@ Write XAML as plain text.
             };
 
             var cts = new CancellationTokenSource();
-            var chat = new ChatViewModel(chatSettings);
+            var chat = new ChatViewModel(_chatService, _chatSerializer, chatSettings);
             chat.AddSystemMessage(chatSettings.Directions);
             chat.AddUserMessage(prompt);
             var result = await chat.SendAsync(chat.CreateChatMessages(), cts.Token);

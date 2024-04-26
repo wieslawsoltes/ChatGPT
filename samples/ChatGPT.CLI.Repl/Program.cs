@@ -1,7 +1,8 @@
-﻿using ChatGPT;
+﻿using AI.Services;
 using ChatGPT.ViewModels.Chat;
 
-Defaults.ConfigureDefaultServices();
+var chatSerializer = new SystemTextJsonChatSerializer();
+var chatService = new ChatService(chatSerializer);
 
 var directions = 
 """
@@ -17,11 +18,14 @@ if (args.Length == 1)
 
 using var cts = new CancellationTokenSource();
 
-var chat = new ChatViewModel(new ChatSettingsViewModel
-{
-    MaxTokens = 2000,
-    Model = "gpt-3.5-turbo"
-});
+var chat = new ChatViewModel(
+    chatService,
+    chatSerializer,
+    new ChatSettingsViewModel
+    {
+        MaxTokens = 2000,
+        Model = "gpt-3.5-turbo"
+    });
 
 chat.AddSystemMessage(directions);
 

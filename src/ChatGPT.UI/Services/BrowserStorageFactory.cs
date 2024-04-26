@@ -1,6 +1,6 @@
 using ChatGPT.Model.Services;
 
-namespace ChatGPT.UI.Browser.Services;
+namespace ChatGPT.Services;
 
 public class BrowserStorageFactory : IStorageFactory
 {

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using ChatGPT.Model.Services;
 
-namespace ChatGPT.UI.Browser.Services;
+namespace ChatGPT.Services;
 
 public partial class BrowserStorageService<T> : IStorageService<T>
 {

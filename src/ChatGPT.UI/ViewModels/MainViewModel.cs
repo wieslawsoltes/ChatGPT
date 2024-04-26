@@ -4,20 +4,35 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using ChatGPT.Model.Plugins;
+using AI.Model.Services;
 using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
 
-public partial class MainViewModel : ObservableObject, IPluginContext
+public partial class MainViewModel : ObservableObject
 {
-    public MainViewModel()
+    private readonly IChatService _chatService;
+    private readonly IChatSerializer _chatSerializer;
+    private readonly IApplicationService _applicationService;
+    private readonly IStorageFactory _storageFactory;
+
+    public MainViewModel(
+        IChatService chatService,
+        IChatSerializer chatSerializer,
+        IApplicationService applicationService,
+        IStorageFactory storageFactory)
     {
+        _chatService = chatService;
+        _chatSerializer = chatSerializer;
+        _applicationService = applicationService;
+        _storageFactory = storageFactory;
+
         _chats = new ObservableCollection<ChatViewModel>();
         _prompts = new ObservableCollection<PromptViewModel>();
 
@@ -94,10 +109,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     private async Task LoadWorkspaceAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { })
+        if (_applicationService is { })
         {
-            await app.OpenFileAsync(
+            await _applicationService.OpenFileAsync(
                 LoadWorkspaceCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Open");
@@ -111,10 +125,9 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     private async Task ExportWorkspaceAction()
     {
-        var app = Defaults.Locator.GetService<IApplicationService>();
-        if (app is { } && CurrentChat is { })
+        if (_applicationService is { } && CurrentChat is { })
         {
-            await app.SaveFileAsync(
+            await _applicationService.SaveFileAsync(
                 ExportWorkspaceCallbackAsync, 
                 new List<string>(new[] { "Json", "All" }), 
                 "Export", 
@@ -127,7 +140,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     {
         var workspace = await JsonSerializer.DeserializeAsync(
             stream, 
-            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
+            CoreJsonContext.s_instance.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
@@ -140,7 +153,7 @@ public partial class MainViewModel : ObservableObject, IPluginContext
         await JsonSerializer.SerializeAsync(
             stream, 
             workspace, 
-            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
+            CoreJsonContext.s_instance.WorkspaceViewModel);
     }
 
     private WorkspaceViewModel CreateWorkspace()
@@ -199,15 +212,14 @@ public partial class MainViewModel : ObservableObject, IPluginContext
 
     public async Task LoadSettingsAsync()
     {
-        var factory = Defaults.Locator.GetService<IStorageFactory>();
-        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        var storage = _storageFactory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is null)
         {
             return;
         }
         var workspace = await storage.LoadObjectAsync(
             "Settings",
-            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
+            CoreJsonContext.s_instance.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
@@ -217,28 +229,26 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     public async Task SaveSettingsAsync()
     {
         var workspace = CreateWorkspace();
-        var factory = Defaults.Locator.GetService<IStorageFactory>();
-        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        var storage = _storageFactory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {
             await storage.SaveObjectAsync(
                 workspace, 
                 "Settings", 
-                MainViewModelJsonContext.s_instance.WorkspaceViewModel);
+                CoreJsonContext.s_instance.WorkspaceViewModel);
         }
     }
 
     public void LoadSettings()
     {
-        var factory = Defaults.Locator.GetService<IStorageFactory>();
-        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        var storage = _storageFactory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is null)
         {
             return;
         }
         var workspace = storage.LoadObject(
             "Settings", 
-            MainViewModelJsonContext.s_instance.WorkspaceViewModel);
+            CoreJsonContext.s_instance.WorkspaceViewModel);
         if (workspace is { })
         {
             LoadWorkspace(workspace);
@@ -248,14 +258,13 @@ public partial class MainViewModel : ObservableObject, IPluginContext
     public void SaveSettings()
     {
         var workspace = CreateWorkspace();
-        var factory = Defaults.Locator.GetService<IStorageFactory>();
-        var storage = factory?.CreateStorageService<WorkspaceViewModel>();
+        var storage = _storageFactory?.CreateStorageService<WorkspaceViewModel>();
         if (storage is { })
         {
             storage.SaveObject(
                 workspace, 
                 "Settings", 
-                MainViewModelJsonContext.s_instance.WorkspaceViewModel);
+                CoreJsonContext.s_instance.WorkspaceViewModel);
         }
     }
 }

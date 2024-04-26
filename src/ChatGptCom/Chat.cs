@@ -1,13 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using AI.Model.Services;
 using AI.Services;
-using ChatGPT;
-using ChatGPT.Model.Services;
-using ChatGPT.Services;
 using ChatGPT.ViewModels.Chat;
-using ChatGPT.ViewModels.Settings;
 using ChatGptCom.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatGptCom;
 
@@ -19,6 +13,8 @@ namespace ChatGptCom;
 public class Chat : IChat
 {
     private ChatViewModel? _chat;
+    private readonly NewtonsoftChatSerializer _chatSerializer;
+    private readonly ChatService _chatService;
 
     public delegate void SendCompletedDelegate();
 
@@ -26,23 +22,10 @@ public class Chat : IChat
 
     public string? Result { get; set; }
 
-    static Chat()
+    public Chat()
     {
-        IServiceCollection serviceCollection = new ServiceCollection();
-
-        serviceCollection.AddSingleton<IStorageFactory, IsolatedStorageFactory>();
-        serviceCollection.AddSingleton<IChatSerializer, NewtonsoftChatSerializer>();
-        serviceCollection.AddSingleton<IChatService, ChatService>();
-
-        serviceCollection.AddTransient<ChatMessageViewModel>();
-        serviceCollection.AddTransient<ChatSettingsViewModel>();
-        serviceCollection.AddTransient<ChatResultViewModel>();
-        serviceCollection.AddTransient<ChatViewModel>();
-        serviceCollection.AddTransient<PromptViewModel>();
-
-        IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-
-        Defaults.Locator.ConfigureServices(serviceProvider);
+        _chatSerializer = new NewtonsoftChatSerializer();
+        _chatService = new ChatService(_chatSerializer);
     }
 
     private async Task Send(ChatViewModel chat)
@@ -60,11 +43,14 @@ public class Chat : IChat
 
     public void Create(string? directions, int maxTokens = 2000, string model = "gpt-3.5-turbo")
     {
-        _chat = new ChatViewModel(new ChatSettingsViewModel
-        {
-            MaxTokens = maxTokens,
-            Model = model
-        });
+        _chat = new ChatViewModel(
+            _chatService,
+            _chatSerializer,
+            new ChatSettingsViewModel
+            {
+                MaxTokens = maxTokens,
+                Model = model
+            });
 
         if (directions is { })
         {
@@ -113,7 +99,7 @@ public class Chat : IChat
     {
         try
         {
-            var chat = new ChatViewModel(directions);
+            var chat = new ChatViewModel(_chatService, _chatSerializer, directions);
             chat.AddSystemMessage(directions);
             chat.AddUserMessage(message);
             await Send(chat);
