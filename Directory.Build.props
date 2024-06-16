@@ -15,7 +15,6 @@
   <PropertyGroup>
     <AvaloniaVersion>11.0.10</AvaloniaVersion>
     <DockVersion>11.0.0</DockVersion>
-    <NodeEditorVersion>11.0.0</NodeEditorVersion>
     <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
     <MarkdownAvaloniaVersion>11.0.0</MarkdownAvaloniaVersion>
     <AvaloniaHtmlRendererVersion>11.0.0</AvaloniaHtmlRendererVersion>
