@@ -16,7 +16,7 @@
     <PackageReference Include="xunit.extensibility.core" Version="$(XUnitVersion)" />
     <PackageReference Include="xunit.extensibility.execution" Version="$(XUnitVersion)" />
     <PackageReference Include="xunit.runner.console" Version="$(XUnitVersion)" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitVersion)" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitRunnerVisualStudioVersion)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdkVersion)" />
   </ItemGroup>
   <ItemGroup>

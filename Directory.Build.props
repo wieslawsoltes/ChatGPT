@@ -13,15 +13,16 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <AvaloniaVersion>11.1.0-rc1</AvaloniaVersion>
-    <DockVersion>11.1.0-rc1</DockVersion>
-    <CommunityToolkitMvvmVersion>8.1.0</CommunityToolkitMvvmVersion>
-    <MarkdownAvaloniaVersion>11.0.0</MarkdownAvaloniaVersion>
+    <AvaloniaVersion>11.2.0</AvaloniaVersion>
+    <DockVersion>11.2.0</DockVersion>
+    <CommunityToolkitMvvmVersion>8.3.2</CommunityToolkitMvvmVersion>
+    <MarkdownAvaloniaVersion>11.0.2</MarkdownAvaloniaVersion>
     <AvaloniaHtmlRendererVersion>11.0.0</AvaloniaHtmlRendererVersion>
     <MicrosoftExtensionsDependencyInjectionVersion>7.0.0</MicrosoftExtensionsDependencyInjectionVersion>
     <SystemCommandLineVersion>2.0.0-beta1.20104.2</SystemCommandLineVersion>
-    <XUnitVersion>2.4.1</XUnitVersion>
+    <XUnitVersion>2.9.2</XUnitVersion>
+    <XUnitRunnerVisualStudioVersion>2.8.2</XUnitRunnerVisualStudioVersion>
     <XUnitAbstractionsVersion>2.0.3</XUnitAbstractionsVersion>
-    <MicrosoftNETTestSdkVersion>16.2.0</MicrosoftNETTestSdkVersion>
+    <MicrosoftNETTestSdkVersion>17.11.1</MicrosoftNETTestSdkVersion>
   </PropertyGroup>
 </Project>
