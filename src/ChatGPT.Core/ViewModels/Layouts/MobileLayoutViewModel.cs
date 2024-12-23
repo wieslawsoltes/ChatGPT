@@ -5,8 +5,6 @@ namespace ChatGPT.ViewModels.Layouts;
 
 public partial class MobileLayoutViewModel : LayoutViewModel
 {
-    private bool _showMenu;
-
     [JsonConstructor]
     public MobileLayoutViewModel()
     {
@@ -19,11 +17,7 @@ public partial class MobileLayoutViewModel : LayoutViewModel
     }
 
     [JsonPropertyName("showMenu")]
-    public bool ShowMenu
-    {
-        get => _showMenu;
-        set => SetProperty(ref _showMenu, value);
-    }
+    public partial bool ShowMenu { get; set; }
 
     public override async Task BackAsync()
     {

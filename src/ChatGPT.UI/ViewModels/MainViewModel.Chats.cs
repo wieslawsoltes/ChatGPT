@@ -14,22 +14,11 @@ namespace ChatGPT.ViewModels;
 
 public partial class MainViewModel
 {
-    private ObservableCollection<ChatViewModel> _chats;
-    private ChatViewModel? _currentChat;
-
     [JsonPropertyName("chats")]
-    public ObservableCollection<ChatViewModel> Chats
-    {
-        get => _chats;
-        set => SetProperty(ref _chats, value);
-    }
+    public ObservableCollection<ChatViewModel> Chats { get; set; }
 
     [JsonPropertyName("currentChat")]
-    public ChatViewModel? CurrentChat
-    {
-        get => _currentChat;
-        set => SetProperty(ref _currentChat, value);
-    }
+    public ChatViewModel? CurrentChat { get; set; }
 
     [JsonIgnore]
     public IAsyncRelayCommand AddChatCommand { get; }

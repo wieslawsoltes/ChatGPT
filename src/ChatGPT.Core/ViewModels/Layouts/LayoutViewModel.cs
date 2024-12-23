@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels.Layouts;
@@ -8,13 +7,8 @@ namespace ChatGPT.ViewModels.Layouts;
 [JsonPolymorphic]
 [JsonDerivedType(typeof(MobileLayoutViewModel), typeDiscriminator: "mobile")]
 [JsonDerivedType(typeof(DesktopLayoutViewModel), typeDiscriminator: "desktop")]
-public abstract partial class LayoutViewModel : ObservableObject
+public abstract partial class LayoutViewModel : ViewModelBase
 {
-    private string? _name;
-    private bool _showSettings;
-    private bool _showChats;
-    private bool _showPrompts;
-
     [JsonConstructor]
     protected LayoutViewModel()
     {
@@ -26,32 +20,16 @@ public abstract partial class LayoutViewModel : ObservableObject
     }
 
     [JsonPropertyName("name")]
-    public string? Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
+    public partial string? Name { get; set; }
 
     [JsonPropertyName("showSettings")]
-    public bool ShowSettings
-    {
-        get => _showSettings;
-        set => SetProperty(ref _showSettings, value);
-    }
+    public partial bool ShowSettings { get; set; }
 
     [JsonPropertyName("showChats")]
-    public bool ShowChats
-    {
-        get => _showChats;
-        set => SetProperty(ref _showChats, value);
-    }
+    public partial bool ShowChats { get; set; }
 
     [JsonPropertyName("showPrompts")]
-    public bool ShowPrompts
-    {
-        get => _showPrompts;
-        set => SetProperty(ref _showPrompts, value);
-    }
+    public partial bool ShowPrompts { get; set; }
 
     [JsonIgnore]
     public IRelayCommand ShowSettingsCommand { get; }

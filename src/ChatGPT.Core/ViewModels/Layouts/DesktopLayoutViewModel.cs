@@ -5,10 +5,6 @@ namespace ChatGPT.ViewModels.Layouts;
 
 public partial class DesktopLayoutViewModel : LayoutViewModel
 {
-    private string _settingsWidth;
-    private string _chatsWidth;
-    private string _promptsWidth;
-
     [JsonConstructor]
     public DesktopLayoutViewModel()
     {
@@ -24,25 +20,13 @@ public partial class DesktopLayoutViewModel : LayoutViewModel
     }
 
     [JsonPropertyName("settingsWidth")]
-    public string SettingsWidth
-    {
-        get => _settingsWidth;
-        set => SetProperty(ref _settingsWidth, value);
-    }
+    public partial string SettingsWidth { get; set; }
 
     [JsonPropertyName("chatsWidth")]
-    public string ChatsWidth
-    {
-        get => _chatsWidth;
-        set => SetProperty(ref _chatsWidth, value);
-    }
+    public partial string ChatsWidth { get; set; }
 
     [JsonPropertyName("promptsWidth")]
-    public string PromptsWidth
-    {
-        get => _promptsWidth;
-        set => SetProperty(ref _promptsWidth, value);
-    }
+    public partial string PromptsWidth { get; set; }
 
     public override async Task BackAsync()
     {

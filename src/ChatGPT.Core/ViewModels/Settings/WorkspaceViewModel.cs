@@ -2,84 +2,37 @@ using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ChatGPT.ViewModels.Settings;
 
-public class WorkspaceViewModel : ObservableObject
+public partial class WorkspaceViewModel : ViewModelBase
 {
-    private string? _name;
-    private ObservableCollection<ChatViewModel>? _chats;
-    private ChatViewModel? _currentChat;
-    private ObservableCollection<PromptViewModel>? _prompts;
-    private PromptViewModel? _currentPrompt;
-    private ObservableCollection<LayoutViewModel>? _layouts;
-    private LayoutViewModel? _currentLayout;
-    private string? _theme;
-    private bool _topmost;
-
     [JsonPropertyName("name")]
-    public string? Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
+    public partial string? Name { get; set; }
 
     [JsonPropertyName("chats")]
-    public ObservableCollection<ChatViewModel>?  Chats
-    {
-        get => _chats;
-        set => SetProperty(ref _chats, value);
-    }
+    public partial ObservableCollection<ChatViewModel>?  Chats { get; set; }
 
     [JsonPropertyName("currentChat")]
-    public ChatViewModel? CurrentChat
-    {
-        get => _currentChat;
-        set => SetProperty(ref _currentChat, value);
-    }
+    public partial ChatViewModel? CurrentChat { get; set; }
     
     [JsonPropertyName("prompts")]
-    public ObservableCollection<PromptViewModel>? Prompts
-    {
-        get => _prompts;
-        set => SetProperty(ref _prompts, value);
-    }
+    public partial ObservableCollection<PromptViewModel>? Prompts { get; set; }
 
     [JsonPropertyName("currentPrompt")]
-    public PromptViewModel? CurrentPrompt
-    {
-        get => _currentPrompt;
-        set => SetProperty(ref _currentPrompt, value);
-    }
+    public partial PromptViewModel? CurrentPrompt { get; set; }
 
     [JsonPropertyName("layouts")]
-    public ObservableCollection<LayoutViewModel>? Layouts
-    {
-        get => _layouts;
-        set => SetProperty(ref _layouts, value);
-    }
+    public partial ObservableCollection<LayoutViewModel>? Layouts { get; set; }
 
     [JsonPropertyName("currentLayout")]
-    public LayoutViewModel? CurrentLayout
-    {
-        get => _currentLayout;
-        set => SetProperty(ref _currentLayout, value);
-    }
+    public partial LayoutViewModel? CurrentLayout { get; set; }
 
     [JsonPropertyName("theme")]
-    public string? Theme
-    {
-        get => _theme;
-        set => SetProperty(ref _theme, value);
-    }
+    public partial string? Theme { get; set; }
 
     [JsonPropertyName("topmost")]
-    public bool Topmost
-    {
-        get => _topmost;
-        set => SetProperty(ref _topmost, value);
-    }
+    public partial bool Topmost { get; set; }
 
     private ObservableCollection<ChatViewModel>? CopyChats(out ChatViewModel? currentChat)
     {

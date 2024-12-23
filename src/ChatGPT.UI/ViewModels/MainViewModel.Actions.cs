@@ -7,54 +7,23 @@ namespace ChatGPT.ViewModels;
 
 public partial class MainViewModel
 {
-    private ObservableCollection<LayoutViewModel>? _layouts;
-    private LayoutViewModel? _currentLayout;
-    private MobileLayoutViewModel? _mobileLayout;
-    private DesktopLayoutViewModel? _desktopLayout;
-    private string? _theme;
-    private bool _topmost;
-
     [JsonPropertyName("layouts")]
-    public ObservableCollection<LayoutViewModel>? Layouts
-    {
-        get => _layouts;
-        set => SetProperty(ref _layouts, value);
-    }
+    public partial ObservableCollection<LayoutViewModel>? Layouts { get; set; }
 
     [JsonPropertyName("currentLayout")]
-    public LayoutViewModel? CurrentLayout
-    {
-        get => _currentLayout;
-        set => SetProperty(ref _currentLayout, value);
-    }
+    public partial LayoutViewModel? CurrentLayout { get; set; }
 
     [JsonPropertyName("mobileLayout")]
-    public MobileLayoutViewModel? MobileLayout
-    {
-        get => _mobileLayout;
-        set => SetProperty(ref _mobileLayout, value);
-    }
+    public partial MobileLayoutViewModel? MobileLayout { get; set; }
 
     [JsonPropertyName("desktopLayout")]
-    public DesktopLayoutViewModel? DesktopLayout
-    {
-        get => _desktopLayout;
-        set => SetProperty(ref _desktopLayout, value);
-    }
+    public partial DesktopLayoutViewModel? DesktopLayout { get; set; }
 
     [JsonPropertyName("theme")]
-    public string? Theme
-    {
-        get => _theme;
-        set => SetProperty(ref _theme, value);
-    }
+    public partial string? Theme { get; set; }
 
     [JsonPropertyName("topmost")]
-    public bool Topmost
-    {
-        get => _topmost;
-        set => SetProperty(ref _topmost, value);
-    }
+    public partial bool Topmost { get; set; }
 
     [JsonIgnore]
     public IRelayCommand ExitCommand { get; }
