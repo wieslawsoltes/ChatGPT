@@ -25,7 +25,7 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Markdown.Avalonia" Version="$(MarkdownAvaloniaVersion)" />
     <PackageReference Include="Avalonia.HtmlRenderer" Version="$(AvaloniaHtmlRendererVersion)" />
-    <PackageReference Include="ReactiveGenerator" Version="0.9.8">
+    <PackageReference Include="ReactiveGenerator" Version="0.9.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
