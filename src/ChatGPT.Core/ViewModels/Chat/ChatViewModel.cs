@@ -8,21 +8,13 @@ using System.Threading.Tasks;
 using AI;
 using AI.Model.Json.Chat;
 using AI.Model.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ChatGPT.ViewModels.Chat;
 
-public class ChatViewModel : ObservableObject
+public partial class ChatViewModel : ViewModelBase
 {
     private readonly IChatService _chatService;
     private readonly IChatSerializer _chatSerializer;
-    private string? _name;
-    private ChatSettingsViewModel? _settings;
-    private ObservableCollection<ChatMessageViewModel> _messages;
-    private ChatMessageViewModel? _currentMessage;
-    private bool _isEnabled;
-    private bool _debug;
-    private bool _requireApiKey;
     private CancellationTokenSource? _cts;
 
     [JsonConstructor]
@@ -74,53 +66,25 @@ public class ChatViewModel : ObservableObject
     }
 
     [JsonPropertyName("name")]
-    public string? Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
+    public partial string? Name { get; set; }
 
     [JsonPropertyName("settings")]
-    public ChatSettingsViewModel? Settings
-    {
-        get => _settings;
-        set => SetProperty(ref _settings, value);
-    }
+    public partial ChatSettingsViewModel? Settings { get; set; }
 
     [JsonPropertyName("messages")]
-    public ObservableCollection<ChatMessageViewModel> Messages
-    {
-        get => _messages;
-        set => SetProperty(ref _messages, value);
-    }
+    public partial ObservableCollection<ChatMessageViewModel> Messages { get; set; }
 
     [JsonPropertyName("currentMessage")]
-    public ChatMessageViewModel? CurrentMessage
-    {
-        get => _currentMessage;
-        set => SetProperty(ref _currentMessage, value);
-    }
+    public partial ChatMessageViewModel? CurrentMessage { get; set; }
 
     [JsonIgnore]
-    public bool IsEnabled
-    {
-        get => _isEnabled;
-        set => SetProperty(ref _isEnabled, value);
-    }
+    public partial bool IsEnabled { get; set; }
 
     [JsonPropertyName("debug")]
-    public bool Debug
-    {
-        get => _debug;
-        set => SetProperty(ref _debug, value);
-    }
+    public partial bool Debug { get; set; }
 
     [JsonPropertyName("requireApiKey")]
-    public bool RequireApiKey
-    {
-        get => _requireApiKey;
-        set => SetProperty(ref _requireApiKey, value);
-    }
+    public partial bool RequireApiKey { get; set; }
 
     public async Task<ChatResultViewModel?> SendAsync(ChatMessage[] messages, CancellationToken token)
     {

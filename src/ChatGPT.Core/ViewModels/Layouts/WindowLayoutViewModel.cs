@@ -1,71 +1,34 @@
 using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ChatGPT.ViewModels.Layouts;
 
-public partial class WindowLayoutViewModel : ObservableObject
+public partial class WindowLayoutViewModel : ViewModelBase
 {
-    private int _x;
-    private int _y;
-    private double _width;
-    private double _height;
-    private string? _windowState;
-    private string? _windowStartupLocation;
-    private bool _topmost;
-
     [JsonConstructor]
     public WindowLayoutViewModel()
     {
     }
 
     [JsonPropertyName("x")]
-    public int X
-    {
-        get => _x;
-        set => SetProperty(ref _x, value);
-    }
+    public partial int X { get; set; }
 
     [JsonPropertyName("y")]
-    public int Y
-    {
-        get => _y;
-        set => SetProperty(ref _y, value);
-    }
+    public partial int Y { get; set; }
 
     [JsonPropertyName("width")]
-    public double Width
-    {
-        get => _width;
-        set => SetProperty(ref _width, value);
-    }
+    public partial double Width { get; set; }
 
     [JsonPropertyName("height")]
-    public double Height
-    {
-        get => _height;
-        set => SetProperty(ref _height, value);
-    }
+    public partial double Height { get; set; }
 
     [JsonPropertyName("windowState")]
-    public string? WindowState
-    {
-        get => _windowState;
-        set => SetProperty(ref _windowState, value);
-    }
+    public partial string? WindowState { get; set; }
 
     [JsonPropertyName("windowStartupLocation")]
-    public string? WindowStartupLocation
-    {
-        get => _windowStartupLocation;
-        set => SetProperty(ref _windowStartupLocation, value);
-    }
+    public partial string? WindowStartupLocation { get; set; }
 
     [JsonPropertyName("topmost")]
-    public bool Topmost
-    {
-        get => _topmost;
-        set => SetProperty(ref _topmost, value);
-    }
+    public partial bool Topmost { get; set; }
     
     public WindowLayoutViewModel Copy()
     {

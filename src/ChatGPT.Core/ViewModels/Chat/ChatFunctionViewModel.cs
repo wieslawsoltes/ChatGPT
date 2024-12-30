@@ -1,14 +1,9 @@
 using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ChatGPT.ViewModels.Chat;
 
-public class ChatFunctionViewModel : ObservableObject
+public partial class ChatFunctionViewModel : ViewModelBase
 {
-    private string? _name;
-    private string? _description;
-    private object? _parameters;
-
     [JsonConstructor]
     public ChatFunctionViewModel()
     {
@@ -30,25 +25,13 @@ public class ChatFunctionViewModel : ObservableObject
     }
 
     [JsonPropertyName("name")]
-    public string? Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
+    public partial string? Name { get; set; }
 
     [JsonPropertyName("description")]
-    public string? Description
-    {
-        get => _description;
-        set => SetProperty(ref _description, value);
-    }
+    public partial string? Description { get; set; }
 
     [JsonPropertyName("parameters")]
-    public object? Parameters
-    {
-        get => _parameters;
-        set => SetProperty(ref _parameters, value);
-    }
+    public partial object? Parameters { get; set; }
 
     public ChatFunctionViewModel Copy()
     {

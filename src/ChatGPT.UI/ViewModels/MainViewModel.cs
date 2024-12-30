@@ -9,12 +9,11 @@ using ChatGPT.Model.Services;
 using ChatGPT.ViewModels.Chat;
 using ChatGPT.ViewModels.Layouts;
 using ChatGPT.ViewModels.Settings;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatGPT.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel : ViewModelBase
 {
     private readonly IChatService _chatService;
     private readonly IChatSerializer _chatSerializer;

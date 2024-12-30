@@ -11,7 +11,7 @@ resources:
 variables:
   BuildConfiguration: 'Release'
   BuildPlatform: 'Any CPU'
-  PublishFramework: 'net8.0'
+  PublishFramework: 'net9.0'
   PublishProject: 'ChatGPT.UI.Desktop'
   PublishRuntime: ''
   Workloads: 'wasm-tools wasm-experimental android'

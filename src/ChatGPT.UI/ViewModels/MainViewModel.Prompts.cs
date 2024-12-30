@@ -37,22 +37,11 @@ public partial class MainViewModel
         },
     };
 
-    private ObservableCollection<PromptViewModel> _prompts;
-    private PromptViewModel? _currentPrompt;
-
     [JsonPropertyName("prompts")]
-    public ObservableCollection<PromptViewModel> Prompts
-    {
-        get => _prompts;
-        set => SetProperty(ref _prompts, value);
-    }
+    public partial ObservableCollection<PromptViewModel> Prompts { get; set; }
 
     [JsonPropertyName("currentPrompt")]
-    public PromptViewModel? CurrentPrompt
-    {
-        get => _currentPrompt;
-        set => SetProperty(ref _currentPrompt, value);
-    }
+    public partial PromptViewModel? CurrentPrompt { get; set; }
 
     [JsonIgnore]
     public IAsyncRelayCommand AddPromptCommand { get; }
